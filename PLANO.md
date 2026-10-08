@@ -60,6 +60,8 @@ Klines BTCUSDT de spot, no formato de `data.binance.vision`, colocados em `data/
 O ambiente onde o Claude roda não alcança a Binance, então os arquivos precisam ser anexados.
 
 ```bash
+python3 scripts/baixar_klines.py      # baixa só a exploração, confere SHA-256; recusa o período reservado
+
 # ordem da Fase 1 (exemplo em 1m)
 export SGV_DATA=data/BTCUSDT-1m-2026-05.zip:data/BTCUSDT-1m-2026-06.zip:data/BTCUSDT-1m-2026-07.zip
 python diagnostics/run_all.py d7_confiabilidade             # 1) fixa a largura de banda

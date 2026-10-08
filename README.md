@@ -18,6 +18,7 @@ A pergunta é se a geometria da distribuição de estados do mercado tem informa
 | `tests/` | Casos de resposta conhecida: espaço plano (R = 0), esferas S² e S³ (R = 2 e 6), derivadas do KDE, identidade da informação, referência gaussiana |
 | `diagnostics/` | D1–D8 e figuras; `run_all.py` roda tudo |
 | `reports/` | Relatório e saídas de cada rodada (`sintetico/`, `real/`) |
+| `scripts/` | `baixar_klines.py`: baixa os klines de exploração da Fase 1 |
 | `data/` | Klines (fora do git) |
 
 ## Como rodar
