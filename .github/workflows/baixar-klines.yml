@@ -12,9 +12,14 @@ on:
           - "1m"
           - "1h"
           - "todos"
+      publicar_no_git:
+        description: "Também publicar os .zip no ramo dados-exploracao (para análise sem baixar artefatos)"
+        required: false
+        default: true
+        type: boolean
 
 permissions:
-  contents: read
+  contents: write
 
 jobs:
   baixar:
@@ -44,3 +49,21 @@ jobs:
           if-no-files-found: error
           retention-days: 7
           compression-level: 0
+      - name: Publicar no ramo dados-exploracao
+        if: ${{ success() && inputs.publicar_no_git }}
+        shell: bash
+        run: |
+          set -euo pipefail
+          tmp=$(mktemp -d)
+          cp data/*.zip "$tmp"/
+          (cd "$tmp" && sha256sum *.zip > SHA256SUMS)
+          git config user.name "github-actions[bot]"
+          git config user.email "41898+github-actions[bot]@users.noreply.github.com"
+          git checkout --orphan dados-exploracao
+          git rm -rq --cached . && git clean -fdq -e data
+          rm -rf data && mkdir data
+          cp "$tmp"/* data/
+          printf '# Klines de exploração (Fase 1)\n\nGerado pelo workflow "Baixar klines Binance" (run %s, intervalo %s).\nSó meses de exploração; o script recusa o período reservado.\n' "${{ github.run_id }}" "${{ inputs.intervalo }}" > README.md
+          git add -f data README.md
+          git commit -qm "Klines de exploração (${{ inputs.intervalo }}), run ${{ github.run_id }}"
+          git push -f origin dados-exploracao
