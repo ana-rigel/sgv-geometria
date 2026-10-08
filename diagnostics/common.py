@@ -39,7 +39,8 @@ def dataset(n: int = 6000, seed: int = 0) -> tuple[pd.DataFrame, str]:
 
 
 def tag() -> str:
-    return "real" if os.environ.get("SGV_DATA") else "sintetico"
+    """Pasta de saída: SGV_TAG (ex.: real_1m) ou, por padrão, real/sintetico."""
+    return os.environ.get("SGV_TAG") or ("real" if os.environ.get("SGV_DATA") else "sintetico")
 
 
 def out_path(name: str) -> Path:

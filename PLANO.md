@@ -15,7 +15,7 @@
 | Fase | O que entrega | Portão para seguir | Estado |
 | --- | --- | --- | --- |
 | 0 — Fundação | Repositório; legado congelado com proveniência; núcleo exato (`sgvgeo/`) com testes; diagnósticos D1–D8 calibrados em dados sintéticos e revisados por um revisor independente | Testes passando; o nulo GARCH não passa no G1 | **Concluída em 08/10/2026** |
-| 1 — Diagnóstico em dado real | D7 primeiro (fixa a largura de banda); depois D1–D8 com `SGV_DATA` nos klines de exploração, em 1m e 1h | Portão G1, abaixo | Aguarda os klines |
+| 1 — Diagnóstico em dado real | D7 primeiro (fixa a largura de banda); depois D1–D8 com `SGV_DATA` nos klines de exploração, em 1m e 1h | Portão G1, abaixo | **Em andamento** (D7 iniciado em 08/10/2026) |
 | 2 — Pré-registro | Documento congelado: variável primária, alvo, controles, teste, α, placebo e aposta | Revisão da Ana e do colaborador antes de qualquer dado confirmatório | — |
 | 3 — Confirmatório | Julgamento único no período reservado | Resultado do pré-registro | — |
 | 4 — Integração | Só se a Fase 3 confirmar: a variável entra numa camada de decisão com custos reais | Novo pré-registro de utilidade econômica | — |
@@ -45,9 +45,9 @@ Se G1 falhar no dado real, a geometria destas coordenadas não tem conteúdo pr�
 ## Decisões abertas (da Ana)
 
 1. **Escala de tempo primária.** As opções são 1m (memória curta, D4) ou 1h (6 anos já baixados). Proposta: rodar G1 nas duas e escolher pelo portão, sem olhar retorno.
-2. **Períodos.** Proposta, a aprovar antes de carregar qualquer arquivo:
-    - **1m:** exploração até 31/07/2026; confirmatório de 01/08/2026 a 31/10/2026, mais réplica prospectiva em novembro e dezembro de 2026.
-    - **1h:** exploração de 2020 a 2024; confirmatório de 01/01/2025 em diante.
+2. **Períodos — TRAVADOS em 08/10/2026** (aprovados pela Ana; os klines de exploração foram baixados pelo workflow e conferidos por SHA-256, sem nenhum mês do período reservado):
+    - **1m:** exploração de 01/05/2026 a 31/07/2026 (132.480 barras, sem lacunas); confirmatório de 01/08/2026 a 31/10/2026, mais réplica prospectiva em novembro e dezembro de 2026.
+    - **1h:** exploração de 01/01/2020 a 31/12/2024 (43.817 barras; 15 lacunas de manutenção da Binance); confirmatório de 01/01/2025 em diante.
 3. **Alvo do confirmatório.** Primário: amplitude futura (Range T+5 em 1m, ou T+4 em 1h), residualizada por volatilidade e hora, como na H-DYN3-AMP. Secundário: direção.
 
 ## Dados necessários para a Fase 1
