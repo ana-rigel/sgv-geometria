@@ -1,0 +1,68 @@
+# Plano — teste da camada de geometria informacional
+
+**Hipótese em teste.** A geometria da distribuição de estados do mercado tem informação própria sobre o comportamento seguinte do preço, além da volatilidade e além da simples posição do estado na distribuição. Geometria aqui significa a métrica de informação sobre as coordenadas do SGV (E = v²+a², jerk, memory_flux) e sua curvatura.
+
+**Regras da casa:**
+
+- Nenhuma vitória não conquistada será anunciada.
+- Toda hipótese é pré-registrada antes de olhar o resultado.
+- O código legado fica congelado em `legacy/`.
+- Os diagnósticos não olham retorno futuro.
+- O período confirmatório não é carregado antes do pré-registro.
+
+## Fases
+
+| Fase | O que entrega | Portão para seguir | Estado |
+| --- | --- | --- | --- |
+| 0 — Fundação | Repositório; legado congelado com proveniência; núcleo exato (`sgvgeo/`) com testes; diagnósticos D1–D8 calibrados em dados sintéticos e revisados por um revisor independente | Testes passando; o nulo GARCH não passa no G1 | **Concluída em 08/10/2026** |
+| 1 — Diagnóstico em dado real | D7 primeiro (fixa a largura de banda); depois D1–D8 com `SGV_DATA` nos klines de exploração, em 1m e 1h | Portão G1, abaixo | Aguarda os klines |
+| 2 — Pré-registro | Documento congelado: variável primária, alvo, controles, teste, α, placebo e aposta | Revisão da Ana e do colaborador antes de qualquer dado confirmatório | — |
+| 3 — Confirmatório | Julgamento único no período reservado | Resultado do pré-registro | — |
+| 4 — Integração | Só se a Fase 3 confirmar: a variável entra numa camada de decisão com custos reais | Novo pré-registro de utilidade econômica | — |
+
+## Portão G1 — existência e mensurabilidade (Fase 1)
+
+A grandeza primária é **ΔF** = slog R(F) − slog R(Fref): a curvatura da métrica de Fisher local além da curvatura de uma gaussiana ajustada à mesma janela. A configuração é gaussianização causal por postos, janela de 1.500 barras e reajuste a cada 60. Os quatro critérios precisam passar nos dados reais de exploração, na escala de tempo escolhida:
+
+1. **Mensurável:** a confiabilidade de ΔF entre metades da janela (D7) é ≥ 0,8. A largura de banda é o menor múltiplo de Scott, entre 2× e 4×, que atinge isso. Ela é fixada antes de rodar D4, D5 e D8 (`SGV_HMULT`).
+2. **Além da posição:** a correlação de postos entre ΔF e a distância de Mahalanobis ao centro da janela (D4) tem módulo < 0,5.
+3. **Existe:** a **média de ΔF** difere da de 39 substitutos GARCH ajustados com p ≤ 0,05 (p-valor por postos, bilateral, D8 com `SGV_K_GARCH=39`).
+4. **Não é só volatilidade:** o R² de ΔF explicado pela volatilidade (D5) é ≤ 0,5.
+
+**Calibração do portão.** No GARCH sintético, onde não há geometria além da volatilidade, a regra escolhe 3× e ΔF passa só no critério 1 (0,95). Ele falha no 2 (0,62), no 3 (p = 0,85) e no 4 (R² = 0,85). O portão não deixa passar o nulo.
+
+Se G1 falhar no dado real, a geometria destas coordenadas não tem conteúdo próprio. A linha para, ou recebe **uma** reformulação de coordenadas, pré-registrada antes de ser rodada.
+
+## Escolhas já feitas pela calibração (detalhes em `reports/DIAGNOSTICO.md`)
+
+- **Métrica:** Fisher local (F). A Hessiana do legado é ruído onde tem curvatura e plana onde é estável.
+- **Grandeza:** ΔF, e não a curvatura de F sozinha, que é sobretudo posição (correlação de 0,83 com a referência gaussiana) e volatilidade (R² de 0,80).
+- **Escala:** gaussianização causal por postos.
+- **Fora do teste:**
+    - o índice `field_gravity` e o par G/T, porque G = κT não se sustenta (D6);
+    - a troca de assinatura de H como evento de ruptura, porque ela inverte a cada 2 barras (D4).
+
+## Decisões abertas (da Ana)
+
+1. **Escala de tempo primária.** As opções são 1m (memória curta, D4) ou 1h (6 anos já baixados). Proposta: rodar G1 nas duas e escolher pelo portão, sem olhar retorno.
+2. **Períodos.** Proposta, a aprovar antes de carregar qualquer arquivo:
+    - **1m:** exploração até 31/07/2026; confirmatório de 01/08/2026 a 31/10/2026, mais réplica prospectiva em novembro e dezembro de 2026.
+    - **1h:** exploração de 2020 a 2024; confirmatório de 01/01/2025 em diante.
+3. **Alvo do confirmatório.** Primário: amplitude futura (Range T+5 em 1m, ou T+4 em 1h), residualizada por volatilidade e hora, como na H-DYN3-AMP. Secundário: direção.
+
+## Dados necessários para a Fase 1
+
+Klines BTCUSDT de spot, no formato de `data.binance.vision`, colocados em `data/`:
+
+- **1m:** maio, junho e julho de 2026 (exploração).
+- **1h:** de 2020 a 2024 (exploração).
+
+O ambiente onde o Claude roda não alcança a Binance, então os arquivos precisam ser anexados.
+
+```bash
+# ordem da Fase 1 (exemplo em 1m)
+export SGV_DATA=data/BTCUSDT-1m-2026-05.zip:data/BTCUSDT-1m-2026-06.zip:data/BTCUSDT-1m-2026-07.zip
+python diagnostics/run_all.py d7_confiabilidade             # 1) fixa a largura de banda
+export SGV_HMULT=2   # ou 3, 4 — o menor múltiplo com confiabilidade de ΔF ≥ 0,8
+SGV_K_GARCH=39 python diagnostics/run_all.py                 # 2) bateria completa
+```

@@ -1,0 +1,198 @@
+{
+  "fonte": "sintético GARCH(1,1)-t(4), n=4000, semente=0",
+  "tempo_cadeia_offline_s": 72.1,
+  "tempo_run_sgv_runtime_s": 6.3,
+  "colunas_por_camada": {
+    "input": 20,
+    "info": 24,
+    "geodesic": 103,
+    "singularity": 156,
+    "terrain": 36,
+    "expected_value": 50,
+    "force_field": 5,
+    "alignment": 53,
+    "edge": 60,
+    "runtime_live": 112
+  },
+  "escala_coordenadas_geodesic": {
+    "E_norm(v2+a2)_dp": 4.626992762758527e-06,
+    "jerk_dp": 0.0014774690473462195,
+    "memory_flux_3d_dp": 2.2164233541053865e-07,
+    "largura_de_banda_2d": 0.35,
+    "largura_de_banda_3d": 0.45
+  },
+  "curvatura_escalar_3d": {
+    "frac_saturada_1e6": 0.015011258443832875,
+    "mediana": 124118.13344189775,
+    "p05": -820407.6561012903,
+    "p95": 937587.4891296531
+  },
+  "rupture_prob_geodesic": {
+    "mediana": 0.9448759273807368,
+    "dp": 0.0644563494899894
+  },
+  "g_det_2d": {
+    "min": -114.47019933958411,
+    "frac_negativo": 0.003252439329497123
+  },
+  "information_density_dp": 0.12928502524871996,
+  "information_density_valor": 1.2992108929395736,
+  "tipo_singularidade": {
+    "gravity": 0.948,
+    "compound": 0.05,
+    "rigidity": 0.002,
+    "curvature": 0.0
+  },
+  "is_high_critical_frac_live": 0.9954545454545455,
+  "sgv_criticality_score_faixa_live": [
+    1.4169359945569304,
+    6.604268108317807
+  ],
+  "sgv_criticality_score_faixa_offline": [
+    1.1269263287035993,
+    6.635530749863483
+  ],
+  "information_density_dp_apos_aquecimento": 4.97544239066997e-05,
+  "duplicatas_exatas_geodesic": [
+    [
+      "ret_1m",
+      "velocity"
+    ],
+    [
+      "ret_1m",
+      "ret"
+    ],
+    [
+      "hess_phi_ej",
+      "g_ej"
+    ],
+    [
+      "g_det",
+      "g_det_safe"
+    ],
+    [
+      "g_trace",
+      "field_curvature"
+    ],
+    [
+      "geom_incoherence",
+      "geom_incoherence_abs"
+    ],
+    [
+      "T_info_01",
+      "T_info_10"
+    ],
+    [
+      "T_info_02",
+      "T_info_20"
+    ],
+    [
+      "T_info_12",
+      "T_info_21"
+    ],
+    [
+      "geodesic_valid",
+      "stress_valid"
+    ]
+  ],
+  "chaves_geodesic": {
+    "g_det": {
+      "dp": 24.268549,
+      "cv": 0.369877,
+      "frac_distintos": 0.996497,
+      "frac_saturado_1e6": 0.0
+    },
+    "field_curvature": {
+      "dp": 2.972954,
+      "cv": 0.183834,
+      "frac_distintos": 0.996497,
+      "frac_saturado_1e6": 0.0
+    },
+    "geom_incoherence": {
+      "dp": 6.7e-05,
+      "cv": 3.944872,
+      "frac_distintos": 1.0,
+      "frac_saturado_1e6": 0.0
+    },
+    "jerk_over_lambda": {
+      "dp": 40691.15857,
+      "cv": 28.774661,
+      "frac_distintos": 1.0,
+      "frac_saturado_1e6": 0.000751
+    },
+    "field_stress_geodesic": {
+      "dp": 15743.258467,
+      "cv": 31.037621,
+      "frac_distintos": 1.0,
+      "frac_saturado_1e6": 0.0
+    },
+    "rupture_prob_geodesic": {
+      "dp": 0.064456,
+      "cv": 0.069396,
+      "frac_distintos": 0.998749,
+      "frac_saturado_1e6": 0.0
+    },
+    "field_curvature_scalar": {
+      "dp": 529105.474498,
+      "cv": 1.172684,
+      "frac_distintos": 0.988491,
+      "frac_saturado_1e6": 0.015011
+    },
+    "field_stress_tensor_norm": {
+      "dp": 0.001709,
+      "cv": 2e-06,
+      "frac_distintos": 0.996998,
+      "frac_saturado_1e6": 0.0
+    },
+    "field_einstein_norm": {
+      "dp": 139318432377635.56,
+      "cv": 7.076435,
+      "frac_distintos": 0.996998,
+      "frac_saturado_1e6": 0.99975
+    },
+    "field_gravity": {
+      "dp": 1265.851994,
+      "cv": 1.181075,
+      "frac_distintos": 0.996998,
+      "frac_saturado_1e6": 0.0
+    }
+  },
+  "dados_reais_31mar2026": {
+    "field_curvature_scalar": {
+      "min": -999996.8271,
+      "50%": -61059.4912,
+      "max": 1000000.0,
+      "std": 553507.5532
+    },
+    "field_stress_geodesic": {
+      "min": 4.0271,
+      "50%": 4.0928,
+      "max": 4.147,
+      "std": 0.019
+    },
+    "rupture_prob_geodesic": {
+      "min": 0.9444,
+      "50%": 0.9483,
+      "max": 0.9515,
+      "std": 0.0011
+    },
+    "field_curvature": {
+      "min": 16.1051,
+      "50%": 16.3335,
+      "max": 16.5766,
+      "std": 0.0708
+    },
+    "field_gravity": {
+      "min": -2186.6561,
+      "50%": -134.5342,
+      "max": 2219.792,
+      "std": 1171.5418
+    },
+    "force_alignment_cos": {
+      "min": -1.0,
+      "50%": 0.0671,
+      "max": 1.0,
+      "std": 0.8804
+    }
+  }
+}

@@ -1,0 +1,10 @@
+[project]
+name = "sgvgeo"
+version = "0.1.0"
+description = "Teste da camada de geometria informacional do SGV"
+requires-python = ">=3.10"
+dependencies = ["numpy", "pandas", "scipy", "scikit-learn", "matplotlib"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+pythonpath = ["."]

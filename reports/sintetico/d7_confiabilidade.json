@@ -1,0 +1,129 @@
+{
+  "fonte": "sintético GARCH(1,1)-t(4), n=6000, semente=0",
+  "janela": 1500,
+  "barras_avaliadas": 240,
+  "rank_gauss": {
+    "confiabilidade": {
+      "0.5": {
+        "F slog R": -0.0164,
+        "Fref slog R": 0.1073,
+        "H indefinida (0/1)": 0.1958,
+        "H slog R": 0.0818,
+        "H slog det": 0.1066,
+        "phi": 0.8166,
+        "|∇φ|": 0.6473,
+        "ΔF": 0.0407
+      },
+      "1.0": {
+        "F slog R": 0.3149,
+        "Fref slog R": 0.6069,
+        "H indefinida (0/1)": 0.1649,
+        "H slog R": 0.0247,
+        "H slog det": 0.0419,
+        "phi": 0.9507,
+        "|∇φ|": 0.8649,
+        "ΔF": 0.228
+      },
+      "2.0": {
+        "F slog R": 0.9664,
+        "Fref slog R": 0.9422,
+        "H indefinida (0/1)": 0.081,
+        "H slog R": 0.2961,
+        "H slog det": 0.6453,
+        "phi": 0.9912,
+        "|∇φ|": 0.9565,
+        "ΔF": 0.7736
+      },
+      "3.0": {
+        "F slog R": 0.9919,
+        "Fref slog R": 0.9814,
+        "H indefinida (0/1)": -0.0059,
+        "H slog R": 0.5675,
+        "H slog det": 0.8734,
+        "phi": 0.9942,
+        "|∇φ|": 0.9836,
+        "ΔF": 0.9478
+      },
+      "4.0": {
+        "F slog R": 0.9921,
+        "Fref slog R": 0.981,
+        "H indefinida (0/1)": NaN,
+        "H slog R": 0.8389,
+        "H slog det": 0.9612,
+        "phi": 0.9947,
+        "|∇φ|": 0.9933,
+        "ΔF": 0.9639
+      }
+    },
+    "mediana_abs_slogR_H": {
+      "0.5": 2.1653,
+      "1.0": 1.3686,
+      "2.0": 0.3663,
+      "3.0": 0.0654,
+      "4.0": 0.0188
+    },
+    "tempo_s": 65.2
+  },
+  "robust_z": {
+    "confiabilidade": {
+      "0.5": {
+        "F slog R": 0.1591,
+        "Fref slog R": -0.0586,
+        "H indefinida (0/1)": 0.2551,
+        "H slog R": -0.087,
+        "H slog det": 0.2269,
+        "phi": 0.9575,
+        "|∇φ|": 0.8099,
+        "ΔF": -0.0149
+      },
+      "1.0": {
+        "F slog R": 0.4457,
+        "Fref slog R": 0.0887,
+        "H indefinida (0/1)": 0.462,
+        "H slog R": 0.0159,
+        "H slog det": 0.3647,
+        "phi": 0.9879,
+        "|∇φ|": 0.7609,
+        "ΔF": 0.0941
+      },
+      "2.0": {
+        "F slog R": 0.6492,
+        "Fref slog R": 0.2103,
+        "H indefinida (0/1)": 0.5844,
+        "H slog R": 0.2423,
+        "H slog det": 0.6262,
+        "phi": 0.9961,
+        "|∇φ|": 0.8631,
+        "ΔF": 0.4294
+      },
+      "3.0": {
+        "F slog R": 0.7862,
+        "Fref slog R": 0.47,
+        "H indefinida (0/1)": 0.6574,
+        "H slog R": 0.4433,
+        "H slog det": 0.9228,
+        "phi": 0.9966,
+        "|∇φ|": 0.8963,
+        "ΔF": 0.6126
+      },
+      "4.0": {
+        "F slog R": 0.8985,
+        "Fref slog R": 0.5723,
+        "H indefinida (0/1)": 0.722,
+        "H slog R": 0.5972,
+        "H slog det": 0.9349,
+        "phi": 0.9954,
+        "|∇φ|": 0.9448,
+        "ΔF": 0.6708
+      }
+    },
+    "mediana_abs_slogR_H": {
+      "0.5": 1.3381,
+      "1.0": 0.9492,
+      "2.0": 0.11,
+      "3.0": 0.0369,
+      "4.0": 0.011
+    },
+    "tempo_s": 70.0
+  }
+}

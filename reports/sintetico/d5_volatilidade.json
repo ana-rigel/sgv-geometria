@@ -1,0 +1,211 @@
+{
+  "fonte": "sintético GARCH(1,1)-t(4), n=6000, semente=0",
+  "robust_z_h1x": [
+    {
+      "grandeza": "phi (surpresa)",
+      "R2_volatilidade": -0.0313,
+      "R2_coordenadas_Z": -0.0425
+    },
+    {
+      "grandeza": "|∇φ|",
+      "R2_volatilidade": 0.0454,
+      "R2_coordenadas_Z": 0.0545
+    },
+    {
+      "grandeza": "H: nº autovalores negativos",
+      "R2_volatilidade": 0.3277,
+      "R2_coordenadas_Z": 0.3683
+    },
+    {
+      "grandeza": "H: slog det",
+      "R2_volatilidade": 0.2297,
+      "R2_coordenadas_Z": 0.2552
+    },
+    {
+      "grandeza": "H: slog R",
+      "R2_volatilidade": -0.0684,
+      "R2_coordenadas_Z": -0.0511
+    },
+    {
+      "grandeza": "H: log |G|",
+      "R2_volatilidade": 0.5989,
+      "R2_coordenadas_Z": 0.6526
+    },
+    {
+      "grandeza": "F: slog R",
+      "R2_volatilidade": 0.0356,
+      "R2_coordenadas_Z": 0.0408
+    },
+    {
+      "grandeza": "F: log det",
+      "R2_volatilidade": 0.1561,
+      "R2_coordenadas_Z": 0.2922
+    },
+    {
+      "grandeza": "Fref: slog R (referência gaussiana)",
+      "R2_volatilidade": 0.0001,
+      "R2_coordenadas_Z": 0.0479
+    },
+    {
+      "grandeza": "ΔF = slog R(F) − slog R(Fref)",
+      "R2_volatilidade": 0.052,
+      "R2_coordenadas_Z": 0.0921
+    }
+  ],
+  "rank_gauss_h1x": [
+    {
+      "grandeza": "phi (surpresa)",
+      "R2_volatilidade": 0.6394,
+      "R2_coordenadas_Z": 0.8528
+    },
+    {
+      "grandeza": "|∇φ|",
+      "R2_volatilidade": 0.3973,
+      "R2_coordenadas_Z": 0.6337
+    },
+    {
+      "grandeza": "H: nº autovalores negativos",
+      "R2_volatilidade": 0.1196,
+      "R2_coordenadas_Z": 0.2196
+    },
+    {
+      "grandeza": "H: slog det",
+      "R2_volatilidade": 0.0727,
+      "R2_coordenadas_Z": 0.1323
+    },
+    {
+      "grandeza": "H: slog R",
+      "R2_volatilidade": -0.0372,
+      "R2_coordenadas_Z": -0.0341
+    },
+    {
+      "grandeza": "H: log |G|",
+      "R2_volatilidade": 0.0243,
+      "R2_coordenadas_Z": 0.0654
+    },
+    {
+      "grandeza": "F: slog R",
+      "R2_volatilidade": 0.1921,
+      "R2_coordenadas_Z": 0.2741
+    },
+    {
+      "grandeza": "F: log det",
+      "R2_volatilidade": 0.6194,
+      "R2_coordenadas_Z": 0.7581
+    },
+    {
+      "grandeza": "Fref: slog R (referência gaussiana)",
+      "R2_volatilidade": 0.4222,
+      "R2_coordenadas_Z": 0.5131
+    },
+    {
+      "grandeza": "ΔF = slog R(F) − slog R(Fref)",
+      "R2_volatilidade": 0.1739,
+      "R2_coordenadas_Z": 0.2083
+    }
+  ],
+  "rank_gauss_h2x": [
+    {
+      "grandeza": "phi (surpresa)",
+      "R2_volatilidade": 0.785,
+      "R2_coordenadas_Z": 0.9467
+    },
+    {
+      "grandeza": "|∇φ|",
+      "R2_volatilidade": 0.5919,
+      "R2_coordenadas_Z": 0.8607
+    },
+    {
+      "grandeza": "H: nº autovalores negativos",
+      "R2_volatilidade": 0.171,
+      "R2_coordenadas_Z": 0.3573
+    },
+    {
+      "grandeza": "H: slog det",
+      "R2_volatilidade": 0.5603,
+      "R2_coordenadas_Z": 0.6742
+    },
+    {
+      "grandeza": "H: slog R",
+      "R2_volatilidade": 0.1338,
+      "R2_coordenadas_Z": 0.2544
+    },
+    {
+      "grandeza": "H: log |G|",
+      "R2_volatilidade": 0.5277,
+      "R2_coordenadas_Z": 0.6021
+    },
+    {
+      "grandeza": "F: slog R",
+      "R2_volatilidade": 0.8035,
+      "R2_coordenadas_Z": 0.9528
+    },
+    {
+      "grandeza": "F: log det",
+      "R2_volatilidade": 0.7704,
+      "R2_coordenadas_Z": 0.9186
+    },
+    {
+      "grandeza": "Fref: slog R (referência gaussiana)",
+      "R2_volatilidade": 0.8048,
+      "R2_coordenadas_Z": 0.9097
+    },
+    {
+      "grandeza": "ΔF = slog R(F) − slog R(Fref)",
+      "R2_volatilidade": 0.6496,
+      "R2_coordenadas_Z": 0.8446
+    }
+  ],
+  "rank_gauss_h3x": [
+    {
+      "grandeza": "phi (surpresa)",
+      "R2_volatilidade": 0.8298,
+      "R2_coordenadas_Z": 0.9608
+    },
+    {
+      "grandeza": "|∇φ|",
+      "R2_volatilidade": 0.691,
+      "R2_coordenadas_Z": 0.9449
+    },
+    {
+      "grandeza": "H: nº autovalores negativos",
+      "R2_volatilidade": -0.0049,
+      "R2_coordenadas_Z": -0.0336
+    },
+    {
+      "grandeza": "H: slog det",
+      "R2_volatilidade": 0.796,
+      "R2_coordenadas_Z": 0.8334
+    },
+    {
+      "grandeza": "H: slog R",
+      "R2_volatilidade": 0.2981,
+      "R2_coordenadas_Z": 0.5624
+    },
+    {
+      "grandeza": "H: log |G|",
+      "R2_volatilidade": 0.6438,
+      "R2_coordenadas_Z": 0.7839
+    },
+    {
+      "grandeza": "F: slog R",
+      "R2_volatilidade": 0.9032,
+      "R2_coordenadas_Z": 0.9764
+    },
+    {
+      "grandeza": "F: log det",
+      "R2_volatilidade": 0.7282,
+      "R2_coordenadas_Z": 0.9241
+    },
+    {
+      "grandeza": "Fref: slog R (referência gaussiana)",
+      "R2_volatilidade": 0.8295,
+      "R2_coordenadas_Z": 0.9393
+    },
+    {
+      "grandeza": "ΔF = slog R(F) − slog R(Fref)",
+      "R2_volatilidade": 0.8513,
+      "R2_coordenadas_Z": 0.9193
+    }
+  ]
+}
