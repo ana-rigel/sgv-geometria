@@ -1,0 +1,129 @@
+{
+  "fonte": "real:data/BTCUSDT-1m-2026-05.zip:data/BTCUSDT-1m-2026-06.zip:data/BTCUSDT-1m-2026-07.zip (últimas 1000000 barras)",
+  "janela": 1500,
+  "barras_avaliadas": 240,
+  "rank_gauss": {
+    "confiabilidade": {
+      "0.5": {
+        "F slog R": -0.0016,
+        "Fref slog R": 0.0439,
+        "H indefinida (0/1)": 0.053,
+        "H slog R": 0.0253,
+        "H slog det": 0.0131,
+        "phi": 0.8768,
+        "|∇φ|": 0.6933,
+        "ΔF": -0.0257
+      },
+      "1.0": {
+        "F slog R": 0.4196,
+        "Fref slog R": 0.6403,
+        "H indefinida (0/1)": 0.1295,
+        "H slog R": -0.0704,
+        "H slog det": 0.0164,
+        "phi": 0.9662,
+        "|∇φ|": 0.8319,
+        "ΔF": 0.3552
+      },
+      "2.0": {
+        "F slog R": 0.9599,
+        "Fref slog R": 0.9635,
+        "H indefinida (0/1)": 0.5492,
+        "H slog R": 0.4666,
+        "H slog det": 0.8043,
+        "phi": 0.9905,
+        "|∇φ|": 0.9663,
+        "ΔF": 0.8315
+      },
+      "3.0": {
+        "F slog R": 0.9918,
+        "Fref slog R": 0.9834,
+        "H indefinida (0/1)": 0.4624,
+        "H slog R": 0.6933,
+        "H slog det": 0.9404,
+        "phi": 0.9947,
+        "|∇φ|": 0.9826,
+        "ΔF": 0.9655
+      },
+      "4.0": {
+        "F slog R": 0.9918,
+        "Fref slog R": 0.9883,
+        "H indefinida (0/1)": NaN,
+        "H slog R": 0.8685,
+        "H slog det": 0.9673,
+        "phi": 0.996,
+        "|∇φ|": 0.9932,
+        "ΔF": 0.9823
+      }
+    },
+    "mediana_abs_slogR_H": {
+      "0.5": 1.6792,
+      "1.0": 1.6307,
+      "2.0": 0.3355,
+      "3.0": 0.0761,
+      "4.0": 0.0193
+    },
+    "tempo_s": 68.9
+  },
+  "robust_z": {
+    "confiabilidade": {
+      "0.5": {
+        "F slog R": 0.2172,
+        "Fref slog R": 0.0391,
+        "H indefinida (0/1)": 0.324,
+        "H slog R": 0.1259,
+        "H slog det": 0.2158,
+        "phi": 0.962,
+        "|∇φ|": 0.8403,
+        "ΔF": 0.0524
+      },
+      "1.0": {
+        "F slog R": 0.3941,
+        "Fref slog R": 0.1621,
+        "H indefinida (0/1)": 0.5438,
+        "H slog R": -0.0328,
+        "H slog det": 0.5261,
+        "phi": 0.9884,
+        "|∇φ|": 0.7328,
+        "ΔF": 0.142
+      },
+      "2.0": {
+        "F slog R": 0.7269,
+        "Fref slog R": 0.3522,
+        "H indefinida (0/1)": 0.6775,
+        "H slog R": 0.3527,
+        "H slog det": 0.8698,
+        "phi": 0.9969,
+        "|∇φ|": 0.8809,
+        "ΔF": 0.5093
+      },
+      "3.0": {
+        "F slog R": 0.7523,
+        "Fref slog R": 0.6664,
+        "H indefinida (0/1)": 0.7012,
+        "H slog R": 0.407,
+        "H slog det": 0.906,
+        "phi": 0.9979,
+        "|∇φ|": 0.9478,
+        "ΔF": 0.69
+      },
+      "4.0": {
+        "F slog R": 0.8989,
+        "Fref slog R": 0.7508,
+        "H indefinida (0/1)": 0.7737,
+        "H slog R": 0.5518,
+        "H slog det": 0.9462,
+        "phi": 0.9983,
+        "|∇φ|": 0.972,
+        "ΔF": 0.7615
+      }
+    },
+    "mediana_abs_slogR_H": {
+      "0.5": 1.0973,
+      "1.0": 0.7481,
+      "2.0": 0.1021,
+      "3.0": 0.0268,
+      "4.0": 0.0105
+    },
+    "tempo_s": 73.1
+  }
+}

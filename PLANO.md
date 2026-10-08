@@ -33,6 +33,19 @@ A grandeza primária é **ΔF** = slog R(F) − slog R(Fref): a curvatura da mé
 
 Se G1 falhar no dado real, a geometria destas coordenadas não tem conteúdo próprio. A linha para, ou recebe **uma** reformulação de coordenadas, pré-registrada antes de ser rodada.
 
+## Registro da Fase 1
+
+**08/10/2026 — D7 no período de exploração inteiro** (240 barras sorteadas entre todas; saídas em `reports/real_1m/` e `reports/real_1h/`). Confiabilidade de ΔF (gaussianização por postos):
+
+| Largura (× Scott) | 0,5× | 1× | 2× | 3× | 4× |
+| --- | --- | --- | --- | --- | --- |
+| 1m | −0,03 | 0,36 | **0,83** | 0,97 | 0,98 |
+| 1h | 0,00 | 0,28 | **0,85** | 0,97 | 0,98 |
+
+Pela regra do G1, a largura fica em **2× Scott nas duas escalas** (`SGV_HMULT=2`). **Critério 1 aprovado em 1m e em 1h.** No GARCH de calibração, o mesmo número foi 0,77.
+
+**Declarado antes de rodar o resto da bateria:** D1–D6 e D8 usam exatamente a mesma janela de cada script na calibração (as últimas N barras do período de exploração: 6.000 em D4/D5/D6, 4.500 em D8), sem `SGV_TAIL`. Em 1m isso cobre os últimos ~3–4 dias de julho/2026; em 1h, os últimos ~6–8 meses de 2024. D8 usa 39 réplicas GARCH e 19 de cada outro nulo. O resultado de D7 acima não é recalculado.
+
 ## Escolhas já feitas pela calibração (detalhes em `reports/DIAGNOSTICO.md`)
 
 - **Métrica:** Fisher local (F). A Hessiana do legado é ruído onde tem curvatura e plana onde é estável.
