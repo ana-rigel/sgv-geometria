@@ -1,0 +1,46 @@
+name: Baixar klines Binance
+
+on:
+  workflow_dispatch:
+    inputs:
+      intervalo:
+        description: "Intervalo de dados para baixar"
+        required: true
+        default: "1m"
+        type: choice
+        options:
+          - "1m"
+          - "1h"
+          - "todos"
+
+permissions:
+  contents: read
+
+jobs:
+  baixar:
+    runs-on: ubuntu-latest
+    timeout-minutes: 180
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+      - name: Preparar Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+      - name: Baixar e verificar arquivos
+        shell: bash
+        run: |
+          case "${{ inputs.intervalo }}" in
+            1m) python3 scripts/baixar_klines.py --so 1m ;;
+            1h) python3 scripts/baixar_klines.py --so 1h ;;
+            todos) python3 scripts/baixar_klines.py ;;
+          esac
+      - name: Publicar arquivos ZIP
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: binance-btcusdt-${{ inputs.intervalo }}-${{ github.run_id }}
+          path: data/*.zip
+          if-no-files-found: error
+          retention-days: 7
+          compression-level: 0
