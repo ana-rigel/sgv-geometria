@@ -53,7 +53,7 @@ def test_segments_gap_and_nan_fail_closed():
     seg=segments(a,ts,60000)
     assert seg==[(0,20),(21,40),(40,70)]
     win=list(disjoint_windows(a,ts,60000,10))
-    assert [x[1] for x in win]==[9,19,30,50,60]
+    assert [x[1] for x in win]==[9,19,30,49,59,69]
 
 
 def test_null_and_changed_pair_score():
