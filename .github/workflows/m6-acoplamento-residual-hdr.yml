@@ -1,0 +1,59 @@
+name: SGV-M6 - Acoplamento residual e HDR
+on:
+  push:
+    branches: [research/m6-acoplamento-residual-hdr]
+    paths:
+      - 'experiments/m6_acoplamento_residual_hdr.py'
+      - 'tests/test_m6_acoplamento_residual_hdr.py'
+      - '.github/workflows/m6-acoplamento-residual-hdr.yml'
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  calibracao:
+    name: Integridade do acoplamento e simulacao sintetica
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - run: python -m pip install numpy scipy pandas scikit-learn scikit-image trimesh pytest
+      - name: Testes causais e pareados
+        run: python -m pytest -q tests/test_m6_acoplamento_residual_hdr.py
+      - name: Calibrar innovacoes emparelhadas
+        run: python experiments/m6_acoplamento_residual_hdr.py --interval synthetic
+      - if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: M6-synthetic
+          path: reports/SGV_M6_synthetic.json
+          if-no-files-found: warn
+  replay:
+    needs: calibracao
+    name: SGV-M6 BTC ${{ matrix.interval }}
+    strategy:
+      fail-fast: false
+      matrix:
+        interval: [1m, 1h]
+    runs-on: ubuntu-latest
+    timeout-minutes: 90
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - run: python -m pip install numpy scipy pandas scikit-learn scikit-image trimesh
+      - name: Baixar apenas BTC exploratorio com checksum
+        run: python scripts/baixar_klines.py --so ${{ matrix.interval }}
+      - name: Comparar acoplamento e pequenas auditorias HDR50
+        run: python experiments/m6_acoplamento_residual_hdr.py --interval ${{ matrix.interval }}
+      - if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: M6-BTC-${{ matrix.interval }}
+          path: |
+            reports/SGV_M6_${{ matrix.interval }}.json
+            reports/SGV_M6_${{ matrix.interval }}_ablation.csv
+          if-no-files-found: warn
