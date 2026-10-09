@@ -4,6 +4,7 @@ import pytest
 from experiments.isosuperficies_morfometria import (
     analytic_field,extract_mesh,describe_mesh,mesh_topology,curvatures,
     hdr_thresholds,make_grid,motion,principal_axes,SEED,
+    density_values,implicit_curvatures,
 )
 
 
@@ -108,3 +109,23 @@ def test_invalid_grid_rejected():
         make_grid(20)
     with pytest.raises(ValueError):
         hdr_thresholds(np.ones((5,5,5)),1.0)
+
+
+def test_implicit_curvature_gaussian_is_convex():
+    rng=np.random.default_rng(987)
+    x=rng.multivariate_normal(
+        np.zeros(3),np.diag([.4,1.0,1.9]),size=700)
+    points,dx=make_grid(35)
+    p,fit=density_values(x,points,"gaussian",with_model=True)
+    fields=p.reshape((35,35,35))
+    h,coverage=hdr_thresholds(fields,dx)
+    mesh,trunc=extract_mesh(fields,h[.50]["tau"],dx)
+    props=describe_mesh(mesh,truncated=trunc,coverage=coverage,
+                        implicit_model=fit)
+    assert props["quality_pass"]
+    assert props["implicit_K_negative_area_fraction"]<.001
+    assert props["implicit_K_median"]>0
+    assert props["genus_components"]==[0]
+    # A discretizacao por triangulos pode produzir K negativo falso,
+    # e sua discrepancia deve ficar visivel na auditoria.
+    assert props["implicit_K_numeric_vs_analytic_mismatch"]>=0
