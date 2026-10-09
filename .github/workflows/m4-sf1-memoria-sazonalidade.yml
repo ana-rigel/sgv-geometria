@@ -1,0 +1,59 @@
+name: SGV-M4 — SF1 memoria e sazonalidade
+on:
+  push:
+    branches: [research/m4-sf1-memoria-sazonalidade]
+    paths:
+      - 'experiments/m4_sf1_memoria_sazonalidade.py'
+      - 'tests/test_m4_sf1_memoria_sazonalidade.py'
+      - '.github/workflows/m4-sf1-memoria-sazonalidade.yml'
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  calibracao:
+    name: SF1 M4 invariantes e controles
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - run: python -m pip install numpy scipy pandas scikit-learn pytest
+      - name: Testar integridade causal, memoria e calendario
+        run: python -m pytest -q tests/test_m4_sf1_memoria_sazonalidade.py
+      - name: Calibrar referencia sintética e ablações
+        run: python experiments/m4_sf1_memoria_sazonalidade.py --interval synthetic
+      - if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: SGV-M4-sintetico
+          path: reports/SGV_M4_synthetic.json
+          if-no-files-found: warn
+  replay:
+    needs: calibracao
+    name: SGV M4 BTC ${{ matrix.interval }}
+    runs-on: ubuntu-latest
+    timeout-minutes: 90
+    strategy:
+      fail-fast: false
+      matrix:
+        interval: [1m, 1h]
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - run: python -m pip install numpy scipy pandas scikit-learn
+      - name: Dados somente exploratorios com checksum
+        run: python scripts/baixar_klines.py --so ${{ matrix.interval }}
+      - name: Comparar SF1 e ablações memória e sazonalidade
+        run: python experiments/m4_sf1_memoria_sazonalidade.py --interval ${{ matrix.interval }}
+      - if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: SGV-M4-BTC-${{ matrix.interval }}
+          path: |
+            reports/SGV_M4_${{ matrix.interval }}.json
+            reports/SGV_M4_${{ matrix.interval }}_comparison.csv
+          if-no-files-found: warn
