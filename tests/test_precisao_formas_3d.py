@@ -35,7 +35,7 @@ def test_split_tem_ancora_temporal_separada():
 
 def test_hdrs_aninhadas_e_massa_monotona():
     g=build_grid(21)
-    density=np.exp(-.5*np.sum(g*g,axis=1))
+    density=np.exp(-.5*np.sum(g*g,axis=1))/(2*np.pi)**1.5
     mask,cov=masks_from_density(density,21)
     assert 0<cov<=1.1
     assert np.all(~mask[.25]|mask[.50])
