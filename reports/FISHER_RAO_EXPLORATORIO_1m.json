@@ -1,0 +1,21 @@
+{
+  "status": "EXPLORATORY_ONLY",
+  "interval": "1m",
+  "source_files": [
+    "BTCUSDT-1m-2026-05.zip",
+    "BTCUSDT-1m-2026-06.zip",
+    "BTCUSDT-1m-2026-07.zip"
+  ],
+  "rows": 16485,
+  "window": 1500,
+  "horizon": 5,
+  "model": "Gaussian Fisher-Rao geodesic curvature",
+  "note": "No GARCH fit or conditional-information significance test; baseline uses realized rolling volatility.",
+  "results": {
+    "baseline": 8.567337347280827e-07,
+    "derivatives": 8.222182802239146e-07,
+    "fisher": 8.103939451762568e-07,
+    "fisher_vs_derivatives_relative_mse_gain": 0.014381016978165058,
+    "fisher_vs_baseline_relative_mse_gain": 0.054088904957773826
+  }
+}

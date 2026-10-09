@@ -1,0 +1,150 @@
+{
+  "status": "AUDITORIA_EXPLORATORIA",
+  "interval": "1h",
+  "rows": 14048,
+  "linhas_teste": 7024,
+  "periodo_teste_ms": [
+    1710388800000,
+    1735671600000
+  ],
+  "garch_params_x1000": {
+    "omega": 2.1120865349066342,
+    "alpha": 0.2909734202986613,
+    "beta": 0.6726744720997401
+  },
+  "mse": {
+    "baseline": 0.00012788156525676928,
+    "derivadas": 0.00012452443336690987,
+    "derivadas+k": 0.00012343288584642828,
+    "derivadas+HAR": 9.350584661198696e-05,
+    "derivadas+HAR+k": 9.351159650474467e-05,
+    "derivadas+HAR+GARCH": 9.360354488344402e-05,
+    "derivadas+HAR+GARCH+k": 9.360974768581103e-05,
+    "derivadas+HAR+GARCH+eco": 9.363863206058538e-05,
+    "derivadas+HAR+GARCH+eco+k": 9.364525248592254e-05,
+    "GBM:derivadas+HAR+GARCH+eco": 0.00010905339335429387,
+    "GBM:derivadas+HAR+GARCH+eco+k": 0.0001077406953507538
+  },
+  "testes": [
+    {
+      "A": "derivadas",
+      "B": "derivadas+k",
+      "ganho_relativo_MSE_B_sobre_A": 0.00876572967222706,
+      "DM_t_HAC_lag_h": 3.7392753497915,
+      "DM_t_HAC_lag_40": 2.5245852996709353,
+      "IC95_bootstrap_blocos": [
+        0.0028107063156254672,
+        0.01339458460701643
+      ],
+      "p_bootstrap_unilateral": 0.001,
+      "ganho_por_fold": [
+        0.011755430867609988,
+        -0.0019915198552031333,
+        0.00847342075105402,
+        0.004397516932852943,
+        0.015668461250734556
+      ]
+    },
+    {
+      "A": "derivadas",
+      "B": "derivadas+HAR",
+      "ganho_relativo_MSE_B_sobre_A": 0.2490963894894987,
+      "DM_t_HAC_lag_h": 10.267695627046814,
+      "DM_t_HAC_lag_40": 5.650155321261845,
+      "IC95_bootstrap_blocos": [
+        0.19919045627746074,
+        0.293273894612646
+      ],
+      "p_bootstrap_unilateral": 0.0,
+      "ganho_por_fold": [
+        0.20997256032246867,
+        0.38053890433892273,
+        0.20692946846418425,
+        0.2873653345045145,
+        0.23834465422925083
+      ]
+    },
+    {
+      "A": "derivadas+HAR",
+      "B": "derivadas+HAR+k",
+      "ganho_relativo_MSE_B_sobre_A": -6.149233407371517e-05,
+      "DM_t_HAC_lag_h": -0.4156422197857672,
+      "DM_t_HAC_lag_40": -0.4468167308520575,
+      "IC95_bootstrap_blocos": [
+        -0.0003720312484427384,
+        0.00019448177678365553
+      ],
+      "p_bootstrap_unilateral": 0.687,
+      "ganho_por_fold": [
+        0.0003740641731445457,
+        -0.0020365868637890337,
+        -7.961451382852386e-05,
+        0.0003312140380055802,
+        0.0003812256266020559
+      ]
+    },
+    {
+      "A": "derivadas+HAR+GARCH",
+      "B": "derivadas+HAR+GARCH+k",
+      "ganho_relativo_MSE_B_sobre_A": -6.626674635807843e-05,
+      "DM_t_HAC_lag_h": -0.4411666250619752,
+      "DM_t_HAC_lag_40": -0.47050850349940326,
+      "IC95_bootstrap_blocos": [
+        -0.00038125771552890796,
+        0.00019563582041377052
+      ],
+      "p_bootstrap_unilateral": 0.703,
+      "ganho_por_fold": [
+        0.00039491523033694225,
+        -0.0020938257477082036,
+        -8.462184007256852e-05,
+        0.00033753998752381493,
+        0.0003689801807911504
+      ]
+    },
+    {
+      "A": "derivadas+HAR+GARCH+eco",
+      "B": "derivadas+HAR+GARCH+eco+k",
+      "ganho_relativo_MSE_B_sobre_A": -7.070185874650115e-05,
+      "DM_t_HAC_lag_h": -1.1359040322791956,
+      "DM_t_HAC_lag_40": -1.3476714172942252,
+      "IC95_bootstrap_blocos": [
+        -0.0001681110573065908,
+        3.5518419553080125e-05
+      ],
+      "p_bootstrap_unilateral": 0.9,
+      "ganho_por_fold": [
+        -0.00010601511415142552,
+        -3.666859636554597e-05,
+        3.720671420194444e-05,
+        -0.0002823391204335055,
+        -8.989017437007594e-05
+      ]
+    },
+    {
+      "A": "GBM:derivadas+HAR+GARCH+eco",
+      "B": "GBM:derivadas+HAR+GARCH+eco+k",
+      "ganho_relativo_MSE_B_sobre_A": 0.012037204557911869,
+      "DM_t_HAC_lag_h": 3.861794254243435,
+      "DM_t_HAC_lag_40": 3.1538155635282434,
+      "IC95_bootstrap_blocos": [
+        0.004790559337485381,
+        0.018843251914331262
+      ],
+      "p_bootstrap_unilateral": 0.001,
+      "ganho_por_fold": [
+        0.031137331462880644,
+        -0.005901013630477823,
+        0.005040686774782845,
+        0.003961048520813319,
+        -0.0012228347702194812
+      ]
+    }
+  ],
+  "R2_de_log1p_k_explicado_por": {
+    "|r| t..t-4 + range HAR": 0.18944648073244452,
+    "eco |r_{t-W..t-W-3}|": 0.15817148033879702,
+    "HAR + eco": 0.3452524206204507,
+    "HAR + eco + derivadas": 0.35124565010180175
+  }
+}
