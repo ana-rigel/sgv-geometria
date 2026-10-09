@@ -1,6 +1,6 @@
-# Pré-registro L2 — Geometria de Fisher–Rao do espaço de modelos (RASCUNHO)
+# Pré-registro L2 — Geometria de Fisher–Rao do espaço de modelos
 
-**Estado: RASCUNHO para revisão da Ana (09/10/2026).** Nada foi calculado. Só é congelado depois da revisão, e a execução fica para quando o paper trading da Fase 2 do portfólio estiver rodando.
+**Estado: ESPECIFICAÇÃO CONGELADA em 09/10/2026, aprovada pela Ana sem alterações** (os quatro pontos da seção 11). Nada foi calculado. O código e a calibração (seção 6) vêm depois e são congelados antes de abrir o período confirmatório. **A execução só começa depois que o paper trading da Fase 2 do portfólio estiver rodando.**
 
 **Relação com o que já foi feito.** Esta é uma **linha nova**, não uma terceira tentativa da linha encerrada. A linha encerrada (C1 e R1) mediu a geometria do **espaço das observações**: cada barra é um ponto, e a curvatura é a da nuvem de barras. O resultado foi que essa geometria é a sombra dos fatos estilizados. A L2 mede a geometria do **espaço dos modelos**: cada ponto é um estado de informação do mercado, descrito pelo modelo SF1 ajustado numa janela. A métrica é a de Fisher–Rao, a única que respeita a estrutura da informação (teorema de Čencov). Não é uma escolha nossa.
 
@@ -108,9 +108,9 @@ Raciocínio:
 - A favor: há base teórica, porque fluxo informado e liquidações tendem a mudar a relação preço–fluxo antes da volatilidade.
 - Contra: os controles são duros, já que a mudança recente de volatilidade e |Δ log σ| entram na regressão. Em 1h há poucas avaliações (~610). E o histórico do projeto é de zero sobreviventes prospectivos.
 
-## 11. Pontos para a revisão da Ana
+## 11. Revisão da Ana (09/10/2026): todos os pontos aprovados como propostos
 
-1. Os tamanhos de janela W e de passo S fazem sentido para a sua leitura do mercado?
-2. O alvo, a mudança de regime de volatilidade, é o alarme que interessa? Ou prefere a quebra da relação de impacto (|Δa1|) como primário?
-3. A correção para duas escalas (α = 0,025 em cada) está ok?
-4. Concorda em deixar a execução para depois do início do paper trading?
+1. Janelas: W = 1 dia com S = 1 h (1m); W = 6 semanas com S = 1 dia (1h). **Aprovado.**
+2. Alvo primário: a mudança de regime de volatilidade. |Δa1| fica como secundário. **Aprovado.**
+3. Correção de Bonferroni para as duas escalas, α = 0,025 em cada. **Aprovado.**
+4. Execução depois do início do paper trading do portfólio. **Aprovado.**
