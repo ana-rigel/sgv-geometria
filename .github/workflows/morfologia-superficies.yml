@@ -1,0 +1,59 @@
+name: SGV - Morfologia de superficies de densidade
+on:
+  push:
+    branches: [research/morfologia-superficies]
+    paths:
+      - 'experiments/morfologia_superficies.py'
+      - 'tests/test_morfologia_superficies.py'
+      - '.github/workflows/morfologia-superficies.yml'
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  calibracao:
+    name: Morfologia synthetic e SF1
+    runs-on: ubuntu-latest
+    timeout-minutes: 25
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - run: python -m pip install numpy scipy pandas scikit-learn pytest
+      - name: Testes de integridade e superficies
+        run: python -m pytest -q tests/test_morfologia_superficies.py
+      - name: Calibrar controle gaussiano, temporal, curvado e SF1
+        run: python experiments/morfologia_superficies.py --interval synthetic
+      - if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: sgv-morfologia-sintetica
+          path: reports/MORFOLOGIA_synthetic.json
+          if-no-files-found: warn
+  replay:
+    needs: calibracao
+    name: Morfologia BTC ${{ matrix.interval }}
+    runs-on: ubuntu-latest
+    timeout-minutes: 90
+    strategy:
+      fail-fast: false
+      matrix:
+        interval: [1m, 1h]
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - run: python -m pip install numpy scipy pandas scikit-learn
+      - name: Somente exploracao e checksums
+        run: python scripts/baixar_klines.py --so ${{ matrix.interval }}
+      - name: Medir morfologia e estabilidade de regioes HDR em BTC
+        run: python experiments/morfologia_superficies.py --interval ${{ matrix.interval }}
+      - if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: sgv-morfologia-${{ matrix.interval }}
+          path: |
+            reports/MORFOLOGIA_${{ matrix.interval }}.json
+            reports/MORFOLOGIA_${{ matrix.interval }}_janelas.csv
+          if-no-files-found: warn
