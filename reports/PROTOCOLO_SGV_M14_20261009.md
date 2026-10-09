@@ -46,6 +46,6 @@ Executar um **piloto pequeno com 2 ensaios por cenário** para validar fitting, 
 ## Artefatos e integridade
 
 - Código: \`experiments/m14_calibracao_aninhada.py\`; testes \`tests/test_m14_calibracao_aninhada.py\`.
-- Workflow piloto: \`.github/workflows/m14-calibracao-piloto.yml\`; workflow bateria: \`.github/workflows/m14-calibracao-500.yml\`.
+- Workflow único com dependência obrigatória piloto → shards → agregação: \`.github/workflows/m14-calibracao-aninhada.yml\`.
 - Saída por shard: JSON e CSV sob \`reports/\`, em artefatos Actions; agregador \`scripts/m14_agregar_resultados.py\` consumindo arquivos e validando cobertura de IDs.
 - Não editar \`main\` nem usar dados reservados. SHA de código, versões e configuração registrados em GitHub Actions. O protocolo permanece congelado antes da primeira leitura de resultados M14.
