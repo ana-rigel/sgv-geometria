@@ -79,7 +79,7 @@ def ablated_path(sf1path,prefix,fit,step,seed):
     rng=np.random.default_rng(seed)
     df=sf1path.copy()
     x=flow_coordinates(df)
-    z=x["z"].to_numpy(float)
+    z=x["z"].to_numpy(dtype=float,copy=True)
     z[~np.isfinite(z)]=0.
     ts=(int(prefix.timestamp.iloc[-1])+np.arange(1-BURN,len(df)+1-BURN)*step)
     df["timestamp"]=ts
