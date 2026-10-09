@@ -71,3 +71,24 @@ jobs:
           name: auditoria-carry-${{ matrix.symbol }}
           path: audits/resultados/${{ matrix.symbol }}.json
           if-no-files-found: warn
+
+  flow_score_synthetic:
+    needs: sanity
+    name: Detector fluxo (sintetico)
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - run: python -m pip install numpy
+      - name: Comparar score sequencial versus meias-janelas L2
+        run: python audits/early_flow_detector_synthetic.py --out audits/resultados/score_exploratorio.json
+      - name: Guardar resultado sintetico
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: detector-fluxo-sintetico
+          path: audits/resultados/score_exploratorio.json
+          if-no-files-found: warn
