@@ -49,7 +49,7 @@ def test_lacuna_ou_nao_finito_invalidam_retrato():
     ts = 1_760_000_000_000 + 60_000 * np.arange(240)
     ts[120:] += 60_000
     rows = foto.direct_snapshots(X, ts, window=60, stride=10, bar_ms=60_000)
-    assert all(not (x["t"] >= 120 and x["t"] < 180) for x in rows)
+    # A primeira janela totalmente POSTERIOR ao gap termina em t=179.\n    assert all(not (x["t"] >= 120 and x["t"] < 179) for x in rows)
     X[215] = np.nan
     rows2 = foto.direct_snapshots(X, ts, window=60, stride=10, bar_ms=60_000)
     assert len(rows2) < len(rows)
