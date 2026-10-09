@@ -257,7 +257,7 @@ def calibration():
     n=5000
     state=np.empty(n,dtype=int);state[0]=0
     for i in range(1,n):
-        state[i]=state[i-1] if rng.random()<.96 else 1-state[i-1]
+        state[i]=state[i-1] if rng.random()<.997 else 1-state[i-1]
     x=rng.normal(size=(n,3))
     x[:,0]*=(1+1.5*state)
     x[:,1]=np.tanh(.8*x[:,0]+rng.normal(size=n))
