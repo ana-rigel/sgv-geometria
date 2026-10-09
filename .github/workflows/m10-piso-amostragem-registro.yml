@@ -1,0 +1,57 @@
+name: SGV-M10 - Piso de Amostragem 3D
+on:
+  push:
+    branches: [research/m10-piso-amostragem-registro]
+    paths:
+      - 'experiments/m10_piso_amostragem_registro.py'
+      - 'tests/test_m10_piso_amostragem_registro.py'
+      - '.github/workflows/m10-piso-amostragem-registro.yml'
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  calibracao:
+    runs-on: ubuntu-latest
+    timeout-minutes: 40
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - run: python -m pip install numpy scipy pandas scikit-learn scikit-image trimesh pytest
+      - name: Validar piso amostral e testes de regressao
+        run: python -m pytest -q tests/test_m10_piso_amostragem_registro.py
+      - name: Calibracao de tres densidades de pontos
+        run: python experiments/m10_piso_amostragem_registro.py --interval synthetic
+      - if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: SGV-M10-calibracao
+          path: reports/SGV_M10_synthetic.json
+          if-no-files-found: warn
+  btc:
+    needs: calibracao
+    runs-on: ubuntu-latest
+    timeout-minutes: 90
+    strategy:
+      fail-fast: false
+      matrix:
+        interval: [1m, 1h]
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - run: python -m pip install numpy scipy pandas scikit-learn scikit-image trimesh
+      - name: Baixar exclusivamente BTC exploratorio e verificar SHA256
+        run: python scripts/baixar_klines.py --so ${{ matrix.interval }}
+      - name: Calcular pisos locais e bootstrap temporal M10
+        run: python experiments/m10_piso_amostragem_registro.py --interval ${{ matrix.interval }}
+      - if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: SGV-M10-BTC-${{ matrix.interval }}
+          path: |
+            reports/SGV_M10_${{ matrix.interval }}.json
+            reports/SGV_M10_${{ matrix.interval }}_floors.csv
+          if-no-files-found: warn
