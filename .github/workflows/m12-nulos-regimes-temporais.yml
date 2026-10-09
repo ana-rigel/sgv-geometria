@@ -1,0 +1,59 @@
+name: SGV-M12 - Nulos Temporais com Regimes
+on:
+  push:
+    branches: [research/m12-nulos-regimes-temporais]
+    paths:
+      - 'experiments/m12_nulos_regimes_temporais.py'
+      - 'tests/test_m12_nulos_regimes_temporais.py'
+      - '.github/workflows/m12-nulos-regimes-temporais.yml'
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  calibracao:
+    name: Calibracao temporal e regime
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - run: python -m pip install numpy scipy pandas scikit-learn scikit-image trimesh pytest
+      - name: Testes de cronologia, memoria e catalogos
+        run: python -m pytest -q tests/test_m12_nulos_regimes_temporais.py
+      - name: Calibracao sintetica de estados persistentes
+        run: python experiments/m12_nulos_regimes_temporais.py --interval synthetic
+      - if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: SGV-M12-calibracao
+          path: reports/SGV_M12_synthetic.json
+          if-no-files-found: warn
+  replay:
+    needs: calibracao
+    name: BTC M12 ${{ matrix.interval }}
+    runs-on: ubuntu-latest
+    timeout-minutes: 90
+    strategy:
+      fail-fast: false
+      matrix:
+        interval: [1m, 1h]
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - run: python -m pip install numpy scipy pandas scikit-learn scikit-image trimesh
+      - name: Baixar BTC apenas de exploracao com checksum
+        run: python scripts/baixar_klines.py --so ${{ matrix.interval }}
+      - name: Comparar nulos temporais e distancia de superficie
+        run: python experiments/m12_nulos_regimes_temporais.py --interval ${{ matrix.interval }}
+      - if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: SGV-M12-BTC-${{ matrix.interval }}
+          path: |
+            reports/SGV_M12_${{ matrix.interval }}.json
+            reports/SGV_M12_${{ matrix.interval }}_metrics.csv
+          if-no-files-found: warn
