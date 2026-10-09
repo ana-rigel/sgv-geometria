@@ -1,6 +1,6 @@
 # Pré-registro L2 — Geometria de Fisher–Rao do espaço de modelos
 
-**Estado: ESPECIFICAÇÃO CONGELADA em 09/10/2026, aprovada pela Ana sem alterações** (os quatro pontos da seção 11). Nada foi calculado. O código e a calibração (seção 6) vêm depois e são congelados antes de abrir o período confirmatório. **A execução só começa depois que o paper trading da Fase 2 do portfólio estiver rodando.**
+**Estado: ESPECIFICAÇÃO CONGELADA em 09/10/2026, aprovada pela Ana sem alterações** (os quatro pontos da seção 11). Nada foi calculado. O código e a calibração (seção 6) vêm depois e são congelados antes de abrir o período confirmatório. ~~A execução só começa depois que o paper trading da Fase 2 do portfólio estiver rodando.~~ **Emenda 1 (09/10/2026, por decisão da Ana):** a precondição foi substituída por uma cópia própria do `sgv_operavel` congelado (`operavel/`, conferida pelo manifesto). Com isso a L2 roda sem depender da outra conversa. A emenda muda só o calendário: hipótese, dados, teste e critérios continuam os mesmos.
 
 **Relação com o que já foi feito.** Esta é uma **linha nova**, não uma terceira tentativa da linha encerrada. A linha encerrada (C1 e R1) mediu a geometria do **espaço das observações**: cada barra é um ponto, e a curvatura é a da nuvem de barras. O resultado foi que essa geometria é a sombra dos fatos estilizados. A L2 mede a geometria do **espaço dos modelos**: cada ponto é um estado de informação do mercado, descrito pelo modelo SF1 ajustado numa janela. A métrica é a de Fisher–Rao, a única que respeita a estrutura da informação (teorema de Čencov). Não é uma escolha nossa.
 
@@ -113,4 +113,4 @@ Raciocínio:
 1. Janelas: W = 1 dia com S = 1 h (1m); W = 6 semanas com S = 1 dia (1h). **Aprovado.**
 2. Alvo primário: a mudança de regime de volatilidade. |Δa1| fica como secundário. **Aprovado.**
 3. Correção de Bonferroni para as duas escalas, α = 0,025 em cada. **Aprovado.**
-4. Execução depois do início do paper trading do portfólio. **Aprovado.**
+4. Execução depois do início do paper trading do portfólio. **Aprovado.** Depois substituído pela Emenda 1: execução autorizada com a cópia própria do `sgv_operavel`.
