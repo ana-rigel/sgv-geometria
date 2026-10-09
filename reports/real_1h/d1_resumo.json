@@ -1,0 +1,198 @@
+{
+  "fonte": "real:data/BTCUSDT-1h-2020-01.zip:data/BTCUSDT-1h-2020-02.zip:data/BTCUSDT-1h-2020-03.zip:data/BTCUSDT-1h-2020-04.zip:data/BTCUSDT-1h-2020-05.zip:data/BTCUSDT-1h-2020-06.zip:data/BTCUSDT-1h-2020-07.zip:data/BTCUSDT-1h-2020-08.zip:data/BTCUSDT-1h-2020-09.zip:data/BTCUSDT-1h-2020-10.zip:data/BTCUSDT-1h-2020-11.zip:data/BTCUSDT-1h-2020-12.zip:data/BTCUSDT-1h-2021-01.zip:data/BTCUSDT-1h-2021-02.zip:data/BTCUSDT-1h-2021-03.zip:data/BTCUSDT-1h-2021-04.zip:data/BTCUSDT-1h-2021-05.zip:data/BTCUSDT-1h-2021-06.zip:data/BTCUSDT-1h-2021-07.zip:data/BTCUSDT-1h-2021-08.zip:data/BTCUSDT-1h-2021-09.zip:data/BTCUSDT-1h-2021-10.zip:data/BTCUSDT-1h-2021-11.zip:data/BTCUSDT-1h-2021-12.zip:data/BTCUSDT-1h-2022-01.zip:data/BTCUSDT-1h-2022-02.zip:data/BTCUSDT-1h-2022-03.zip:data/BTCUSDT-1h-2022-04.zip:data/BTCUSDT-1h-2022-05.zip:data/BTCUSDT-1h-2022-06.zip:data/BTCUSDT-1h-2022-07.zip:data/BTCUSDT-1h-2022-08.zip:data/BTCUSDT-1h-2022-09.zip:data/BTCUSDT-1h-2022-10.zip:data/BTCUSDT-1h-2022-11.zip:data/BTCUSDT-1h-2022-12.zip:data/BTCUSDT-1h-2023-01.zip:data/BTCUSDT-1h-2023-02.zip:data/BTCUSDT-1h-2023-03.zip:data/BTCUSDT-1h-2023-04.zip:data/BTCUSDT-1h-2023-05.zip:data/BTCUSDT-1h-2023-06.zip:data/BTCUSDT-1h-2023-07.zip:data/BTCUSDT-1h-2023-08.zip:data/BTCUSDT-1h-2023-09.zip:data/BTCUSDT-1h-2023-10.zip:data/BTCUSDT-1h-2023-11.zip:data/BTCUSDT-1h-2023-12.zip:data/BTCUSDT-1h-2024-01.zip:data/BTCUSDT-1h-2024-02.zip:data/BTCUSDT-1h-2024-03.zip:data/BTCUSDT-1h-2024-04.zip:data/BTCUSDT-1h-2024-05.zip:data/BTCUSDT-1h-2024-06.zip:data/BTCUSDT-1h-2024-07.zip:data/BTCUSDT-1h-2024-08.zip:data/BTCUSDT-1h-2024-09.zip:data/BTCUSDT-1h-2024-10.zip:data/BTCUSDT-1h-2024-11.zip:data/BTCUSDT-1h-2024-12.zip (últimas 4000 barras)",
+  "tempo_cadeia_offline_s": 71.2,
+  "tempo_run_sgv_runtime_s": 5.5,
+  "colunas_por_camada": {
+    "input": 20,
+    "info": 24,
+    "geodesic": 103,
+    "singularity": 156,
+    "terrain": 36,
+    "expected_value": 50,
+    "force_field": 5,
+    "alignment": 53,
+    "edge": 60,
+    "runtime_live": 112
+  },
+  "escala_coordenadas_geodesic": {
+    "E_norm(v2+a2)_dp": 0.0002653923529782955,
+    "jerk_dp": 0.01403253617008964,
+    "memory_flux_3d_dp": 1.2768996813977917e-05,
+    "largura_de_banda_2d": 0.35,
+    "largura_de_banda_3d": 0.45
+  },
+  "curvatura_escalar_3d": {
+    "frac_saturada_1e6": 0.0,
+    "mediana": 3.869976141868575,
+    "p05": -74.97748219413508,
+    "p95": 117.51718202736234
+  },
+  "rupture_prob_geodesic": {
+    "mediana": 0.9499053415124789,
+    "dp": 0.015388581883798207
+  },
+  "g_det_2d": {
+    "min": 66.48757278863467,
+    "frac_negativo": 0.0
+  },
+  "information_density_dp": 0.12911343194281377,
+  "information_density_valor": 1.29786679475804,
+  "tipo_singularidade": {
+    "gravity": 0.977,
+    "compound": 0.018,
+    "stress": 0.003,
+    "rigidity": 0.002
+  },
+  "is_high_critical_frac_live": 0.4090909090909091,
+  "sgv_criticality_score_faixa_live": [
+    0.45193606317735474,
+    4.887608647159577
+  ],
+  "sgv_criticality_score_faixa_offline": [
+    0.43953638844043863,
+    5.128823409709696
+  ],
+  "information_density_dp_apos_aquecimento": 0.003045306489939422,
+  "duplicatas_exatas_geodesic": [
+    [
+      "ret_1m",
+      "velocity"
+    ],
+    [
+      "ret_1m",
+      "ret"
+    ],
+    [
+      "hess_phi_ej",
+      "g_ej"
+    ],
+    [
+      "g_det",
+      "g_det_safe"
+    ],
+    [
+      "g_trace",
+      "field_curvature"
+    ],
+    [
+      "geom_incoherence",
+      "geom_incoherence_abs"
+    ],
+    [
+      "T_info_01",
+      "T_info_10"
+    ],
+    [
+      "T_info_02",
+      "T_info_20"
+    ],
+    [
+      "T_info_12",
+      "T_info_21"
+    ],
+    [
+      "geodesic_valid",
+      "stress_valid"
+    ]
+  ],
+  "chaves_geodesic": {
+    "g_det": {
+      "dp": 0.003043,
+      "cv": 4.6e-05,
+      "frac_distintos": 0.996247,
+      "frac_saturado_1e6": 0.0
+    },
+    "field_curvature": {
+      "dp": 0.000373,
+      "cv": 2.3e-05,
+      "frac_distintos": 0.996247,
+      "frac_saturado_1e6": 0.0
+    },
+    "geom_incoherence": {
+      "dp": 0.004192,
+      "cv": 2.749262,
+      "frac_distintos": 1.0,
+      "frac_saturado_1e6": 0.0
+    },
+    "jerk_over_lambda": {
+      "dp": 476062.750423,
+      "cv": 30.146143,
+      "frac_distintos": 1.0,
+      "frac_saturado_1e6": 0.001501
+    },
+    "field_stress_geodesic": {
+      "dp": 226973.00908,
+      "cv": 33.554041,
+      "frac_distintos": 1.0,
+      "frac_saturado_1e6": 0.001251
+    },
+    "rupture_prob_geodesic": {
+      "dp": 0.015389,
+      "cv": 0.01619,
+      "frac_distintos": 0.998749,
+      "frac_saturado_1e6": 0.0
+    },
+    "field_curvature_scalar": {
+      "dp": 336.768246,
+      "cv": 5.297384,
+      "frac_distintos": 0.996998,
+      "frac_saturado_1e6": 0.0
+    },
+    "field_stress_tensor_norm": {
+      "dp": 0.000529,
+      "cv": 5e-06,
+      "frac_distintos": 0.996998,
+      "frac_saturado_1e6": 0.0
+    },
+    "field_einstein_norm": {
+      "dp": 7743.498132,
+      "cv": 6.841849,
+      "frac_distintos": 0.996998,
+      "frac_saturado_1e6": 0.0
+    },
+    "field_gravity": {
+      "dp": 71.858906,
+      "cv": 1.28588,
+      "frac_distintos": 0.996998,
+      "frac_saturado_1e6": 0.0
+    }
+  },
+  "dados_reais_31mar2026": {
+    "field_curvature_scalar": {
+      "min": -999996.8271,
+      "50%": -61059.4912,
+      "max": 1000000.0,
+      "std": 553507.5532
+    },
+    "field_stress_geodesic": {
+      "min": 4.0271,
+      "50%": 4.0928,
+      "max": 4.147,
+      "std": 0.019
+    },
+    "rupture_prob_geodesic": {
+      "min": 0.9444,
+      "50%": 0.9483,
+      "max": 0.9515,
+      "std": 0.0011
+    },
+    "field_curvature": {
+      "min": 16.1051,
+      "50%": 16.3335,
+      "max": 16.5766,
+      "std": 0.0708
+    },
+    "field_gravity": {
+      "min": -2186.6561,
+      "50%": -134.5342,
+      "max": 2219.792,
+      "std": 1171.5418
+    },
+    "force_alignment_cos": {
+      "min": -1.0,
+      "50%": 0.0671,
+      "max": 1.0,
+      "std": 0.8804
+    }
+  }
+}

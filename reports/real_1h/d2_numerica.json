@@ -1,0 +1,105 @@
+{
+  "fonte": "real:data/BTCUSDT-1h-2020-01.zip:data/BTCUSDT-1h-2020-02.zip:data/BTCUSDT-1h-2020-03.zip:data/BTCUSDT-1h-2020-04.zip:data/BTCUSDT-1h-2020-05.zip:data/BTCUSDT-1h-2020-06.zip:data/BTCUSDT-1h-2020-07.zip:data/BTCUSDT-1h-2020-08.zip:data/BTCUSDT-1h-2020-09.zip:data/BTCUSDT-1h-2020-10.zip:data/BTCUSDT-1h-2020-11.zip:data/BTCUSDT-1h-2020-12.zip:data/BTCUSDT-1h-2021-01.zip:data/BTCUSDT-1h-2021-02.zip:data/BTCUSDT-1h-2021-03.zip:data/BTCUSDT-1h-2021-04.zip:data/BTCUSDT-1h-2021-05.zip:data/BTCUSDT-1h-2021-06.zip:data/BTCUSDT-1h-2021-07.zip:data/BTCUSDT-1h-2021-08.zip:data/BTCUSDT-1h-2021-09.zip:data/BTCUSDT-1h-2021-10.zip:data/BTCUSDT-1h-2021-11.zip:data/BTCUSDT-1h-2021-12.zip:data/BTCUSDT-1h-2022-01.zip:data/BTCUSDT-1h-2022-02.zip:data/BTCUSDT-1h-2022-03.zip:data/BTCUSDT-1h-2022-04.zip:data/BTCUSDT-1h-2022-05.zip:data/BTCUSDT-1h-2022-06.zip:data/BTCUSDT-1h-2022-07.zip:data/BTCUSDT-1h-2022-08.zip:data/BTCUSDT-1h-2022-09.zip:data/BTCUSDT-1h-2022-10.zip:data/BTCUSDT-1h-2022-11.zip:data/BTCUSDT-1h-2022-12.zip:data/BTCUSDT-1h-2023-01.zip:data/BTCUSDT-1h-2023-02.zip:data/BTCUSDT-1h-2023-03.zip:data/BTCUSDT-1h-2023-04.zip:data/BTCUSDT-1h-2023-05.zip:data/BTCUSDT-1h-2023-06.zip:data/BTCUSDT-1h-2023-07.zip:data/BTCUSDT-1h-2023-08.zip:data/BTCUSDT-1h-2023-09.zip:data/BTCUSDT-1h-2023-10.zip:data/BTCUSDT-1h-2023-11.zip:data/BTCUSDT-1h-2023-12.zip:data/BTCUSDT-1h-2024-01.zip:data/BTCUSDT-1h-2024-02.zip:data/BTCUSDT-1h-2024-03.zip:data/BTCUSDT-1h-2024-04.zip:data/BTCUSDT-1h-2024-05.zip:data/BTCUSDT-1h-2024-06.zip:data/BTCUSDT-1h-2024-07.zip:data/BTCUSDT-1h-2024-08.zip:data/BTCUSDT-1h-2024-09.zip:data/BTCUSDT-1h-2024-10.zip:data/BTCUSDT-1h-2024-11.zip:data/BTCUSDT-1h-2024-12.zip (últimas 2300 barras)",
+  "n_ajuste": 2000,
+  "n_avaliados": 300,
+  "legado": {
+    "escala": "legado (bruta, h=0,45)",
+    "largura_de_banda": 0.45,
+    "R_exato": {
+      "mediana": 4.750640395769029e-09,
+      "mediana_abs": 0.04990121392968089,
+      "p05": -0.09992190000382127,
+      "p95": 0.09992199430635011,
+      "max_abs": 0.19638465431151786
+    },
+    "tempo_exato_s": 2.7,
+    "malhas": [
+      {
+        "malha": "16x16x12",
+        "tempo_s": 0.4,
+        "R_malha_mediana": 0.034482269177832606,
+        "R_malha_p95_abs": 0.2835333651161238,
+        "frac_saturada": 0.0,
+        "erro_mediano_abs": 0.07028248095676812,
+        "correlacao_postos_com_exato": 0.01849887220969122
+      },
+      {
+        "malha": "24x24x16",
+        "tempo_s": 1.2,
+        "R_malha_mediana": -0.007205159049208534,
+        "R_malha_p95_abs": 0.38883426178670094,
+        "frac_saturada": 0.0,
+        "erro_mediano_abs": 0.11049340199029539,
+        "correlacao_postos_com_exato": 0.02513139034878165
+      },
+      {
+        "malha": "32x32x24",
+        "tempo_s": 2.9,
+        "R_malha_mediana": -0.012408443803263752,
+        "R_malha_p95_abs": 2.7144668697322736,
+        "frac_saturada": 0.0,
+        "erro_mediano_abs": 0.5945861102801064,
+        "correlacao_postos_com_exato": 0.020445116056845077
+      },
+      {
+        "malha": "48x48x32",
+        "tempo_s": 8.8,
+        "R_malha_mediana": 0.6099450781952186,
+        "R_malha_p95_abs": 21.20885186230037,
+        "frac_saturada": 0.0,
+        "erro_mediano_abs": 4.757496066764796,
+        "correlacao_postos_com_exato": -0.025330948121645797
+      }
+    ]
+  },
+  "padronizada": {
+    "escala": "z-score robusto, h de Scott",
+    "largura_de_banda": 0.3376169843250776,
+    "R_exato": {
+      "mediana": 0.024258475981275063,
+      "mediana_abs": 0.8477846620622418,
+      "p05": -25.523351474994396,
+      "p95": 81.85652395535959,
+      "max_abs": 11764.044427388653
+    },
+    "tempo_exato_s": 2.6,
+    "malhas": [
+      {
+        "malha": "16x16x12",
+        "tempo_s": 0.1,
+        "R_malha_mediana": 21185.67567427129,
+        "R_malha_p95_abs": 52579.695351687726,
+        "frac_saturada": 0.0,
+        "erro_mediano_abs": 21184.91607711968,
+        "correlacao_postos_com_exato": -0.05441260458449537
+      },
+      {
+        "malha": "24x24x16",
+        "tempo_s": 0.4,
+        "R_malha_mediana": -0.4989658812090821,
+        "R_malha_p95_abs": 16346.786911333247,
+        "frac_saturada": 0.0,
+        "erro_mediano_abs": 12.877812164986521,
+        "correlacao_postos_com_exato": 0.05529972555250614
+      },
+      {
+        "malha": "32x32x24",
+        "tempo_s": 1.1,
+        "R_malha_mediana": -0.5712823227957794,
+        "R_malha_p95_abs": 357.08303243907,
+        "frac_saturada": 0.0,
+        "erro_mediano_abs": 5.5696096916848905,
+        "correlacao_postos_com_exato": 0.0690829898109979
+      },
+      {
+        "malha": "48x48x32",
+        "tempo_s": 3.6,
+        "R_malha_mediana": -0.8188388244309295,
+        "R_malha_p95_abs": 2098.0709219198634,
+        "frac_saturada": 0.0,
+        "erro_mediano_abs": 17.64365609805192,
+        "correlacao_postos_com_exato": -0.05832553695041055
+      }
+    ]
+  }
+}

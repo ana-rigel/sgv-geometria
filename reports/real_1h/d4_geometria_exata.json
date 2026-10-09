@@ -1,0 +1,161 @@
+{
+  "fonte": "real:data/BTCUSDT-1h-2020-01.zip:data/BTCUSDT-1h-2020-02.zip:data/BTCUSDT-1h-2020-03.zip:data/BTCUSDT-1h-2020-04.zip:data/BTCUSDT-1h-2020-05.zip:data/BTCUSDT-1h-2020-06.zip:data/BTCUSDT-1h-2020-07.zip:data/BTCUSDT-1h-2020-08.zip:data/BTCUSDT-1h-2020-09.zip:data/BTCUSDT-1h-2020-10.zip:data/BTCUSDT-1h-2020-11.zip:data/BTCUSDT-1h-2020-12.zip:data/BTCUSDT-1h-2021-01.zip:data/BTCUSDT-1h-2021-02.zip:data/BTCUSDT-1h-2021-03.zip:data/BTCUSDT-1h-2021-04.zip:data/BTCUSDT-1h-2021-05.zip:data/BTCUSDT-1h-2021-06.zip:data/BTCUSDT-1h-2021-07.zip:data/BTCUSDT-1h-2021-08.zip:data/BTCUSDT-1h-2021-09.zip:data/BTCUSDT-1h-2021-10.zip:data/BTCUSDT-1h-2021-11.zip:data/BTCUSDT-1h-2021-12.zip:data/BTCUSDT-1h-2022-01.zip:data/BTCUSDT-1h-2022-02.zip:data/BTCUSDT-1h-2022-03.zip:data/BTCUSDT-1h-2022-04.zip:data/BTCUSDT-1h-2022-05.zip:data/BTCUSDT-1h-2022-06.zip:data/BTCUSDT-1h-2022-07.zip:data/BTCUSDT-1h-2022-08.zip:data/BTCUSDT-1h-2022-09.zip:data/BTCUSDT-1h-2022-10.zip:data/BTCUSDT-1h-2022-11.zip:data/BTCUSDT-1h-2022-12.zip:data/BTCUSDT-1h-2023-01.zip:data/BTCUSDT-1h-2023-02.zip:data/BTCUSDT-1h-2023-03.zip:data/BTCUSDT-1h-2023-04.zip:data/BTCUSDT-1h-2023-05.zip:data/BTCUSDT-1h-2023-06.zip:data/BTCUSDT-1h-2023-07.zip:data/BTCUSDT-1h-2023-08.zip:data/BTCUSDT-1h-2023-09.zip:data/BTCUSDT-1h-2023-10.zip:data/BTCUSDT-1h-2023-11.zip:data/BTCUSDT-1h-2023-12.zip:data/BTCUSDT-1h-2024-01.zip:data/BTCUSDT-1h-2024-02.zip:data/BTCUSDT-1h-2024-03.zip:data/BTCUSDT-1h-2024-04.zip:data/BTCUSDT-1h-2024-05.zip:data/BTCUSDT-1h-2024-06.zip:data/BTCUSDT-1h-2024-07.zip:data/BTCUSDT-1h-2024-08.zip:data/BTCUSDT-1h-2024-09.zip:data/BTCUSDT-1h-2024-10.zip:data/BTCUSDT-1h-2024-11.zip:data/BTCUSDT-1h-2024-12.zip (últimas 6000 barras)",
+  "janela": 1500,
+  "reajuste": 60,
+  "scott_1500": 0.3517812415019258,
+  "configuracao_escolhida": "rank_gauss_h2x",
+  "robust_z_h1x": {
+    "barras_avaliadas": 4200,
+    "max_abs_z": {
+      "p99": 37.66659893887775,
+      "max": 315.50266447411633
+    },
+    "H_frac_positiva_definida": 0.5230952380952381,
+    "H_distribuicao_autovalores_negativos": {
+      "0": 0.5231,
+      "1": 0.3867,
+      "2": 0.0874,
+      "3": 0.0029
+    },
+    "H_taxa_troca_assinatura_por_barra": 0.48738095238095236,
+    "H_duracao_media_regime_barras": 2.05078125,
+    "H_R": {
+      "p05": -76.13245928614391,
+      "mediana": -5.055107500246418e-06,
+      "p95": 104.78541439870014
+    },
+    "H_frac_R_exatamente_zero": 0.018095238095238095,
+    "H_frac_absR_maior_100": 0.09666666666666666,
+    "H_frac_explosoes_entre_10pct_menor_det": 0.645320197044335,
+    "F_R": {
+      "p05": -310.07922353592437,
+      "mediana": 3.6896952599083654,
+      "p95": 39.20576297430818
+    },
+    "F_frac_singular": 0.01904761904761905,
+    "F_frac_absR_maior_100": 0.09476190476190476,
+    "F_condicionamento_mediano": 8.29641193635576,
+    "spearman_F_vs_Fref": 0.22442415969953058,
+    "spearman_F_vs_mahalanobis": -0.30569369854719863,
+    "spearman_dF_vs_mahalanobis": -0.07126430033393462,
+    "dF": {
+      "p05": -13.786855768148286,
+      "mediana": 7.363619876236049,
+      "p95": 13.611487573496346
+    },
+    "autocorr_lag1": {
+      "indicador_H_indefinida": 0.2014390844986277,
+      "slog_HR": 0.044265947284012334,
+      "slog_FR": 0.0406605143580819,
+      "dF": 0.04506355138718905,
+      "phi": 0.021189342266191555
+    },
+    "spearman_HR_FR": -0.06488887618404898,
+    "parcela_lambda_em_T_mediana": 0.04180220960814482,
+    "lambda_mediano": 229.7280626993198,
+    "largura_de_banda": 0.3517812415019258,
+    "tempo_s": 63.0
+  },
+  "rank_gauss_h1x": {
+    "barras_avaliadas": 4200,
+    "max_abs_z": {
+      "p99": 2.935406244440572,
+      "max": 3.4031149216280565
+    },
+    "H_frac_positiva_definida": 0.4930952380952381,
+    "H_distribuicao_autovalores_negativos": {
+      "0": 0.4931,
+      "1": 0.4602,
+      "2": 0.0462,
+      "3": 0.0005
+    },
+    "H_taxa_troca_assinatura_por_barra": 0.5142857142857142,
+    "H_duracao_media_regime_barras": 1.943544655252198,
+    "H_R": {
+      "p05": -109.53190561703562,
+      "mediana": 0.6410157184527041,
+      "p95": 262.2828781369476
+    },
+    "H_frac_R_exatamente_zero": 0.0,
+    "H_frac_absR_maior_100": 0.13380952380952382,
+    "H_frac_explosoes_entre_10pct_menor_det": 0.5800711743772242,
+    "F_R": {
+      "p05": -20.005005764403887,
+      "mediana": 2.694153900230686,
+      "p95": 37.1603269839373
+    },
+    "F_frac_singular": 0.0,
+    "F_frac_absR_maior_100": 0.005952380952380952,
+    "F_condicionamento_mediano": 10.650827333535432,
+    "spearman_F_vs_Fref": 0.3183331205728202,
+    "spearman_F_vs_mahalanobis": -0.3428419319719268,
+    "spearman_dF_vs_mahalanobis": 0.1306329222095113,
+    "dF": {
+      "p05": -5.806385717276854,
+      "mediana": -0.5899109306644514,
+      "p95": 4.332887212864192
+    },
+    "autocorr_lag1": {
+      "indicador_H_indefinida": 0.07483520647692413,
+      "slog_HR": 0.010181164496624491,
+      "slog_FR": 0.12422966202594315,
+      "dF": 0.07948205206221719,
+      "phi": 0.7807594354640643
+    },
+    "spearman_HR_FR": 0.047689498168338895,
+    "parcela_lambda_em_T_mediana": 0.0279413486192227,
+    "lambda_mediano": 230.8529738409849,
+    "largura_de_banda": 0.3517812415019258,
+    "tempo_s": 58.2
+  },
+  "rank_gauss_h2x": {
+    "barras_avaliadas": 4200,
+    "max_abs_z": {
+      "p99": 2.935406244440572,
+      "max": 3.4031149216280565
+    },
+    "H_frac_positiva_definida": 0.8604761904761905,
+    "H_distribuicao_autovalores_negativos": {
+      "0": 0.8605,
+      "1": 0.1395
+    },
+    "H_taxa_troca_assinatura_por_barra": 0.20285714285714285,
+    "H_duracao_media_regime_barras": 4.9237983587338805,
+    "H_R": {
+      "p05": -8.602058605207342,
+      "mediana": 0.23399291840691044,
+      "p95": 45.39383799350711
+    },
+    "H_frac_R_exatamente_zero": 0.0,
+    "H_frac_absR_maior_100": 0.05119047619047619,
+    "H_frac_explosoes_entre_10pct_menor_det": 0.986046511627907,
+    "F_R": {
+      "p05": -8.476765899098758,
+      "mediana": 5.636340888118344,
+      "p95": 24.275901051685004
+    },
+    "F_frac_singular": 0.0,
+    "F_frac_absR_maior_100": 0.0,
+    "F_condicionamento_mediano": 3.332778323159941,
+    "spearman_F_vs_Fref": 0.779122728003394,
+    "spearman_F_vs_mahalanobis": -0.6213016390436626,
+    "spearman_dF_vs_mahalanobis": -0.22626931635799494,
+    "dF": {
+      "p05": -3.002803483341079,
+      "mediana": 0.3794164982117699,
+      "p95": 1.1784724855527642
+    },
+    "autocorr_lag1": {
+      "indicador_H_indefinida": 0.15512998661450947,
+      "slog_HR": 0.0031314247984057255,
+      "slog_FR": 0.33429273385179753,
+      "dF": 0.2228132652155424,
+      "phi": 0.7590842133904838
+    },
+    "spearman_HR_FR": 0.40488366483791427,
+    "parcela_lambda_em_T_mediana": 0.027640758435788376,
+    "lambda_mediano": 245.6286829120356,
+    "largura_de_banda": 0.7035624830038516,
+    "tempo_s": 60.9
+  }
+}

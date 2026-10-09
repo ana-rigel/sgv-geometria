@@ -1,0 +1,214 @@
+{
+  "fonte": "real:data/BTCUSDT-1m-2026-05.zip:data/BTCUSDT-1m-2026-06.zip:data/BTCUSDT-1m-2026-07.zip (últimas 3200 barras)",
+  "n_prefixo": 2400,
+  "n_completo": 3200,
+  "barras_ignoradas_aquecimento": 400,
+  "tempo_s": 90.1,
+  "por_camada": [
+    {
+      "camada": "alignment",
+      "colunas": 50,
+      "colunas_afetadas": 42,
+      "colunas_com_qualquer_alteracao": 42,
+      "mediana_frac_alterada": 0.9942500000000001,
+      "max_frac_alterada": 1.0
+    },
+    {
+      "camada": "edge",
+      "colunas": 57,
+      "colunas_afetadas": 48,
+      "colunas_com_qualquer_alteracao": 48,
+      "mediana_frac_alterada": 0.99,
+      "max_frac_alterada": 1.0
+    },
+    {
+      "camada": "expected_value",
+      "colunas": 44,
+      "colunas_afetadas": 37,
+      "colunas_com_qualquer_alteracao": 38,
+      "mediana_frac_alterada": 0.99675,
+      "max_frac_alterada": 1.0
+    },
+    {
+      "camada": "geodesic",
+      "colunas": 99,
+      "colunas_afetadas": 61,
+      "colunas_com_qualquer_alteracao": 64,
+      "mediana_frac_alterada": 1.0,
+      "max_frac_alterada": 1.0
+    },
+    {
+      "camada": "info",
+      "colunas": 20,
+      "colunas_afetadas": 0,
+      "colunas_com_qualquer_alteracao": 1,
+      "mediana_frac_alterada": 0.0,
+      "max_frac_alterada": 0.0025
+    },
+    {
+      "camada": "input",
+      "colunas": 16,
+      "colunas_afetadas": 1,
+      "colunas_com_qualquer_alteracao": 2,
+      "mediana_frac_alterada": 0.0,
+      "max_frac_alterada": 1.0
+    },
+    {
+      "camada": "singularity",
+      "colunas": 152,
+      "colunas_afetadas": 104,
+      "colunas_com_qualquer_alteracao": 107,
+      "mediana_frac_alterada": 1.0,
+      "max_frac_alterada": 1.0
+    },
+    {
+      "camada": "terrain",
+      "colunas": 33,
+      "colunas_afetadas": 27,
+      "colunas_com_qualquer_alteracao": 27,
+      "mediana_frac_alterada": 1.0,
+      "max_frac_alterada": 1.0
+    }
+  ],
+  "repintura_ao_vivo_frac": {
+    "edge_score": 0.923,
+    "expected_value_score": 0.923,
+    "field_curvature_scalar": 1.0,
+    "field_gravity": 1.0,
+    "field_stress_geodesic": 1.0,
+    "force_alignment_cos": 0.385,
+    "rupture_prob_geodesic": 1.0,
+    "sgv_criticality_score": 1.0,
+    "sgv_edge_signal": 0.615,
+    "terrain_state": 0.0,
+    "terrain_transition_score": 1.0
+  },
+  "n_pares_ao_vivo": 13,
+  "piores_colunas": [
+    {
+      "camada": "edge",
+      "coluna": "real_move_mag",
+      "frac_barras_alteradas": 1.0
+    },
+    {
+      "camada": "edge",
+      "coluna": "E_norm",
+      "frac_barras_alteradas": 1.0
+    },
+    {
+      "camada": "alignment",
+      "coluna": "terrain_z_hyst",
+      "frac_barras_alteradas": 1.0
+    },
+    {
+      "camada": "alignment",
+      "coluna": "terrain_transition_score_raw",
+      "frac_barras_alteradas": 1.0
+    },
+    {
+      "camada": "alignment",
+      "coluna": "terrain_transition_score",
+      "frac_barras_alteradas": 1.0
+    },
+    {
+      "camada": "alignment",
+      "coluna": "dE_real",
+      "frac_barras_alteradas": 1.0
+    },
+    {
+      "camada": "alignment",
+      "coluna": "real_move_mag",
+      "frac_barras_alteradas": 1.0
+    },
+    {
+      "camada": "alignment",
+      "coluna": "terrain_regime_hysteresis",
+      "frac_barras_alteradas": 1.0
+    },
+    {
+      "camada": "alignment",
+      "coluna": "terrain_curvature_w",
+      "frac_barras_alteradas": 1.0
+    },
+    {
+      "camada": "alignment",
+      "coluna": "terrain_basin_depth_w",
+      "frac_barras_alteradas": 1.0
+    },
+    {
+      "camada": "alignment",
+      "coluna": "terrain_regime_hysteresis_w",
+      "frac_barras_alteradas": 1.0
+    },
+    {
+      "camada": "alignment",
+      "coluna": "terrain_z_disp",
+      "frac_barras_alteradas": 1.0
+    },
+    {
+      "camada": "alignment",
+      "coluna": "terrain_z_curv",
+      "frac_barras_alteradas": 1.0
+    },
+    {
+      "camada": "alignment",
+      "coluna": "terrain_z_basin",
+      "frac_barras_alteradas": 1.0
+    },
+    {
+      "camada": "geodesic",
+      "coluna": "phi_field",
+      "frac_barras_alteradas": 1.0
+    },
+    {
+      "camada": "geodesic",
+      "coluna": "grad_phi_j",
+      "frac_barras_alteradas": 1.0
+    },
+    {
+      "camada": "geodesic",
+      "coluna": "grad_phi_norm",
+      "frac_barras_alteradas": 1.0
+    },
+    {
+      "camada": "geodesic",
+      "coluna": "hess_phi_ee",
+      "frac_barras_alteradas": 1.0
+    },
+    {
+      "camada": "geodesic",
+      "coluna": "hess_phi_ej",
+      "frac_barras_alteradas": 1.0
+    },
+    {
+      "camada": "geodesic",
+      "coluna": "hess_phi_jj",
+      "frac_barras_alteradas": 1.0
+    },
+    {
+      "camada": "geodesic",
+      "coluna": "g_ee",
+      "frac_barras_alteradas": 1.0
+    },
+    {
+      "camada": "geodesic",
+      "coluna": "rho_field",
+      "frac_barras_alteradas": 1.0
+    },
+    {
+      "camada": "alignment",
+      "coluna": "terrain_log_density",
+      "frac_barras_alteradas": 1.0
+    },
+    {
+      "camada": "alignment",
+      "coluna": "terrain_grad_logp_E",
+      "frac_barras_alteradas": 1.0
+    },
+    {
+      "camada": "alignment",
+      "coluna": "terrain_grad_logp_jerk",
+      "frac_barras_alteradas": 1.0
+    }
+  ]
+}

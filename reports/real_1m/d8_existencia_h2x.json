@@ -1,0 +1,148 @@
+{
+  "fonte": "real:data/BTCUSDT-1m-2026-05.zip:data/BTCUSDT-1m-2026-06.zip:data/BTCUSDT-1m-2026-07.zip (últimas 4500 barras)",
+  "garch_ajustado": {
+    "omega": 1.3927005415218588e-09,
+    "alpha": 0.07293145367687134,
+    "beta": 0.9257177628214954,
+    "nu": 4.85051894031861,
+    "converged": true
+  },
+  "replicas": {
+    "garch_ajustado": 39,
+    "iaaft": 19,
+    "embaralhado": 19
+  },
+  "tempo_s": 1661.3,
+  "tabela": [
+    {
+      "estatistica": "H_frac_positiva_definida",
+      "serie": 0.9259,
+      "garch_ajustado_media": 0.8255,
+      "garch_ajustado_z": 1.7441,
+      "garch_ajustado_p": 0.075,
+      "iaaft_media": 0.9366,
+      "iaaft_z": -0.6079,
+      "iaaft_p": 0.7,
+      "embaralhado_media": 0.9367,
+      "embaralhado_z": -0.7196,
+      "embaralhado_p": 0.55
+    },
+    {
+      "estatistica": "H_troca_assinatura",
+      "serie": 0.1111,
+      "garch_ajustado_media": 0.2225,
+      "garch_ajustado_z": -2.14,
+      "garch_ajustado_p": 0.025,
+      "iaaft_media": 0.1143,
+      "iaaft_z": -0.1114,
+      "iaaft_p": 0.95,
+      "embaralhado_media": 0.1115,
+      "embaralhado_z": -0.0164,
+      "embaralhado_p": 0.85
+    },
+    {
+      "estatistica": "H_mediana_slog_R",
+      "serie": 0.1738,
+      "garch_ajustado_media": 0.1655,
+      "garch_ajustado_z": 0.1798,
+      "garch_ajustado_p": 0.925,
+      "iaaft_media": 0.2026,
+      "iaaft_z": -1.0173,
+      "iaaft_p": 0.25,
+      "embaralhado_media": 0.2022,
+      "embaralhado_z": -0.964,
+      "embaralhado_p": 0.5
+    },
+    {
+      "estatistica": "F_mediana_slog_R",
+      "serie": 2.0275,
+      "garch_ajustado_media": 1.8609,
+      "garch_ajustado_z": 1.8102,
+      "garch_ajustado_p": 0.075,
+      "iaaft_media": 1.792,
+      "iaaft_z": 3.6393,
+      "iaaft_p": 0.05,
+      "embaralhado_media": 1.7797,
+      "embaralhado_z": 3.6617,
+      "embaralhado_p": 0.05
+    },
+    {
+      "estatistica": "dF_mediana",
+      "serie": 0.4434,
+      "garch_ajustado_media": 0.294,
+      "garch_ajustado_z": 1.1287,
+      "garch_ajustado_p": 0.275,
+      "iaaft_media": 0.5168,
+      "iaaft_z": -1.2743,
+      "iaaft_p": 0.4,
+      "embaralhado_media": 0.5487,
+      "embaralhado_z": -2.5642,
+      "embaralhado_p": 0.05
+    },
+    {
+      "estatistica": "dF_media",
+      "serie": 0.103,
+      "garch_ajustado_media": -0.0336,
+      "garch_ajustado_z": 0.962,
+      "garch_ajustado_p": 0.4,
+      "iaaft_media": 0.2491,
+      "iaaft_z": -2.6173,
+      "iaaft_p": 0.05,
+      "embaralhado_media": 0.2716,
+      "embaralhado_z": -3.8409,
+      "embaralhado_p": 0.05
+    },
+    {
+      "estatistica": "F_mediana_log_det",
+      "serie": -4.4889,
+      "garch_ajustado_media": -4.4185,
+      "garch_ajustado_z": -0.4788,
+      "garch_ajustado_p": 0.625,
+      "iaaft_media": -5.0969,
+      "iaaft_z": 10.6732,
+      "iaaft_p": 0.05,
+      "embaralhado_media": -5.0882,
+      "embaralhado_z": 8.1784,
+      "embaralhado_p": 0.05
+    },
+    {
+      "estatistica": "mediana_phi",
+      "serie": 3.6708,
+      "garch_ajustado_media": 3.8464,
+      "garch_ajustado_z": -1.2573,
+      "garch_ajustado_p": 0.1,
+      "iaaft_media": 3.7066,
+      "iaaft_z": -0.875,
+      "iaaft_p": 0.45,
+      "embaralhado_media": 3.7054,
+      "embaralhado_z": -0.9798,
+      "embaralhado_p": 0.25
+    },
+    {
+      "estatistica": "mediana_grad_phi",
+      "serie": 0.9224,
+      "garch_ajustado_media": 0.9457,
+      "garch_ajustado_z": -0.5935,
+      "garch_ajustado_p": 0.475,
+      "iaaft_media": 0.8468,
+      "iaaft_z": 4.2273,
+      "iaaft_p": 0.05,
+      "embaralhado_media": 0.8543,
+      "embaralhado_z": 3.7337,
+      "embaralhado_p": 0.05
+    },
+    {
+      "estatistica": "autocorr_phi",
+      "serie": 0.6633,
+      "garch_ajustado_media": 0.6936,
+      "garch_ajustado_z": -0.3927,
+      "garch_ajustado_p": 0.7,
+      "iaaft_media": 0.3911,
+      "iaaft_z": 7.6116,
+      "iaaft_p": 0.05,
+      "embaralhado_media": 0.4037,
+      "embaralhado_z": 5.8863,
+      "embaralhado_p": 0.05
+    }
+  ]
+}

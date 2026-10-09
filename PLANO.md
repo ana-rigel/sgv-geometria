@@ -15,7 +15,7 @@
 | Fase | O que entrega | Portão para seguir | Estado |
 | --- | --- | --- | --- |
 | 0 — Fundação | Repositório; legado congelado com proveniência; núcleo exato (`sgvgeo/`) com testes; diagnósticos D1–D8 calibrados em dados sintéticos e revisados por um revisor independente | Testes passando; o nulo GARCH não passa no G1 | **Concluída em 08/10/2026** |
-| 1 — Diagnóstico em dado real | D7 primeiro (fixa a largura de banda); depois D1–D8 com `SGV_DATA` nos klines de exploração, em 1m e 1h | Portão G1, abaixo | **Em andamento** (D7 iniciado em 08/10/2026) |
+| 1 — Diagnóstico em dado real | D7 primeiro (fixa a largura de banda); depois D1–D8 com `SGV_DATA` nos klines de exploração, em 1m e 1h | Portão G1, abaixo | **Concluída em 09/10/2026: G1 reprovado** (1m e 1h) |
 | 2 — Pré-registro | Documento congelado: variável primária, alvo, controles, teste, α, placebo e aposta | Revisão da Ana e do colaborador antes de qualquer dado confirmatório | — |
 | 3 — Confirmatório | Julgamento único no período reservado | Resultado do pré-registro | — |
 | 4 — Integração | Só se a Fase 3 confirmar: a variável entra numa camada de decisão com custos reais | Novo pré-registro de utilidade econômica | — |
@@ -45,6 +45,17 @@ Se G1 falhar no dado real, a geometria destas coordenadas não tem conteúdo pr�
 Pela regra do G1, a largura fica em **2× Scott nas duas escalas** (`SGV_HMULT=2`). **Critério 1 aprovado em 1m e em 1h.** No GARCH de calibração, o mesmo número foi 0,77.
 
 **Declarado antes de rodar o resto da bateria:** D1–D6 e D8 usam exatamente a mesma janela de cada script na calibração (as últimas N barras do período de exploração: 6.000 em D4/D5/D6, 4.500 em D8), sem `SGV_TAIL`. Em 1m isso cobre os últimos ~3–4 dias de julho/2026; em 1h, os últimos ~6–8 meses de 2024. D8 usa 39 réplicas GARCH e 19 de cada outro nulo. O resultado de D7 acima não é recalculado.
+
+**09/10/2026 — Bateria completa e julgamento do G1** (`reports/FASE1_PORTAO_G1.md`): **G1 NÃO PASSA em 1m nem em 1h.**
+
+| Critério | 1m | 1h |
+| --- | --- | --- |
+| 1. Mensurável | 0,83 ✓ | 0,85 ✓ |
+| 2. Além da posição | 0,20 ✓ | 0,23 ✓ |
+| 3. Existe (média de ΔF vs. GARCH, 39 réplicas) | p = 0,40 ✗ | p = 0,175 ✗ |
+| 4. Além da volatilidade | 0,495 ✓ | 0,571 ✗ |
+
+Pela regra, a linha para ou recebe **uma** reformulação de coordenadas pré-registrada. Decisão pendente da Ana.
 
 ## Escolhas já feitas pela calibração (detalhes em `reports/DIAGNOSTICO.md`)
 

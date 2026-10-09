@@ -1,0 +1,105 @@
+{
+  "fonte": "real:data/BTCUSDT-1m-2026-05.zip:data/BTCUSDT-1m-2026-06.zip:data/BTCUSDT-1m-2026-07.zip (últimas 2300 barras)",
+  "n_ajuste": 2000,
+  "n_avaliados": 300,
+  "legado": {
+    "escala": "legado (bruta, h=0,45)",
+    "largura_de_banda": 0.45,
+    "R_exato": {
+      "mediana": -7.706343263619617e-11,
+      "mediana_abs": 8.177667186340982e-10,
+      "p05": -2.578439494958812e-09,
+      "p95": 1.9415923713135758e-09,
+      "max_abs": 1.462391919833789e-05
+    },
+    "tempo_exato_s": 2.5,
+    "malhas": [
+      {
+        "malha": "16x16x12",
+        "tempo_s": 0.4,
+        "R_malha_mediana": 79815.12591209378,
+        "R_malha_p95_abs": 932407.5499164672,
+        "frac_saturada": 0.013333333333333334,
+        "erro_mediano_abs": 415155.9195424019,
+        "correlacao_postos_com_exato": 0.0655814099226474
+      },
+      {
+        "malha": "24x24x16",
+        "tempo_s": 1.2,
+        "R_malha_mediana": 300727.5364081229,
+        "R_malha_p95_abs": 962801.3313959237,
+        "frac_saturada": 0.016666666666666666,
+        "erro_mediano_abs": 522766.3055276858,
+        "correlacao_postos_com_exato": 0.06400162846326857
+      },
+      {
+        "malha": "32x32x24",
+        "tempo_s": 3.0,
+        "R_malha_mediana": 277517.9905894643,
+        "R_malha_p95_abs": 987072.107566454,
+        "frac_saturada": 0.023333333333333334,
+        "erro_mediano_abs": 554444.2225952292,
+        "correlacao_postos_com_exato": -0.02430939472071994
+      },
+      {
+        "malha": "48x48x32",
+        "tempo_s": 8.8,
+        "R_malha_mediana": 25649.25117576534,
+        "R_malha_p95_abs": 988563.9524309936,
+        "frac_saturada": 0.02666666666666667,
+        "erro_mediano_abs": 452988.3550124152,
+        "correlacao_postos_com_exato": -0.09104687034025782
+      }
+    ]
+  },
+  "padronizada": {
+    "escala": "z-score robusto, h de Scott",
+    "largura_de_banda": 0.3376169843250776,
+    "R_exato": {
+      "mediana": 7.5482414972366e-10,
+      "mediana_abs": 1.1723681365081609,
+      "p05": -33.57271290687139,
+      "p95": 73.8851524280019,
+      "max_abs": 683371.3266275972
+    },
+    "tempo_exato_s": 2.7,
+    "malhas": [
+      {
+        "malha": "16x16x12",
+        "tempo_s": 0.1,
+        "R_malha_mediana": 6527.004952000715,
+        "R_malha_p95_abs": 43489.90389969674,
+        "frac_saturada": 0.0,
+        "erro_mediano_abs": 11453.784049045946,
+        "correlacao_postos_com_exato": -0.19406373338189803
+      },
+      {
+        "malha": "24x24x16",
+        "tempo_s": 0.3,
+        "R_malha_mediana": -0.2003909041343998,
+        "R_malha_p95_abs": 15901.490681410933,
+        "frac_saturada": 0.0,
+        "erro_mediano_abs": 11.473458614883578,
+        "correlacao_postos_com_exato": 0.05556529023270184
+      },
+      {
+        "malha": "32x32x24",
+        "tempo_s": 1.0,
+        "R_malha_mediana": 0.2288410468626954,
+        "R_malha_p95_abs": 241.58722649072374,
+        "frac_saturada": 0.0,
+        "erro_mediano_abs": 10.575007057639512,
+        "correlacao_postos_com_exato": -0.048722991224679595
+      },
+      {
+        "malha": "48x48x32",
+        "tempo_s": 3.5,
+        "R_malha_mediana": -0.16220132139694338,
+        "R_malha_p95_abs": 464.2825982876175,
+        "frac_saturada": 0.0,
+        "erro_mediano_abs": 19.7171011089102,
+        "correlacao_postos_com_exato": -0.22773300011478045
+      }
+    ]
+  }
+}

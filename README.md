@@ -4,8 +4,9 @@ Projeto próprio para testar a camada de **geometria informacional** do SGV: o p
 
 A pergunta é se a geometria da distribuição de estados do mercado tem informação própria sobre o que vem depois, além da volatilidade e da simples posição do estado. O objeto do teste é a métrica de informação sobre as coordenadas do SGV (E = v²+a², jerk, memory_flux) e sua curvatura. Antes de responder, é preciso que essa geometria seja calculável, causal e mensurável. A Fase 0 cuida disso.
 
-**Estado (08/10/2026):** Fase 0 concluída, com núcleo exato, testes, diagnóstico de calibração e revisão independente. A grandeza candidata é ΔF: a curvatura da métrica de Fisher local além da referência gaussiana. A Fase 1 (dados reais) aguarda os klines. Leia primeiro:
+**Estado (09/10/2026):** Fase 1 concluída. Em dado real (BTCUSDT 1m e 1h), a grandeza candidata ΔF (curvatura da métrica de Fisher local além da referência gaussiana) é mensurável, mas **não se distingue de séries GARCH ajustadas**: o portão G1 não passa. Pelo plano, a linha para ou recebe uma reformulação de coordenadas pré-registrada. Leia primeiro:
 
+- [`reports/FASE1_PORTAO_G1.md`](reports/FASE1_PORTAO_G1.md): o julgamento do portão G1 em dado real.
 - [`reports/DIAGNOSTICO.md`](reports/DIAGNOSTICO.md): o que o legado calcula de fato e o que a calibração decidiu.
 - [`PLANO.md`](PLANO.md): fases, portões e decisões abertas.
 
@@ -17,7 +18,7 @@ A pergunta é se a geometria da distribuição de estados do mercado tem informa
 | `sgvgeo/` | Núcleo novo. `data` (sintéticos, substitutos, leitor de klines), `features` (coordenadas e escalas causais), `kde` (derivadas analíticas), `geometry` (métricas H, F e referência gaussiana; Christoffel, Riemann, Ricci, R, Einstein), `field` (campo causal no tempo), `legacy` (executa o legado sem alterá-lo) |
 | `tests/` | Casos de resposta conhecida: espaço plano (R = 0), esferas S² e S³ (R = 2 e 6), derivadas do KDE, identidade da informação, referência gaussiana |
 | `diagnostics/` | D1–D8 e figuras; `run_all.py` roda tudo |
-| `reports/` | Relatório e saídas de cada rodada (`sintetico/`, `real/`) |
+| `reports/` | Relatórios e saídas de cada rodada (`sintetico/`, `real_1m/`, `real_1h/`) |
 | `scripts/` | `baixar_klines.py`: baixa os klines de exploração da Fase 1 |
 | `data/` | Klines (fora do git) |
 
