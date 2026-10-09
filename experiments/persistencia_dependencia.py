@@ -216,15 +216,28 @@ def calibrate():
     }
 
 
+
+def checked_exploratory_month(filename, interval):
+    """Somente arquivo autorizado; rejeita timeframes e meses reservados."""
+    if interval not in AUTHORIZED:
+        raise ValueError("Timeframe nao autorizado")
+    m=re.fullmatch(
+        rf"BTCUSDT-{re.escape(interval)}-([0-9]{{4}}-[0-9]{{2}})\\.zip",
+        filename)
+    if m is None:
+        raise ValueError("Arquivo invalido: "+filename)
+    lo,hi=AUTHORIZED[interval]
+    if not(lo<=m.group(1)<=hi):
+        raise ValueError("Periodo reservado: "+filename)
+    return m.group(1)
+
+
 def real(interval):
     paths=sorted((ROOT/"data").glob(f"BTCUSDT-{interval}-*.zip"))
-    lo,hi=AUTHORIZED[interval]
     if not paths:
         raise FileNotFoundError("Sem dados exploratorios; execute scripts/baixar_klines.py --so")
     for p in paths:
-        m=re.fullmatch(rf"BTCUSDT-{re.escape(interval)}-([0-9]{{4}}-[0-9]{{2}})\.zip",p.name)
-        if m is None or not(lo<=m.group(1)<=hi):
-            raise ValueError("Arquivo de periodo reservado ou invalido: "+p.name)
+        checked_exploratory_month(p.name, interval)
     df=load_binance_klines(paths,with_flow=True)
     feats=flow_coordinates(df)
     x=feats[["z","iota","nu"]].to_numpy(float)
