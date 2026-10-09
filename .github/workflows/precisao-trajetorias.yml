@@ -1,0 +1,59 @@
+name: SGV - Precisao observacional e trajetorias
+on:
+  push:
+    branches: [research/precisao-trajetorias]
+    paths:
+      - 'experiments/precisao_trajetorias.py'
+      - 'tests/test_precisao_trajetorias.py'
+      - '.github/workflows/precisao-trajetorias.yml'
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  calibracao:
+    name: Calibracao synthetic noise
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - run: python -m pip install numpy scipy pandas pytest
+      - name: Testar simetria, causalidade, blocos e respostas conhecidas
+        run: python -m pytest -q tests/test_precisao_trajetorias.py
+      - name: Calibrar nulo estacionario e mudanca plantada
+        run: python experiments/precisao_trajetorias.py --interval synthetic
+      - if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: sgv-trajetorias-calibracao
+          path: reports/TRAJETORIAS_SGV_synthetic.json
+          if-no-files-found: warn
+  exploratorio:
+    needs: calibracao
+    name: Replay BTC ${{ matrix.interval }} (sem confirmatorio)
+    runs-on: ubuntu-latest
+    timeout-minutes: 90
+    strategy:
+      fail-fast: false
+      matrix:
+        interval: [1m, 1h]
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - run: python -m pip install numpy scipy pandas
+      - name: Baixar exclusivamente periodos de exploracao e verificar checksums
+        run: python scripts/baixar_klines.py --so ${{ matrix.interval }}
+      - name: Avaliar ruido bootstrap e percurso de estados
+        run: python experiments/precisao_trajetorias.py --interval ${{ matrix.interval }}
+      - if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: sgv-trajetorias-${{ matrix.interval }}
+          path: |
+            reports/TRAJETORIAS_SGV_${{ matrix.interval }}.json
+            reports/TRAJETORIAS_${{ matrix.interval }}_*.csv
+          if-no-files-found: warn
