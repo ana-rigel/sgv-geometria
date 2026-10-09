@@ -1,0 +1,59 @@
+name: SGV-M3 — Precisao da nao convexidade
+on:
+  push:
+    branches: [research/m3-precisao-nao-convexidade]
+    paths:
+      - 'experiments/m3_precisao_nao_convexidade.py'
+      - 'tests/test_m3_precisao_nao_convexidade.py'
+      - '.github/workflows/m3-precisao-nao-convexidade.yml'
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  calibracao:
+    name: M3 validacao numerica sintetica
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - run: python -m pip install numpy scipy pandas scikit-learn scikit-image trimesh pytest
+      - name: Verificar testes matematica, causalidade e bootstrap
+        run: python -m pytest -q tests/test_m3_precisao_nao_convexidade.py
+      - name: Calibrar tres geradores conhecidos
+        run: python experiments/m3_precisao_nao_convexidade.py --interval synthetic
+      - if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: M3-calibracao
+          path: reports/SGV_M3_synthetic.json
+          if-no-files-found: warn
+  real:
+    needs: calibracao
+    name: M3 BTC ${{ matrix.interval }}
+    runs-on: ubuntu-latest
+    timeout-minutes: 90
+    strategy:
+      fail-fast: false
+      matrix:
+        interval: [1m, 1h]
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - run: python -m pip install numpy scipy pandas scikit-learn scikit-image trimesh
+      - name: Obter somente exploracao e validar checksum
+        run: python scripts/baixar_klines.py --so ${{ matrix.interval }}
+      - name: Comparar grades, bootstrap e nulos de forma M3
+        run: python experiments/m3_precisao_nao_convexidade.py --interval ${{ matrix.interval }}
+      - if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: M3-BTC-${{ matrix.interval }}
+          path: |
+            reports/SGV_M3_${{ matrix.interval }}.json
+            reports/SGV_M3_${{ matrix.interval }}_windows.csv
+          if-no-files-found: warn
