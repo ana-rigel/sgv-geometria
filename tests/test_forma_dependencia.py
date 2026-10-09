@@ -49,7 +49,7 @@ def test_numeros_finitos_para_dependencia_curvada():
     x=mod.shape.synthetic_data("curved",1800,321)
     r=mod.fit_one_window(x)
     assert all(np.isfinite(v) for v in r["logscore"].values())
-    assert r["kde" if False else "logscore"]["kde"] > r["logscore"]["gauss"]+.05
+    assert r["logscore"]["kde"] > r["logscore"]["gauss"]+.05
 
 
 def test_mistura_tem_alternativa_identificavel():
