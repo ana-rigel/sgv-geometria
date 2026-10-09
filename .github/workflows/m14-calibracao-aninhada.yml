@@ -1,0 +1,86 @@
+name: SGV-M14 - Calibracao Aninhada Completa 500x4
+on:
+  push:
+    branches: [research/m14-calibracao-aninhada-nulos]
+    paths:
+      - 'experiments/m14_calibracao_aninhada.py'
+      - 'tests/test_m14_calibracao_aninhada.py'
+      - 'scripts/m14_agregar_resultados.py'
+      - '.github/workflows/m14-calibracao-aninhada.yml'
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  piloto:
+    name: Verificacao de fitting e geometria M11 (8 trials)
+    runs-on: ubuntu-latest
+    timeout-minutes: 50
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Instalar dependencias de geometria e HMM
+        run: python -m pip install numpy scipy pandas scikit-learn scikit-image trimesh hmmlearn pytest
+      - name: Testar ajuste passado, 2 estados e distancia direta
+        run: python -m pytest -q tests/test_m14_calibracao_aninhada.py
+      - name: Calibracao piloto aninhada (todas as quatro familias)
+        run: python experiments/m14_calibracao_aninhada.py --mode pilot
+      - if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: SGV-M14-piloto
+          path: reports/SGV_M14_pilot.json
+          if-no-files-found: warn
+  matriz:
+    needs: piloto
+    name: M14 ${{ matrix.scenario }} bloco ${{ matrix.shard }}
+    runs-on: ubuntu-latest
+    timeout-minutes: 180
+    strategy:
+      fail-fast: false
+      max-parallel: 10
+      matrix:
+        scenario: [VAR_fit, HMM_fit, HMM_to_VAR, HMM_to_blocks]
+        shard: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19]
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Dependencias HMM e superficies
+        run: python -m pip install numpy scipy pandas scikit-learn scikit-image trimesh hmmlearn
+      - name: Executar 25 ensaios externos aninhados
+        run: python experiments/m14_calibracao_aninhada.py --mode shard --scenario ${{ matrix.scenario }} --shard ${{ matrix.shard }}
+      - if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: SGV-M14-shard-${{ matrix.scenario }}-${{ matrix.shard }}
+          path: reports/SGV_M14_${{ matrix.scenario }}_shard*.json
+          if-no-files-found: warn
+          retention-days: 60
+  consolidacao:
+    needs: [piloto, matriz]
+    if: ${{ always() && needs.piloto.result == 'success' }}
+    name: Validar IDs e agregar 500 ensaios por cenario
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - run: python -m pip install numpy scipy pandas scikit-learn scikit-image trimesh hmmlearn
+      - uses: actions/download-artifact@v4
+        with:
+          pattern: SGV-M14-shard-*
+          path: reports/m14_shards
+          merge-multiple: true
+      - name: Validar 2000 IDs e gerar tabela de taxa por verdade x nulo
+        run: python scripts/m14_agregar_resultados.py --shards reports/m14_shards --out reports/m14_agregado
+      - if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: SGV-M14-resultados-consolidados
+          path: reports/m14_agregado/
+          if-no-files-found: warn
