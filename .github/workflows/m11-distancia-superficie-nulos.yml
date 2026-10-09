@@ -1,0 +1,57 @@
+name: SGV-M11 - Superficie e Nulos Temporais
+on:
+  push:
+    branches: [research/m11-distancia-superficie-nulos-temporais]
+    paths:
+      - 'experiments/m11_distancia_superficie_nulos.py'
+      - 'tests/test_m11_distancia_superficie_nulos.py'
+      - '.github/workflows/m11-distancia-superficie-nulos.yml'
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  calibracao:
+    runs-on: ubuntu-latest
+    timeout-minutes: 35
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - run: python -m pip install numpy scipy pandas scikit-learn scikit-image trimesh pytest
+      - name: Calibrar triangulos e testes de integridade
+        run: python -m pytest -q tests/test_m11_distancia_superficie_nulos.py
+      - name: Calibracao geometrica sintetica
+        run: python experiments/m11_distancia_superficie_nulos.py --interval synthetic
+      - if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: SGV-M11-calibracao
+          path: reports/SGV_M11_synthetic.json
+          if-no-files-found: warn
+  btc:
+    needs: calibracao
+    runs-on: ubuntu-latest
+    timeout-minutes: 90
+    strategy:
+      fail-fast: false
+      matrix:
+        interval: [1m, 1h]
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - run: python -m pip install numpy scipy pandas scikit-learn scikit-image trimesh
+      - name: Baixar somente klines exploratorias BTC e validar checksums
+        run: python scripts/baixar_klines.py --so ${{ matrix.interval }}
+      - name: Medir distancia de superficie e nulo temporal exploratorio
+        run: python experiments/m11_distancia_superficie_nulos.py --interval ${{ matrix.interval }}
+      - if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: SGV-M11-BTC-${{ matrix.interval }}
+          path: |
+            reports/SGV_M11_${{ matrix.interval }}.json
+            reports/SGV_M11_${{ matrix.interval }}_distances.csv
+          if-no-files-found: warn
