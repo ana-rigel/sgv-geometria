@@ -22,8 +22,8 @@ import os
 import numpy as np
 import pandas as pd
 
-from common import Timer, dataset, out_path, save_json, slog
-from sgvgeo.features import legacy_coordinates, scale_coordinates
+from common import Timer, coordinates, dataset, out_path, save_json, slog
+from sgvgeo.features import scale_coordinates
 from sgvgeo.field import causal_geometry
 
 N, WINDOW, REFIT = 6000, 1500, 60
@@ -90,18 +90,18 @@ def summarize(f: pd.DataFrame) -> dict:
 
 def main():
     raw, src = dataset(N)
-    coords = legacy_coordinates(raw)
+    coords, cols, lam = coordinates(raw)
     res = {"fonte": src, "janela": WINDOW, "reajuste": REFIT, "scott_1500": SCOTT,
            "configuracao_escolhida": config_name(*CHOSEN)}
     for how, mult in CONFIGS:
         name = config_name(how, mult)
-        Z = scale_coordinates(coords, how=how, window=WINDOW, min_periods=300).to_numpy()
+        Z = scale_coordinates(coords, cols=cols, how=how, window=WINDOW, min_periods=300).to_numpy()
         csv = out_path(f"d4_geometria_{name}.csv")
         with Timer() as t:
             if os.environ.get("REUSE") and csv.exists():
                 f = pd.read_csv(csv, index_col=0)
             else:
-                f = add_derived(causal_geometry(Z, lam=coords["lam"].to_numpy(), window=WINDOW,
+                f = add_derived(causal_geometry(Z, lam=lam, window=WINDOW,
                                                 refit=REFIT, h=mult * SCOTT, start=WINDOW + 300))
                 f.to_csv(csv)
         res[name] = summarize(f) | {"largura_de_banda": mult * SCOTT, "tempo_s": round(t.dt, 1)}

@@ -19,8 +19,8 @@ from __future__ import annotations
 import numpy as np
 import pandas as pd
 
-from common import Timer, dataset, out_path, save_json, slog
-from sgvgeo.features import legacy_coordinates, scale_coordinates
+from common import Timer, coordinates, dataset, out_path, save_json, slog
+from sgvgeo.features import scale_coordinates
 from sgvgeo.geometry import (curvature, gaussian_reference_fisher_metric, local_fisher_metric,
                              observed_information_metric)
 from sgvgeo.kde import GaussianKDE
@@ -48,11 +48,11 @@ def quantities(kde: GaussianKDE, x: np.ndarray) -> dict:
 
 def main():
     raw, src = dataset(N)
-    coords = legacy_coordinates(raw)
+    coords, cols, _ = coordinates(raw)
     rng = np.random.default_rng(0)
     res = {"fonte": src, "janela": WINDOW, "barras_avaliadas": N_EVAL}
     for how in ("rank_gauss", "robust_z"):
-        Z = scale_coordinates(coords, how=how, window=WINDOW, min_periods=300).to_numpy()
+        Z = scale_coordinates(coords, cols=cols, how=how, window=WINDOW, min_periods=300).to_numpy()
         ts = np.sort(rng.choice(np.arange(WINDOW + 300, len(Z)), N_EVAL, replace=False))
         h0 = WINDOW ** (-1 / 7)  # Scott da janela inteira, igual a D4/D8
         rows = []

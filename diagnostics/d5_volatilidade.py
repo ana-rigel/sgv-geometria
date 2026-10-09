@@ -15,9 +15,9 @@ import pandas as pd
 from sklearn.ensemble import HistGradientBoostingRegressor
 from sklearn.model_selection import KFold, cross_val_predict
 
-from common import dataset, out_path, save_json, slog
+from common import coordinates, dataset, out_path, save_json, slog
 from d4_geometria_exata import CONFIGS, config_name
-from sgvgeo.features import legacy_coordinates, realized_vol, scale_coordinates
+from sgvgeo.features import realized_vol, scale_coordinates
 
 N, WINDOW = 6000, 1500
 TARGETS = {
@@ -44,7 +44,7 @@ def oof_r2(X: pd.DataFrame, y: pd.Series) -> float:
 
 def main():
     raw, src = dataset(N)
-    coords = legacy_coordinates(raw)
+    coords, cols, _ = coordinates(raw)
     vol = realized_vol(raw)
     vol["log_abs_v"] = np.log(coords["v"].abs() + 1e-12)
     vol["log_abs_a"] = np.log(coords["a"].abs() + 1e-12)
@@ -52,12 +52,15 @@ def main():
     for how, mult in CONFIGS:
         name = config_name(how, mult)
         f = pd.read_csv(out_path(f"d4_geometria_{name}.csv"), index_col=0)
-        Z = scale_coordinates(coords, how=how, window=WINDOW, min_periods=300)
+        Z = scale_coordinates(coords, cols=cols, how=how, window=WINDOW, min_periods=300)
         Xv = vol.loc[f.index]
         Xz = Z.loc[f.index]
         rows = []
         for label, fn in TARGETS.items():
-            y = pd.Series(np.asarray(fn(f), float), index=f.index)
+            try:
+                y = pd.Series(np.asarray(fn(f), float), index=f.index)
+            except KeyError:
+                continue
             rows.append({"grandeza": label, "R2_volatilidade": oof_r2(Xv, y), "R2_coordenadas_Z": oof_r2(Xz, y)})
         tab = pd.DataFrame(rows)
         print(name); print(tab.round(3).to_string(index=False))

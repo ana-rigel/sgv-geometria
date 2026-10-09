@@ -24,6 +24,10 @@ ROOT = Path(__file__).resolve().parent.parent
 sys.path.insert(0, str(ROOT))
 
 from sgvgeo.data import load_binance_klines, synthetic_btc_1m  # noqa: E402
+from sgvgeo.features import legacy_coordinates  # noqa: E402
+from sgvgeo.flow import C2_COLS, c2_coordinates, synthetic_flow  # noqa: E402
+
+COORDS = os.environ.get("SGV_COORDS", "c1")  # c1 = legado (E, jerk, memory_flux); c2 = preço–fluxo
 
 REPORTS = ROOT / "reports"
 REPORTS.mkdir(exist_ok=True)
@@ -35,7 +39,20 @@ def dataset(n: int = 6000, seed: int = 0) -> tuple[pd.DataFrame, str]:
         df = load_binance_klines(src.split(":"))
         tail = int(os.environ.get("SGV_TAIL", n))
         return df.tail(tail).reset_index(drop=True), f"real:{src} (últimas {tail} barras)"
+    synth = os.environ.get("SGV_SYNTH")
+    if synth in ("c2_nulo", "c2_plantado"):
+        return (synthetic_flow(n, seed=seed, planted=synth == "c2_plantado"),
+                f"sintético {synth} (GARCH-t + fluxo), n={n}, semente={seed}")
     return synthetic_btc_1m(n, seed=seed), f"sintético GARCH(1,1)-t(4), n={n}, semente={seed}"
+
+
+def coordinates(ohlcv: pd.DataFrame):
+    """Devolve (DataFrame de coordenadas, colunas da geometria, λ ou None) conforme SGV_COORDS."""
+    if COORDS == "c2":
+        c = c2_coordinates(ohlcv)
+        return c, C2_COLS, None
+    c = legacy_coordinates(ohlcv)
+    return c, ("E", "jerk", "m_flux"), c["lam"].to_numpy()
 
 
 def tag() -> str:

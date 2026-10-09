@@ -92,3 +92,14 @@ def test_gaussian_reference_matches_fisher_on_gaussian_data():
     f = [curvature(gF, p).R for p in pts]
     r = [curvature(gR, p).R for p in pts]
     assert spearmanr(f, r).statistic > 0.8
+
+
+def test_c2_coordinates_and_impact_null():
+    """C2: ι em [−1, 1]; o nulo preserva a distribuição marginal do fluxo (sorteio de barras reais)."""
+    from sgvgeo.flow import ImpactNull, c2_coordinates, synthetic_flow
+    d = synthetic_flow(3000, seed=1)
+    c = c2_coordinates(d)
+    assert c["iota"].between(-1, 1).all()
+    s = c2_coordinates(ImpactNull(d).sample(seed=2))
+    assert abs(s["iota"].mean() - c["iota"].mean()) < 0.05
+    assert abs(s["ell"].std() - c["ell"].std()) < 0.1 * c["ell"].std()

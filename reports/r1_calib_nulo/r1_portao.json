@@ -1,0 +1,100 @@
+{
+  "fonte": "sintético SF1 (null, interação=0.0), n=20000",
+  "d7": {
+    "confiabilidade_dF": {
+      "1.0": 0.01565999409711974,
+      "2.0": 0.6450797756905501,
+      "3.0": 0.9173171409225853,
+      "4.0": 0.963174707894234
+    },
+    "h_escolhido": 3.0,
+    "criterio1_aprovado": true
+  },
+  "d4_d5": {
+    "spearman_dF_mahalanobis": -0.8550695868601158,
+    "criterio2_aprovado": false,
+    "R2_dF_volatilidade": 0.49387882012227513,
+    "criterio4_aprovado": true,
+    "dF": {
+      "mediana": 1.1591108821861784,
+      "media": 1.100491986031119
+    },
+    "autocorr_dF": 0.2942864416287832,
+    "barras": 4200,
+    "h": 3.0
+  },
+  "d8": {
+    "sf1_ajustado": {
+      "garch": {
+        "omega": 9.048212546703626e-09,
+        "alpha": 0.08063383755393375,
+        "beta": 0.9060587623523432,
+        "nu": 3.759884714163676,
+        "converged": true
+      },
+      "a": [
+        -0.0028004945806849764,
+        0.33647709096846795,
+        0.14562782756607598
+      ],
+      "b": [
+        0.30081054347730196,
+        0.7967575072395163,
+        0.34956975600935314,
+        0.0035444258054375608
+      ]
+    },
+    "replicas": 39,
+    "estatisticas": {
+      "dF_media": {
+        "serie": 1.1007163674732012,
+        "sf1_media": 1.1131172005418235,
+        "z": -1.0493241634968826,
+        "p": 0.4
+      },
+      "dF_mediana": {
+        "serie": 1.16450149704249,
+        "sf1_media": 1.170079701661096,
+        "z": -0.4047163102000787,
+        "p": 0.75
+      },
+      "F_mediana_log_det": {
+        "serie": -5.881405411039021,
+        "sf1_media": -5.872226272645425,
+        "z": -0.39357736567119117,
+        "p": 0.5
+      },
+      "H_troca_assinatura": {
+        "serie": 0.0044444444444444444,
+        "sf1_media": 0.0019753086419753087,
+        "z": 1.222174574414467,
+        "p": 0.25
+      },
+      "autocorr_phi": {
+        "serie": 0.2395895688374031,
+        "sf1_media": 0.2333684689206041,
+        "z": 0.1437791616560353,
+        "p": 0.875
+      },
+      "dF_pareado_posicao": {
+        "serie": -0.03284082759520975,
+        "sf1_media": -0.018178488154595274,
+        "z": -1.1162933598153486,
+        "p": 0.425
+      }
+    },
+    "p_primario": 0.4,
+    "criterio3_aprovado": false,
+    "p_pareado_posicao": 0.425,
+    "criterio2_aprovado": false,
+    "h": 3.0
+  },
+  "criterios": {
+    "1_mensuravel": true,
+    "2_alem_da_posicao": false,
+    "3_existe": false,
+    "4_alem_da_volatilidade": true
+  },
+  "G1_aprovado": false,
+  "tempo_s": 865.0
+}

@@ -16,7 +16,7 @@ sys.path.insert(0, str(HERE))
 
 STEPS = ["d1_inventario_legado", "d2_numerica_grade_vs_exata", "d3_vazamento_futuro",
          "d4_geometria_exata", "d5_volatilidade", "d6_equacao_de_campo",
-         "d7_confiabilidade", "d8_existencia", "figuras"]
+         "d7_confiabilidade", "d8_existencia", "d8c2_existencia", "figuras"]
 
 if __name__ == "__main__":
     only = set(sys.argv[1:])

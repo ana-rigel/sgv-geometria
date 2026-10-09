@@ -125,8 +125,11 @@ def _read_kline_frame(buf) -> pd.DataFrame:
     return df
 
 
-def load_binance_klines(paths) -> pd.DataFrame:
+def load_binance_klines(paths, with_flow: bool = False) -> pd.DataFrame:
     """Lê um ou vários .zip/.csv de klines da Binance e devolve OHLCV no formato do SGV.
+
+    with_flow=True acrescenta `trades` (nº de negócios) e `taker_buy` (volume base
+    comprado por ordens agressoras), usados pelas coordenadas de fluxo (R1).
 
     Trata timestamps em milissegundos e em microssegundos (a Binance passou a
     usar microssegundos nos dumps de spot a partir de 2025)."""
@@ -150,6 +153,12 @@ def load_binance_klines(paths) -> pd.DataFrame:
         "low": pd.to_numeric(df["low"]), "close": pd.to_numeric(df["close"]),
         "volume": pd.to_numeric(df["volume"]),
     })
+    if "taker_base" in df:  # fluxo agressor (usado pela reformulação C2)
+        out["taker_buy_base"] = pd.to_numeric(df["taker_base"]).values
+        out["trades"] = pd.to_numeric(df["trades"]).values
+    if with_flow:
+        out["trades"] = pd.to_numeric(df["trades"], errors="coerce")
+        out["taker_buy"] = pd.to_numeric(df["taker_base"], errors="coerce")
     out = out.drop_duplicates("timestamp").sort_values("timestamp").reset_index(drop=True)
     out.insert(1, "datetime", pd.to_datetime(out["timestamp"], unit="ms", utc=True).astype(str))
     return out
