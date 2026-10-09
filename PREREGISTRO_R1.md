@@ -54,7 +54,21 @@ Os números da primeira calibração vieram do código perdido e não são mais 
 
 Para cada caso, a série tem 20.000 barras de 1m geradas por SF1 com parâmetros plausíveis, e o D8 usa 39 réplicas.
 
-_Tabela refeita com o código reconstruído; preenchida antes do congelamento._
+Refeita com o código reconstruído. Cada série tem 20.000 barras de 1m (semente 11), e o D8 usa 39 réplicas.
+
+| Série | Largura escolhida (confiab.) | Crit. 1 | Crit. 2′ (p) | Crit. 3 (p) | Crit. 4 (R²) | G1′ |
+| --- | --- | --- | --- | --- | --- | --- |
+| Nulo verdadeiro (SF1 puro) | 3× (0,93) | ✓ | 0,05 ✓ | 0,175 ✗ | 0,507 ✗ | **reprova** (correto) |
+| Alternativa forte, interação 0,8 | 2× (0,81) | ✓ | 0,025 ✓ (z = −25) | 0,025 ✓ (z = −25) | 0,11 ✓ | **aprova** (correto) |
+| Alternativa fraca, interação 0,3 | 3× (0,90) | ✓ | 0,025 ✓ (z = −9,6) | 0,025 ✓ (z = −8,8) | 0,537 ✗ | **reprova** |
+
+Leitura:
+
+- O nulo reprova e a alternativa forte aprova. A calibração mostra especificidade e poder.
+- **No nulo, o critério 2′ passou no limite (p = 0,05).** Isso é esperado em cerca de 5% das séries nulas. O nulo ainda reprova o G1′, porque os critérios 3 e 4 falham.
+- **A alternativa fraca é detectada pelos critérios 2′ e 3, mas barrada pelo critério 4.** O R² de 0,537 é praticamente igual ao do nulo (0,507): o critério 4 quase não discrimina estruturas fracas. Ele fica **mantido como no plano**, igual ao usado no julgamento das coordenadas de preço (C1), para que as duas linhas sejam julgadas pela mesma régua. A consequência fica registrada: o G1′ é conservador e pode reprovar uma estrutura real, mas fraca e entrelaçada com a volatilidade.
+
+**Congelado em 09/10/2026** no commit que contém esta tabela, antes de qualquer cálculo das coordenadas de fluxo em dado real.
 
 ## Consequências
 
