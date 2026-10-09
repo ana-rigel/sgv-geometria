@@ -1,5 +1,7 @@
 # Pré-registro — Reformulação C2: geometria do estado preço–fluxo
 
+> **RETIRADO em 09/10/2026, nunca calibrado nem rodado.** O pedido de reformulação foi executado duas vezes em paralelo, gerando duas propostas (R1 e C2). Como o plano só permite uma reformulação, a Ana escolheu a **R1** (`PREREGISTRO_R1.md`). Este arquivo fica só como registro. O código da C2 está preservado no ramo `reformulacao-pendente`.
+
 **Registrado em 09/10/2026, antes de qualquer cálculo com as novas coordenadas em dado real.** Este documento é a **única reformulação** que o `PLANO.md` permite depois da reprovação do G1 com as coordenadas do legado (C1). Se o G1 também reprovar aqui, **a linha geométrica do SGV se encerra**, sem novas reformulações.
 
 ## 1. Por que reformular assim
