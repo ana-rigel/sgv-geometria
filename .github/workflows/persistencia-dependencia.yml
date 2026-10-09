@@ -1,0 +1,61 @@
+name: SGV - Persistencia da dependencia local
+on:
+  push:
+    branches: [research/dependencia-local-persistencia]
+    paths:
+      - 'experiments/persistencia_dependencia.py'
+      - 'tests/test_persistencia_dependencia.py'
+      - '.github/workflows/persistencia-dependencia.yml'
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  calibracao:
+    name: Controles sinteticos e testes matematicos
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Dependencias
+        run: python -m pip install numpy scipy scikit-learn pandas pytest
+      - name: Testes sinteticos, invariantes e anti-vazamento
+        run: python -m pytest -q tests/test_persistencia_dependencia.py
+      - name: Calibrar regimes misturados versus dependencia persistente
+        run: python experiments/persistencia_dependencia.py --interval synthetic
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: sgv-persistencia-synthetic
+          path: reports/PERSISTENCIA_DEPENDENCIA_synthetic.json
+          if-no-files-found: warn
+  mercado:
+    needs: calibracao
+    name: BTC exploratorio ${{ matrix.interval }}
+    runs-on: ubuntu-latest
+    timeout-minutes: 90
+    strategy:
+      fail-fast: false
+      matrix:
+        interval: [1m, 1h]
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Dependencias
+        run: python -m pip install numpy scipy scikit-learn pandas
+      - name: Baixar apenas exploracao e verificar checksums
+        run: python scripts/baixar_klines.py --so ${{ matrix.interval }}
+      - name: Avaliar agregacao e metades temporais
+        run: python experiments/persistencia_dependencia.py --interval ${{ matrix.interval }}
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: sgv-persistencia-${{ matrix.interval }}
+          path: |
+            reports/PERSISTENCIA_DEPENDENCIA_${{ matrix.interval }}.json
+            reports/PERSISTENCIA_DEPENDENCIA_${{ matrix.interval }}_janelas.csv
+          if-no-files-found: warn
