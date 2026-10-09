@@ -1,0 +1,100 @@
+name: SGV-M15 - Forma x Persistencia com comparadores
+on:
+  push:
+    branches: [research/m15-forma-persistencia-comparadores]
+    paths:
+      - 'experiments/m15_forma_persistencia_comparadores.py'
+      - 'tests/test_m15_forma_persistencia_comparadores.py'
+      - 'scripts/m15_agregar.py'
+      - '.github/workflows/m15-forma-persistencia.yml'
+  workflow_dispatch:
+permissions:
+  contents: read
+  actions: read
+jobs:
+  piloto:
+    name: Testes + piloto (2 HMM + 2 VAR)
+    runs-on: ubuntu-latest
+    timeout-minutes: 40
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with: {python-version: '3.11'}
+      - run: python -m pip install numpy scipy pandas scikit-learn scikit-image trimesh hmmlearn pytest
+      - run: python -m pytest -q tests/test_m15_forma_persistencia_comparadores.py tests/test_m14_calibracao_aninhada.py
+      - run: python experiments/m15_forma_persistencia_comparadores.py --mode pilot
+      - if: always()
+        uses: actions/upload-artifact@v4
+        with: {name: SGV-M15-piloto, path: reports/m15/pilot.json, if-no-files-found: warn}
+  hmm:
+    needs: piloto
+    name: M15 HMM shard ${{ matrix.shard }}
+    runs-on: ubuntu-latest
+    timeout-minutes: 60
+    strategy:
+      fail-fast: false
+      max-parallel: 20
+      matrix:
+        shard: [0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31,32,33,34,35,36,37,38,39,40,41,42,43,44,45,46,47,48,49,50,51,52,53,54,55,56,57,58,59,60,61,62,63,64,65,66,67,68,69,70,71,72,73,74,75,76,77,78,79,80,81,82,83,84,85,86,87,88,89,90,91,92,93,94,95,96,97,98,99]
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with: {python-version: '3.11'}
+      - run: python -m pip install numpy scipy pandas scikit-learn scikit-image trimesh hmmlearn
+      - run: python experiments/m15_forma_persistencia_comparadores.py --mode shard --truth HMM --shard ${{ matrix.shard }}
+      - if: always()
+        uses: actions/upload-artifact@v4
+        with: {name: 'SGV-M15-shard-HMM-${{ matrix.shard }}', path: 'reports/m15/shard_HMM_*.json', if-no-files-found: warn, retention-days: 90}
+  var:
+    needs: piloto
+    name: M15 VAR shard ${{ matrix.shard }}
+    runs-on: ubuntu-latest
+    timeout-minutes: 60
+    strategy:
+      fail-fast: false
+      max-parallel: 20
+      matrix:
+        shard: [0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19]
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with: {python-version: '3.11'}
+      - run: python -m pip install numpy scipy pandas scikit-learn scikit-image trimesh hmmlearn
+      - run: python experiments/m15_forma_persistencia_comparadores.py --mode shard --truth VAR --shard ${{ matrix.shard }}
+      - if: always()
+        uses: actions/upload-artifact@v4
+        with: {name: 'SGV-M15-shard-VAR-${{ matrix.shard }}', path: 'reports/m15/shard_VAR_*.json', if-no-files-found: warn, retention-days: 90}
+  consolidacao:
+    needs: [piloto, hmm, var]
+    if: ${{ always() && needs.piloto.result == 'success' }}
+    name: Agregar 500+500 ensaios e publicar na branch
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    permissions:
+      contents: write
+      actions: read
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with: {python-version: '3.11'}
+      - run: python -m pip install numpy scipy pandas scikit-learn scikit-image trimesh hmmlearn
+      - uses: actions/download-artifact@v4
+        with: {pattern: 'SGV-M15-shard-*', path: reports/m15/shards, merge-multiple: true}
+      - name: Agregar (falha fechada se faltar qualquer ensaio)
+        run: python scripts/m15_agregar.py --shards reports/m15/shards --out reports/m15
+      - name: Preservar artefatos do M14 (run 37988651089) na branch
+        continue-on-error: true
+        uses: actions/download-artifact@v4
+        with:
+          run-id: 37988651089
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          path: reports/m14_artefatos
+          merge-multiple: false
+      - name: Commit dos resultados
+        if: always()
+        run: |
+          git config user.name "sgv-m15-bot"
+          git config user.email "sgv-m15-bot@users.noreply.github.com"
+          git add -f reports/m15 reports/m14_artefatos || true
+          git commit -m "results: M15 aggregated tables, all shard JSONs, and preserved M14 artifacts [skip ci]" || echo "nada a commitar"
+          git push
