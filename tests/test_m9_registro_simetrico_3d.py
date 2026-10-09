@@ -5,7 +5,7 @@ from experiments.isosuperficies_morfometria import (
     analytic_field,extract_mesh,describe_mesh)
 from experiments.m9_registro_simetrico_3d import (
     calibrate,compare_meshes,quotient_axis_angle,
-    heldout_chamfer,aggregate,bootstrap,check_resolution,
+    heldout_chamfer,aggregate,bootstrap,
     METRICS)
 
 def known_mesh(kind='sphere'):
