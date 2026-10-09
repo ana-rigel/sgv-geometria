@@ -1,0 +1,100 @@
+{
+  "fonte": "real:data/BTCUSDT-1h-2020-01.zip:data/BTCUSDT-1h-2020-02.zip:data/BTCUSDT-1h-2020-03.zip:data/BTCUSDT-1h-2020-04.zip:data/BTCUSDT-1h-2020-05.zip:data/BTCUSDT-1h-2020-06.zip:data/BTCUSDT-1h-2020-07.zip:data/BTCUSDT-1h-2020-08.zip:data/BTCUSDT-1h-2020-09.zip:data/BTCUSDT-1h-2020-10.zip:data/BTCUSDT-1h-2020-11.zip:data/BTCUSDT-1h-2020-12.zip:data/BTCUSDT-1h-2021-01.zip:data/BTCUSDT-1h-2021-02.zip:data/BTCUSDT-1h-2021-03.zip:data/BTCUSDT-1h-2021-04.zip:data/BTCUSDT-1h-2021-05.zip:data/BTCUSDT-1h-2021-06.zip:data/BTCUSDT-1h-2021-07.zip:data/BTCUSDT-1h-2021-08.zip:data/BTCUSDT-1h-2021-09.zip:data/BTCUSDT-1h-2021-10.zip:data/BTCUSDT-1h-2021-11.zip:data/BTCUSDT-1h-2021-12.zip:data/BTCUSDT-1h-2022-01.zip:data/BTCUSDT-1h-2022-02.zip:data/BTCUSDT-1h-2022-03.zip:data/BTCUSDT-1h-2022-04.zip:data/BTCUSDT-1h-2022-05.zip:data/BTCUSDT-1h-2022-06.zip:data/BTCUSDT-1h-2022-07.zip:data/BTCUSDT-1h-2022-08.zip:data/BTCUSDT-1h-2022-09.zip:data/BTCUSDT-1h-2022-10.zip:data/BTCUSDT-1h-2022-11.zip:data/BTCUSDT-1h-2022-12.zip:data/BTCUSDT-1h-2023-01.zip:data/BTCUSDT-1h-2023-02.zip:data/BTCUSDT-1h-2023-03.zip:data/BTCUSDT-1h-2023-04.zip:data/BTCUSDT-1h-2023-05.zip:data/BTCUSDT-1h-2023-06.zip:data/BTCUSDT-1h-2023-07.zip:data/BTCUSDT-1h-2023-08.zip:data/BTCUSDT-1h-2023-09.zip:data/BTCUSDT-1h-2023-10.zip:data/BTCUSDT-1h-2023-11.zip:data/BTCUSDT-1h-2023-12.zip:data/BTCUSDT-1h-2024-01.zip:data/BTCUSDT-1h-2024-02.zip:data/BTCUSDT-1h-2024-03.zip:data/BTCUSDT-1h-2024-04.zip:data/BTCUSDT-1h-2024-05.zip:data/BTCUSDT-1h-2024-06.zip:data/BTCUSDT-1h-2024-07.zip:data/BTCUSDT-1h-2024-08.zip:data/BTCUSDT-1h-2024-09.zip:data/BTCUSDT-1h-2024-10.zip:data/BTCUSDT-1h-2024-11.zip:data/BTCUSDT-1h-2024-12.zip",
+  "d7": {
+    "confiabilidade_dF": {
+      "1.0": 0.061113908227573385,
+      "2.0": 0.6505494887064011,
+      "3.0": 0.9486249761280576,
+      "4.0": 0.9799927082067396
+    },
+    "h_escolhido": 3.0,
+    "criterio1_aprovado": true
+  },
+  "d4_d5": {
+    "spearman_dF_mahalanobis": -0.7782586864902075,
+    "criterio2_original_aprovado": false,
+    "R2_dF_volatilidade": 0.47017068737303536,
+    "criterio4_aprovado": true,
+    "dF": {
+      "mediana": 1.1917007535094422,
+      "media": 1.128171508562833
+    },
+    "autocorr_dF": 0.26561400136513924,
+    "barras": 4200,
+    "h": 3.0
+  },
+  "d8": {
+    "sf1_ajustado": {
+      "garch": {
+        "omega": 3.4256119778236896e-06,
+        "alpha": 0.24886354326170107,
+        "beta": 0.7207716822021748,
+        "nu": 3.0525717736848987,
+        "converged": true
+      },
+      "a": [
+        -0.021287155059696368,
+        0.07660751694323986,
+        0.13947165769629022
+      ],
+      "b": [
+        1.7376312776175493,
+        0.7075386321092957,
+        0.41371069357348655,
+        0.004020033226902062
+      ]
+    },
+    "replicas": 39,
+    "estatisticas": {
+      "dF_media": {
+        "serie": 1.122693276087719,
+        "sf1_media": 1.1000281828834597,
+        "z": 1.8401564991358754,
+        "p": 0.1
+      },
+      "dF_mediana": {
+        "serie": 1.1847004306101576,
+        "sf1_media": 1.160907204018741,
+        "z": 1.949202505793019,
+        "p": 0.05
+      },
+      "F_mediana_log_det": {
+        "serie": -6.148503264585566,
+        "sf1_media": -5.884295735062697,
+        "z": -13.433268381468768,
+        "p": 0.025
+      },
+      "H_troca_assinatura": {
+        "serie": 0.0,
+        "sf1_media": 0.0037226970560303896,
+        "z": -1.1427393130517551,
+        "p": 0.475
+      },
+      "autocorr_phi": {
+        "serie": 0.20662675923567447,
+        "sf1_media": 0.17287560294046123,
+        "z": 1.0578271203810712,
+        "p": 0.35
+      },
+      "dF_pareado_posicao": {
+        "serie": 0.0026631190067554255,
+        "sf1_media": -0.02373122201410606,
+        "z": 2.0175688459564785,
+        "p": 0.1
+      }
+    },
+    "p_primario": 0.1,
+    "criterio3_aprovado": false,
+    "p_pareado_posicao": 0.1,
+    "criterio2_aprovado": false,
+    "h": 3.0
+  },
+  "criterios": {
+    "1_mensuravel": true,
+    "2_alem_da_posicao": false,
+    "3_existe": false,
+    "4_alem_da_volatilidade": true
+  },
+  "G1_aprovado": false,
+  "tempo_s": 956.9
+}

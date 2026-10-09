@@ -1,0 +1,100 @@
+{
+  "fonte": "real:data/BTCUSDT-1m-2026-05.zip:data/BTCUSDT-1m-2026-06.zip:data/BTCUSDT-1m-2026-07.zip",
+  "d7": {
+    "confiabilidade_dF": {
+      "1.0": 0.13552231809580023,
+      "2.0": 0.5548377575999582,
+      "3.0": 0.9602362888244584,
+      "4.0": 0.9842436500633689
+    },
+    "h_escolhido": 3.0,
+    "criterio1_aprovado": true
+  },
+  "d4_d5": {
+    "spearman_dF_mahalanobis": -0.768541063490342,
+    "criterio2_original_aprovado": false,
+    "R2_dF_volatilidade": 0.369776605043567,
+    "criterio4_aprovado": true,
+    "dF": {
+      "mediana": 1.1889503069996854,
+      "media": 1.1556936019457216
+    },
+    "autocorr_dF": 0.20257960752688176,
+    "barras": 4200,
+    "h": 3.0
+  },
+  "d8": {
+    "sf1_ajustado": {
+      "garch": {
+        "omega": 1.3986078799558034e-09,
+        "alpha": 0.072978127540451,
+        "beta": 0.9256181661385672,
+        "nu": 4.855087262783638,
+        "converged": true
+      },
+      "a": [
+        0.03895006635126042,
+        0.37160267741148484,
+        0.08221106064983556
+      ],
+      "b": [
+        0.6518782292779768,
+        0.5206554845917556,
+        0.40599827252313964,
+        0.015299871776732669
+      ]
+    },
+    "replicas": 39,
+    "estatisticas": {
+      "dF_media": {
+        "serie": 1.1390819401365537,
+        "sf1_media": 1.1261961217074936,
+        "z": 1.2426724136172234,
+        "p": 0.25
+      },
+      "dF_mediana": {
+        "serie": 1.1600283775595,
+        "sf1_media": 1.1844180978139316,
+        "z": -2.541990862860215,
+        "p": 0.025
+      },
+      "F_mediana_log_det": {
+        "serie": -6.0680475573959844,
+        "sf1_media": -5.916192374666385,
+        "z": -7.222294095617298,
+        "p": 0.025
+      },
+      "H_troca_assinatura": {
+        "serie": 0.0,
+        "sf1_media": 0.0006077872744539412,
+        "z": -0.5736471948641647,
+        "p": 1.0
+      },
+      "autocorr_phi": {
+        "serie": 0.17737098078004654,
+        "sf1_media": 0.056971827823221834,
+        "z": 4.10700460207469,
+        "p": 0.025
+      },
+      "dF_pareado_posicao": {
+        "serie": 0.010773923827341726,
+        "sf1_media": -0.014608834340235468,
+        "z": 2.605922451278439,
+        "p": 0.025
+      }
+    },
+    "p_primario": 0.25,
+    "criterio3_aprovado": false,
+    "p_pareado_posicao": 0.025,
+    "criterio2_aprovado": true,
+    "h": 3.0
+  },
+  "criterios": {
+    "1_mensuravel": true,
+    "2_alem_da_posicao": true,
+    "3_existe": false,
+    "4_alem_da_volatilidade": true
+  },
+  "G1_aprovado": false,
+  "tempo_s": 953.5
+}

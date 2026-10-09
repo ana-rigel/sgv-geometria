@@ -16,7 +16,7 @@
 | --- | --- | --- | --- |
 | 0 — Fundação | Repositório; legado congelado com proveniência; núcleo exato (`sgvgeo/`) com testes; diagnósticos D1–D8 calibrados em dados sintéticos e revisados por um revisor independente | Testes passando; o nulo GARCH não passa no G1 | **Concluída em 08/10/2026** |
 | 1 — Diagnóstico em dado real | D7 primeiro (fixa a largura de banda); depois D1–D8 com `SGV_DATA` nos klines de exploração, em 1m e 1h | Portão G1, abaixo | **Concluída em 09/10/2026: G1 reprovado** (1m e 1h) |
-| 2 — Pré-registro | Documento congelado: variável primária, alvo, controles, teste, α, placebo e aposta | Revisão da Ana e do colaborador antes de qualquer dado confirmatório | — |
+| 2 — Pré-registro | Documento congelado: variável primária, alvo, controles, teste, α, placebo e aposta | Revisão da Ana e do colaborador antes de qualquer dado confirmatório | **Não executada** (linha encerrada em 09/10/2026) |
 | 3 — Confirmatório | Julgamento único no período reservado | Resultado do pré-registro | — |
 | 4 — Integração | Só se a Fase 3 confirmar: a variável entra numa camada de decisão com custos reais | Novo pré-registro de utilidade econômica | — |
 
@@ -56,6 +56,10 @@ Pela regra do G1, a largura fica em **2× Scott nas duas escalas** (`SGV_HMULT=2
 | 4. Além da volatilidade | 0,495 ✓ | 0,571 ✗ |
 
 Pela regra, a linha para ou recebe **uma** reformulação de coordenadas pré-registrada. Decisão pendente da Ana.
+
+**09/10/2026 — Reformulação única (R1, coordenadas de fluxo) julgada** (`reports/R1_PORTAO_G1.md`). A Ana escolheu a R1, e a C2, proposta em paralelo, foi retirada sem rodar. O pré-registro foi congelado no commit `6dcd828`. **G1′ reprovado em 1m (critério 3: p = 0,25) e em 1h (critério 3: p = 0,10).**
+
+**LINHA GEOMÉTRICA ENCERRADA (09/10/2026).** Pela regra fixada antes dos dados, nem as coordenadas de preço (C1) nem as de fluxo (R1) mostram geometria de curvatura além dos fatos estilizados (GARCH, impacto, persistência do fluxo e volume–volatilidade). As Fases 2 a 4 não serão executadas.
 
 ## Escolhas já feitas pela calibração (detalhes em `reports/DIAGNOSTICO.md`)
 

@@ -4,8 +4,15 @@ Projeto próprio para testar a camada de **geometria informacional** do SGV: o p
 
 A pergunta é se a geometria da distribuição de estados do mercado tem informação própria sobre o que vem depois, além da volatilidade e da simples posição do estado. O objeto do teste é a métrica de informação sobre as coordenadas do SGV (E = v²+a², jerk, memory_flux) e sua curvatura. Antes de responder, é preciso que essa geometria seja calculável, causal e mensurável. A Fase 0 cuida disso.
 
-**Estado (09/10/2026):** Fase 1 concluída. Em dado real (BTCUSDT 1m e 1h), a grandeza candidata ΔF (curvatura da métrica de Fisher local além da referência gaussiana) é mensurável, mas **não se distingue de séries GARCH ajustadas**: o portão G1 não passa. Pelo plano, a linha para ou recebe uma reformulação de coordenadas pré-registrada. Leia primeiro:
+**Estado (09/10/2026): linha encerrada pela regra pré-registrada.**
 
+- Com as coordenadas do legado (preço), a curvatura candidata ΔF é mensurável, mas não se distingue de séries GARCH ajustadas.
+- Com a única reformulação permitida (R1, fluxo de ordens: z, ι, ν), ΔF também não se distingue de um modelo de fatos estilizados ajustado (SF1), em 1m e em 1h.
+- O código, os testes e a calibração ficam como ferramenta reutilizável.
+
+Leia primeiro:
+
+- [`reports/R1_PORTAO_G1.md`](reports/R1_PORTAO_G1.md): o julgamento da reformulação R1 (veredito final).
 - [`reports/FASE1_PORTAO_G1.md`](reports/FASE1_PORTAO_G1.md): o julgamento do portão G1 em dado real.
 - [`reports/DIAGNOSTICO.md`](reports/DIAGNOSTICO.md): o que o legado calcula de fato e o que a calibração decidiu.
 - [`PLANO.md`](PLANO.md): fases, portões e decisões abertas.
@@ -18,7 +25,7 @@ A pergunta é se a geometria da distribuição de estados do mercado tem informa
 | `sgvgeo/` | Núcleo novo. `data` (sintéticos, substitutos, leitor de klines), `features` (coordenadas e escalas causais), `kde` (derivadas analíticas), `geometry` (métricas H, F e referência gaussiana; Christoffel, Riemann, Ricci, R, Einstein), `field` (campo causal no tempo), `legacy` (executa o legado sem alterá-lo) |
 | `tests/` | Casos de resposta conhecida: espaço plano (R = 0), esferas S² e S³ (R = 2 e 6), derivadas do KDE, identidade da informação, referência gaussiana |
 | `diagnostics/` | D1–D8 e figuras; `run_all.py` roda tudo |
-| `reports/` | Relatórios e saídas de cada rodada (`sintetico/`, `real_1m/`, `real_1h/`) |
+| `reports/` | Relatórios e saídas de cada rodada (`sintetico/`, `real_1m/`, `real_1h/`, `r1_calib_*`, `r1_real_*`) |
 | `scripts/` | `baixar_klines.py`: baixa os klines de exploração da Fase 1 |
 | `data/` | Klines (fora do git) |
 
@@ -26,7 +33,7 @@ A pergunta é se a geometria da distribuição de estados do mercado tem informa
 
 ```bash
 pip install numpy pandas scipy scikit-learn matplotlib pytest
-python -m pytest -q                       # 11 testes
+python -m pytest -q                       # 14 testes
 python diagnostics/run_all.py             # calibração sintética (~35 min)
 SGV_DATA=data/BTCUSDT-1m-2026-06.zip SGV_TAIL=6000 python diagnostics/run_all.py   # dados reais
 python diagnostics/run_all.py d7_confiabilidade figuras   # só alguns passos
