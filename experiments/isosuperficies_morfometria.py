@@ -57,22 +57,67 @@ def make_grid(n=RESOLUTION, extent=RANGE):
     return np.column_stack([x.ravel(), y.ravel(), z.ravel()]), spacing
 
 
-def density_values(sample, points, kind, seed=SEED):
+def density_values(sample, points, kind, seed=SEED, with_model=False):
     x = np.asarray(sample, float)
     if x.ndim != 2 or x.shape[1] != 3 or len(x) < 90 or not np.isfinite(x).all():
         raise ValueError("Dados 3D insuficientes ou invalidos")
     if kind == "gaussian":
         cov = np.cov(x, rowvar=False) + np.eye(3) * 1e-4
-        out = multivariate_normal.pdf(points, mean=x.mean(axis=0), cov=cov)
+        mean = x.mean(axis=0)
+        out = multivariate_normal.pdf(points, mean=mean, cov=cov)
+        params = {"weights": np.ones(1),
+                  "means": np.asarray([mean]),
+                  "precisions": np.asarray([np.linalg.inv(cov)])}
     elif kind == "mixture":
         m = GaussianMixture(n_components=2, covariance_type="full",
                             reg_covar=1e-4, max_iter=100,
                             n_init=2, random_state=seed)
         m.fit(x)
         out = np.exp(m.score_samples(points))
+        params = {"weights": m.weights_,
+                  "means": m.means_,
+                  "precisions": m.precisions_}
     else:
         raise ValueError("Modelo invalido")
-    return np.asarray(out, float)
+    values = np.asarray(out, float)
+    if not np.isfinite(values).all() or values.sum() <= 0:
+        raise ValueError("Densidade invalida")
+    return (values, params) if with_model else values
+
+
+def implicit_curvatures(vertices, params):
+    """Curvaturas da isosuperficie de p(x), a partir de gradiente/Hessiana
+    ANALITICOS da densidade ajustada. Nao usa K angular da malha.
+    K = produto dos autovalores nao nulos do operador de forma
+    P Hess(p) P / ||grad(p)||; orientacao muda sinal de H, nao de K.
+    """
+    v = np.asarray(vertices, float)
+    grad = np.zeros_like(v)
+    hess = np.zeros((len(v), 3, 3), dtype=float)
+    for weight, mean, precision in zip(
+            params["weights"], params["means"], params["precisions"]):
+        diff = v - mean
+        force = -(diff @ precision)
+        sign, logdet = np.linalg.slogdet(precision)
+        if sign <= 0:
+            raise ValueError("Precisao degenerada")
+        quadratic = np.einsum("ni,ij,nj->n", diff, precision, diff)
+        dens = weight * np.exp(
+            .5*logdet-1.5*np.log(2*np.pi)-.5*quadratic)
+        grad += dens[:,None]*force
+        hess += dens[:,None,None]*(
+            force[:,:,None]*force[:,None,:]-precision[None,:,:])
+    norm = np.linalg.norm(grad,axis=1)
+    if np.any(norm<=1e-14):
+        raise ValueError("Ponto critico na isosuperficie")
+    normal = grad / norm[:,None]
+    proj = np.eye(3)[None,:,:] - normal[:,:,None]*normal[:,None,:]
+    shape = (proj @ hess @ proj)/norm[:,None,None]
+    trace = np.trace(shape,axis1=1,axis2=2)
+    norm_sq=np.einsum("nij,nji->n",shape,shape)
+    K=.5*(trace**2-norm_sq)
+    Habs=np.abs(trace)/2.
+    return K,Habs
 
 
 def hdr_thresholds(density, spacing, levels=LEVELS):
@@ -190,7 +235,8 @@ def extract_mesh(field, tau, spacing, extent=RANGE):
         touches_field_border or touches_vertices_border)
 
 
-def describe_mesh(mesh, *, truncated=False, coverage=1., min_coverage=MIN_COVERAGE):
+def describe_mesh(mesh, *, truncated=False, coverage=1., min_coverage=MIN_COVERAGE,
+                  implicit_model=None):
     v=np.asarray(mesh.vertices,float)
     f=np.asarray(mesh.faces,int)
     top=mesh_topology(v,f)
@@ -214,6 +260,9 @@ def describe_mesh(mesh, *, truncated=False, coverage=1., min_coverage=MIN_COVERA
         "robust_negative_K_area_fraction":None,
         "K_median":None,"H_abs_median":None,
         "gauss_bonnet_relative_error":None,"orientation_gap":None,
+        "implicit_K_negative_area_fraction":None,
+        "implicit_K_median":None,"implicit_H_abs_median":None,
+        "implicit_K_numeric_vs_analytic_mismatch":None,
     }
     if not accepted:
         return result
@@ -230,6 +279,13 @@ def describe_mesh(mesh, *, truncated=False, coverage=1., min_coverage=MIN_COVERA
                    "center":[float(x) for x in center],
                    "isoperimetric_quotient":float(36*np.pi*volume**2/area**3)})
     K,H,Ai=curvatures(v,f)
+    if implicit_model is not None:
+        Ki,Hi=implicit_curvatures(v,implicit_model)
+        result["implicit_K_negative_area_fraction"]=float(Ai[Ki<0].sum()/Ai.sum())
+        result["implicit_K_median"]=float(np.median(Ki))
+        result["implicit_H_abs_median"]=float(np.median(Hi))
+        result["implicit_K_numeric_vs_analytic_mismatch"]=float(
+            Ai[np.sign(K)!=np.sign(Ki)].sum()/Ai.sum())
     req=(3*volume/(4*np.pi))**(1/3)
     threshold=-0.1 / max(req**2,1e-12)
     integral=float(np.sum(K*Ai))
@@ -361,13 +417,14 @@ def evaluate_window(x,n=RESOLUTION,seed=SEED):
     surfaces={}
     for model in ("gaussian","mixture"):
         for half,sample in (("a",a),("b",b)):
-            d=density_values(sample,points,model,seed+(half=="b"))
+            d,params=density_values(sample,points,model,seed+(half=="b"),with_model=True)
             field=d.reshape(n,n,n)
             thresholds,coverage=hdr_thresholds(field,dx)
             for alpha in LEVELS:
                 tau=thresholds[alpha]["tau"]
                 mesh,truncated=extract_mesh(field,tau,dx)
-                properties=describe_mesh(mesh,truncated=truncated,coverage=coverage)
+                properties=describe_mesh(mesh,truncated=truncated,coverage=coverage,
+                                         implicit_model=params)
                 properties["threshold_tau"]=tau
                 properties["actual_mass_in_grid"]=thresholds[alpha]["mass_in_grid"]
                 key=f"{model}_{half}_{int(alpha*100)}"
@@ -531,6 +588,9 @@ def run_real(interval):
                    for p in accepted])) if accepted else None,
                "K_negativo_area_mediana":float(np.median([
                    p["negative_K_area_fraction"] for p in accepted]))
+                   if accepted else None,
+               "K_analitico_negativo_area_mediana":float(np.median([
+                   p["implicit_K_negative_area_fraction"] for p in accepted]))
                    if accepted else None,
                "volume_mediano":float(np.median([
                    p["volume"] for p in accepted])) if accepted else None,
