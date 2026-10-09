@@ -9,6 +9,9 @@ import argparse,csv,json,sys
 from pathlib import Path
 import numpy as np
 from scipy.stats import multivariate_t
+ROOT=Path(__file__).resolve().parents[1]
+if str(ROOT) not in sys.path:
+    sys.path.insert(0,str(ROOT))
 from experiments.m2_nao_convexidade_tensao import morphology
 from experiments.precisao_formas_3d import split_historical
 from experiments.persistencia_dependencia import checked_exploratory_month
