@@ -1,0 +1,59 @@
+name: SGV-M13 - Calibracao de Alarmes Geometricos
+on:
+  push:
+    branches: [research/m13-calibracao-alarmes-regimes]
+    paths:
+      - 'experiments/m13_calibracao_alarmes_regimes.py'
+      - 'tests/test_m13_calibracao_alarmes_regimes.py'
+      - '.github/workflows/m13-calibracao-alarmes-regimes.yml'
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  calibracao:
+    name: M13 geradores conhecidos e validade de postos
+    runs-on: ubuntu-latest
+    timeout-minutes: 90
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - run: python -m pip install numpy scipy pandas scikit-learn scikit-image trimesh pytest
+      - name: Testes de posicoes, geradores e geometria M11
+        run: python -m pytest -q tests/test_m13_calibracao_alarmes_regimes.py
+      - name: Calibracao completa dos nulos verdadeiros
+        run: python experiments/m13_calibracao_alarmes_regimes.py --interval synthetic
+      - if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: SGV-M13-oracle
+          path: reports/SGV_M13_synthetic.json
+          if-no-files-found: warn
+  btc:
+    needs: calibracao
+    name: SGV-M13 BTC ${{ matrix.interval }}
+    runs-on: ubuntu-latest
+    timeout-minutes: 120
+    strategy:
+      fail-fast: false
+      matrix:
+        interval: [1m, 1h]
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - run: python -m pip install numpy scipy pandas scikit-learn scikit-image trimesh
+      - name: Somente klines exploratorias permitidas com SHA-256
+        run: python scripts/baixar_klines.py --so ${{ matrix.interval }}
+      - name: Diagnostico M13 com 19 referencias por familia
+        run: python experiments/m13_calibracao_alarmes_regimes.py --interval ${{ matrix.interval }}
+      - if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: SGV-M13-BTC-${{ matrix.interval }}
+          path: |
+            reports/SGV_M13_${{ matrix.interval }}.json
+            reports/SGV_M13_${{ matrix.interval }}_ranks.csv
+          if-no-files-found: warn
