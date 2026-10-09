@@ -1,0 +1,59 @@
+name: SGV-M5 - Validacao conjunta SF1
+on:
+  push:
+    branches: [research/m5-validacao-conjunta-sf1]
+    paths:
+      - 'experiments/m5_validacao_conjunta_sf1.py'
+      - 'tests/test_m5_validacao_conjunta_sf1.py'
+      - '.github/workflows/m5-validacao-conjunta-sf1.yml'
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  calibracao:
+    name: Testes de adequacao multivariada
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - run: python -m pip install numpy scipy pandas scikit-learn pytest
+      - name: Testes cronologicos e de metricas
+        run: python -m pytest -q tests/test_m5_validacao_conjunta_sf1.py
+      - name: Calibrar sazonalidade em 1h
+        run: python experiments/m5_validacao_conjunta_sf1.py --interval synthetic
+      - if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: M5-sintetico
+          path: reports/SGV_M5_synthetic.json
+          if-no-files-found: warn
+  btc:
+    needs: calibracao
+    name: M5 BTC ${{ matrix.interval }}
+    runs-on: ubuntu-latest
+    timeout-minutes: 90
+    strategy:
+      fail-fast: false
+      matrix:
+        interval: [1m, 1h]
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - run: python -m pip install numpy scipy pandas scikit-learn
+      - name: Somente exploracao com checksum
+        run: python scripts/baixar_klines.py --so ${{ matrix.interval }}
+      - name: Contrastar fidelidade conjunta e ablações
+        run: python experiments/m5_validacao_conjunta_sf1.py --interval ${{ matrix.interval }}
+      - if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: M5-BTC-${{ matrix.interval }}
+          path: |
+            reports/SGV_M5_${{ matrix.interval }}.json
+            reports/SGV_M5_${{ matrix.interval }}_comparison.csv
+          if-no-files-found: warn
