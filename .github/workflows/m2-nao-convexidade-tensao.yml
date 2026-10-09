@@ -1,0 +1,59 @@
+name: SGV-M2 — Nao convexidade e discrepancia condicional
+on:
+  push:
+    branches: [research/m2-nao-convexidade-tensao]
+    paths:
+      - 'experiments/m2_nao_convexidade_tensao.py'
+      - 'tests/test_m2_nao_convexidade_tensao.py'
+      - '.github/workflows/m2-nao-convexidade-tensao.yml'
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  calibracao:
+    name: Sinteticos e integridade causal
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - run: python -m pip install numpy scipy pandas scikit-learn scikit-image trimesh pytest
+      - name: Testes M2 e controles de elipsoide
+        run: python -m pytest -q tests/test_m2_nao_convexidade_tensao.py
+      - name: Calibracao M2 sintetica
+        run: python experiments/m2_nao_convexidade_tensao.py --interval synthetic
+      - if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: M2-calibracao
+          path: reports/SGV_M2_synthetic.json
+          if-no-files-found: warn
+  exploratorio:
+    needs: calibracao
+    name: M2 BTC ${{ matrix.interval }}
+    runs-on: ubuntu-latest
+    timeout-minutes: 90
+    strategy:
+      fail-fast: false
+      matrix:
+        interval: [1m, 1h]
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - run: python -m pip install numpy scipy pandas scikit-learn scikit-image trimesh
+      - name: Dados exploratorios exclusivamente
+        run: python scripts/baixar_klines.py --so ${{ matrix.interval }}
+      - name: Testar geometria versus discrepancia condicional
+        run: python experiments/m2_nao_convexidade_tensao.py --interval ${{ matrix.interval }}
+      - if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: M2-BTC-${{ matrix.interval }}
+          path: |
+            reports/SGV_M2_${{ matrix.interval }}.json
+            reports/SGV_M2_${{ matrix.interval }}_janelas.csv
+          if-no-files-found: warn
