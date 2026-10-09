@@ -46,7 +46,8 @@ def wilson(successes,n,z=1.959963984540054):
     phat=successes/n;den=1+z*z/n
     mid=(phat+z*z/(2*n))/den
     rad=z*np.sqrt(phat*(1-phat)/n+z*z/(4*n*n))/den
-    return [float(max(0.,mid-rad)),float(min(1.,mid+rad))]
+    return [0.0 if successes==0 else float(max(0.,mid-rad)),
+            1.0 if successes==n else float(min(1.,mid+rad))]
 
 
 def known_generator(kind,seed,n=SYN_WINDOW):
