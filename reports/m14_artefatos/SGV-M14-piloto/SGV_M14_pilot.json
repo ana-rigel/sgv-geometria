@@ -1,0 +1,239 @@
+{
+  "status": "M14_PILOT",
+  "all_scenarios_passed": true,
+  "scenarios": {
+    "VAR_fit": {
+      "summary": {
+        "n_requested": 2,
+        "n_valid": 2,
+        "n_invalid": 0,
+        "alarms": 0,
+        "alarm_rate": 0.0,
+        "wilson95": [
+          0.0,
+          0.6576197724933469
+        ],
+        "failure_bounds_unconditional": [
+          0.0,
+          0.0
+        ],
+        "nominal_level": 0.05,
+        "warning": "HMM and VAR calibrations reflect fitting, initialization, and geometry; misspecified null alarms are model inadequacy"
+      },
+      "trials": [
+        {
+          "scenario": "VAR_fit",
+          "trial_id": 0,
+          "n_references_requested": 19,
+          "n_references_valid": 19,
+          "fit_uses_prefix_only": true,
+          "metric": "M11_direct_triangle_HDR50_512",
+          "fit_type": "var",
+          "fit_diagnostics": {
+            "spectral_radius": 0.6779084569674798
+          },
+          "status": "valid",
+          "observed_distance": 0.02258272975993212,
+          "reference_median": 0.04177979621251242,
+          "reference_q90": 0.05891288476977916,
+          "rank_statistic_uncalibrated": 1.0,
+          "alarm_at_005": false
+        },
+        {
+          "scenario": "VAR_fit",
+          "trial_id": 1,
+          "n_references_requested": 19,
+          "n_references_valid": 19,
+          "fit_uses_prefix_only": true,
+          "metric": "M11_direct_triangle_HDR50_512",
+          "fit_type": "var",
+          "fit_diagnostics": {
+            "spectral_radius": 0.6976493851254081
+          },
+          "status": "valid",
+          "observed_distance": 0.03772600158046685,
+          "reference_median": 0.037487538733909996,
+          "reference_q90": 0.054307790112089256,
+          "rank_statistic_uncalibrated": 0.5,
+          "alarm_at_005": false
+        }
+      ]
+    },
+    "HMM_fit": {
+      "summary": {
+        "n_requested": 2,
+        "n_valid": 2,
+        "n_invalid": 0,
+        "alarms": 0,
+        "alarm_rate": 0.0,
+        "wilson95": [
+          0.0,
+          0.6576197724933469
+        ],
+        "failure_bounds_unconditional": [
+          0.0,
+          0.0
+        ],
+        "nominal_level": 0.05,
+        "warning": "HMM and VAR calibrations reflect fitting, initialization, and geometry; misspecified null alarms are model inadequacy"
+      },
+      "trials": [
+        {
+          "scenario": "HMM_fit",
+          "trial_id": 0,
+          "n_references_requested": 19,
+          "n_references_valid": 19,
+          "fit_uses_prefix_only": true,
+          "metric": "M11_direct_triangle_HDR50_512",
+          "fit_type": "hmm",
+          "fit_diagnostics": {
+            "log_likelihood": -6888.933017577369,
+            "iterations": 11.0,
+            "self_transition_mean": 0.9767626458794052
+          },
+          "status": "valid",
+          "observed_distance": 0.05587686358143932,
+          "reference_median": 0.06390479207548425,
+          "reference_q90": 0.08971513270143743,
+          "rank_statistic_uncalibrated": 0.75,
+          "alarm_at_005": false
+        },
+        {
+          "scenario": "HMM_fit",
+          "trial_id": 1,
+          "n_references_requested": 19,
+          "n_references_valid": 19,
+          "fit_uses_prefix_only": true,
+          "metric": "M11_direct_triangle_HDR50_512",
+          "fit_type": "hmm",
+          "fit_diagnostics": {
+            "log_likelihood": -7002.440276817855,
+            "iterations": 12.0,
+            "self_transition_mean": 0.9836094921183278
+          },
+          "status": "valid",
+          "observed_distance": 0.04548255897998479,
+          "reference_median": 0.0583249410835994,
+          "reference_q90": 0.08410550282123926,
+          "rank_statistic_uncalibrated": 0.75,
+          "alarm_at_005": false
+        }
+      ]
+    },
+    "HMM_to_VAR": {
+      "summary": {
+        "n_requested": 2,
+        "n_valid": 2,
+        "n_invalid": 0,
+        "alarms": 1,
+        "alarm_rate": 0.5,
+        "wilson95": [
+          0.09453120573423074,
+          0.9054687942657693
+        ],
+        "failure_bounds_unconditional": [
+          0.5,
+          0.5
+        ],
+        "nominal_level": 0.05,
+        "warning": "HMM and VAR calibrations reflect fitting, initialization, and geometry; misspecified null alarms are model inadequacy"
+      },
+      "trials": [
+        {
+          "scenario": "HMM_to_VAR",
+          "trial_id": 0,
+          "n_references_requested": 19,
+          "n_references_valid": 19,
+          "fit_uses_prefix_only": true,
+          "metric": "M11_direct_triangle_HDR50_512",
+          "fit_type": "var",
+          "fit_diagnostics": {
+            "spectral_radius": 0.6077941150451305
+          },
+          "status": "valid",
+          "observed_distance": 0.04628782673373469,
+          "reference_median": 0.034739501940700024,
+          "reference_q90": 0.051155798667314394,
+          "rank_statistic_uncalibrated": 0.2,
+          "alarm_at_005": false
+        },
+        {
+          "scenario": "HMM_to_VAR",
+          "trial_id": 1,
+          "n_references_requested": 19,
+          "n_references_valid": 19,
+          "fit_uses_prefix_only": true,
+          "metric": "M11_direct_triangle_HDR50_512",
+          "fit_type": "var",
+          "fit_diagnostics": {
+            "spectral_radius": 0.6097730301873499
+          },
+          "status": "valid",
+          "observed_distance": 0.08112042030523567,
+          "reference_median": 0.041542991946655186,
+          "reference_q90": 0.048805889106804855,
+          "rank_statistic_uncalibrated": 0.05,
+          "alarm_at_005": true
+        }
+      ]
+    },
+    "HMM_to_blocks": {
+      "summary": {
+        "n_requested": 2,
+        "n_valid": 2,
+        "n_invalid": 0,
+        "alarms": 2,
+        "alarm_rate": 1.0,
+        "wilson95": [
+          0.34238022750665303,
+          1.0
+        ],
+        "failure_bounds_unconditional": [
+          1.0,
+          1.0
+        ],
+        "nominal_level": 0.05,
+        "warning": "HMM and VAR calibrations reflect fitting, initialization, and geometry; misspecified null alarms are model inadequacy"
+      },
+      "trials": [
+        {
+          "scenario": "HMM_to_blocks",
+          "trial_id": 0,
+          "n_references_requested": 19,
+          "n_references_valid": 19,
+          "fit_uses_prefix_only": true,
+          "metric": "M11_direct_triangle_HDR50_512",
+          "fit_type": "blocks",
+          "fit_diagnostics": {
+            "block_length": 15.0
+          },
+          "status": "valid",
+          "observed_distance": 0.10855689665305993,
+          "reference_median": 0.058414701539536124,
+          "reference_q90": 0.07655864645578718,
+          "rank_statistic_uncalibrated": 0.05,
+          "alarm_at_005": true
+        },
+        {
+          "scenario": "HMM_to_blocks",
+          "trial_id": 1,
+          "n_references_requested": 19,
+          "n_references_valid": 19,
+          "fit_uses_prefix_only": true,
+          "metric": "M11_direct_triangle_HDR50_512",
+          "fit_type": "blocks",
+          "fit_diagnostics": {
+            "block_length": 15.0
+          },
+          "status": "valid",
+          "observed_distance": 0.12033734539144161,
+          "reference_median": 0.04943576342994063,
+          "reference_q90": 0.07266853763823719,
+          "rank_statistic_uncalibrated": 0.05,
+          "alarm_at_005": true
+        }
+      ]
+    }
+  },
+  "warning": "Eight external trials are engineering validation only"
+}

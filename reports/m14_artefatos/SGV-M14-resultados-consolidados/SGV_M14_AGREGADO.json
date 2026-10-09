@@ -1,0 +1,350 @@
+{
+  "status": "M14_NESTED_CALIBRATION",
+  "scenarios": {
+    "VAR_fit": {
+      "summary": {
+        "n_requested": 500,
+        "n_valid": 500,
+        "n_invalid": 0,
+        "alarms": 31,
+        "alarm_rate": 0.062,
+        "wilson95": [
+          0.044019209142681565,
+          0.08665971310163822
+        ],
+        "failure_bounds_unconditional": [
+          0.062,
+          0.062
+        ],
+        "nominal_level": 0.05,
+        "warning": "HMM and VAR calibrations reflect fitting, initialization, and geometry; misspecified null alarms are model inadequacy"
+      },
+      "shards_verified": [
+        0,
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11,
+        12,
+        13,
+        14,
+        15,
+        16,
+        17,
+        18,
+        19
+      ],
+      "failures": []
+    },
+    "HMM_fit": {
+      "summary": {
+        "n_requested": 500,
+        "n_valid": 493,
+        "n_invalid": 7,
+        "alarms": 36,
+        "alarm_rate": 0.07302231237322515,
+        "wilson95": [
+          0.05320949847247107,
+          0.09943770411950238
+        ],
+        "failure_bounds_unconditional": [
+          0.072,
+          0.086
+        ],
+        "nominal_level": 0.05,
+        "warning": "HMM and VAR calibrations reflect fitting, initialization, and geometry; misspecified null alarms are model inadequacy"
+      },
+      "shards_verified": [
+        0,
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11,
+        12,
+        13,
+        14,
+        15,
+        16,
+        17,
+        18,
+        19
+      ],
+      "failures": [
+        {
+          "scenario": "HMM_fit",
+          "trial_id": 27,
+          "n_references_requested": 19,
+          "n_references_valid": 18,
+          "fit_uses_prefix_only": true,
+          "metric": "M11_direct_triangle_HDR50_512",
+          "fit_type": "hmm",
+          "fit_diagnostics": {
+            "log_likelihood": -6822.004096620958,
+            "iterations": 7.0,
+            "self_transition_mean": 0.9836963365411615
+          },
+          "status": "invalid",
+          "failure_stage": "reference_geometry",
+          "failures": [
+            {
+              "reference": 3,
+              "error": "M11 invalid geometry: Quality gate: open_mesh"
+            }
+          ],
+          "observed_distance": 0.06114795088391249
+        },
+        {
+          "scenario": "HMM_fit",
+          "trial_id": 157,
+          "n_references_requested": 19,
+          "n_references_valid": 18,
+          "fit_uses_prefix_only": true,
+          "metric": "M11_direct_triangle_HDR50_512",
+          "fit_type": "hmm",
+          "fit_diagnostics": {
+            "log_likelihood": -6908.189824585957,
+            "iterations": 11.0,
+            "self_transition_mean": 0.9781196361606974
+          },
+          "status": "invalid",
+          "failure_stage": "reference_geometry",
+          "failures": [
+            {
+              "reference": 3,
+              "error": "M11 invalid geometry: Quality gate: insufficient_coverage"
+            }
+          ],
+          "observed_distance": 0.0893490135261193
+        },
+        {
+          "scenario": "HMM_fit",
+          "trial_id": 316,
+          "n_references_requested": 19,
+          "n_references_valid": 18,
+          "fit_uses_prefix_only": true,
+          "metric": "M11_direct_triangle_HDR50_512",
+          "fit_type": "hmm",
+          "fit_diagnostics": {
+            "log_likelihood": -6841.357785815419,
+            "iterations": 17.0,
+            "self_transition_mean": 0.978478452571518
+          },
+          "status": "invalid",
+          "failure_stage": "reference_geometry",
+          "failures": [
+            {
+              "reference": 4,
+              "error": "M11 invalid geometry: Quality gate: insufficient_coverage"
+            }
+          ],
+          "observed_distance": 0.04802136446835834
+        },
+        {
+          "scenario": "HMM_fit",
+          "trial_id": 321,
+          "n_references_requested": 19,
+          "n_references_valid": 18,
+          "fit_uses_prefix_only": true,
+          "metric": "M11_direct_triangle_HDR50_512",
+          "fit_type": "hmm",
+          "fit_diagnostics": {
+            "log_likelihood": -6869.682876435089,
+            "iterations": 8.0,
+            "self_transition_mean": 0.9785771912141847
+          },
+          "status": "invalid",
+          "failure_stage": "reference_geometry",
+          "failures": [
+            {
+              "reference": 8,
+              "error": "M11 invalid geometry: Quality gate: insufficient_coverage"
+            }
+          ],
+          "observed_distance": 0.09533765617869197
+        },
+        {
+          "scenario": "HMM_fit",
+          "trial_id": 378,
+          "n_references_requested": 19,
+          "n_references_valid": 18,
+          "fit_uses_prefix_only": true,
+          "metric": "M11_direct_triangle_HDR50_512",
+          "fit_type": "hmm",
+          "fit_diagnostics": {
+            "log_likelihood": -6906.616813362746,
+            "iterations": 4.0,
+            "self_transition_mean": 0.9866864805999016
+          },
+          "status": "invalid",
+          "failure_stage": "reference_geometry",
+          "failures": [
+            {
+              "reference": 15,
+              "error": "M11 invalid geometry: Quality gate: insufficient_coverage"
+            }
+          ],
+          "observed_distance": 0.10207241116292183
+        },
+        {
+          "scenario": "HMM_fit",
+          "trial_id": 428,
+          "n_references_requested": 19,
+          "n_references_valid": 18,
+          "fit_uses_prefix_only": true,
+          "metric": "M11_direct_triangle_HDR50_512",
+          "fit_type": "hmm",
+          "fit_diagnostics": {
+            "log_likelihood": -6888.780562835435,
+            "iterations": 8.0,
+            "self_transition_mean": 0.9777687984477033
+          },
+          "status": "invalid",
+          "failure_stage": "reference_geometry",
+          "failures": [
+            {
+              "reference": 8,
+              "error": "M11 invalid geometry: Quality gate: open_mesh"
+            }
+          ],
+          "observed_distance": 0.03189013088928469
+        },
+        {
+          "scenario": "HMM_fit",
+          "trial_id": 472,
+          "n_references_requested": 19,
+          "n_references_valid": 18,
+          "fit_uses_prefix_only": true,
+          "metric": "M11_direct_triangle_HDR50_512",
+          "fit_type": "hmm",
+          "fit_diagnostics": {
+            "log_likelihood": -7062.946534740445,
+            "iterations": 6.0,
+            "self_transition_mean": 0.9837206677648549
+          },
+          "status": "invalid",
+          "failure_stage": "reference_geometry",
+          "failures": [
+            {
+              "reference": 11,
+              "error": "M11 invalid geometry: Quality gate: insufficient_coverage"
+            }
+          ],
+          "observed_distance": 0.03283400058215088
+        }
+      ]
+    },
+    "HMM_to_VAR": {
+      "summary": {
+        "n_requested": 500,
+        "n_valid": 500,
+        "n_invalid": 0,
+        "alarms": 288,
+        "alarm_rate": 0.576,
+        "wilson95": [
+          0.532265218043708,
+          0.618575882206136
+        ],
+        "failure_bounds_unconditional": [
+          0.576,
+          0.576
+        ],
+        "nominal_level": 0.05,
+        "warning": "HMM and VAR calibrations reflect fitting, initialization, and geometry; misspecified null alarms are model inadequacy"
+      },
+      "shards_verified": [
+        0,
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11,
+        12,
+        13,
+        14,
+        15,
+        16,
+        17,
+        18,
+        19
+      ],
+      "failures": []
+    },
+    "HMM_to_blocks": {
+      "summary": {
+        "n_requested": 500,
+        "n_valid": 500,
+        "n_invalid": 0,
+        "alarms": 81,
+        "alarm_rate": 0.162,
+        "wilson95": [
+          0.13230178838983928,
+          0.19685226576217005
+        ],
+        "failure_bounds_unconditional": [
+          0.162,
+          0.162
+        ],
+        "nominal_level": 0.05,
+        "warning": "HMM and VAR calibrations reflect fitting, initialization, and geometry; misspecified null alarms are model inadequacy"
+      },
+      "shards_verified": [
+        0,
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11,
+        12,
+        13,
+        14,
+        15,
+        16,
+        17,
+        18,
+        19
+      ],
+      "failures": []
+    }
+  },
+  "interpretation": {
+    "VAR_fit": "Correct Gaussian VAR family; observed rate diagnoses estimation/conditional initialization effects.",
+    "HMM_fit": "Correct two-state Gaussian HMM family; observed rate diagnoses estimation, EM failures, and initialization effects.",
+    "HMM_to_VAR": "Regime truth vs insufficient VAR; exceeded ranks indicate model inadequacy, not necessarily type-I error under a true VAR null.",
+    "HMM_to_blocks": "Regime truth vs short-block bootstrap; exceeded ranks indicate model inadequacy, not necessarily type-I error under a true short-block null."
+  },
+  "no_btc_used": true,
+  "instrument": "Exactly M11 HDR50 GMM2 ICP direct point-to-triangle distance with 512 quadrature points",
+  "limits": [
+    "500 independent outer trials per scenario, 19 refs each",
+    "Rates are specific to these simulated truth generators and estimator choices",
+    "Failure exclusion can induce selection; report full failure bounds",
+    "Market inference needs an adequate fitted null and selection calibration",
+    "No physical law or market-stress interpretation"
+  ]
+}

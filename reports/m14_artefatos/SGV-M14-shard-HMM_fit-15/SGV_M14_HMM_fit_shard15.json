@@ -1,0 +1,532 @@
+{
+  "status": "M14_SHARD",
+  "scenario": "HMM_fit",
+  "shard": 15,
+  "trial_start": 375,
+  "trial_end": 399,
+  "n_references_each": 19,
+  "summary": {
+    "n_requested": 25,
+    "n_valid": 24,
+    "n_invalid": 1,
+    "alarms": 1,
+    "alarm_rate": 0.041666666666666664,
+    "wilson95": [
+      0.0073934561655057685,
+      0.20241806478655938
+    ],
+    "failure_bounds_unconditional": [
+      0.04,
+      0.08
+    ],
+    "nominal_level": 0.05,
+    "warning": "HMM and VAR calibrations reflect fitting, initialization, and geometry; misspecified null alarms are model inadequacy"
+  },
+  "trials": [
+    {
+      "scenario": "HMM_fit",
+      "trial_id": 375,
+      "n_references_requested": 19,
+      "n_references_valid": 19,
+      "fit_uses_prefix_only": true,
+      "metric": "M11_direct_triangle_HDR50_512",
+      "fit_type": "hmm",
+      "fit_diagnostics": {
+        "log_likelihood": -6977.697189641754,
+        "iterations": 12.0,
+        "self_transition_mean": 0.9769248922838717
+      },
+      "status": "valid",
+      "observed_distance": 0.08981950216595866,
+      "reference_median": 0.05334028690236284,
+      "reference_q90": 0.10172640243817584,
+      "rank_statistic_uncalibrated": 0.2,
+      "alarm_at_005": false
+    },
+    {
+      "scenario": "HMM_fit",
+      "trial_id": 376,
+      "n_references_requested": 19,
+      "n_references_valid": 19,
+      "fit_uses_prefix_only": true,
+      "metric": "M11_direct_triangle_HDR50_512",
+      "fit_type": "hmm",
+      "fit_diagnostics": {
+        "log_likelihood": -6948.158677818011,
+        "iterations": 7.0,
+        "self_transition_mean": 0.9792347843316432
+      },
+      "status": "valid",
+      "observed_distance": 0.05577623251966214,
+      "reference_median": 0.05947217277274351,
+      "reference_q90": 0.08049903734917921,
+      "rank_statistic_uncalibrated": 0.55,
+      "alarm_at_005": false
+    },
+    {
+      "scenario": "HMM_fit",
+      "trial_id": 377,
+      "n_references_requested": 19,
+      "n_references_valid": 19,
+      "fit_uses_prefix_only": true,
+      "metric": "M11_direct_triangle_HDR50_512",
+      "fit_type": "hmm",
+      "fit_diagnostics": {
+        "log_likelihood": -7084.9891091432755,
+        "iterations": 30.0,
+        "self_transition_mean": 0.9842359867467176
+      },
+      "status": "valid",
+      "observed_distance": 0.03304259586306243,
+      "reference_median": 0.06512236183434156,
+      "reference_q90": 0.09709341370222495,
+      "rank_statistic_uncalibrated": 0.8,
+      "alarm_at_005": false
+    },
+    {
+      "scenario": "HMM_fit",
+      "trial_id": 378,
+      "n_references_requested": 19,
+      "n_references_valid": 18,
+      "fit_uses_prefix_only": true,
+      "metric": "M11_direct_triangle_HDR50_512",
+      "fit_type": "hmm",
+      "fit_diagnostics": {
+        "log_likelihood": -6906.616813362746,
+        "iterations": 4.0,
+        "self_transition_mean": 0.9866864805999016
+      },
+      "status": "invalid",
+      "failure_stage": "reference_geometry",
+      "failures": [
+        {
+          "reference": 15,
+          "error": "M11 invalid geometry: Quality gate: insufficient_coverage"
+        }
+      ],
+      "observed_distance": 0.10207241116292183
+    },
+    {
+      "scenario": "HMM_fit",
+      "trial_id": 379,
+      "n_references_requested": 19,
+      "n_references_valid": 19,
+      "fit_uses_prefix_only": true,
+      "metric": "M11_direct_triangle_HDR50_512",
+      "fit_type": "hmm",
+      "fit_diagnostics": {
+        "log_likelihood": -7128.999009160802,
+        "iterations": 10.0,
+        "self_transition_mean": 0.9750274356118104
+      },
+      "status": "valid",
+      "observed_distance": 0.05309450366770027,
+      "reference_median": 0.060877967282046294,
+      "reference_q90": 0.08568702705085479,
+      "rank_statistic_uncalibrated": 0.7,
+      "alarm_at_005": false
+    },
+    {
+      "scenario": "HMM_fit",
+      "trial_id": 380,
+      "n_references_requested": 19,
+      "n_references_valid": 19,
+      "fit_uses_prefix_only": true,
+      "metric": "M11_direct_triangle_HDR50_512",
+      "fit_type": "hmm",
+      "fit_diagnostics": {
+        "log_likelihood": -7042.85916441735,
+        "iterations": 27.0,
+        "self_transition_mean": 0.9755132469254265
+      },
+      "status": "valid",
+      "observed_distance": 0.055402526176389216,
+      "reference_median": 0.04750366978895677,
+      "reference_q90": 0.08686472901934877,
+      "rank_statistic_uncalibrated": 0.5,
+      "alarm_at_005": false
+    },
+    {
+      "scenario": "HMM_fit",
+      "trial_id": 381,
+      "n_references_requested": 19,
+      "n_references_valid": 19,
+      "fit_uses_prefix_only": true,
+      "metric": "M11_direct_triangle_HDR50_512",
+      "fit_type": "hmm",
+      "fit_diagnostics": {
+        "log_likelihood": -7019.204869619331,
+        "iterations": 17.0,
+        "self_transition_mean": 0.9818402179120035
+      },
+      "status": "valid",
+      "observed_distance": 0.042338374876779925,
+      "reference_median": 0.06181051061133869,
+      "reference_q90": 0.08828290929880307,
+      "rank_statistic_uncalibrated": 0.85,
+      "alarm_at_005": false
+    },
+    {
+      "scenario": "HMM_fit",
+      "trial_id": 382,
+      "n_references_requested": 19,
+      "n_references_valid": 19,
+      "fit_uses_prefix_only": true,
+      "metric": "M11_direct_triangle_HDR50_512",
+      "fit_type": "hmm",
+      "fit_diagnostics": {
+        "log_likelihood": -7117.055510796666,
+        "iterations": 10.0,
+        "self_transition_mean": 0.9774391804021567
+      },
+      "status": "valid",
+      "observed_distance": 0.05622915214365354,
+      "reference_median": 0.05839610111865501,
+      "reference_q90": 0.09703986757212028,
+      "rank_statistic_uncalibrated": 0.6,
+      "alarm_at_005": false
+    },
+    {
+      "scenario": "HMM_fit",
+      "trial_id": 383,
+      "n_references_requested": 19,
+      "n_references_valid": 19,
+      "fit_uses_prefix_only": true,
+      "metric": "M11_direct_triangle_HDR50_512",
+      "fit_type": "hmm",
+      "fit_diagnostics": {
+        "log_likelihood": -7202.223053110517,
+        "iterations": 8.0,
+        "self_transition_mean": 0.975657899410934
+      },
+      "status": "valid",
+      "observed_distance": 0.035719339923631986,
+      "reference_median": 0.05260799001395947,
+      "reference_q90": 0.08265353050672064,
+      "rank_statistic_uncalibrated": 0.9,
+      "alarm_at_005": false
+    },
+    {
+      "scenario": "HMM_fit",
+      "trial_id": 384,
+      "n_references_requested": 19,
+      "n_references_valid": 19,
+      "fit_uses_prefix_only": true,
+      "metric": "M11_direct_triangle_HDR50_512",
+      "fit_type": "hmm",
+      "fit_diagnostics": {
+        "log_likelihood": -7192.570842508794,
+        "iterations": 12.0,
+        "self_transition_mean": 0.9799057684273967
+      },
+      "status": "valid",
+      "observed_distance": 0.04500809714842455,
+      "reference_median": 0.04868170566317237,
+      "reference_q90": 0.07647458102450233,
+      "rank_statistic_uncalibrated": 0.6,
+      "alarm_at_005": false
+    },
+    {
+      "scenario": "HMM_fit",
+      "trial_id": 385,
+      "n_references_requested": 19,
+      "n_references_valid": 19,
+      "fit_uses_prefix_only": true,
+      "metric": "M11_direct_triangle_HDR50_512",
+      "fit_type": "hmm",
+      "fit_diagnostics": {
+        "log_likelihood": -7063.866305536189,
+        "iterations": 25.0,
+        "self_transition_mean": 0.976812271847138
+      },
+      "status": "valid",
+      "observed_distance": 0.03964913597341082,
+      "reference_median": 0.06587103128312487,
+      "reference_q90": 0.09016394280364073,
+      "rank_statistic_uncalibrated": 0.9,
+      "alarm_at_005": false
+    },
+    {
+      "scenario": "HMM_fit",
+      "trial_id": 386,
+      "n_references_requested": 19,
+      "n_references_valid": 19,
+      "fit_uses_prefix_only": true,
+      "metric": "M11_direct_triangle_HDR50_512",
+      "fit_type": "hmm",
+      "fit_diagnostics": {
+        "log_likelihood": -7203.42382308531,
+        "iterations": 12.0,
+        "self_transition_mean": 0.9811479473888326
+      },
+      "status": "valid",
+      "observed_distance": 0.07987143401338559,
+      "reference_median": 0.058481989129536054,
+      "reference_q90": 0.08938275694971246,
+      "rank_statistic_uncalibrated": 0.25,
+      "alarm_at_005": false
+    },
+    {
+      "scenario": "HMM_fit",
+      "trial_id": 387,
+      "n_references_requested": 19,
+      "n_references_valid": 19,
+      "fit_uses_prefix_only": true,
+      "metric": "M11_direct_triangle_HDR50_512",
+      "fit_type": "hmm",
+      "fit_diagnostics": {
+        "log_likelihood": -7084.351448219891,
+        "iterations": 15.0,
+        "self_transition_mean": 0.9825488148452962
+      },
+      "status": "valid",
+      "observed_distance": 0.048331616488953115,
+      "reference_median": 0.06369986406533518,
+      "reference_q90": 0.09010023965560991,
+      "rank_statistic_uncalibrated": 0.7,
+      "alarm_at_005": false
+    },
+    {
+      "scenario": "HMM_fit",
+      "trial_id": 388,
+      "n_references_requested": 19,
+      "n_references_valid": 19,
+      "fit_uses_prefix_only": true,
+      "metric": "M11_direct_triangle_HDR50_512",
+      "fit_type": "hmm",
+      "fit_diagnostics": {
+        "log_likelihood": -6769.029249468636,
+        "iterations": 9.0,
+        "self_transition_mean": 0.9753588993509659
+      },
+      "status": "valid",
+      "observed_distance": 0.0667413996672008,
+      "reference_median": 0.05871906253748729,
+      "reference_q90": 0.08859453896691949,
+      "rank_statistic_uncalibrated": 0.45,
+      "alarm_at_005": false
+    },
+    {
+      "scenario": "HMM_fit",
+      "trial_id": 389,
+      "n_references_requested": 19,
+      "n_references_valid": 19,
+      "fit_uses_prefix_only": true,
+      "metric": "M11_direct_triangle_HDR50_512",
+      "fit_type": "hmm",
+      "fit_diagnostics": {
+        "log_likelihood": -7114.986682622184,
+        "iterations": 6.0,
+        "self_transition_mean": 0.9752359036316216
+      },
+      "status": "valid",
+      "observed_distance": 0.07352507208047199,
+      "reference_median": 0.05843704211324338,
+      "reference_q90": 0.08677970325951223,
+      "rank_statistic_uncalibrated": 0.4,
+      "alarm_at_005": false
+    },
+    {
+      "scenario": "HMM_fit",
+      "trial_id": 390,
+      "n_references_requested": 19,
+      "n_references_valid": 19,
+      "fit_uses_prefix_only": true,
+      "metric": "M11_direct_triangle_HDR50_512",
+      "fit_type": "hmm",
+      "fit_diagnostics": {
+        "log_likelihood": -7151.801075610785,
+        "iterations": 5.0,
+        "self_transition_mean": 0.9801771989128579
+      },
+      "status": "valid",
+      "observed_distance": 0.05298963781020534,
+      "reference_median": 0.06633148702954916,
+      "reference_q90": 0.08979836909739713,
+      "rank_statistic_uncalibrated": 0.7,
+      "alarm_at_005": false
+    },
+    {
+      "scenario": "HMM_fit",
+      "trial_id": 391,
+      "n_references_requested": 19,
+      "n_references_valid": 19,
+      "fit_uses_prefix_only": true,
+      "metric": "M11_direct_triangle_HDR50_512",
+      "fit_type": "hmm",
+      "fit_diagnostics": {
+        "log_likelihood": -7354.076661021066,
+        "iterations": 33.0,
+        "self_transition_mean": 0.986236872999475
+      },
+      "status": "valid",
+      "observed_distance": 0.06031366493867954,
+      "reference_median": 0.06393982162545872,
+      "reference_q90": 0.0917995615399658,
+      "rank_statistic_uncalibrated": 0.55,
+      "alarm_at_005": false
+    },
+    {
+      "scenario": "HMM_fit",
+      "trial_id": 392,
+      "n_references_requested": 19,
+      "n_references_valid": 19,
+      "fit_uses_prefix_only": true,
+      "metric": "M11_direct_triangle_HDR50_512",
+      "fit_type": "hmm",
+      "fit_diagnostics": {
+        "log_likelihood": -6963.141633133393,
+        "iterations": 11.0,
+        "self_transition_mean": 0.9801122312482229
+      },
+      "status": "valid",
+      "observed_distance": 0.07822765889803321,
+      "reference_median": 0.06002138801170523,
+      "reference_q90": 0.10172831171741516,
+      "rank_statistic_uncalibrated": 0.35,
+      "alarm_at_005": false
+    },
+    {
+      "scenario": "HMM_fit",
+      "trial_id": 393,
+      "n_references_requested": 19,
+      "n_references_valid": 19,
+      "fit_uses_prefix_only": true,
+      "metric": "M11_direct_triangle_HDR50_512",
+      "fit_type": "hmm",
+      "fit_diagnostics": {
+        "log_likelihood": -7078.598432266639,
+        "iterations": 23.0,
+        "self_transition_mean": 0.9716295529644845
+      },
+      "status": "valid",
+      "observed_distance": 0.09320253194077477,
+      "reference_median": 0.06263245308841298,
+      "reference_q90": 0.07931349337388942,
+      "rank_statistic_uncalibrated": 0.05,
+      "alarm_at_005": true
+    },
+    {
+      "scenario": "HMM_fit",
+      "trial_id": 394,
+      "n_references_requested": 19,
+      "n_references_valid": 19,
+      "fit_uses_prefix_only": true,
+      "metric": "M11_direct_triangle_HDR50_512",
+      "fit_type": "hmm",
+      "fit_diagnostics": {
+        "log_likelihood": -7019.282110003985,
+        "iterations": 13.0,
+        "self_transition_mean": 0.9778740302767224
+      },
+      "status": "valid",
+      "observed_distance": 0.08127563474827482,
+      "reference_median": 0.07160449835246482,
+      "reference_q90": 0.08420559142819069,
+      "rank_statistic_uncalibrated": 0.25,
+      "alarm_at_005": false
+    },
+    {
+      "scenario": "HMM_fit",
+      "trial_id": 395,
+      "n_references_requested": 19,
+      "n_references_valid": 19,
+      "fit_uses_prefix_only": true,
+      "metric": "M11_direct_triangle_HDR50_512",
+      "fit_type": "hmm",
+      "fit_diagnostics": {
+        "log_likelihood": -7122.89615688308,
+        "iterations": 5.0,
+        "self_transition_mean": 0.9791621737367804
+      },
+      "status": "valid",
+      "observed_distance": 0.06487268206577039,
+      "reference_median": 0.06686699901130357,
+      "reference_q90": 0.09610090196008392,
+      "rank_statistic_uncalibrated": 0.55,
+      "alarm_at_005": false
+    },
+    {
+      "scenario": "HMM_fit",
+      "trial_id": 396,
+      "n_references_requested": 19,
+      "n_references_valid": 19,
+      "fit_uses_prefix_only": true,
+      "metric": "M11_direct_triangle_HDR50_512",
+      "fit_type": "hmm",
+      "fit_diagnostics": {
+        "log_likelihood": -6988.768426027444,
+        "iterations": 12.0,
+        "self_transition_mean": 0.9786653343242038
+      },
+      "status": "valid",
+      "observed_distance": 0.06617716890362992,
+      "reference_median": 0.055871089933751034,
+      "reference_q90": 0.07382196489170598,
+      "rank_statistic_uncalibrated": 0.3,
+      "alarm_at_005": false
+    },
+    {
+      "scenario": "HMM_fit",
+      "trial_id": 397,
+      "n_references_requested": 19,
+      "n_references_valid": 19,
+      "fit_uses_prefix_only": true,
+      "metric": "M11_direct_triangle_HDR50_512",
+      "fit_type": "hmm",
+      "fit_diagnostics": {
+        "log_likelihood": -7252.196623283767,
+        "iterations": 6.0,
+        "self_transition_mean": 0.981439754446255
+      },
+      "status": "valid",
+      "observed_distance": 0.049485575724650774,
+      "reference_median": 0.05318338204854425,
+      "reference_q90": 0.07612521332355401,
+      "rank_statistic_uncalibrated": 0.65,
+      "alarm_at_005": false
+    },
+    {
+      "scenario": "HMM_fit",
+      "trial_id": 398,
+      "n_references_requested": 19,
+      "n_references_valid": 19,
+      "fit_uses_prefix_only": true,
+      "metric": "M11_direct_triangle_HDR50_512",
+      "fit_type": "hmm",
+      "fit_diagnostics": {
+        "log_likelihood": -7067.491345464935,
+        "iterations": 10.0,
+        "self_transition_mean": 0.9778262468104248
+      },
+      "status": "valid",
+      "observed_distance": 0.0768061399295835,
+      "reference_median": 0.05175522317638815,
+      "reference_q90": 0.0759131566955083,
+      "rank_statistic_uncalibrated": 0.15,
+      "alarm_at_005": false
+    },
+    {
+      "scenario": "HMM_fit",
+      "trial_id": 399,
+      "n_references_requested": 19,
+      "n_references_valid": 19,
+      "fit_uses_prefix_only": true,
+      "metric": "M11_direct_triangle_HDR50_512",
+      "fit_type": "hmm",
+      "fit_diagnostics": {
+        "log_likelihood": -7216.457454327983,
+        "iterations": 6.0,
+        "self_transition_mean": 0.9792287262104689
+      },
+      "status": "valid",
+      "observed_distance": 0.02906406009085354,
+      "reference_median": 0.05299702160576048,
+      "reference_q90": 0.07513781609391498,
+      "rank_statistic_uncalibrated": 1.0,
+      "alarm_at_005": false
+    }
+  ],
+  "true_law_constant": true,
+  "no_BTC_data_accessed": true
+}
