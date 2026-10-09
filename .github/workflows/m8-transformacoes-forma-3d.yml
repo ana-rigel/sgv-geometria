@@ -1,0 +1,57 @@
+name: SGV-M8 - Transformacoes de forma HDR50
+on:
+  push:
+    branches: [research/m8-transformacoes-forma-3d]
+    paths:
+      - 'experiments/m8_transformacoes_forma_3d.py'
+      - 'tests/test_m8_transformacoes_forma_3d.py'
+      - '.github/workflows/m8-transformacoes-forma-3d.yml'
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  calibracao:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - run: python -m pip install numpy scipy pandas scikit-learn scikit-image trimesh pytest
+      - name: Calibrar movimentos conhecidos e rejeitar ambiguidade
+        run: python -m pytest -q tests/test_m8_transformacoes_forma_3d.py
+      - name: Calibracao matematica sintetica
+        run: python experiments/m8_transformacoes_forma_3d.py --interval synthetic
+      - if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: SGV-M8-sintetico
+          path: reports/SGV_M8_synthetic.json
+          if-no-files-found: warn
+  btc:
+    needs: calibracao
+    runs-on: ubuntu-latest
+    timeout-minutes: 90
+    strategy:
+      fail-fast: false
+      matrix:
+        interval: [1m, 1h]
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - run: python -m pip install numpy scipy pandas scikit-learn scikit-image trimesh
+      - name: Obter exclusivamente amostras exploratorias com checksum
+        run: python scripts/baixar_klines.py --so ${{ matrix.interval }}
+      - name: Reproduzir os quatro movimentos das cascas HDR50
+        run: python experiments/m8_transformacoes_forma_3d.py --interval ${{ matrix.interval }}
+      - if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: SGV-M8-BTC-${{ matrix.interval }}
+          path: |
+            reports/SGV_M8_${{ matrix.interval }}.json
+            reports/SGV_M8_${{ matrix.interval }}_movements.csv
+          if-no-files-found: warn
