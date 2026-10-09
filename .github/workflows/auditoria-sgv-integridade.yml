@@ -1,0 +1,73 @@
+name: Auditoria SGV integridade temporal
+on:
+  push:
+    branches: [audit/sgv-integridade-20261009]
+    paths:
+      - 'audits/**'
+      - '.github/workflows/auditoria-sgv-integridade.yml'
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  sanity:
+    name: Testes causais e de risco
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Dependencias minimas
+        run: python -m pip install numpy pandas pytest
+      - name: Testes sintéticos, sem dados reservados
+        run: python -m pytest -q audits/test_operational_integrity.py
+  compare:
+    needs: sanity
+    name: Carry causal ${{ matrix.symbol }}
+    runs-on: ubuntu-latest
+    timeout-minutes: 45
+    strategy:
+      fail-fast: false
+      matrix:
+        symbol: [BTCUSDT, ETHUSDT]
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Dependencias minimas
+        run: python -m pip install numpy pandas
+      - name: Baixar somente funding ja utilizado na Fase 1
+        env:
+          SYMBOL: ${{ matrix.symbol }}
+        run: |
+          python - <<'PY'
+          import os, sys
+          from pathlib import Path
+          sys.path.insert(0, str(Path("operavel").resolve()))
+          from scripts.baixar_dados_fase1 import BASE, ROOT, get, months
+          sym = os.environ["SYMBOL"]
+          dest = ROOT / sym / "funding"
+          dest.mkdir(parents=True, exist_ok=True)
+          failures = 0
+          for mo in months("2020-01", "2026-07"):
+              url = f"{BASE}/futures/um/monthly/fundingRate/{sym}/{sym}-fundingRate-{mo}.zip"
+              result = get(url, dest)
+              failures += result.startswith(("FALHOU", "NÃO EXISTE"))
+              print(result, flush=True)
+          if failures:
+              raise SystemExit(f"{failures} downloads failed")
+          PY
+      - name: Comparar retorno reportado versus fluxo causal
+        env:
+          SYMBOL: ${{ matrix.symbol }}
+        run: |
+          python audits/causal_carry_compare.py --funding-dir "operavel/data/$SYMBOL/funding" --out "audits/resultados/$SYMBOL.json"
+      - name: Guardar resultado e logs
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: auditoria-carry-${{ matrix.symbol }}
+          path: audits/resultados/${{ matrix.symbol }}.json
+          if-no-files-found: warn
