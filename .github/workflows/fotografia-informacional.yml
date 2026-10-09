@@ -1,0 +1,57 @@
+name: Fotografia informacional SGV - observacao
+on:
+  push:
+    branches: [research/fotografia-informacional]
+    paths:
+      - 'experiments/fotografia_informacional.py'
+      - 'tests/test_fotografia_informacional.py'
+      - '.github/workflows/fotografia-informacional.yml'
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  calibracao:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Dependencias
+        run: python -m pip install numpy pandas scipy pytest
+      - name: Testes matematicos e de causalidade
+        run: python -m pytest -q tests/test_fotografia_informacional.py
+      - name: Calibracao com regime plantado
+        run: python experiments/fotografia_informacional.py --interval synthetic
+      - uses: actions/upload-artifact@v4
+        with:
+          name: sgv-fotografia-sintetico
+          path: reports/FOTO_INFORMACIONAL_synthetic.json
+          if-no-files-found: error
+  exploracao:
+    needs: calibracao
+    runs-on: ubuntu-latest
+    timeout-minutes: 90
+    strategy:
+      fail-fast: false
+      matrix:
+        interval: [1m, 1h]
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Dependencias
+        run: python -m pip install numpy pandas scipy
+      - name: Baixar SOMENTE klines de exploracao, com checksum
+        run: python scripts/baixar_klines.py --so ${{ matrix.interval }}
+      - name: Construir fotografias causais de barras FECHADAS
+        run: python experiments/fotografia_informacional.py --interval ${{ matrix.interval }}
+      - uses: actions/upload-artifact@v4
+        with:
+          name: sgv-fotografia-${{ matrix.interval }}
+          path: |
+            reports/FOTO_INFORMACIONAL_${{ matrix.interval }}.json
+            reports/FOTO_INFORMACIONAL_${{ matrix.interval }}_serie.csv.gz
+          if-no-files-found: error
