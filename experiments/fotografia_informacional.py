@@ -21,6 +21,10 @@ from pathlib import Path
 import numpy as np
 
 ROOT = Path(__file__).resolve().parents[1]
+# Permite execucao direta por caminho, inclusive no GitHub Actions.
+import sys
+if str(ROOT) not in sys.path:
+    sys.path.insert(0, str(ROOT))
 EXPLORATION = {"1m": ("2026-05", "2026-07"), "1h": ("2020-01", "2024-12")}
 RESERVED = {"1m": "2026-08", "1h": "2025-01"}
 STEP_MS = {"1m": 60_000, "1h": 3_600_000}
