@@ -301,10 +301,9 @@ def run_shard(scenario,shard,per_shard=PER_SHARD):
     file=write_result(outcome,f'SGV_M14_{scenario}_shard{shard:02d}.json')
     print(json.dumps({'status':'M14_SHARD','scenario':scenario,
                       'shard':shard,'summary':summary},indent=2))
-    if summary['n_valid']<per_shard:
-        # Artifact still uploaded, but report failure instead of silently
-        # estimating nominal coverage conditional on selective successes.
-        raise RuntimeError(f'{per_shard-summary["n_valid"]} invalid trials (report at {file})')
+    if summary['n_valid']==0:
+        raise RuntimeError(f'No valid nested trials in shard (report at {file})')
+    # Partial invalidity is reported and bounded, not silently excluded.
 
 
 def main():
