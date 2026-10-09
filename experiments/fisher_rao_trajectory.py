@@ -145,7 +145,6 @@ def main():
     start = args.window+5
     kraw = curvature(mu[start-3:], sig[start-3:])
     k = np.full(len(ret), np.nan)
-    k[start:] = kraw[1:-2] if len(kraw[1:-2])==len(ret)-start else np.nan
     # More transparent causal implementation: compute k at t-2 from central derivatives.
     k = np.full(len(ret), np.nan)
     k[start:] = kraw[:-3]
@@ -157,8 +156,12 @@ def main():
     # Features are all causal and known by close of bar t.
     lag = np.column_stack([np.roll(ret, j) for j in (0,1,2,3,4)])
     vol = np.column_stack([sig, np.roll(sig, 1), np.roll(sig, 2)])
-    vol_der = np.column_stack([np.gradient(sig), np.gradient(np.gradient(sig)),
-                               np.gradient(mu), np.gradient(np.gradient(mu))])
+    # Derivatives on finite rolling estimates only; no NaN propagation from warmup.
+    finite_mu = mu.copy(); finite_sig = sig.copy()
+    finite_mu[:args.window-1] = mu[args.window-1]
+    finite_sig[:args.window-1] = sig[args.window-1]
+    vol_der = np.column_stack([np.gradient(finite_sig), np.gradient(np.gradient(finite_sig)),
+                               np.gradient(finite_mu), np.gradient(np.gradient(finite_mu))])
     # gradient at t would use t+1: lag all derivative features two bars.
     vol_der = np.roll(vol_der, 2, axis=0)
     base = np.column_stack([lag, vol])
