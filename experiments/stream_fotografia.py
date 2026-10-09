@@ -18,10 +18,12 @@ from pathlib import Path
 from time import perf_counter_ns
 
 import numpy as np
-
-from experiments.fotografia_informacional import gaussian_snapshot
+import sys
 
 ROOT=Path(__file__).resolve().parents[1]
+if str(ROOT) not in sys.path:
+    sys.path.insert(0, str(ROOT))
+from experiments.fotografia_informacional import gaussian_snapshot
 
 
 class ClosedCandleObserver:
