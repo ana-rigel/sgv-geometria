@@ -1,0 +1,57 @@
+name: SGV - Teste observacional da forma
+on:
+  push:
+    branches: [research/forma-distribuicoes]
+    paths:
+      - 'experiments/teste_forma_distribuicoes.py'
+      - 'tests/test_forma_distribuicoes.py'
+      - '.github/workflows/teste-forma-distribuicoes.yml'
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  calibracao:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Instalar bibliotecas
+        run: python -m pip install "numpy>=1.26" "scipy>=1.12" "scikit-learn>=1.4" pandas pytest
+      - name: Testes da matematica, resposta conhecida e causalidade
+        run: python -m pytest -q tests/test_forma_distribuicoes.py
+      - name: Calibrar normal, t, mistura e forma curvada
+        run: python experiments/teste_forma_distribuicoes.py --interval synthetic
+      - uses: actions/upload-artifact@v4
+        with:
+          name: sgvia-forma-calibracao
+          path: reports/FORMA_DISTRIBUICOES_synthetic.json
+          if-no-files-found: error
+  exploratorio:
+    needs: calibracao
+    runs-on: ubuntu-latest
+    timeout-minutes: 90
+    strategy:
+      fail-fast: false
+      matrix:
+        interval: [1m, 1h]
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Instalar bibliotecas
+        run: python -m pip install "numpy>=1.26" "scipy>=1.12" "scikit-learn>=1.4" pandas
+      - name: Dados autorizados - download com checksum
+        run: python scripts/baixar_klines.py --so ${{ matrix.interval }}
+      - name: Identificar forma distribuicoes com heldout cronologico
+        run: python experiments/teste_forma_distribuicoes.py --interval ${{ matrix.interval }}
+      - uses: actions/upload-artifact@v4
+        with:
+          name: sgvia-forma-${{ matrix.interval }}
+          path: |
+            reports/FORMA_DISTRIBUICOES_${{ matrix.interval }}.json
+            reports/FORMA_DISTRIBUICOES_${{ matrix.interval }}_janelas.csv
+          if-no-files-found: error
