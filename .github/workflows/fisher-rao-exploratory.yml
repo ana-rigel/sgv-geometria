@@ -1,0 +1,36 @@
+name: Fisher-Rao exploratory diagnostic
+on:
+  push:
+    branches: [experiment/fisher-rao-trajectory]
+    paths:
+      - 'experiments/fisher_rao_trajectory.py'
+      - '.github/workflows/fisher-rao-exploratory.yml'
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  fisher-rao:
+    runs-on: ubuntu-latest
+    timeout-minutes: 90
+    strategy:
+      fail-fast: false
+      matrix:
+        interval: [1m, 1h]
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Install numpy
+        run: python -m pip install numpy
+      - name: Download exploration data only
+        run: python scripts/baixar_klines.py --so ${{ matrix.interval }}
+      - name: Execute exploratory comparison
+        run: python experiments/fisher_rao_trajectory.py --interval ${{ matrix.interval }}
+      - name: Upload results
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: fisher-rao-${{ matrix.interval }}
+          path: reports/FISHER_RAO_EXPLORATORIO_${{ matrix.interval }}.json
+          if-no-files-found: warn
