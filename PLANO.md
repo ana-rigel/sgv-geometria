@@ -55,7 +55,9 @@ Pela regra do G1, a largura fica em **2× Scott nas duas escalas** (`SGV_HMULT=2
 | 3. Existe (média de ΔF vs. GARCH, 39 réplicas) | p = 0,40 ✗ | p = 0,175 ✗ |
 | 4. Além da volatilidade | 0,495 ✓ | 0,571 ✗ |
 
-Pela regra, a linha para ou recebe **uma** reformulação de coordenadas pré-registrada. Decisão pendente da Ana.
+Pela regra, a linha para ou recebe **uma** reformulação de coordenadas pré-registrada. A Ana escolheu a reformulação.
+
+**09/10/2026 — Reformulação única: H-FR-EWMA** (`reports/PREREGISTRO_FR_EWMA.md`, congelado no commit `00bb4b3`; resultado em `reports/FR_EWMA_PORTAO.md`). Curvatura geodésica Fisher–Rao da trajetória gaussiana (μ, σ) por EWMA, contra controle de range recente + GARCH + hora. **Portão exploratório reprovado em 1m (ganho +0,03%, p = 0,21) e em 1h (−0,01%, p = 0,65).** Pela regra, a linha geométrica fecha sem gastar o confirmatório, que segue virgem.
 
 ## Escolhas já feitas pela calibração (detalhes em `reports/DIAGNOSTICO.md`)
 

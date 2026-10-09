@@ -1,0 +1,119 @@
+{
+  "status": "PORTAO_EXPLORATORIO",
+  "interval": "1h",
+  "arquivos": [
+    "BTCUSDT-1h-2020-01.zip",
+    "BTCUSDT-1h-2020-02.zip",
+    "BTCUSDT-1h-2020-03.zip",
+    "BTCUSDT-1h-2020-04.zip",
+    "BTCUSDT-1h-2020-05.zip",
+    "BTCUSDT-1h-2020-06.zip",
+    "BTCUSDT-1h-2020-07.zip",
+    "BTCUSDT-1h-2020-08.zip",
+    "BTCUSDT-1h-2020-09.zip",
+    "BTCUSDT-1h-2020-10.zip",
+    "BTCUSDT-1h-2020-11.zip",
+    "BTCUSDT-1h-2020-12.zip",
+    "BTCUSDT-1h-2021-01.zip",
+    "BTCUSDT-1h-2021-02.zip",
+    "BTCUSDT-1h-2021-03.zip",
+    "BTCUSDT-1h-2021-04.zip",
+    "BTCUSDT-1h-2021-05.zip",
+    "BTCUSDT-1h-2021-06.zip",
+    "BTCUSDT-1h-2021-07.zip",
+    "BTCUSDT-1h-2021-08.zip",
+    "BTCUSDT-1h-2021-09.zip",
+    "BTCUSDT-1h-2021-10.zip",
+    "BTCUSDT-1h-2021-11.zip",
+    "BTCUSDT-1h-2021-12.zip",
+    "BTCUSDT-1h-2022-01.zip",
+    "BTCUSDT-1h-2022-02.zip",
+    "BTCUSDT-1h-2022-03.zip",
+    "BTCUSDT-1h-2022-04.zip",
+    "BTCUSDT-1h-2022-05.zip",
+    "BTCUSDT-1h-2022-06.zip",
+    "BTCUSDT-1h-2022-07.zip",
+    "BTCUSDT-1h-2022-08.zip",
+    "BTCUSDT-1h-2022-09.zip",
+    "BTCUSDT-1h-2022-10.zip",
+    "BTCUSDT-1h-2022-11.zip",
+    "BTCUSDT-1h-2022-12.zip",
+    "BTCUSDT-1h-2023-01.zip",
+    "BTCUSDT-1h-2023-02.zip",
+    "BTCUSDT-1h-2023-03.zip",
+    "BTCUSDT-1h-2023-04.zip",
+    "BTCUSDT-1h-2023-05.zip",
+    "BTCUSDT-1h-2023-06.zip",
+    "BTCUSDT-1h-2023-07.zip",
+    "BTCUSDT-1h-2023-08.zip",
+    "BTCUSDT-1h-2023-09.zip",
+    "BTCUSDT-1h-2023-10.zip",
+    "BTCUSDT-1h-2023-11.zip",
+    "BTCUSDT-1h-2023-12.zip",
+    "BTCUSDT-1h-2024-01.zip",
+    "BTCUSDT-1h-2024-02.zip",
+    "BTCUSDT-1h-2024-03.zip",
+    "BTCUSDT-1h-2024-04.zip",
+    "BTCUSDT-1h-2024-05.zip",
+    "BTCUSDT-1h-2024-06.zip",
+    "BTCUSDT-1h-2024-07.zip",
+    "BTCUSDT-1h-2024-08.zip",
+    "BTCUSDT-1h-2024-09.zip",
+    "BTCUSDT-1h-2024-10.zip",
+    "BTCUSDT-1h-2024-11.zip",
+    "BTCUSDT-1h-2024-12.zip"
+  ],
+  "prereg_sha256": "90f6c05c5942fd2d2163e41f0a59d3171de6f199abfd8bf98e6d465052c6ebbb",
+  "span": 1500,
+  "lambda": 0.9986675549633578,
+  "horizon": 4,
+  "hac_lag": 24,
+  "n_teste": 18856,
+  "garch_x1000": {
+    "omega": 0.66304468282383,
+    "alpha": 0.0707101621381227,
+    "beta": 0.925083474729108
+  },
+  "mse_M0": 0.25894361360322987,
+  "mse_M1": 0.25895866938869166,
+  "ganho_relativo_M1_sobre_M0": -5.814310402281113e-05,
+  "DM_t": -0.3945857792766329,
+  "p_unilateral": 0.6534256949042352,
+  "folds": [
+    {
+      "inicio": "2022-10-30T20:00:00+00:00",
+      "n": 3142,
+      "ganho": -4.565856880539779e-05
+    },
+    {
+      "inicio": "2023-03-10T18:00:00+00:00",
+      "n": 3143,
+      "ganho": 0.00023109284759386599
+    },
+    {
+      "inicio": "2023-07-27T01:00:00+00:00",
+      "n": 3143,
+      "ganho": -0.0005028156608637424
+    },
+    {
+      "inicio": "2023-12-05T00:00:00+00:00",
+      "n": 3142,
+      "ganho": 1.3525223099614114e-05
+    },
+    {
+      "inicio": "2024-04-13T22:00:00+00:00",
+      "n": 3143,
+      "ganho": 7.237362084583231e-05
+    },
+    {
+      "inicio": "2024-08-22T21:00:00+00:00",
+      "n": 3143,
+      "ganho": -6.33540753399084e-05
+    }
+  ],
+  "R2_logkappa_pelo_controle": 0.4783181185692438,
+  "portao": {
+    "regra": "ganho > 0 e p < 0.1",
+    "passa": false
+  }
+}
