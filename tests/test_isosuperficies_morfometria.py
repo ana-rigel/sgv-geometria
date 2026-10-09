@@ -129,3 +129,13 @@ def test_implicit_curvature_gaussian_is_convex():
     # A discretizacao por triangulos pode produzir K negativo falso,
     # e sua discrepancia deve ficar visivel na auditoria.
     assert props["implicit_K_numeric_vs_analytic_mismatch"]>=0
+
+
+def test_unidentifiable_shape_motion_fails_closed():
+    f,t,dx=analytic_field("sphere",n=61)
+    mesh,trunc=extract_mesh(f,t,dx)
+    p=describe_mesh(mesh,truncated=trunc,coverage=1.)
+    invalid=dict(p,quality_pass=False)
+    r=motion(mesh,p,mesh,invalid)
+    assert not r["quality_pass"]
+    assert r.get("chamfer_residual_normalized") is None
