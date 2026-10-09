@@ -4,7 +4,9 @@ on:
     branches: [research/fotografia-informacional]
     paths:
       - 'experiments/fotografia_informacional.py'
+      - 'experiments/stream_fotografia.py'
       - 'tests/test_fotografia_informacional.py'
+      - 'tests/test_stream_fotografia.py'
       - '.github/workflows/fotografia-informacional.yml'
   workflow_dispatch:
 permissions:
@@ -21,13 +23,17 @@ jobs:
       - name: Dependencias
         run: python -m pip install numpy pandas scipy pytest
       - name: Testes matematicos e de causalidade
-        run: python -m pytest -q tests/test_fotografia_informacional.py
+        run: python -m pytest -q tests/test_fotografia_informacional.py tests/test_stream_fotografia.py
       - name: Calibracao com regime plantado
         run: python experiments/fotografia_informacional.py --interval synthetic
+      - name: Replay incremental e benchmark de processamento (sem rede)
+        run: python experiments/stream_fotografia.py --benchmark 6000
       - uses: actions/upload-artifact@v4
         with:
           name: sgv-fotografia-sintetico
-          path: reports/FOTO_INFORMACIONAL_synthetic.json
+          path: |
+            reports/FOTO_INFORMACIONAL_synthetic.json
+            reports/FOTO_STREAM_BENCHMARK.json
           if-no-files-found: error
   exploracao:
     needs: calibracao
