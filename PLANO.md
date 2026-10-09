@@ -61,6 +61,8 @@ Pela regra, a linha para ou recebe **uma** reformulação de coordenadas pré-re
 
 **LINHA GEOMÉTRICA ENCERRADA (09/10/2026).** Pela regra fixada antes dos dados, nem as coordenadas de preço (C1) nem as de fluxo (R1) mostram geometria de curvatura além dos fatos estilizados (GARCH, impacto, persistência do fluxo e volume–volatilidade). As Fases 2 a 4 não serão executadas.
 
+**09/10/2026 — Linha nova L2 (rascunho):** a geometria de Fisher–Rao do **espaço de modelos** (SF1), em vez do espaço das observações. Hipótese: a velocidade de mudança da estrutura de informação do fluxo antecipa mudanças de regime de volatilidade, como alarme de risco. Rascunho em `PREREGISTRO_L2.md`, aguardando a revisão da Ana. A execução fica para depois do início do paper trading da Fase 2 do portfólio.
+
 ## Escolhas já feitas pela calibração (detalhes em `reports/DIAGNOSTICO.md`)
 
 - **Métrica:** Fisher local (F). A Hessiana do legado é ruído onde tem curvatura e plana onde é estável.
