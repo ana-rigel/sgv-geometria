@@ -222,7 +222,7 @@ def checked_exploratory_month(filename, interval):
     if interval not in AUTHORIZED:
         raise ValueError("Timeframe nao autorizado")
     m=re.fullmatch(
-        rf"BTCUSDT-{re.escape(interval)}-([0-9]{{4}}-[0-9]{{2}})\\.zip",
+        rf"BTCUSDT-{re.escape(interval)}-([0-9]{{4}}-[0-9]{{2}})\.zip",
         filename)
     if m is None:
         raise ValueError("Arquivo invalido: "+filename)
