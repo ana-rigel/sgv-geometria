@@ -1,0 +1,58 @@
+{
+  "1m": {
+    "checagem_registrada": {
+      "estacionario_semente0": {
+        "rho_parcial": -0.04312140434535157,
+        "p_unilateral": 0.933,
+        "n": 1464,
+        "n_perm": 999,
+        "nulo_p95": 0.04730755684177792
+      },
+      "estacionario_passa": true,
+      "plantado_semente0": {
+        "rho_parcial": -0.035395271421841706,
+        "p_unilateral": 0.906,
+        "n": 1464,
+        "n_perm": 999,
+        "nulo_p95": 0.04627286484863138
+      },
+      "plantado_passa": false
+    },
+    "taxa_falso_positivo": 0.0,
+    "k_nulo": 20,
+    "poder": 0.0,
+    "k_alt": 10,
+    "rho_medio_nulo": -0.006059652867561679,
+    "rho_medio_alt": -0.02144915361603428,
+    "n_avaliacoes": 1464,
+    "tempo_s": 62.6
+  },
+  "1h": {
+    "checagem_registrada": {
+      "estacionario_semente0": {
+        "rho_parcial": 0.017166522919815495,
+        "p_unilateral": 0.2998102466793169,
+        "n": 610,
+        "n_perm": 526,
+        "nulo_p95": 0.06329901152033318
+      },
+      "estacionario_passa": true,
+      "plantado_semente0": {
+        "rho_parcial": -0.007965250008911975,
+        "p_unilateral": 0.5654648956356736,
+        "n": 610,
+        "n_perm": 526,
+        "nulo_p95": 0.0628115160012678
+      },
+      "plantado_passa": false
+    },
+    "taxa_falso_positivo": 0.0,
+    "k_nulo": 20,
+    "poder": 0.0,
+    "k_alt": 10,
+    "rho_medio_nulo": 0.0008726637346848515,
+    "rho_medio_alt": -0.0039093281422854665,
+    "n_avaliacoes": 610,
+    "tempo_s": 20.4
+  }
+}

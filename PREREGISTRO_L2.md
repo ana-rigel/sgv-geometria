@@ -114,3 +114,24 @@ Raciocínio:
 2. Alvo primário: a mudança de regime de volatilidade. |Δa1| fica como secundário. **Aprovado.**
 3. Correção de Bonferroni para as duas escalas, α = 0,025 em cada. **Aprovado.**
 4. Execução depois do início do paper trading do portfólio. **Aprovado.** Depois substituído pela Emenda 1: execução autorizada com a cópia própria do `sgv_operavel`.
+
+## 12. Resultado da calibração sintética (09/10/2026): o teste NÃO TEM PODER
+
+Seguindo a seção 6.1, a calibração rodou com o código da L2 (`sgvgeo/l2.py`, com testes em `tests/test_l2.py`), no mesmo tamanho de amostra do confirmatório. Arquivos em `reports/l2/`.
+
+| Escala | Estacionário, semente registrada (p) | Taxa de falso positivo (20 sementes) | Plantado, semente registrada (p) | Poder (10 sementes) |
+| --- | --- | --- | --- | --- |
+| 1m (1.464 avaliações) | 0,93 ✓ (não rejeita) | 0% | 0,91 ✗ (não detecta) | **0%** |
+| 1h (610 avaliações) | 0,30 ✓ (não rejeita) | 0% | 0,57 ✗ (não detecta) | **0%** |
+
+O teste não gera falso positivo, mas também não detecta a estrutura plantada. Essa estrutura é forte: a inclinação do impacto passa de 0,35 para 1,0, a persistência do fluxo sobe e a volatilidade dobra 2 passos depois.
+
+**Diagnóstico** (exploratório, só em sintético; scripts em `diagnostics/exploratorio/`):
+
+- **A velocidade entre metades da janela tem atraso estrutural de ~W/2.** O pico de v_fluxo vem 600 a 1.080 barras depois da troca de regime em 1m (a metade da janela é 720). Uma mudança de estrutura que antecede a volatilidade por menos que isso não é captada a tempo.
+- **Ajustar a antecedência plantada ao atraso não resolve.** Com antecedências de 2 a 24 passos, o melhor poder foi 17% em 1m (antecedência de 12 passos) e 0% em todas as antecedências em 1h.
+- **Três variantes de desenho também não resolvem.** Janela recente mais curta e alvo em horizonte mais longo deram poder de 0% a 40% em 5 sementes, e uma delas teve sinal de falso positivo inflado (1 em 5 sementes estacionárias).
+
+**Consequência pela regra da seção 6.1:** o teste é declarado **sem poder**, e **o confirmatório NÃO roda**. **O período reservado continua intacto.**
+
+A H-L2 não foi refutada. Ela não é testável com este desenho e este tamanho de amostra. Qualquer nova tentativa exigiria uma emenda pré-registrada com uma meta de poder declarada (por exemplo, ≥ 80% contra um efeito de tamanho fixado de antemão) e conferida em sintético antes de abrir o período reservado. Muito provavelmente exigiria também mais dados, como outros ativos ou horizontes maiores.

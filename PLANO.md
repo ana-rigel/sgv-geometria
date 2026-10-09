@@ -61,7 +61,7 @@ Pela regra, a linha para ou recebe **uma** reformulação de coordenadas pré-re
 
 **LINHA GEOMÉTRICA ENCERRADA (09/10/2026).** Pela regra fixada antes dos dados, nem as coordenadas de preço (C1) nem as de fluxo (R1) mostram geometria de curvatura além dos fatos estilizados (GARCH, impacto, persistência do fluxo e volume–volatilidade). As Fases 2 a 4 não serão executadas.
 
-**09/10/2026 — Linha nova L2 (rascunho):** a geometria de Fisher–Rao do **espaço de modelos** (SF1), em vez do espaço das observações. Hipótese: a velocidade de mudança da estrutura de informação do fluxo antecipa mudanças de regime de volatilidade, como alarme de risco. Especificação em `PREREGISTRO_L2.md`, **aprovada pela Ana e congelada em 09/10/2026**. A execução fica para depois do início do paper trading da Fase 2 do portfólio.
+**09/10/2026 — Linha nova L2 (rascunho):** a geometria de Fisher–Rao do **espaço de modelos** (SF1), em vez do espaço das observações. Hipótese: a velocidade de mudança da estrutura de informação do fluxo antecipa mudanças de regime de volatilidade, como alarme de risco. Especificação em `PREREGISTRO_L2.md`, **aprovada pela Ana e congelada em 09/10/2026**. A Emenda 1 autorizou a execução com uma cópia própria do `sgv_operavel`. **A calibração sintética mostrou que o teste não tem poder** (0% contra uma estrutura plantada forte, nas duas escalas). Pela regra, **o confirmatório não roda e o período reservado continua intacto.** A H-L2 fica não testável neste desenho, não refutada.
 
 ## Escolhas já feitas pela calibração (detalhes em `reports/DIAGNOSTICO.md`)
 
