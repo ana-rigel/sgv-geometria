@@ -222,7 +222,7 @@ def real(interval):
     if not paths:
         raise FileNotFoundError("Sem dados exploratorios; execute scripts/baixar_klines.py --so")
     for p in paths:
-        m=re.fullmatch(rf"BTCUSDT-{interval}-(\d{4}-\d{2})\.zip",p.name)
+        m=re.fullmatch(rf"BTCUSDT-{re.escape(interval)}-([0-9]{{4}}-[0-9]{{2}})\.zip",p.name)
         if m is None or not(lo<=m.group(1)<=hi):
             raise ValueError("Arquivo de periodo reservado ou invalido: "+p.name)
     df=load_binance_klines(paths,with_flow=True)
