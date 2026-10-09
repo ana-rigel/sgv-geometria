@@ -215,6 +215,25 @@ def main():
              "sem_alvo_futuro":True,"resultado":summarize(rows)}
     dest=args.out or ROOT/"reports"/f"FOTO_INFORMACIONAL_{args.interval}.json"
     dest.parent.mkdir(parents=True,exist_ok=True)
+    if args.interval != "synthetic":
+        import pandas as pd
+        # Série datada de estados para reconstruir depois a evolução
+        # da geometria, sem reabrir dados confirmatórios.
+        frame = pd.DataFrame([{
+            "asof_ms": r["asof_ms"], "t": r["t"],
+            "rho_price_flow": r["rho_price_flow"],
+            "rho_activity_flow": r["rho_activity_flow"],
+            "rho_price_activity": r["rho_price_activity"],
+            "logdet_cov": r["logdet_cov"],
+            "condition": r["condition"],
+            "distance_to_past": r["distance_to_past"],
+            **{f"mu_{k}": float(r["mu"][k]) for k in range(3)},
+            **{f"cov_{i}{j}":float(r["cov"][i][j])
+               for i in range(3) for j in range(i,3)},
+        } for r in rows])
+        csv_path = dest.with_name(dest.stem + "_serie.csv.gz")
+        frame.to_csv(csv_path,index=False,compression="gzip")
+        out["serie_csv_gz"] = csv_path.name
     dest.write_text(json.dumps(out,indent=2,ensure_ascii=False)+"\n")
     print(json.dumps(out,indent=2,ensure_ascii=False))
 
