@@ -310,7 +310,14 @@ def motion(mesh_a, props_a, mesh_b, props_b, seed=SEED):
         R=Qb@D@Qa.T
         angle=float(np.degrees(np.arccos(np.clip((np.trace(R)-1)/2,-1,1))))
         candidates.append((ch,angle))
-    ch,angle=min(candidates,key=lambda a:a[0])
+    # Autovetores descrevem EIXOS sem sinal: uma inversao de dois
+    # sinais produz a mesma orientacao de elipsoide, nao giro de 180.
+    # Primeiro preserve o melhor casamento de superficie dentro de
+    # tolerancia geometrica; depois escolha MENOR angulo equivalente.
+    best_ch=min(ch for ch,angle in candidates)
+    near=[pair for pair in candidates
+          if pair[0] <= best_ch + max(.02, .05*best_ch)]
+    ch,angle=min(near,key=lambda a:(a[1],a[0]))
     out.update({"rotation_angle_deg":angle,
                 "chamfer_residual_normalized":ch,
                 "orientation_identifiable":True,
