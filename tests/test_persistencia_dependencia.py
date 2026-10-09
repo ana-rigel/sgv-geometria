@@ -3,7 +3,7 @@ import numpy as np
 import pytest
 
 from experiments.persistencia_dependencia import (
-    assess_window, bootstrap_means, segment_score, summarize, synthetic_one,
+    assess_window, bootstrap_means, segment_score, summarize, synthetic_one, checked_exploratory_month,
 )
 
 
@@ -94,3 +94,26 @@ def test_mistura_persistente_tem_correlacao_global_proxima_de_zero():
     a=np.corrcoef(x[:3000,0],x[:3000,1])[0,1]
     b=np.corrcoef(x[3000:,0],x[3000:,1])[0,1]
     assert abs(a)<.15 and abs(b)<.15
+
+
+@pytest.mark.parametrize("filename,interval,month",[
+    ("BTCUSDT-1m-2026-05.zip","1m","2026-05"),
+    ("BTCUSDT-1m-2026-07.zip","1m","2026-07"),
+    ("BTCUSDT-1h-2020-01.zip","1h","2020-01"),
+    ("BTCUSDT-1h-2024-12.zip","1h","2024-12"),
+])
+def test_historical_allowlist_accepts_exploration(filename,interval,month):
+    assert checked_exploratory_month(filename,interval)==month
+
+
+@pytest.mark.parametrize("filename,interval",[
+    ("BTCUSDT-1m-2026-08.zip","1m"),
+    ("BTCUSDT-1h-2025-01.zip","1h"),
+    ("BTCUSDT-1m-2026-05.csv","1m"),
+    ("ETHUSDT-1m-2026-05.zip","1m"),
+    ("BTCUSDT-1h-2026-07.zip","1m"),
+    ("BTCUSDT-1m-2026-05.zip","1h"),
+])
+def test_historical_allowlist_rejects_reserved_and_mismatched(filename,interval):
+    with pytest.raises(ValueError):
+        checked_exploratory_month(filename,interval)
