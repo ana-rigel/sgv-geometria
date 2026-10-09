@@ -1,0 +1,56 @@
+name: SGV - Forma da dependencia informacional
+on:
+  push:
+    branches: [research/forma-distribuicoes]
+    paths:
+      - 'experiments/teste_forma_dependencia.py'
+      - 'tests/test_forma_dependencia.py'
+      - '.github/workflows/teste-forma-dependencia.yml'
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  calibracao:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Instalar dependencias
+        run: python -m pip install numpy scipy scikit-learn pandas pytest
+      - name: Testes da transformacao marginal e dependencias
+        run: python -m pytest -q tests/test_forma_dependencia.py
+      - name: Calibracao gaussiana, marginais t independentes e dependencias nao lineares
+        run: python experiments/teste_forma_dependencia.py --interval synthetic
+      - uses: actions/upload-artifact@v4
+        with:
+          name: sgvia-dependencia-calibracao
+          path: reports/FORMA_DEPENDENCIA_synthetic.json
+          if-no-files-found: error
+  exploratorio:
+    needs: calibracao
+    runs-on: ubuntu-latest
+    timeout-minutes: 90
+    strategy:
+      fail-fast: false
+      matrix:
+        interval: [1m, 1h]
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - run: python -m pip install numpy scipy scikit-learn pandas
+      - name: Dados apenas exploratorios (checksum)
+        run: python scripts/baixar_klines.py --so ${{ matrix.interval }}
+      - name: Formas da dependencia depois de normalizar marginal por posto do TREINO
+        run: python experiments/teste_forma_dependencia.py --interval ${{ matrix.interval }}
+      - uses: actions/upload-artifact@v4
+        with:
+          name: sgvia-dependencia-${{ matrix.interval }}
+          path: |
+            reports/FORMA_DEPENDENCIA_${{ matrix.interval }}.json
+            reports/FORMA_DEPENDENCIA_${{ matrix.interval }}_janelas.csv
+          if-no-files-found: error

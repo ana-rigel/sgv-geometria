@@ -1,0 +1,57 @@
+name: SGV - Dinamica das formas contra SF1 local
+on:
+  push:
+    branches: [research/dinamica-formas-sf1]
+    paths:
+      - 'experiments/dinamica_formas_sf1.py'
+      - 'tests/test_dinamica_formas_sf1.py'
+      - '.github/workflows/dinamica-formas-sf1.yml'
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  calibracao:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - run: python -m pip install numpy scipy pandas scikit-learn pytest
+      - name: Verificar causalidade SF1 e geometrias
+        run: python -m pytest -q tests/test_dinamica_formas_sf1.py
+      - name: Calibrar resposta SF1 sintética
+        run: python experiments/dinamica_formas_sf1.py --interval synthetic
+      - if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: sf1-dinamica-synthetic
+          path: reports/SF1_DINAMICA_synthetic.json
+          if-no-files-found: warn
+  exploratorio:
+    needs: calibracao
+    runs-on: ubuntu-latest
+    timeout-minutes: 90
+    strategy:
+      fail-fast: false
+      matrix:
+        interval: [1m, 1h]
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - run: python -m pip install numpy scipy pandas scikit-learn
+      - name: Baixar somente períodos exploratórios com checksum
+        run: python scripts/baixar_klines.py --so ${{ matrix.interval }}
+      - name: Simular SF1 local e comparar trajetorias das formas
+        run: python experiments/dinamica_formas_sf1.py --interval ${{ matrix.interval }}
+      - if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: sf1-dinamica-${{ matrix.interval }}
+          path: |
+            reports/SF1_DINAMICA_${{ matrix.interval }}.json
+            reports/SF1_DINAMICA_${{ matrix.interval }}_janelas.csv
+          if-no-files-found: warn

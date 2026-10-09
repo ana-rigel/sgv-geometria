@@ -1,0 +1,57 @@
+name: SGV - Auditoria de adequacao SF1
+on:
+  push:
+    branches: [research/auditoria-adequacao-sf1]
+    paths:
+      - 'experiments/auditoria_adequacao_sf1.py'
+      - 'tests/test_auditoria_adequacao_sf1.py'
+      - '.github/workflows/auditoria-adequacao-sf1.yml'
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  calibracao:
+    runs-on: ubuntu-latest
+    timeout-minutes: 25
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - run: python -m pip install numpy scipy pandas scikit-learn pytest
+      - name: Testes de causalidade e adequacao do gerador
+        run: python -m pytest -q tests/test_auditoria_adequacao_sf1.py
+      - name: Calibracao sintetica independente
+        run: python experiments/auditoria_adequacao_sf1.py --interval synthetic
+      - if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: sgv-sf1-auditoria-synthetic
+          path: reports/AUDITORIA_SF1_synthetic.json
+          if-no-files-found: warn
+  replay:
+    needs: calibracao
+    strategy:
+      fail-fast: false
+      matrix:
+        interval: [1m, 1h]
+    runs-on: ubuntu-latest
+    timeout-minutes: 90
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - run: python -m pip install numpy scipy pandas scikit-learn
+      - name: Baixar somente klines exploratorios com checksum
+        run: python scripts/baixar_klines.py --so ${{ matrix.interval }}
+      - name: Auditar distribuicoes e dinamica SF1 com parametros passados
+        run: python experiments/auditoria_adequacao_sf1.py --interval ${{ matrix.interval }}
+      - if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: sgv-sf1-auditoria-${{ matrix.interval }}
+          path: |
+            reports/AUDITORIA_SF1_${{ matrix.interval }}.json
+            reports/AUDITORIA_SF1_${{ matrix.interval }}_metricas.csv
+          if-no-files-found: warn

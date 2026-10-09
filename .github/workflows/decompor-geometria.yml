@@ -1,0 +1,57 @@
+name: SGV - Decomposicao das mudancas geometricas
+on:
+  push:
+    branches: [research/decomposicao-geometrica]
+    paths:
+      - 'experiments/decompor_geometria.py'
+      - 'tests/test_decompor_geometria.py'
+      - '.github/workflows/decompor-geometria.yml'
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  calibracao:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - run: python -m pip install numpy scipy pandas pytest
+      - name: Testar identidades de decomposicao e causalidade
+        run: python -m pytest -q tests/test_decompor_geometria.py
+      - name: Testar cenarios com mudancas isoladas
+        run: python experiments/decompor_geometria.py --interval synthetic
+      - if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: sgvia-decomp-calibracao
+          path: reports/DECOMP_GEOMETRIA_synthetic.json
+          if-no-files-found: warn
+  historico:
+    needs: calibracao
+    runs-on: ubuntu-latest
+    timeout-minutes: 90
+    strategy:
+      fail-fast: false
+      matrix:
+        interval: [1m, 1h]
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - run: python -m pip install numpy scipy pandas
+      - name: Baixar e conferir apenas dados exploratorios
+        run: python scripts/baixar_klines.py --so ${{ matrix.interval }}
+      - name: Decompor os estados em media escala e correlacao
+        run: python experiments/decompor_geometria.py --interval ${{ matrix.interval }}
+      - if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: sgvia-decomp-${{ matrix.interval }}
+          path: |
+            reports/DECOMP_GEOMETRIA_${{ matrix.interval }}.json
+            reports/DECOMP_GEOMETRIA_${{ matrix.interval }}_*.csv
+          if-no-files-found: warn

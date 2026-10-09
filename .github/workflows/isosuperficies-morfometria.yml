@@ -1,0 +1,60 @@
+name: SGV - Isosuperficies, morfometria e movimentos
+on:
+  push:
+    branches: [research/isosuperficies-morfometria]
+    paths:
+      - 'experiments/isosuperficies_morfometria.py'
+      - 'tests/test_isosuperficies_morfometria.py'
+      - '.github/workflows/isosuperficies-morfometria.yml'
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  calibracao:
+    name: Geometria analitica e protocolo de falha fechada
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Instalar dependencias reprodutiveis
+        run: python -m pip install 'numpy>=1.26' 'scipy>=1.12' 'scikit-learn>=1.4' 'scikit-image>=0.22' 'trimesh>=4.0' pandas pytest
+      - name: Testar Euler, curvaturas, superficies e transformacoes
+        run: python -m pytest -q tests/test_isosuperficies_morfometria.py
+      - name: Calibracao geometrica em quatro corpos
+        run: python experiments/isosuperficies_morfometria.py --interval synthetic
+      - if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: sgv-mesh-calibracao
+          path: reports/ISOSUPERFICIES_synthetic.json
+          if-no-files-found: warn
+  real:
+    needs: calibracao
+    runs-on: ubuntu-latest
+    timeout-minutes: 60
+    strategy:
+      fail-fast: false
+      matrix:
+        interval: [1m, 1h]
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - run: python -m pip install 'numpy>=1.26' 'scipy>=1.12' 'scikit-learn>=1.4' 'scikit-image>=0.22' 'trimesh>=4.0' pandas
+      - name: Baixar somente amostras exploratorias com verificacao de checksums
+        run: python scripts/baixar_klines.py --so ${{ matrix.interval }}
+      - name: Isosuperficies reais e auditoria de resolucao
+        run: python experiments/isosuperficies_morfometria.py --interval ${{ matrix.interval }}
+      - if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: sgv-isosuperficies-${{ matrix.interval }}
+          path: |
+            reports/ISOSUPERFICIES_${{ matrix.interval }}.json
+            reports/ISOSUPERFICIES_${{ matrix.interval }}_medidas.csv
+            reports/ISOMESH_${{ matrix.interval }}/*.glb
+          if-no-files-found: warn

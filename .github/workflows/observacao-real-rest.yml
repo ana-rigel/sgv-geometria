@@ -1,0 +1,41 @@
+name: SGV - Observacao real REST polling
+on:
+  push:
+    branches: [research/streaming-real-observacional]
+    paths:
+      - 'experiments/validar_polling_real.py'
+      - 'tests/test_validar_polling_real.py'
+      - '.github/workflows/observacao-real-rest.yml'
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  checks:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - run: python -m pip install numpy pandas scipy pytest websocket-client
+      - name: Testes de limites de acesso e candles causais
+        run: python -m pytest -q tests/test_validar_polling_real.py tests/test_validar_stream_real.py
+  observacao:
+    needs: checks
+    runs-on: ubuntu-latest
+    timeout-minutes: 7
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - run: python -m pip install numpy pandas scipy websocket-client
+      - name: Observar ETHUSDT por REST polling e auditar candles fechados
+        run: python experiments/validar_polling_real.py --symbol ETHUSDT --seconds 200 --min-closed 2 --poll-seconds 5 --window 120
+      - if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: SGV-observacao-REST-ETHUSDT
+          path: reports/STREAM_REAL_REST_ETHUSDT.json
+          if-no-files-found: warn
