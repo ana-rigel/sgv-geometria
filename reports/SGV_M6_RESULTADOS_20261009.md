@@ -48,7 +48,7 @@ Isso demonstra que a implementação recupera um acoplamento conhecido e preserv
 
 ## 4. Resultado geométrico exploratório HDR50
 
-Em cada escala foram escolhidas duas janelas para comparar `D(B)` e `delta D=D(B)-D(A)`, com três simulações por variante. As quatro janelas reais passaram o controle geométrico, e as 36 realizações simuladas por variante/escala neste piloto foram válidas (cada origem × 3 réplicas; há 6 realizações por modelo por escala).
+Em cada escala foram escolhidas duas janelas para comparar `D(B)` e `delta D=D(B)-D(A)`, com três simulações por variante. As quatro janelas reais passaram o controle geométrico, assim como as **36 reconstruções simuladas totais nas duas escalas** (2 origens × 3 modelos × 3 réplicas × 2 escalas = 36). Cada modelo teve 6 realizações por escala.
 
 | Escala / janela | Delta D observado | Erro abs Delta D — SF1 | M5 | M6 |
 |---|---:|---:|---:|---:|
