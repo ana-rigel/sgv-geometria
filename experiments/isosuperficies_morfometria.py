@@ -515,8 +515,8 @@ def run_real(interval):
             for key in data:
                 if "_motion_" in key:
                     extra[key+"_delta_chamfer_resolution"]=(None
-                         if data[key]["chamfer_residual_normalized"] is None
-                         or larger[key]["chamfer_residual_normalized"] is None
+                         if data[key].get("chamfer_residual_normalized") is None
+                         or larger[key].get("chamfer_residual_normalized") is None
                          else float(larger[key]["chamfer_residual_normalized"]-
                                    data[key]["chamfer_residual_normalized"]))
                 else:
