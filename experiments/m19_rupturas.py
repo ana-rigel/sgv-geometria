@@ -145,6 +145,18 @@ def circular_shift_p(x,y):
     return float(obs),float((1+sum(v>=obs-1e-12 for v in null))/n)
 
 
+def by_group(valid,events,y):
+    out={}
+    for g in sorted({e.get('grupo') for e in events if e.get('grupo')}):
+        ev=event_windows([e for e in events if e.get('grupo')==g],valid)
+        x=np.array([r['window'] in ev for r in valid])
+        if not x.any():continue
+        d,p=circular_shift_p(x,y)
+        out[g]={'n_event_windows':int(x.sum()),'event_rate':float(y[x].mean()),
+                'nonevent_rate':float(y[~x].mean()),'rate_difference':d,'p_one_sided':p}
+    return out
+
+
 def analyse(rows,events):
     valid=[r for r in rows if r.get('status')=='valid']
     ev=event_windows(events,valid)
@@ -180,6 +192,7 @@ def analyse(rows,events):
             'secondary_vol_stratified_permutation':p_strat,
             'secondary_any_ruler_circular_shift':{'rate_difference':diff1,'p_one_sided':p_perm1},
             'per_ruler':per_ruler,
+            'secondary_by_group':by_group(valid,events,y),
             'base_rate_strong_alarm_all_windows':float(y.mean())}
 
 

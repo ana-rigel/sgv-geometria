@@ -1,6 +1,6 @@
 # SGV-M19 — Os alarmes do nulo adequado marcam rupturas estruturais? (protocolo confirmatório)
 
-STATUS: RASCUNHO — aguardando a lista de eventos da Ana e o seu OK final. **Nenhum dado reservado foi baixado ou lido.**
+STATUS: CONGELADO — 10/10/2026, antes de qualquer download ou leitura dos meses reservados. Autorização da Ana: "Faça a execução no Actions para obter os dados e dê prosseguimento" (10/10/2026), delegando a Claude a montagem da lista de eventos.
 
 **Ramo:** `research/m19-rupturas-estruturais`. **`main` intocada.**
 **Escolha da Ana (10/10/2026):** testar no 1m, período reservado **agosto–setembro de 2026**.
@@ -22,9 +22,12 @@ STATUS: RASCUNHO — aguardando a lista de eventos da Ana e o seu OK final. **Ne
 - Réguas: M11 (forma), Fisher–Rao (covariância), energy (massa/memória), nas mesmas metades gaussianizadas.
 - Alarme por régua: observado acima de ≥38 das 39. **Alarme forte = alarme em ≥2 réguas** (taxa de base exploratória: 6,0%).
 
-## Eventos (a preencher pela Ana ANTES da abertura dos dados)
+## Eventos (lista fixada antes da abertura dos dados)
 
-Arquivo: `reports/m19/eventos_ago_set_2026.json`, com data (UTC) ou data-hora (UTC), nome, categoria e fonte.
+Arquivo: `reports/m19/eventos_ago_set_2026.json` — **11 eventos**, cada um com data (UTC) ou data-hora (UTC), nome, categoria, grupo e fonte.
+**Como a lista foi feita:** por delegação da Ana, Claude buscou **notícias e calendários oficiais** (BLS, Fed, SEC, Senado; relatórios de incidentes de segurança). Nenhum gráfico ou série de preço do período foi consultado para escolher eventos. Durante a busca, dois títulos de notícia mencionaram de passagem o nível do BTC (início e fim de agosto); isso não informa nada sobre a geometria das janelas e não influenciou a escolha. Incidentes sem data identificável no material encontrado foram excluídos (exploit da Tectonic/Cronos, agosto).
+- **Agendados (6):** emprego dos EUA 07/08 e 04/09; CPI 12/08 e 11/09; Jackson Hole 28/08; FOMC 16/09.
+- **Não agendados (5):** SEC "Regulation Crypto Assets" 18/08; SEC transfer agents/blockchain 01/09; exploit da Liquid Network 06/09; CLARITY Act não avança no Senado 15/09; roubo na Bitget 24/09.
 **Critério de inclusão:** acontecimento **externo ao preço**, de alcance estrutural para o mercado de cripto:
 1. falha, ataque ou insolvência de corretora, emissora de stablecoin ou protocolo relevante;
 2. decisão regulatória ou judicial relevante (EUA, UE, Ásia);
@@ -36,7 +39,7 @@ Arquivo: `reports/m19/eventos_ago_set_2026.json`, com data (UTC) ou data-hora (U
 ## Testes (congelados)
 
 - **Primário:** diferença entre a taxa de alarme forte nas janelas de evento e nas demais, com **p unilateral por deslocamentos circulares** do indicador de evento (preserva o agrupamento temporal das janelas). **α = 0,05.**
-- **Secundários (descritivos):** Fisher exato unilateral; permutação estratificada por terço da razão de volatilidade (controle de volatilidade); mesma análise com alarme em ≥1 régua; taxas por régua.
+- **Secundários (descritivos):** Fisher exato unilateral; permutação estratificada por terço da razão de volatilidade (controle de volatilidade); mesma análise com alarme em ≥1 régua; taxas por régua; **o teste primário repetido só com os eventos agendados** (livres de viés de escolha, porque as datas são marcadas com antecedência) **e só com os não agendados**.
 - **Decisão:** p primário < 0,05 → H-RUP **apoiada** no confirmatório (1m, ago–set/2026). Caso contrário → H-RUP **não apoiada**; os meses ago–set/2026 do 1m ficam gastos para esta hipótese, sem reteste nem troca de régua ou de limiar depois de ver os dados.
 
 ## Poder (declarado)
@@ -57,8 +60,6 @@ O pipeline inteiro rodou em dados **exploratórios** (janelas a partir de 01/06/
 
 Raciocínio: a coincidência do M16 foi vista depois dos dados, em 18 janelas e noutra escala; no 1m o período tem só ~58 janelas, e eventos estruturais em dois meses podem ser poucos ou fracos. Uma confirmação seria forte; uma não confirmação seria o resultado mais provável e ainda informativo.
 
-## Para congelar
+## Execução
 
-1. A Ana envia a lista de eventos de agosto–setembro de 2026 seguindo o critério acima.
-2. Claude grava `eventos_ago_set_2026.json`, troca o STATUS para CONGELADO, faz commit e informa o SHA-256.
-3. A Ana dá o OK final → disparo manual da execução confirmatória.
+Disparo manual do workflow `m19-rupturas.yml` com `mode=confirmatorio`, `events=reports/m19/eventos_ago_set_2026.json` e o SHA-256 deste arquivo. Os resultados são gravados automaticamente em `reports/m19/confirmatorio/`.

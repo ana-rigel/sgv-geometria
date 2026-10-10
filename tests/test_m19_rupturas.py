@@ -42,3 +42,20 @@ def test_circular_shift_detects_and_respects_null():
     d,p=m.circular_shift_p(x,y);assert d==1 and p<.05
     rng=np.random.default_rng(0);y=rng.random(58)<.1
     _,p=m.circular_shift_p(x,y);assert p>.01
+
+
+def test_group_split():
+    rows=[{'window':k,'start_ms':k*90_000_000,'end_ms':(k+1)*90_000_000-60000} for k in range(10)]
+    ev=[{'utc':'1970-01-02T02:00:00','grupo':'agendado'},{'utc':'1970-01-06T02:00:00','grupo':'nao_agendado'}]
+    y=np.zeros(10,bool);y[1]=True
+    g=m.by_group(rows,ev,y)
+    assert g['agendado']['event_rate']==1 and g['nao_agendado']['event_rate']==0
+
+
+def test_confirmatory_event_file_valid():
+    import pathlib
+    d=json.loads(pathlib.Path(m.ROOT/'reports/m19/eventos_ago_set_2026.json').read_text())
+    for e in d['eventos']:
+        assert ('utc' in e)^('date' in e) and e['grupo'] in ('agendado','nao_agendado') and e['fonte'].startswith('http')
+        t=e.get('utc',e.get('date'))
+        assert '2026-08-01'<=t[:10]<='2026-09-30'

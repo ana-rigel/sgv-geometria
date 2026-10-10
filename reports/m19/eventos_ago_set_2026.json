@@ -1,0 +1,15 @@
+{"compilado_por":"Claude, por delegacao da Ana (10/10/2026), a partir de busca de NOTICIAS e calendarios oficiais; nenhum grafico ou serie de preco do periodo foi consultado para escolher eventos.",
+ "criterio":"categorias 1-4 do PROTOCOLO_SGV_M19_20261010.md; eventos sem data identificavel foram excluidos (ex.: exploit da Tectonic/Cronos, ago/2026, sem data no material encontrado).",
+ "eventos":[
+  {"utc":"2026-08-07T12:30:00","nome":"US Employment Situation (julho)","categoria":3,"grupo":"agendado","fonte":"https://www.bls.gov/schedule/2026/08_sched_list.htm"},
+  {"utc":"2026-08-12T12:30:00","nome":"US CPI (julho)","categoria":3,"grupo":"agendado","fonte":"https://www.bls.gov/schedule/2026/08_sched_list.htm"},
+  {"date":"2026-08-18","nome":"SEC propoe a 'Regulation Crypto Assets'","categoria":2,"grupo":"nao_agendado","fonte":"https://www.whitecase.com/insight-alert/sec-proposes-regulation-crypto-assets-rulemaking"},
+  {"date":"2026-08-28","nome":"Jackson Hole: discurso do presidente do Fed (simposio 27-29/08; discurso habitual na sexta)","categoria":3,"grupo":"agendado","fonte":"https://www.financecalendar.com/event/jackson-hole-economic-symposium-2026/"},
+  {"date":"2026-09-01","nome":"SEC propoe modernizar regras de transfer agents (registros em blockchain)","categoria":2,"grupo":"nao_agendado","fonte":"https://www.lw.com/en/us-crypto-policy-tracker/regulatory-developments"},
+  {"utc":"2026-09-04T12:30:00","nome":"US Employment Situation (agosto)","categoria":3,"grupo":"agendado","fonte":"https://www.bls.gov/schedule/2026/09_sched_list.htm"},
+  {"utc":"2026-09-06T13:53:00","nome":"Exploit da Liquid Network (~US$320 mi em BTC)","categoria":1,"grupo":"nao_agendado","fonte":"https://www.trmlabs.com/resources/blog/2026s-biggest-hack-to-date-attackers-drained-usd-319-million-in-bitcoin-from-liquid-network-then-returned-85-of-funds"},
+  {"utc":"2026-09-11T12:30:00","nome":"US CPI (agosto)","categoria":3,"grupo":"agendado","fonte":"https://www.bls.gov/schedule/2026/09_sched_list.htm"},
+  {"date":"2026-09-15","nome":"CLARITY Act nao avanca no Senado (votacao de cloture; fonte cita 15 e 16/09)","categoria":2,"grupo":"nao_agendado","fonte":"https://www.hsfkramer.com/insights/2026-09/after-the-clarity-act-fails-to-advance-crypto-securities-law-regulation-is-left-to-the-sec"},
+  {"utc":"2026-09-16T18:00:00","nome":"Decisao do FOMC (comunicado 14h ET)","categoria":3,"grupo":"agendado","fonte":"https://fedratecalc.com/fomc-meeting-schedule/september-2026/"},
+  {"date":"2026-09-24","nome":"Bitget detecta/divulga roubo de ~US$388 mi em hot wallets","categoria":1,"grupo":"nao_agendado","fonte":"https://en.cryptonomist.ch/2026/10/01/crypto-hacks-september-2026/"}
+ ]}
