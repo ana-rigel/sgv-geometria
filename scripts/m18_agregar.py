@@ -33,7 +33,7 @@ def pct(x):return '—' if x is None else f'{100*x:.1f}%'
 
 def report(a):
     L=['# SGV-M18 — Acoplamento dinâmico × memória longa (resultados)','',
-       '**Somente dados exploratórios.** Gerado por `scripts/m17_agregar.py`; protocolo e apostas congelados antes em '
+       '**Somente dados exploratórios.** Gerado por `scripts/m18_agregar.py`; protocolo e apostas congelados antes em '
        '`reports/PROTOCOLO_SGV_M18_20261010.md`. Origens consecutivas não são independentes (Wilson otimista).','']
     for iv in INTERVALS:
         L+=[f'## {iv} (origens: {a["status"][iv]})','','| Nulo | M11 (forma) | Fisher–Rao | Energy (memória) | Fecha a lacuna? |','|---|---|---|---|---|']
