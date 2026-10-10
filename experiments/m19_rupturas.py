@@ -61,15 +61,16 @@ def protocol_gate(expected_sha):
 
 def archives(mode,protocol_sha=None):
     cfg=PERIODS[mode];paths=[]
-    for m in cfg['months']:
+    for m in cfg['months']:                      # permissions first, files after
         p=cfg['dir']/f'BTCUSDT-1m-{m}.zip'
         if m in CONFIRMATORY_MONTHS:
             if mode!='confirmatorio':raise PermissionError('Reserved month outside confirmatory mode')
             protocol_gate(protocol_sha)
         else:
             checked_exploratory_month(p.name,'1m')
-        if not p.is_file():raise FileNotFoundError(p)
         paths.append(p)
+    for p in paths:
+        if not p.is_file():raise FileNotFoundError(p)
     return paths
 
 
