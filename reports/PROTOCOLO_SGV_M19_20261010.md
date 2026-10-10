@@ -14,7 +14,7 @@ STATUS: RASCUNHO — aguardando a lista de eventos da Ana e o seu OK final. **Ne
 
 - BTCUSDT spot 1m, **01/08/2026 00:00 UTC → 30/09/2026**: **58 janelas** disjuntas de 1500 min, a partir do primeiro minuto do período. Janelas com lacuna nos dados são registradas como lacuna e excluídas (não substituídas).
 - Prefixo de cada janela: os 5000 min imediatamente anteriores (o da primeira janela vem do fim de julho, exploratório).
-- Download **somente** por `scripts/m19_baixar_confirmatorio.py`, que recusa rodar se este arquivo não disser "STATUS: CONGELADO" e se o SHA-256 informado não bater. Execução no GitHub Actions apenas por disparo manual depois do OK da Ana.
+- Download **somente** por `scripts/m19_baixar_confirmatorio.py`, que recusa rodar se este arquivo não disser "STATUS: CONGELADO" e se o SHA-256 informado não bater. Execução no GitHub Actions apenas por alteração explícita de `reports/m19/disparo.json` (modo `confirmatorio` + SHA do protocolo), feita somente depois do OK da Ana.
 
 ## Medição (congelada; idêntica ao M18-BL)
 

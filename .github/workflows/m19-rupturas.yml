@@ -1,25 +1,30 @@
-name: SGV-M19 - Rupturas estruturais (disparo manual)
+name: SGV-M19 - Rupturas estruturais (disparo por arquivo)
 on:
-  workflow_dispatch:
-    inputs:
-      mode:
-        description: 'ensaio (exploratorio) ou confirmatorio (meses reservados)'
-        required: true
-        default: ensaio
-        type: choice
-        options: [ensaio, confirmatorio]
-      protocol_sha:
-        description: 'SHA-256 do PROTOCOLO_SGV_M19 congelado (obrigatorio no confirmatorio)'
-        required: false
-        default: ''
-      events:
-        description: 'arquivo de eventos'
-        required: true
-        default: reports/m19/eventos_ensaio_FICTICIOS.json
+  push:
+    branches: [research/m19-rupturas-estruturais]
+    paths: ['reports/m19/disparo.json']
 permissions:
   contents: read
 jobs:
+  config:
+    name: Ler disparo.json
+    runs-on: ubuntu-latest
+    outputs:
+      mode: ${{ steps.c.outputs.mode }}
+      events: ${{ steps.c.outputs.events }}
+      sha: ${{ steps.c.outputs.sha }}
+    steps:
+      - uses: actions/checkout@v4
+      - id: c
+        run: |
+          python - <<'PY' >> "$GITHUB_OUTPUT"
+          import json
+          d=json.load(open('reports/m19/disparo.json'))
+          assert d['mode'] in ('ensaio','confirmatorio')
+          print('mode='+d['mode']);print('events='+d['events']);print('sha='+d.get('protocol_sha',''))
+          PY
   portao:
+    needs: config
     name: Testes + portao do protocolo
     runs-on: ubuntu-latest
     timeout-minutes: 20
@@ -29,11 +34,11 @@ jobs:
         with: {python-version: '3.11'}
       - run: python -m pip install numpy scipy pandas scikit-learn scikit-image trimesh pytest
       - run: python -m pytest -q tests/test_m19_rupturas.py
-      - if: ${{ inputs.mode == 'confirmatorio' }}
-        run: python -c "from experiments.m19_rupturas import protocol_gate; print(protocol_gate('${{ inputs.protocol_sha }}'))"
+      - if: ${{ needs.config.outputs.mode == 'confirmatorio' }}
+        run: python -c "from experiments.m19_rupturas import protocol_gate; print(protocol_gate('${{ needs.config.outputs.sha }}'))"
   janelas:
-    needs: portao
-    name: M19 ${{ inputs.mode }} shard ${{ matrix.shard }}
+    needs: [config, portao]
+    name: M19 ${{ needs.config.outputs.mode }} shard ${{ matrix.shard }}
     runs-on: ubuntu-latest
     timeout-minutes: 60
     strategy:
@@ -58,14 +63,14 @@ jobs:
       - name: Klines exploratorios (prefixos e ensaio)
         run: python scripts/baixar_klines.py --so 1m
       - name: Meses reservados (so com protocolo congelado)
-        if: ${{ inputs.mode == 'confirmatorio' }}
-        run: python scripts/m19_baixar_confirmatorio.py --protocol-sha '${{ inputs.protocol_sha }}'
-      - run: python experiments/m19_rupturas.py --mode ${{ inputs.mode }} --stage shard --shard ${{ matrix.shard }} --protocol-sha '${{ inputs.protocol_sha }}'
+        if: ${{ needs.config.outputs.mode == 'confirmatorio' }}
+        run: python scripts/m19_baixar_confirmatorio.py --protocol-sha '${{ needs.config.outputs.sha }}'
+      - run: python experiments/m19_rupturas.py --mode ${{ needs.config.outputs.mode }} --stage shard --shard ${{ matrix.shard }} --protocol-sha '${{ needs.config.outputs.sha }}'
       - if: always()
         uses: actions/upload-artifact@v4
-        with: {name: 'SGV-M19-${{ inputs.mode }}-shard-${{ matrix.shard }}', path: 'reports/m19/${{ inputs.mode }}/shard_*.json', if-no-files-found: warn, retention-days: 90}
+        with: {name: 'SGV-M19-${{ needs.config.outputs.mode }}-shard-${{ matrix.shard }}', path: 'reports/m19/${{ needs.config.outputs.mode }}/shard_*.json', if-no-files-found: warn, retention-days: 90}
   analise:
-    needs: [portao, janelas]
+    needs: [config, portao, janelas]
     if: ${{ always() && needs.portao.result == 'success' }}
     name: Agregar, testar e publicar
     runs-on: ubuntu-latest
@@ -78,13 +83,13 @@ jobs:
         with: {python-version: '3.11'}
       - run: python -m pip install numpy scipy pandas scikit-learn scikit-image trimesh
       - uses: actions/download-artifact@v4
-        with: {pattern: 'SGV-M19-${{ inputs.mode }}-shard-*', path: 'reports/m19/${{ inputs.mode }}', merge-multiple: true}
-      - run: python experiments/m19_rupturas.py --mode ${{ inputs.mode }} --stage aggregate --events '${{ inputs.events }}' --protocol-sha '${{ inputs.protocol_sha }}'
+        with: {pattern: 'SGV-M19-${{ needs.config.outputs.mode }}-shard-*', path: 'reports/m19/${{ needs.config.outputs.mode }}', merge-multiple: true}
+      - run: python experiments/m19_rupturas.py --mode ${{ needs.config.outputs.mode }} --stage aggregate --events '${{ needs.config.outputs.events }}' --protocol-sha '${{ needs.config.outputs.sha }}'
       - name: Commit
         if: always()
         run: |
           git config user.name "sgv-m19-bot"
           git config user.email "sgv-m19-bot@users.noreply.github.com"
-          git add -f reports/m19/${{ inputs.mode }} || true
-          git commit -m "results: M19 ${{ inputs.mode }} run [skip ci]" || echo "nada a commitar"
+          git add -f reports/m19/${{ needs.config.outputs.mode }} || true
+          git commit -m "results: M19 ${{ needs.config.outputs.mode }} run [skip ci]" || echo "nada a commitar"
           git push

@@ -1,0 +1,4 @@
+{"mode": "ensaio",
+ "events": "reports/m19/eventos_ensaio_FICTICIOS.json",
+ "protocol_sha": "",
+ "nota": "Disparo de ENSAIO de engenharia em dados exploratorios (eventos ficticios). O modo confirmatorio so pode ser usado com o protocolo congelado e o OK da Ana."}
