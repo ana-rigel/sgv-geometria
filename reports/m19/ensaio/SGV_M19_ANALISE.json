@@ -53,6 +53,7 @@
    "nonevent_rate": 0.1346153846153846
   }
  },
+ "secondary_by_group": {},
  "base_rate_strong_alarm_all_windows": 0.06896551724137931,
  "mode": "ensaio",
  "events_file": "reports/m19/eventos_ensaio_FICTICIOS.json",
