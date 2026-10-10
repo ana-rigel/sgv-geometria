@@ -2,5 +2,5 @@
  "mode": "ensaio",
  "events": "reports/m19/eventos_ensaio_FICTICIOS.json",
  "protocol_sha": "",
- "nota": "Ensaio de engenharia no Actions (2a tentativa, apos corrigir a ordem permissao/arquivo em archives()). Eventos ficticios, dados exploratorios."
+ "nota": "Ensaio de engenharia no Actions (3a tentativa: artefatos baixados em pasta limpa). Eventos ficticios, dados exploratorios."
 }

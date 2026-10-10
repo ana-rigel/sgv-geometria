@@ -83,13 +83,16 @@ jobs:
         with: {python-version: '3.11'}
       - run: python -m pip install numpy scipy pandas scikit-learn scikit-image trimesh
       - uses: actions/download-artifact@v4
-        with: {pattern: 'SGV-M19-${{ needs.config.outputs.mode }}-shard-*', path: 'reports/m19/${{ needs.config.outputs.mode }}', merge-multiple: true}
-      - run: python experiments/m19_rupturas.py --mode ${{ needs.config.outputs.mode }} --stage aggregate --events '${{ needs.config.outputs.events }}' --protocol-sha '${{ needs.config.outputs.sha }}'
+        with: {pattern: 'SGV-M19-${{ needs.config.outputs.mode }}-shard-*', path: 'reports/m19/_dl', merge-multiple: true}
+      - run: python experiments/m19_rupturas.py --mode ${{ needs.config.outputs.mode }} --stage aggregate --events '${{ needs.config.outputs.events }}' --protocol-sha '${{ needs.config.outputs.sha }}' --shards-dir reports/m19/_dl
       - name: Commit
         if: always()
         run: |
           git config user.name "sgv-m19-bot"
           git config user.email "sgv-m19-bot@users.noreply.github.com"
+          mkdir -p reports/m19/${{ needs.config.outputs.mode }}
+          rm -f reports/m19/${{ needs.config.outputs.mode }}/shard_*.json
+          cp reports/m19/_dl/shard_*.json reports/m19/${{ needs.config.outputs.mode }}/ || true
           git add -f reports/m19/${{ needs.config.outputs.mode }} || true
           git commit -m "results: M19 ${{ needs.config.outputs.mode }} run [skip ci]" || echo "nada a commitar"
           git push
