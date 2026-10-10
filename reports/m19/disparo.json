@@ -1,6 +1,6 @@
 {
- "mode": "ensaio",
- "events": "reports/m19/eventos_ensaio_FICTICIOS.json",
- "protocol_sha": "",
- "nota": "Ensaio de engenharia no Actions (3a tentativa: artefatos baixados em pasta limpa). Eventos ficticios, dados exploratorios."
+ "mode": "confirmatorio",
+ "events": "reports/m19/eventos_ago_set_2026.json",
+ "protocol_sha": "a5ac387338f6e0e6b21313f7e8f5067aaeb2789aa7ef6ee83ecff07e1bbc867d",
+ "nota": "EXECUCAO CONFIRMATORIA autorizada pela Ana em 10/10/2026. Protocolo congelado em 60c051d (sha acima). Mudancas de codigo apos o congelamento: so engenharia (ordem permissao/arquivo; download de artefatos em pasta limpa) -- medicao, nulo, alarme e testes inalterados; validadas no ensaio do Actions (run 38081159547)."
 }
