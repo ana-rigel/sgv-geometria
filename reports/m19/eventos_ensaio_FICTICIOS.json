@@ -1,0 +1,3 @@
+{"aviso":"EVENTOS FICTICIOS, so para o ensaio de engenharia em dados exploratorios. Nao tem significado.",
+ "eventos":[{"date":"2026-06-10","nome":"ficticio A"},{"date":"2026-06-25","nome":"ficticio B"},
+            {"utc":"2026-07-08T14:00:00","nome":"ficticio C"},{"date":"2026-07-22","nome":"ficticio D"}]}
