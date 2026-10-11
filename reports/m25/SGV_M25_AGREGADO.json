@@ -1,0 +1,505 @@
+{
+ "n_valid": 84,
+ "status": {
+  "valid": 84
+ },
+ "cells": {
+  "HARLMFV|m11": {
+   "alarms": 13,
+   "n": 82,
+   "rate": 0.15853658536585366,
+   "wilson95": [
+    0.09505590299299464,
+    0.2525786692831714
+   ],
+   "elevated": true
+  },
+  "HARLMFV|fr_cov": {
+   "alarms": 14,
+   "n": 84,
+   "rate": 0.16666666666666666,
+   "wilson95": [
+    0.10195742148970746,
+    0.2605303974533991
+   ],
+   "elevated": true
+  },
+  "HARLMFV|energy": {
+   "alarms": 16,
+   "n": 84,
+   "rate": 0.19047619047619047,
+   "wilson95": [
+    0.12078697736721433,
+    0.2872374259370989
+   ],
+   "elevated": true
+  },
+  "HARLMFV|lin_1": {
+   "alarms": 11,
+   "n": 84,
+   "rate": 0.13095238095238096,
+   "wilson95": [
+    0.07472221316943048,
+    0.21946072923186608
+   ],
+   "elevated": true
+  },
+  "HARLMFV|lin_5": {
+   "alarms": 14,
+   "n": 84,
+   "rate": 0.16666666666666666,
+   "wilson95": [
+    0.10195742148970746,
+    0.2605303974533991
+   ],
+   "elevated": true
+  },
+  "HARLMFV|lin_30": {
+   "alarms": 19,
+   "n": 84,
+   "rate": 0.2261904761904762,
+   "wilson95": [
+    0.14986020837445108,
+    0.32646907147167215
+   ],
+   "elevated": true
+  },
+  "HARLMFV|vol_1": {
+   "alarms": 16,
+   "n": 84,
+   "rate": 0.19047619047619047,
+   "wilson95": [
+    0.12078697736721433,
+    0.2872374259370989
+   ],
+   "elevated": true
+  },
+  "HARLMFV|vol_5": {
+   "alarms": 25,
+   "n": 84,
+   "rate": 0.2976190476190476,
+   "wilson95": [
+    0.21044818243737515,
+    0.4024908504923681
+   ],
+   "elevated": true
+  },
+  "HARLMFV|vol_30": {
+   "alarms": 23,
+   "n": 84,
+   "rate": 0.27380952380952384,
+   "wilson95": [
+    0.18992825695769278,
+    0.37747419161084395
+   ],
+   "elevated": true
+  },
+  "HARLMFV|hsic_1": {
+   "alarms": 16,
+   "n": 84,
+   "rate": 0.19047619047619047,
+   "wilson95": [
+    0.12078697736721433,
+    0.2872374259370989
+   ],
+   "elevated": true
+  },
+  "HARLMFV|hsic_5": {
+   "alarms": 24,
+   "n": 84,
+   "rate": 0.2857142857142857,
+   "wilson95": [
+    0.20015034121612774,
+    0.39002039953301215
+   ],
+   "elevated": true
+  },
+  "HARLMFV|hsic_30": {
+   "alarms": 25,
+   "n": 84,
+   "rate": 0.2976190476190476,
+   "wilson95": [
+    0.21044818243737515,
+    0.4024908504923681
+   ],
+   "elevated": true
+  },
+  "HARLMF|m11": {
+   "alarms": 12,
+   "n": 82,
+   "rate": 0.14634146341463414,
+   "wilson95": [
+    0.08574162210230579,
+    0.23859418489800904
+   ],
+   "elevated": true
+  },
+  "HARLMF|fr_cov": {
+   "alarms": 17,
+   "n": 84,
+   "rate": 0.20238095238095238,
+   "wilson95": [
+    0.130374567896324,
+    0.30041812758859254
+   ],
+   "elevated": true
+  },
+  "HARLMF|energy": {
+   "alarms": 11,
+   "n": 84,
+   "rate": 0.13095238095238096,
+   "wilson95": [
+    0.07472221316943048,
+    0.21946072923186608
+   ],
+   "elevated": true
+  },
+  "HARLMF|lin_1": {
+   "alarms": 10,
+   "n": 84,
+   "rate": 0.11904761904761904,
+   "wilson95": [
+    0.0659654924759903,
+    0.2054491577447029
+   ],
+   "elevated": false
+  },
+  "HARLMF|lin_5": {
+   "alarms": 18,
+   "n": 84,
+   "rate": 0.21428571428571427,
+   "wilson95": [
+    0.14006766544991558,
+    0.31349332221560433
+   ],
+   "elevated": true
+  },
+  "HARLMF|lin_30": {
+   "alarms": 22,
+   "n": 84,
+   "rate": 0.2619047619047619,
+   "wilson95": [
+    0.17978478378725543,
+    0.3648493726006779
+   ],
+   "elevated": true
+  },
+  "HARLMF|vol_1": {
+   "alarms": 19,
+   "n": 84,
+   "rate": 0.2261904761904762,
+   "wilson95": [
+    0.14986020837445108,
+    0.32646907147167215
+   ],
+   "elevated": true
+  },
+  "HARLMF|vol_5": {
+   "alarms": 24,
+   "n": 84,
+   "rate": 0.2857142857142857,
+   "wilson95": [
+    0.20015034121612774,
+    0.39002039953301215
+   ],
+   "elevated": true
+  },
+  "HARLMF|vol_30": {
+   "alarms": 22,
+   "n": 84,
+   "rate": 0.2619047619047619,
+   "wilson95": [
+    0.17978478378725543,
+    0.3648493726006779
+   ],
+   "elevated": true
+  },
+  "HARLMF|hsic_1": {
+   "alarms": 19,
+   "n": 84,
+   "rate": 0.2261904761904762,
+   "wilson95": [
+    0.14986020837445108,
+    0.32646907147167215
+   ],
+   "elevated": true
+  },
+  "HARLMF|hsic_5": {
+   "alarms": 26,
+   "n": 84,
+   "rate": 0.30952380952380953,
+   "wilson95": [
+    0.22081923628001898,
+    0.4148880888303277
+   ],
+   "elevated": true
+  },
+  "HARLMF|hsic_30": {
+   "alarms": 28,
+   "n": 84,
+   "rate": 0.3333333333333333,
+   "wilson95": [
+    0.24177214000720681,
+    0.4394717694643464
+   ],
+   "elevated": true
+  },
+  "BL|m11": {
+   "alarms": 5,
+   "n": 82,
+   "rate": 0.06097560975609756,
+   "wilson95": [
+    0.02632395506781607,
+    0.1349204950015403
+   ],
+   "elevated": false
+  },
+  "BL|fr_cov": {
+   "alarms": 8,
+   "n": 84,
+   "rate": 0.09523809523809523,
+   "wilson95": [
+    0.049051709909559385,
+    0.17682635594992718
+   ],
+   "elevated": false
+  },
+  "BL|energy": {
+   "alarms": 9,
+   "n": 84,
+   "rate": 0.10714285714285714,
+   "wilson95": [
+    0.057400212876644804,
+    0.19124614516344507
+   ],
+   "elevated": false
+  },
+  "BL|lin_1": {
+   "alarms": 10,
+   "n": 84,
+   "rate": 0.11904761904761904,
+   "wilson95": [
+    0.0659654924759903,
+    0.2054491577447029
+   ],
+   "elevated": false
+  },
+  "BL|lin_5": {
+   "alarms": 11,
+   "n": 84,
+   "rate": 0.13095238095238096,
+   "wilson95": [
+    0.07472221316943048,
+    0.21946072923186608
+   ],
+   "elevated": true
+  },
+  "BL|lin_30": {
+   "alarms": 11,
+   "n": 84,
+   "rate": 0.13095238095238096,
+   "wilson95": [
+    0.07472221316943048,
+    0.21946072923186608
+   ],
+   "elevated": true
+  },
+  "BL|vol_1": {
+   "alarms": 8,
+   "n": 84,
+   "rate": 0.09523809523809523,
+   "wilson95": [
+    0.049051709909559385,
+    0.17682635594992718
+   ],
+   "elevated": false
+  },
+  "BL|vol_5": {
+   "alarms": 8,
+   "n": 84,
+   "rate": 0.09523809523809523,
+   "wilson95": [
+    0.049051709909559385,
+    0.17682635594992718
+   ],
+   "elevated": false
+  },
+  "BL|vol_30": {
+   "alarms": 8,
+   "n": 84,
+   "rate": 0.09523809523809523,
+   "wilson95": [
+    0.049051709909559385,
+    0.17682635594992718
+   ],
+   "elevated": false
+  },
+  "BL|hsic_1": {
+   "alarms": 11,
+   "n": 84,
+   "rate": 0.13095238095238096,
+   "wilson95": [
+    0.07472221316943048,
+    0.21946072923186608
+   ],
+   "elevated": true
+  },
+  "BL|hsic_5": {
+   "alarms": 11,
+   "n": 84,
+   "rate": 0.13095238095238096,
+   "wilson95": [
+    0.07472221316943048,
+    0.21946072923186608
+   ],
+   "elevated": true
+  },
+  "BL|hsic_30": {
+   "alarms": 13,
+   "n": 84,
+   "rate": 0.15476190476190477,
+   "wilson95": [
+    0.09273310465265512,
+    0.2469864221098481
+   ],
+   "elevated": true
+  }
+ },
+ "primary_vs_HARLMF": {
+  "vol_1": {
+   "x_only": 5,
+   "y_only": 2,
+   "n_pairs": 84,
+   "p_one_sided": 0.2265625,
+   "significant": false
+  },
+  "vol_5": {
+   "x_only": 6,
+   "y_only": 7,
+   "n_pairs": 84,
+   "p_one_sided": 0.70947265625,
+   "significant": false
+  },
+  "vol_30": {
+   "x_only": 5,
+   "y_only": 6,
+   "n_pairs": 84,
+   "p_one_sided": 0.7255859375,
+   "significant": false
+  }
+ },
+ "HARLMFV_worse_than_BL": {
+  "m11": {
+   "x_only": 9,
+   "y_only": 1,
+   "n_pairs": 82,
+   "p_one_sided": 0.0107421875,
+   "significant": false
+  },
+  "fr_cov": {
+   "x_only": 6,
+   "y_only": 0,
+   "n_pairs": 84,
+   "p_one_sided": 0.015625,
+   "significant": false
+  },
+  "energy": {
+   "x_only": 7,
+   "y_only": 0,
+   "n_pairs": 84,
+   "p_one_sided": 0.0078125,
+   "significant": false
+  },
+  "lin_1": {
+   "x_only": 2,
+   "y_only": 1,
+   "n_pairs": 84,
+   "p_one_sided": 0.5,
+   "significant": false
+  },
+  "lin_5": {
+   "x_only": 4,
+   "y_only": 1,
+   "n_pairs": 84,
+   "p_one_sided": 0.1875,
+   "significant": false
+  },
+  "lin_30": {
+   "x_only": 9,
+   "y_only": 1,
+   "n_pairs": 84,
+   "p_one_sided": 0.0107421875,
+   "significant": false
+  },
+  "vol_1": {
+   "x_only": 8,
+   "y_only": 0,
+   "n_pairs": 84,
+   "p_one_sided": 0.00390625,
+   "significant": true
+  },
+  "vol_5": {
+   "x_only": 17,
+   "y_only": 0,
+   "n_pairs": 84,
+   "p_one_sided": 7.62939453125e-06,
+   "significant": true
+  },
+  "vol_30": {
+   "x_only": 15,
+   "y_only": 0,
+   "n_pairs": 84,
+   "p_one_sided": 3.0517578125e-05,
+   "significant": true
+  },
+  "hsic_1": {
+   "x_only": 5,
+   "y_only": 0,
+   "n_pairs": 84,
+   "p_one_sided": 0.03125,
+   "significant": false
+  },
+  "hsic_5": {
+   "x_only": 13,
+   "y_only": 0,
+   "n_pairs": 84,
+   "p_one_sided": 0.0001220703125,
+   "significant": true
+  },
+  "hsic_30": {
+   "x_only": 12,
+   "y_only": 0,
+   "n_pairs": 84,
+   "p_one_sided": 0.000244140625,
+   "significant": true
+  }
+ },
+ "verdict": "NAO FECHA A LACUNA",
+ "diagnostics": {
+  "harch_a1_median_z_iota_nu": [
+   0.11088379488200537,
+   0.05434149584355988,
+   0.07028433961294894
+  ],
+  "harch_a15_median_z_iota_nu": [
+   0.05726310683322541,
+   0.0587143162083589,
+   0.0800224421706082
+  ],
+  "harch_a60_median_z_iota_nu": [
+   3.66371427314983e-08,
+   0.08391013404132874,
+   0.09915892185931491
+  ],
+  "harch_a240_median_z_iota_nu": [
+   6.506922526117687e-07,
+   0.09318551874279613,
+   0.10033150467143576
+  ],
+  "harch_b_median_z_iota_nu": [
+   0.5234960870573928,
+   0.5464070468527791,
+   0.4482448207399351
+  ]
+ }
+}
