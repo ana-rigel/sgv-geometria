@@ -7,9 +7,12 @@ the observed path is identical across its eight cells. This does NOT
 establish new geometry or provide a BTC indicator.
 """
 from __future__ import annotations
-import argparse, json, math
+import argparse, json, math, sys
 from pathlib import Path
 import numpy as np
+ROOT = Path(__file__).resolve().parents[1]
+if str(ROOT) not in sys.path:
+    sys.path.insert(0, str(ROOT))
 from experiments.m20b_dependencia_ordem_superior import generate as generate_m20b
 from experiments.m20c_acoplamento_condicional import random_rotation, fit_var, simulate_var, rff_hsic
 
