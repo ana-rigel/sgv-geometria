@@ -1,0 +1,357 @@
+{
+ "n_valid": 84,
+ "status": {
+  "valid": 84
+ },
+ "cells": {
+  "MS|lin_1": {
+   "alarms": 71,
+   "n": 84,
+   "rate": 0.8452380952380952,
+   "wilson95": [
+    0.7530135778901519,
+    0.9072668953473448
+   ],
+   "elevated": true
+  },
+  "MS|lin_5": {
+   "alarms": 62,
+   "n": 84,
+   "rate": 0.7380952380952381,
+   "wilson95": [
+    0.6351506273993223,
+    0.8202152162127446
+   ],
+   "elevated": true
+  },
+  "MS|lin_30": {
+   "alarms": 60,
+   "n": 84,
+   "rate": 0.7142857142857143,
+   "wilson95": [
+    0.6099796004669878,
+    0.7998496587838723
+   ],
+   "elevated": true
+  },
+  "MS|vol_1": {
+   "alarms": 81,
+   "n": 84,
+   "rate": 0.9642857142857143,
+   "wilson95": [
+    0.9001830642748655,
+    0.9877803307686647
+   ],
+   "elevated": true
+  },
+  "MS|vol_5": {
+   "alarms": 68,
+   "n": 84,
+   "rate": 0.8095238095238095,
+   "wilson95": [
+    0.7127625740629011,
+    0.8792130226327857
+   ],
+   "elevated": true
+  },
+  "MS|vol_30": {
+   "alarms": 44,
+   "n": 84,
+   "rate": 0.5238095238095238,
+   "wilson95": [
+    0.418321056517279,
+    0.6272155278439278
+   ],
+   "elevated": true
+  },
+  "MS|hsic_1": {
+   "alarms": 70,
+   "n": 84,
+   "rate": 0.8333333333333334,
+   "wilson95": [
+    0.739469602546601,
+    0.8980425785102926
+   ],
+   "elevated": true
+  },
+  "MS|hsic_5": {
+   "alarms": 67,
+   "n": 84,
+   "rate": 0.7976190476190477,
+   "wilson95": [
+    0.6995818724114075,
+    0.8696254321036759
+   ],
+   "elevated": true
+  },
+  "MS|hsic_30": {
+   "alarms": 65,
+   "n": 84,
+   "rate": 0.7738095238095238,
+   "wilson95": [
+    0.6735309285283279,
+    0.850139791625549
+   ],
+   "elevated": true
+  },
+  "MSDCCLM|lin_1": {
+   "alarms": 62,
+   "n": 84,
+   "rate": 0.7380952380952381,
+   "wilson95": [
+    0.6351506273993223,
+    0.8202152162127446
+   ],
+   "elevated": true
+  },
+  "MSDCCLM|lin_5": {
+   "alarms": 36,
+   "n": 84,
+   "rate": 0.42857142857142855,
+   "wilson95": [
+    0.3281597743735877,
+    0.5352304725427922
+   ],
+   "elevated": true
+  },
+  "MSDCCLM|lin_30": {
+   "alarms": 21,
+   "n": 84,
+   "rate": 0.25,
+   "wilson95": [
+    0.16972312954861019,
+    0.35214273465871976
+   ],
+   "elevated": true
+  },
+  "MSDCCLM|vol_1": {
+   "alarms": 74,
+   "n": 84,
+   "rate": 0.8809523809523809,
+   "wilson95": [
+    0.794550842255297,
+    0.9340345075240096
+   ],
+   "elevated": true
+  },
+  "MSDCCLM|vol_5": {
+   "alarms": 55,
+   "n": 84,
+   "rate": 0.6547619047619048,
+   "wilson95": [
+    0.548337948187197,
+    0.7476498501606463
+   ],
+   "elevated": true
+  },
+  "MSDCCLM|vol_30": {
+   "alarms": 28,
+   "n": 84,
+   "rate": 0.3333333333333333,
+   "wilson95": [
+    0.24177214000720681,
+    0.4394717694643464
+   ],
+   "elevated": true
+  },
+  "MSDCCLM|hsic_1": {
+   "alarms": 68,
+   "n": 84,
+   "rate": 0.8095238095238095,
+   "wilson95": [
+    0.7127625740629011,
+    0.8792130226327857
+   ],
+   "elevated": true
+  },
+  "MSDCCLM|hsic_5": {
+   "alarms": 51,
+   "n": 84,
+   "rate": 0.6071428571428571,
+   "wilson95": [
+    0.5002180659007766,
+    0.7046965637246533
+   ],
+   "elevated": true
+  },
+  "MSDCCLM|hsic_30": {
+   "alarms": 31,
+   "n": 84,
+   "rate": 0.36904761904761907,
+   "wilson95": [
+    0.2737011850902025,
+    0.47584760092316086
+   ],
+   "elevated": true
+  },
+  "BL|lin_1": {
+   "alarms": 9,
+   "n": 84,
+   "rate": 0.10714285714285714,
+   "wilson95": [
+    0.057400212876644804,
+    0.19124614516344507
+   ],
+   "elevated": false
+  },
+  "BL|lin_5": {
+   "alarms": 12,
+   "n": 84,
+   "rate": 0.14285714285714285,
+   "wilson95": [
+    0.08365020540566916,
+    0.23330102917623075
+   ],
+   "elevated": true
+  },
+  "BL|lin_30": {
+   "alarms": 11,
+   "n": 84,
+   "rate": 0.13095238095238096,
+   "wilson95": [
+    0.07472221316943048,
+    0.21946072923186608
+   ],
+   "elevated": true
+  },
+  "BL|vol_1": {
+   "alarms": 8,
+   "n": 84,
+   "rate": 0.09523809523809523,
+   "wilson95": [
+    0.049051709909559385,
+    0.17682635594992718
+   ],
+   "elevated": false
+  },
+  "BL|vol_5": {
+   "alarms": 6,
+   "n": 84,
+   "rate": 0.07142857142857142,
+   "wilson95": [
+    0.03314580993583533,
+    0.14719567156244456
+   ],
+   "elevated": false
+  },
+  "BL|vol_30": {
+   "alarms": 8,
+   "n": 84,
+   "rate": 0.09523809523809523,
+   "wilson95": [
+    0.049051709909559385,
+    0.17682635594992718
+   ],
+   "elevated": false
+  },
+  "BL|hsic_1": {
+   "alarms": 8,
+   "n": 84,
+   "rate": 0.09523809523809523,
+   "wilson95": [
+    0.049051709909559385,
+    0.17682635594992718
+   ],
+   "elevated": false
+  },
+  "BL|hsic_5": {
+   "alarms": 9,
+   "n": 84,
+   "rate": 0.10714285714285714,
+   "wilson95": [
+    0.057400212876644804,
+    0.19124614516344507
+   ],
+   "elevated": false
+  },
+  "BL|hsic_30": {
+   "alarms": 13,
+   "n": 84,
+   "rate": 0.15476190476190477,
+   "wilson95": [
+    0.09273310465265512,
+    0.2469864221098481
+   ],
+   "elevated": true
+  }
+ },
+ "contrasts": {
+  "P1_param_vs_BL_hsic_1": {
+   "x_only": 60,
+   "y_only": 0,
+   "n_pairs": 84,
+   "p_one_sided": 8.673617379884035e-19,
+   "significant": true
+  },
+  "P2_hsic_beyond_vol_1": {
+   "x_only": 3,
+   "y_only": 9,
+   "n_pairs": 84,
+   "p_one_sided": 0.980712890625,
+   "significant": false
+  },
+  "P2_hsic_beyond_lin_1": {
+   "x_only": 6,
+   "y_only": 0,
+   "n_pairs": 84,
+   "p_one_sided": 0.015625,
+   "significant": true
+  },
+  "P1_param_vs_BL_hsic_5": {
+   "x_only": 42,
+   "y_only": 0,
+   "n_pairs": 84,
+   "p_one_sided": 2.2737367544323206e-13,
+   "significant": true
+  },
+  "P2_hsic_beyond_vol_5": {
+   "x_only": 6,
+   "y_only": 10,
+   "n_pairs": 84,
+   "p_one_sided": 0.8949432373046875,
+   "significant": false
+  },
+  "P2_hsic_beyond_lin_5": {
+   "x_only": 15,
+   "y_only": 0,
+   "n_pairs": 84,
+   "p_one_sided": 3.0517578125e-05,
+   "significant": true
+  },
+  "P1_param_vs_BL_hsic_30": {
+   "x_only": 18,
+   "y_only": 0,
+   "n_pairs": 84,
+   "p_one_sided": 3.814697265625e-06,
+   "significant": true
+  },
+  "P2_hsic_beyond_vol_30": {
+   "x_only": 13,
+   "y_only": 10,
+   "n_pairs": 84,
+   "p_one_sided": 0.3388197422027588,
+   "significant": false
+  },
+  "P2_hsic_beyond_lin_30": {
+   "x_only": 10,
+   "y_only": 0,
+   "n_pairs": 84,
+   "p_one_sided": 0.0009765625,
+   "significant": true
+  }
+ },
+ "verdict": {
+  "1": {
+   "label": "dependencia nao reproduzida, compativel com memoria de volatilidade",
+   "BL_sanity_ok": true
+  },
+  "5": {
+   "label": "dependencia nao reproduzida, compativel com memoria de volatilidade",
+   "BL_sanity_ok": true
+  },
+  "30": {
+   "label": "dependencia nao reproduzida, compativel com memoria de volatilidade",
+   "BL_sanity_ok": false
+  }
+ }
+}
