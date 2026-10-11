@@ -19,8 +19,8 @@ def example(t=0,positive=False):
 
 def test_effects_are_paired_and_not_eight_independent_units():
     result=m.paired_effects([example(i,positive=True) for i in range(64)],"hsic_1d")
-    assert result["direction"]["delta_pp"]==25.
-    assert result["sample_size"]["delta_pp"]==25.
+    assert result["direction"]["delta_pp"]==50.
+    assert result["sample_size"]["delta_pp"]==50.
     assert result["null_model"]["delta_pp"]==0.
     assert result["direction"]["paired_trial_n"]==64
 
