@@ -1,0 +1,693 @@
+{
+ "n_valid": 81,
+ "status": {
+  "fit_failed": 3,
+  "valid": 81
+ },
+ "cells": {
+  "HARLM|m11": {
+   "alarms": 24,
+   "n": 79,
+   "rate": 0.3037974683544304,
+   "wilson95": [
+    0.21344462783876017,
+    0.4123466071140449
+   ],
+   "elevated": true
+  },
+  "HARLM|fr_cov": {
+   "alarms": 17,
+   "n": 81,
+   "rate": 0.20987654320987653,
+   "wilson95": [
+    0.13537173606133143,
+    0.3106538196834032
+   ],
+   "elevated": true
+  },
+  "HARLM|energy": {
+   "alarms": 11,
+   "n": 81,
+   "rate": 0.13580246913580246,
+   "wilson95": [
+    0.07755463441730516,
+    0.22703063768778736
+   ],
+   "elevated": true
+  },
+  "HARLM|lin_1": {
+   "alarms": 11,
+   "n": 81,
+   "rate": 0.13580246913580246,
+   "wilson95": [
+    0.07755463441730516,
+    0.22703063768778736
+   ],
+   "elevated": true
+  },
+  "HARLM|lin_5": {
+   "alarms": 19,
+   "n": 81,
+   "rate": 0.2345679012345679,
+   "wilson95": [
+    0.15562502050560217,
+    0.33754729645234655
+   ],
+   "elevated": true
+  },
+  "HARLM|lin_30": {
+   "alarms": 23,
+   "n": 81,
+   "rate": 0.2839506172839506,
+   "wilson95": [
+    0.19728731636228797,
+    0.39017852302208883
+   ],
+   "elevated": true
+  },
+  "HARLM|vol_1": {
+   "alarms": 22,
+   "n": 81,
+   "rate": 0.2716049382716049,
+   "wilson95": [
+    0.18673822637971735,
+    0.37715423239805246
+   ],
+   "elevated": true
+  },
+  "HARLM|vol_5": {
+   "alarms": 23,
+   "n": 81,
+   "rate": 0.2839506172839506,
+   "wilson95": [
+    0.19728731636228797,
+    0.39017852302208883
+   ],
+   "elevated": true
+  },
+  "HARLM|vol_30": {
+   "alarms": 27,
+   "n": 81,
+   "rate": 0.3333333333333333,
+   "wilson95": [
+    0.24028771241667368,
+    0.4414716493941313
+   ],
+   "elevated": true
+  },
+  "HARLM|hsic_1": {
+   "alarms": 24,
+   "n": 81,
+   "rate": 0.2962962962962963,
+   "wilson95": [
+    0.20791957048345946,
+    0.40311964950752444
+   ],
+   "elevated": true
+  },
+  "HARLM|hsic_5": {
+   "alarms": 35,
+   "n": 81,
+   "rate": 0.43209876543209874,
+   "wilson95": [
+    0.3297207714134108,
+    0.5406256352502503
+   ],
+   "elevated": true
+  },
+  "HARLM|hsic_30": {
+   "alarms": 34,
+   "n": 81,
+   "rate": 0.41975308641975306,
+   "wilson95": [
+    0.3183096274829863,
+    0.5284633985740679
+   ],
+   "elevated": true
+  },
+  "HARLMF|m11": {
+   "alarms": 14,
+   "n": 79,
+   "rate": 0.17721518987341772,
+   "wilson95": [
+    0.10860426648087348,
+    0.27576195876406395
+   ],
+   "elevated": true
+  },
+  "HARLMF|fr_cov": {
+   "alarms": 14,
+   "n": 81,
+   "rate": 0.1728395061728395,
+   "wilson95": [
+    0.10584403877720129,
+    0.2694613751477123
+   ],
+   "elevated": true
+  },
+  "HARLMF|energy": {
+   "alarms": 12,
+   "n": 81,
+   "rate": 0.14814814814814814,
+   "wilson95": [
+    0.08682708209959752,
+    0.241331570612102
+   ],
+   "elevated": true
+  },
+  "HARLMF|lin_1": {
+   "alarms": 10,
+   "n": 81,
+   "rate": 0.12345679012345678,
+   "wilson95": [
+    0.06846115911871758,
+    0.2125507323797679
+   ],
+   "elevated": false
+  },
+  "HARLMF|lin_5": {
+   "alarms": 18,
+   "n": 81,
+   "rate": 0.2222222222222222,
+   "wilson95": [
+    0.14544607404671892,
+    0.3241528623046228
+   ],
+   "elevated": true
+  },
+  "HARLMF|lin_30": {
+   "alarms": 22,
+   "n": 81,
+   "rate": 0.2716049382716049,
+   "wilson95": [
+    0.18673822637971735,
+    0.37715423239805246
+   ],
+   "elevated": true
+  },
+  "HARLMF|vol_1": {
+   "alarms": 18,
+   "n": 81,
+   "rate": 0.2222222222222222,
+   "wilson95": [
+    0.14544607404671892,
+    0.3241528623046228
+   ],
+   "elevated": true
+  },
+  "HARLMF|vol_5": {
+   "alarms": 20,
+   "n": 81,
+   "rate": 0.24691358024691357,
+   "wilson95": [
+    0.1659031188872207,
+    0.3508425786773351
+   ],
+   "elevated": true
+  },
+  "HARLMF|vol_30": {
+   "alarms": 25,
+   "n": 81,
+   "rate": 0.30864197530864196,
+   "wilson95": [
+    0.21863206977106828,
+    0.41598053082652264
+   ],
+   "elevated": true
+  },
+  "HARLMF|hsic_1": {
+   "alarms": 18,
+   "n": 81,
+   "rate": 0.2222222222222222,
+   "wilson95": [
+    0.14544607404671892,
+    0.3241528623046228
+   ],
+   "elevated": true
+  },
+  "HARLMF|hsic_5": {
+   "alarms": 26,
+   "n": 81,
+   "rate": 0.32098765432098764,
+   "wilson95": [
+    0.2294222196903881,
+    0.4287637615138098
+   ],
+   "elevated": true
+  },
+  "HARLMF|hsic_30": {
+   "alarms": 29,
+   "n": 81,
+   "rate": 0.35802469135802467,
+   "wilson95": [
+    0.26223674449626305,
+    0.466669378527756
+   ],
+   "elevated": true
+  },
+  "MSARLM|m11": {
+   "alarms": 26,
+   "n": 79,
+   "rate": 0.3291139240506329,
+   "wilson95": [
+    0.23554200381797014,
+    0.43853423307640843
+   ],
+   "elevated": true
+  },
+  "MSARLM|fr_cov": {
+   "alarms": 20,
+   "n": 81,
+   "rate": 0.24691358024691357,
+   "wilson95": [
+    0.1659031188872207,
+    0.3508425786773351
+   ],
+   "elevated": true
+  },
+  "MSARLM|energy": {
+   "alarms": 13,
+   "n": 81,
+   "rate": 0.16049382716049382,
+   "wilson95": [
+    0.09626154226711317,
+    0.25547049105119335
+   ],
+   "elevated": true
+  },
+  "MSARLM|lin_1": {
+   "alarms": 12,
+   "n": 81,
+   "rate": 0.14814814814814814,
+   "wilson95": [
+    0.08682708209959752,
+    0.241331570612102
+   ],
+   "elevated": true
+  },
+  "MSARLM|lin_5": {
+   "alarms": 41,
+   "n": 81,
+   "rate": 0.5061728395061729,
+   "wilson95": [
+    0.3995078470731793,
+    0.6122788432301242
+   ],
+   "elevated": true
+  },
+  "MSARLM|lin_30": {
+   "alarms": 18,
+   "n": 81,
+   "rate": 0.2222222222222222,
+   "wilson95": [
+    0.14544607404671892,
+    0.3241528623046228
+   ],
+   "elevated": true
+  },
+  "MSARLM|vol_1": {
+   "alarms": 21,
+   "n": 81,
+   "rate": 0.25925925925925924,
+   "wilson95": [
+    0.17627558934588536,
+    0.3640434888252774
+   ],
+   "elevated": true
+  },
+  "MSARLM|vol_5": {
+   "alarms": 42,
+   "n": 81,
+   "rate": 0.5185185185185185,
+   "wilson95": [
+    0.41135648703875716,
+    0.6240035838711533
+   ],
+   "elevated": true
+  },
+  "MSARLM|vol_30": {
+   "alarms": 24,
+   "n": 81,
+   "rate": 0.2962962962962963,
+   "wilson95": [
+    0.20791957048345946,
+    0.40311964950752444
+   ],
+   "elevated": true
+  },
+  "MSARLM|hsic_1": {
+   "alarms": 28,
+   "n": 81,
+   "rate": 0.345679012345679,
+   "wilson95": [
+    0.25122649531590424,
+    0.4541062471015077
+   ],
+   "elevated": true
+  },
+  "MSARLM|hsic_5": {
+   "alarms": 49,
+   "n": 81,
+   "rate": 0.6049382716049383,
+   "wilson95": [
+    0.49605477323606173,
+    0.7043189619200981
+   ],
+   "elevated": true
+  },
+  "MSARLM|hsic_30": {
+   "alarms": 27,
+   "n": 81,
+   "rate": 0.3333333333333333,
+   "wilson95": [
+    0.24028771241667368,
+    0.4414716493941313
+   ],
+   "elevated": true
+  },
+  "BL|m11": {
+   "alarms": 6,
+   "n": 79,
+   "rate": 0.0759493670886076,
+   "wilson95": [
+    0.03527204845036669,
+    0.15595416902827658
+   ],
+   "elevated": false
+  },
+  "BL|fr_cov": {
+   "alarms": 9,
+   "n": 81,
+   "rate": 0.1111111111111111,
+   "wilson95": [
+    0.059567564076505305,
+    0.19787094681537315
+   ],
+   "elevated": false
+  },
+  "BL|energy": {
+   "alarms": 8,
+   "n": 81,
+   "rate": 0.09876543209876543,
+   "wilson95": [
+    0.050900116268798354,
+    0.18296501401647308
+   ],
+   "elevated": false
+  },
+  "BL|lin_1": {
+   "alarms": 6,
+   "n": 81,
+   "rate": 0.07407407407407407,
+   "wilson95": [
+    0.034389630412381036,
+    0.15232873865967633
+   ],
+   "elevated": false
+  },
+  "BL|lin_5": {
+   "alarms": 11,
+   "n": 81,
+   "rate": 0.13580246913580246,
+   "wilson95": [
+    0.07755463441730516,
+    0.22703063768778736
+   ],
+   "elevated": true
+  },
+  "BL|lin_30": {
+   "alarms": 13,
+   "n": 81,
+   "rate": 0.16049382716049382,
+   "wilson95": [
+    0.09626154226711317,
+    0.25547049105119335
+   ],
+   "elevated": true
+  },
+  "BL|vol_1": {
+   "alarms": 7,
+   "n": 81,
+   "rate": 0.08641975308641975,
+   "wilson95": [
+    0.04249258333995924,
+    0.16779916633870517
+   ],
+   "elevated": false
+  },
+  "BL|vol_5": {
+   "alarms": 8,
+   "n": 81,
+   "rate": 0.09876543209876543,
+   "wilson95": [
+    0.050900116268798354,
+    0.18296501401647308
+   ],
+   "elevated": false
+  },
+  "BL|vol_30": {
+   "alarms": 7,
+   "n": 81,
+   "rate": 0.08641975308641975,
+   "wilson95": [
+    0.04249258333995924,
+    0.16779916633870517
+   ],
+   "elevated": false
+  },
+  "BL|hsic_1": {
+   "alarms": 9,
+   "n": 81,
+   "rate": 0.1111111111111111,
+   "wilson95": [
+    0.059567564076505305,
+    0.19787094681537315
+   ],
+   "elevated": false
+  },
+  "BL|hsic_5": {
+   "alarms": 9,
+   "n": 81,
+   "rate": 0.1111111111111111,
+   "wilson95": [
+    0.059567564076505305,
+    0.19787094681537315
+   ],
+   "elevated": false
+  },
+  "BL|hsic_30": {
+   "alarms": 12,
+   "n": 81,
+   "rate": 0.14814814814814814,
+   "wilson95": [
+    0.08682708209959752,
+    0.241331570612102
+   ],
+   "elevated": true
+  }
+ },
+ "primary_vs_MSARLM": {
+  "lin_5": {
+   "x_only": 23,
+   "y_only": 0,
+   "n_pairs": 81,
+   "p_one_sided": 1.1920928955078125e-07,
+   "significant": true
+  },
+  "vol_5": {
+   "x_only": 22,
+   "y_only": 0,
+   "n_pairs": 81,
+   "p_one_sided": 2.384185791015625e-07,
+   "significant": true
+  },
+  "hsic_5": {
+   "x_only": 23,
+   "y_only": 0,
+   "n_pairs": 81,
+   "p_one_sided": 1.1920928955078125e-07,
+   "significant": true
+  },
+  "m11": {
+   "x_only": 12,
+   "y_only": 0,
+   "n_pairs": 79,
+   "p_one_sided": 0.000244140625,
+   "significant": true
+  }
+ },
+ "HARLMF_worse_than_BL": {
+  "m11": {
+   "x_only": 8,
+   "y_only": 0,
+   "n_pairs": 79,
+   "p_one_sided": 0.00390625,
+   "significant": true
+  },
+  "fr_cov": {
+   "x_only": 5,
+   "y_only": 0,
+   "n_pairs": 81,
+   "p_one_sided": 0.03125,
+   "significant": false
+  },
+  "energy": {
+   "x_only": 5,
+   "y_only": 1,
+   "n_pairs": 81,
+   "p_one_sided": 0.109375,
+   "significant": false
+  },
+  "lin_1": {
+   "x_only": 5,
+   "y_only": 1,
+   "n_pairs": 81,
+   "p_one_sided": 0.109375,
+   "significant": false
+  },
+  "lin_5": {
+   "x_only": 8,
+   "y_only": 1,
+   "n_pairs": 81,
+   "p_one_sided": 0.01953125,
+   "significant": false
+  },
+  "lin_30": {
+   "x_only": 10,
+   "y_only": 1,
+   "n_pairs": 81,
+   "p_one_sided": 0.005859375,
+   "significant": false
+  },
+  "vol_1": {
+   "x_only": 11,
+   "y_only": 0,
+   "n_pairs": 81,
+   "p_one_sided": 0.00048828125,
+   "significant": true
+  },
+  "vol_5": {
+   "x_only": 12,
+   "y_only": 0,
+   "n_pairs": 81,
+   "p_one_sided": 0.000244140625,
+   "significant": true
+  },
+  "vol_30": {
+   "x_only": 18,
+   "y_only": 0,
+   "n_pairs": 81,
+   "p_one_sided": 3.814697265625e-06,
+   "significant": true
+  },
+  "hsic_1": {
+   "x_only": 9,
+   "y_only": 0,
+   "n_pairs": 81,
+   "p_one_sided": 0.001953125,
+   "significant": true
+  },
+  "hsic_5": {
+   "x_only": 17,
+   "y_only": 0,
+   "n_pairs": 81,
+   "p_one_sided": 7.62939453125e-06,
+   "significant": true
+  },
+  "hsic_30": {
+   "x_only": 17,
+   "y_only": 0,
+   "n_pairs": 81,
+   "p_one_sided": 7.62939453125e-06,
+   "significant": true
+  }
+ },
+ "fhs_effect_HARLM_vs_HARLMF": {
+  "m11": {
+   "x_only": 10,
+   "y_only": 0,
+   "n_pairs": 79,
+   "p_one_sided": 0.0009765625
+  },
+  "fr_cov": {
+   "x_only": 4,
+   "y_only": 1,
+   "n_pairs": 81,
+   "p_one_sided": 0.1875
+  },
+  "energy": {
+   "x_only": 1,
+   "y_only": 2,
+   "n_pairs": 81,
+   "p_one_sided": 0.875
+  },
+  "lin_1": {
+   "x_only": 1,
+   "y_only": 0,
+   "n_pairs": 81,
+   "p_one_sided": 0.5
+  },
+  "lin_5": {
+   "x_only": 2,
+   "y_only": 1,
+   "n_pairs": 81,
+   "p_one_sided": 0.5
+  },
+  "lin_30": {
+   "x_only": 2,
+   "y_only": 1,
+   "n_pairs": 81,
+   "p_one_sided": 0.5
+  },
+  "vol_1": {
+   "x_only": 5,
+   "y_only": 1,
+   "n_pairs": 81,
+   "p_one_sided": 0.109375
+  },
+  "vol_5": {
+   "x_only": 4,
+   "y_only": 1,
+   "n_pairs": 81,
+   "p_one_sided": 0.1875
+  },
+  "vol_30": {
+   "x_only": 5,
+   "y_only": 3,
+   "n_pairs": 81,
+   "p_one_sided": 0.36328125
+  },
+  "hsic_1": {
+   "x_only": 6,
+   "y_only": 0,
+   "n_pairs": 81,
+   "p_one_sided": 0.015625
+  },
+  "hsic_5": {
+   "x_only": 9,
+   "y_only": 0,
+   "n_pairs": 81,
+   "p_one_sided": 0.001953125
+  },
+  "hsic_30": {
+   "x_only": 6,
+   "y_only": 1,
+   "n_pairs": 81,
+   "p_one_sided": 0.0625
+  }
+ },
+ "verdict": "NAO FECHA A LACUNA",
+ "diagnostics": {
+  "z_excess_kurtosis_median": [
+   -0.0664709776048551,
+   0.1659068516419988,
+   0.5556371022582423
+  ],
+  "companion_radius_quartiles": [
+   0.9771728804834431,
+   0.9809645601081438,
+   0.9837311130697106
+  ],
+  "shrink_applied_fraction": 0.0
+ }
+}
