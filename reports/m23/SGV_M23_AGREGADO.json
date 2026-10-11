@@ -1,0 +1,693 @@
+{
+ "n_valid": 84,
+ "status": {
+  "valid": 84
+ },
+ "cells": {
+  "MSAR|m11": {
+   "alarms": 28,
+   "n": 82,
+   "rate": 0.34146341463414637,
+   "wilson95": [
+    0.24799344936511664,
+    0.44912260204881777
+   ],
+   "elevated": true
+  },
+  "MSAR|fr_cov": {
+   "alarms": 25,
+   "n": 84,
+   "rate": 0.2976190476190476,
+   "wilson95": [
+    0.21044818243737515,
+    0.4024908504923681
+   ],
+   "elevated": true
+  },
+  "MSAR|energy": {
+   "alarms": 26,
+   "n": 84,
+   "rate": 0.30952380952380953,
+   "wilson95": [
+    0.22081923628001898,
+    0.4148880888303277
+   ],
+   "elevated": true
+  },
+  "MSAR|lin_1": {
+   "alarms": 19,
+   "n": 84,
+   "rate": 0.2261904761904762,
+   "wilson95": [
+    0.14986020837445108,
+    0.32646907147167215
+   ],
+   "elevated": true
+  },
+  "MSAR|lin_5": {
+   "alarms": 73,
+   "n": 84,
+   "rate": 0.8690476190476191,
+   "wilson95": [
+    0.780539270768134,
+    0.9252777868305695
+   ],
+   "elevated": true
+  },
+  "MSAR|lin_30": {
+   "alarms": 61,
+   "n": 84,
+   "rate": 0.7261904761904762,
+   "wilson95": [
+    0.622525808389156,
+    0.8100717430423072
+   ],
+   "elevated": true
+  },
+  "MSAR|vol_1": {
+   "alarms": 30,
+   "n": 84,
+   "rate": 0.35714285714285715,
+   "wilson95": [
+    0.2629936447363914,
+    0.4637868490963686
+   ],
+   "elevated": true
+  },
+  "MSAR|vol_5": {
+   "alarms": 63,
+   "n": 84,
+   "rate": 0.75,
+   "wilson95": [
+    0.6478572653412803,
+    0.8302768704513898
+   ],
+   "elevated": true
+  },
+  "MSAR|vol_30": {
+   "alarms": 38,
+   "n": 84,
+   "rate": 0.4523809523809524,
+   "wilson95": [
+    0.3503572014157933,
+    0.5585696298617934
+   ],
+   "elevated": true
+  },
+  "MSAR|hsic_1": {
+   "alarms": 35,
+   "n": 84,
+   "rate": 0.4166666666666667,
+   "wilson95": [
+    0.3171483846042472,
+    0.5234735701315295
+   ],
+   "elevated": true
+  },
+  "MSAR|hsic_5": {
+   "alarms": 74,
+   "n": 84,
+   "rate": 0.8809523809523809,
+   "wilson95": [
+    0.794550842255297,
+    0.9340345075240096
+   ],
+   "elevated": true
+  },
+  "MSAR|hsic_30": {
+   "alarms": 65,
+   "n": 84,
+   "rate": 0.7738095238095238,
+   "wilson95": [
+    0.6735309285283279,
+    0.850139791625549
+   ],
+   "elevated": true
+  },
+  "MSARLM|m11": {
+   "alarms": 23,
+   "n": 82,
+   "rate": 0.2804878048780488,
+   "wilson95": [
+    0.19477150045908148,
+    0.3858507245755968
+   ],
+   "elevated": true
+  },
+  "MSARLM|fr_cov": {
+   "alarms": 19,
+   "n": 84,
+   "rate": 0.2261904761904762,
+   "wilson95": [
+    0.14986020837445108,
+    0.32646907147167215
+   ],
+   "elevated": true
+  },
+  "MSARLM|energy": {
+   "alarms": 12,
+   "n": 84,
+   "rate": 0.14285714285714285,
+   "wilson95": [
+    0.08365020540566916,
+    0.23330102917623075
+   ],
+   "elevated": true
+  },
+  "MSARLM|lin_1": {
+   "alarms": 11,
+   "n": 84,
+   "rate": 0.13095238095238096,
+   "wilson95": [
+    0.07472221316943048,
+    0.21946072923186608
+   ],
+   "elevated": true
+  },
+  "MSARLM|lin_5": {
+   "alarms": 41,
+   "n": 84,
+   "rate": 0.4880952380952381,
+   "wilson95": [
+    0.3840835367193851,
+    0.5931481711000114
+   ],
+   "elevated": true
+  },
+  "MSARLM|lin_30": {
+   "alarms": 20,
+   "n": 84,
+   "rate": 0.23809523809523808,
+   "wilson95": [
+    0.15974690895549554,
+    0.3393506630712311
+   ],
+   "elevated": true
+  },
+  "MSARLM|vol_1": {
+   "alarms": 19,
+   "n": 84,
+   "rate": 0.2261904761904762,
+   "wilson95": [
+    0.14986020837445108,
+    0.32646907147167215
+   ],
+   "elevated": true
+  },
+  "MSARLM|vol_5": {
+   "alarms": 43,
+   "n": 84,
+   "rate": 0.5119047619047619,
+   "wilson95": [
+    0.40685182889998844,
+    0.6159164632806147
+   ],
+   "elevated": true
+  },
+  "MSARLM|vol_30": {
+   "alarms": 22,
+   "n": 84,
+   "rate": 0.2619047619047619,
+   "wilson95": [
+    0.17978478378725543,
+    0.3648493726006779
+   ],
+   "elevated": true
+  },
+  "MSARLM|hsic_1": {
+   "alarms": 26,
+   "n": 84,
+   "rate": 0.30952380952380953,
+   "wilson95": [
+    0.22081923628001898,
+    0.4148880888303277
+   ],
+   "elevated": true
+  },
+  "MSARLM|hsic_5": {
+   "alarms": 54,
+   "n": 84,
+   "rate": 0.6428571428571429,
+   "wilson95": [
+    0.5362131509036315,
+    0.7370063552636087
+   ],
+   "elevated": true
+  },
+  "MSARLM|hsic_30": {
+   "alarms": 31,
+   "n": 84,
+   "rate": 0.36904761904761907,
+   "wilson95": [
+    0.2737011850902025,
+    0.47584760092316086
+   ],
+   "elevated": true
+  },
+  "MSDCCLM|m11": {
+   "alarms": 20,
+   "n": 82,
+   "rate": 0.24390243902439024,
+   "wilson95": [
+    0.16379885088671692,
+    0.34692707832040764
+   ],
+   "elevated": true
+  },
+  "MSDCCLM|fr_cov": {
+   "alarms": 28,
+   "n": 84,
+   "rate": 0.3333333333333333,
+   "wilson95": [
+    0.24177214000720681,
+    0.4394717694643464
+   ],
+   "elevated": true
+  },
+  "MSDCCLM|energy": {
+   "alarms": 14,
+   "n": 84,
+   "rate": 0.16666666666666666,
+   "wilson95": [
+    0.10195742148970746,
+    0.2605303974533991
+   ],
+   "elevated": true
+  },
+  "MSDCCLM|lin_1": {
+   "alarms": 59,
+   "n": 84,
+   "rate": 0.7023809523809523,
+   "wilson95": [
+    0.5975091495076318,
+    0.7895518175626247
+   ],
+   "elevated": true
+  },
+  "MSDCCLM|lin_5": {
+   "alarms": 40,
+   "n": 84,
+   "rate": 0.47619047619047616,
+   "wilson95": [
+    0.3727844721560723,
+    0.5816789434827211
+   ],
+   "elevated": true
+  },
+  "MSDCCLM|lin_30": {
+   "alarms": 20,
+   "n": 84,
+   "rate": 0.23809523809523808,
+   "wilson95": [
+    0.15974690895549554,
+    0.3393506630712311
+   ],
+   "elevated": true
+  },
+  "MSDCCLM|vol_1": {
+   "alarms": 74,
+   "n": 84,
+   "rate": 0.8809523809523809,
+   "wilson95": [
+    0.794550842255297,
+    0.9340345075240096
+   ],
+   "elevated": true
+  },
+  "MSDCCLM|vol_5": {
+   "alarms": 57,
+   "n": 84,
+   "rate": 0.6785714285714286,
+   "wilson95": [
+    0.5727856143388975,
+    0.7687387683701526
+   ],
+   "elevated": true
+  },
+  "MSDCCLM|vol_30": {
+   "alarms": 30,
+   "n": 84,
+   "rate": 0.35714285714285715,
+   "wilson95": [
+    0.2629936447363914,
+    0.4637868490963686
+   ],
+   "elevated": true
+  },
+  "MSDCCLM|hsic_1": {
+   "alarms": 70,
+   "n": 84,
+   "rate": 0.8333333333333334,
+   "wilson95": [
+    0.739469602546601,
+    0.8980425785102926
+   ],
+   "elevated": true
+  },
+  "MSDCCLM|hsic_5": {
+   "alarms": 49,
+   "n": 84,
+   "rate": 0.5833333333333334,
+   "wilson95": [
+    0.4765264298684706,
+    0.6828516153957529
+   ],
+   "elevated": true
+  },
+  "MSDCCLM|hsic_30": {
+   "alarms": 28,
+   "n": 84,
+   "rate": 0.3333333333333333,
+   "wilson95": [
+    0.24177214000720681,
+    0.4394717694643464
+   ],
+   "elevated": true
+  },
+  "BL|m11": {
+   "alarms": 9,
+   "n": 82,
+   "rate": 0.10975609756097561,
+   "wilson95": [
+    0.058827144761389186,
+    0.19561236641137209
+   ],
+   "elevated": false
+  },
+  "BL|fr_cov": {
+   "alarms": 6,
+   "n": 84,
+   "rate": 0.07142857142857142,
+   "wilson95": [
+    0.03314580993583533,
+    0.14719567156244456
+   ],
+   "elevated": false
+  },
+  "BL|energy": {
+   "alarms": 6,
+   "n": 84,
+   "rate": 0.07142857142857142,
+   "wilson95": [
+    0.03314580993583533,
+    0.14719567156244456
+   ],
+   "elevated": false
+  },
+  "BL|lin_1": {
+   "alarms": 8,
+   "n": 84,
+   "rate": 0.09523809523809523,
+   "wilson95": [
+    0.049051709909559385,
+    0.17682635594992718
+   ],
+   "elevated": false
+  },
+  "BL|lin_5": {
+   "alarms": 10,
+   "n": 84,
+   "rate": 0.11904761904761904,
+   "wilson95": [
+    0.0659654924759903,
+    0.2054491577447029
+   ],
+   "elevated": false
+  },
+  "BL|lin_30": {
+   "alarms": 13,
+   "n": 84,
+   "rate": 0.15476190476190477,
+   "wilson95": [
+    0.09273310465265512,
+    0.2469864221098481
+   ],
+   "elevated": true
+  },
+  "BL|vol_1": {
+   "alarms": 8,
+   "n": 84,
+   "rate": 0.09523809523809523,
+   "wilson95": [
+    0.049051709909559385,
+    0.17682635594992718
+   ],
+   "elevated": false
+  },
+  "BL|vol_5": {
+   "alarms": 7,
+   "n": 84,
+   "rate": 0.08333333333333333,
+   "wilson95": [
+    0.04095255062240715,
+    0.16215722305647606
+   ],
+   "elevated": false
+  },
+  "BL|vol_30": {
+   "alarms": 9,
+   "n": 84,
+   "rate": 0.10714285714285714,
+   "wilson95": [
+    0.057400212876644804,
+    0.19124614516344507
+   ],
+   "elevated": false
+  },
+  "BL|hsic_1": {
+   "alarms": 10,
+   "n": 84,
+   "rate": 0.11904761904761904,
+   "wilson95": [
+    0.0659654924759903,
+    0.2054491577447029
+   ],
+   "elevated": false
+  },
+  "BL|hsic_5": {
+   "alarms": 11,
+   "n": 84,
+   "rate": 0.13095238095238096,
+   "wilson95": [
+    0.07472221316943048,
+    0.21946072923186608
+   ],
+   "elevated": true
+  },
+  "BL|hsic_30": {
+   "alarms": 13,
+   "n": 84,
+   "rate": 0.15476190476190477,
+   "wilson95": [
+    0.09273310465265512,
+    0.2469864221098481
+   ],
+   "elevated": true
+  }
+ },
+ "primary_improvement_vs_MSDCCLM": {
+  "lin_1": {
+   "x_only": 48,
+   "y_only": 0,
+   "n_pairs": 84,
+   "p_one_sided": 3.552713678800501e-15,
+   "significant": true
+  },
+  "vol_1": {
+   "x_only": 55,
+   "y_only": 0,
+   "n_pairs": 84,
+   "p_one_sided": 2.7755575615628914e-17,
+   "significant": true
+  },
+  "hsic_1": {
+   "x_only": 44,
+   "y_only": 0,
+   "n_pairs": 84,
+   "p_one_sided": 5.684341886080802e-14,
+   "significant": true
+  }
+ },
+ "MSARLM_worse_than_BL": {
+  "m11": {
+   "x_only": 14,
+   "y_only": 0,
+   "n_pairs": 82,
+   "p_one_sided": 6.103515625e-05,
+   "significant": true
+  },
+  "fr_cov": {
+   "x_only": 13,
+   "y_only": 0,
+   "n_pairs": 84,
+   "p_one_sided": 0.0001220703125,
+   "significant": true
+  },
+  "energy": {
+   "x_only": 7,
+   "y_only": 1,
+   "n_pairs": 84,
+   "p_one_sided": 0.03515625,
+   "significant": false
+  },
+  "lin_1": {
+   "x_only": 3,
+   "y_only": 0,
+   "n_pairs": 84,
+   "p_one_sided": 0.125,
+   "significant": false
+  },
+  "lin_5": {
+   "x_only": 31,
+   "y_only": 0,
+   "n_pairs": 84,
+   "p_one_sided": 4.656612873077393e-10,
+   "significant": true
+  },
+  "lin_30": {
+   "x_only": 8,
+   "y_only": 1,
+   "n_pairs": 84,
+   "p_one_sided": 0.01953125,
+   "significant": false
+  },
+  "vol_1": {
+   "x_only": 11,
+   "y_only": 0,
+   "n_pairs": 84,
+   "p_one_sided": 0.00048828125,
+   "significant": true
+  },
+  "vol_5": {
+   "x_only": 36,
+   "y_only": 0,
+   "n_pairs": 84,
+   "p_one_sided": 1.4551915228366852e-11,
+   "significant": true
+  },
+  "vol_30": {
+   "x_only": 13,
+   "y_only": 0,
+   "n_pairs": 84,
+   "p_one_sided": 0.0001220703125,
+   "significant": true
+  },
+  "hsic_1": {
+   "x_only": 16,
+   "y_only": 0,
+   "n_pairs": 84,
+   "p_one_sided": 1.52587890625e-05,
+   "significant": true
+  },
+  "hsic_5": {
+   "x_only": 43,
+   "y_only": 0,
+   "n_pairs": 84,
+   "p_one_sided": 1.1368683772161603e-13,
+   "significant": true
+  },
+  "hsic_30": {
+   "x_only": 18,
+   "y_only": 0,
+   "n_pairs": 84,
+   "p_one_sided": 3.814697265625e-06,
+   "significant": true
+  }
+ },
+ "lm_effect_MSAR_vs_MSARLM": {
+  "m11": {
+   "x_only": 7,
+   "y_only": 2,
+   "n_pairs": 82,
+   "p_one_sided": 0.08984375
+  },
+  "fr_cov": {
+   "x_only": 8,
+   "y_only": 2,
+   "n_pairs": 84,
+   "p_one_sided": 0.0546875
+  },
+  "energy": {
+   "x_only": 14,
+   "y_only": 0,
+   "n_pairs": 84,
+   "p_one_sided": 6.103515625e-05
+  },
+  "lin_1": {
+   "x_only": 8,
+   "y_only": 0,
+   "n_pairs": 84,
+   "p_one_sided": 0.00390625
+  },
+  "lin_5": {
+   "x_only": 32,
+   "y_only": 0,
+   "n_pairs": 84,
+   "p_one_sided": 2.3283064365386963e-10
+  },
+  "lin_30": {
+   "x_only": 41,
+   "y_only": 0,
+   "n_pairs": 84,
+   "p_one_sided": 4.547473508864641e-13
+  },
+  "vol_1": {
+   "x_only": 11,
+   "y_only": 0,
+   "n_pairs": 84,
+   "p_one_sided": 0.00048828125
+  },
+  "vol_5": {
+   "x_only": 20,
+   "y_only": 0,
+   "n_pairs": 84,
+   "p_one_sided": 9.5367431640625e-07
+  },
+  "vol_30": {
+   "x_only": 16,
+   "y_only": 0,
+   "n_pairs": 84,
+   "p_one_sided": 1.52587890625e-05
+  },
+  "hsic_1": {
+   "x_only": 11,
+   "y_only": 2,
+   "n_pairs": 84,
+   "p_one_sided": 0.01123046875
+  },
+  "hsic_5": {
+   "x_only": 20,
+   "y_only": 0,
+   "n_pairs": 84,
+   "p_one_sided": 9.5367431640625e-07
+  },
+  "hsic_30": {
+   "x_only": 34,
+   "y_only": 0,
+   "n_pairs": 84,
+   "p_one_sided": 5.820766091346741e-11
+  }
+ },
+ "verdict": "NAO FECHA A LACUNA",
+ "diagnostics": {
+  "garch_alpha_beta_median": [
+   [
+    0.10153590405154297,
+    0.6813424588047922
+   ],
+   [
+    0.03638559722388657,
+    0.9370592293011581
+   ],
+   [
+    0.039671059265780885,
+    0.9317696453923547
+   ]
+  ],
+  "var_spectral_radius_quartiles": [
+   0.2713480293491415,
+   0.34571479480641365,
+   0.4300675300586101
+  ]
+ }
+}
