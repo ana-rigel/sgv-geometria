@@ -14,7 +14,7 @@ def fake_row(scenario,trial):
             for n in m.LENS},
         "observed":{n:{metric:1. for metric in m.METHODS}
                     for n in m.LENS},
-        "null_max":{n:{metric:. for metric in m.METHODS}
+        "null_max":{n:{metric:0. for metric in m.METHODS}
                     for n in m.LENS},
     }
 
