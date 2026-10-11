@@ -1,0 +1,64 @@
+# SGV — Documento de referência científica, parte 2 (M13–M21)
+
+**Data:** 11/10/2026. Continua `reports/SGV_REFERENCIA_CIENTIFICA_M1_M12_20261009.md` (ramo M13).
+**Ramo deste documento:** `research/m21-m11-robusto`. **`main` intocada.**
+**Função:** dizer, numa página de cada coisa, o que está estabelecido, o que foi refutado, o que segue aberto, quais dados já foram gastos e quais regras de trabalho valem daqui em diante. Cada linha aponta para o relatório que a sustenta.
+
+## 1. Linha do tempo (M13–M21)
+
+| Etapa | Pergunta | Resultado | Relatório |
+|---|---|---|---|
+| M13 | Calibrar falsos alarmes sob gerador conhecido | Implementado; posto válido só com parâmetros verdadeiros (oráculo) — não mede o erro de ajuste | `PROTOCOLO_SGV_M13_20261009.md` (ramo M13) |
+| M14 | Calibração **aninhada** (nulo ajustado no prefixo) | VAR→VAR 6,2%; HMM→HMM 7,3% (levemente liberal); HMM→VAR 57,6%; HMM→blocos15 16,2% | `reports/m14_artefatos/` (ramo M15) |
+| M15 | Forma × persistência; M11 contra comparadores | **Persistência e forma pesam** (GMM-IID 37%, VAR 60%); réguas **complementares**: M11 vê forma, energy vê massa/memória, Fisher–Rao a 2ª ordem | `SGV_M15_LEITURA_20261009.md` |
+| M16 | Três réguas sobre N0–N3 no BTC exploratório | Nenhum nulo do M12 reproduz o BTC; falta principalmente **memória/massa**; a forma é o mais bem reproduzido; N1 falha na covariância | `SGV_M16_LEITURA_20261010.md` |
+| M17 | Que tipo de memória? | **Markov de várias escalas** reduz a lacuna; envelhecimento (semi-Markov) e relógio **não** acrescentam; sobra ~30% | `SGV_M17_LEITURA_20261010.md` |
+| M18 | Acoplamento dinâmico × memória longa | **Memória longa do nível de atividade** explica o resíduo; DCC (acoplamento rápido) não; **blocos reais de ~8 h (BL) fecham a lacuna no 1m** | `SGV_M18_LEITURA_20261010.md` |
+| M19a | Alarmes do BL são choques de volatilidade? | **Não** (ρ≈0 com razão de vol., movimentos extremos e volume) | `reports/m19/SGV_M19a_LEITURA.md` |
+| M19 | **Confirmatório:** alarmes marcam rupturas estruturais? (1m ago–set/2026) | **H-RUP não apoiada** (2/15 vs 1/43, p=0,155); todas as direções a favor; Fisher–Rao 4/15 vs 1/43 (não testado) | `SGV_M19_LEITURA_20261010.md` |
+| M20a–e | Dependência temporal que as marginais/2ª ordem não veem (sintético) | Marginais **não identificam** a dinâmica (M20a/b); detectar H± exige **saber a direção** (M20d); aprender a direção do passado falha em H± (M20e); geometria (W2/CQW2) **não** supera HSIC | `SGV_M20a..e_LEITURA_20261011.md` (ramos M20*) |
+| Nota M20 | Kernels 3D invariantes resolvem H±? | **Não** (HSIC gaussiano e dCov ≤10% com N=1800 e nulo conhecido): o gargalo é informacional | `reports/m20nota/` (ramo `research/m20-nota-kernels-invariantes`) |
+| **M21a** | Por que o M11 falha sob BL? | Pontos fora da faixa da âncora se empilham no extremo → componente GMM degenerado → casca aberta. **Regra do posto conservador** recupera 82/84 (M18) e 54/58 (M19) sem mudar o instrumento | `reports/m21/SGV_M21a_LEITURA.md` |
+
+## 2. O que está estabelecido (até aqui, com as ressalvas de cada relatório)
+
+1. **A geometria descreve a estrutura da incerteza, não a direção do preço.** (SGV ao vivo, ΔF, M16–M18.)
+2. **O BTC no 1m tem memória multiescala e longa** (minutos a muitas horas) do nível de atividade; é isso que os modelos paramétricos mais não reproduzem. (M16–M18.)
+3. **Existe um nulo adequado no 1m: blocos reais de ~8 h (BL)** — ~7–10% de alarmes nas três réguas, perto do nível de uma família correta (~7%, M14/M15). No 1h, nem blocos de uma semana bastam. (M18, M21a.)
+4. **As três réguas são complementares e juntas diagnosticam o tipo de inadequação:** M11 ≫ energy → falta forma; energy ≫ M11 → falta memória/massa; Fisher–Rao alto → falta acoplamento. (M15, M16.)
+5. **As marginais não bastam para a dinâmica:** duas dinâmicas diferentes podem ter as mesmas fotografias. A geometria das cascas tem nicho em **forma**; para **dinâmica/acoplamento temporal**, kernels e covariâncias convencionais são iguais ou melhores. (M20a–e.)
+6. **Nulos ajustados no passado são levemente liberais** (~7% contra 5%) mesmo quando a família é correta. (M14.)
+
+## 3. O que foi refutado ou não apoiado
+
+- Curvatura de Fisher como informação própria além da volatilidade (G1, R1, L2 — fase anterior).
+- "A forma pesa mais que a persistência" — leitura pós-M14, **corrigida** pelo M15.
+- Acoplamento dinâmico rápido (DCC) como explicação do resíduo (M18).
+- Envelhecimento e relógio como memória faltante (M17).
+- **H-RUP no confirmatório 1m ago–set/2026** (M19) — inconclusivo por poder, mas não apoiada pela regra.
+- Kernels invariantes a rotação como solução para H± (nota M20).
+
+## 4. Em aberto (por prioridade)
+
+1. **Existe no BTC dependência temporal não linear que o BL não reproduz?** (traz a pergunta do M20 de volta ao mercado) → **M21b**.
+2. **H-FR:** eventos estruturais aparecem como mudança de **acoplamento** (Fisher–Rao)? — nascida no M19, precisa de **dados virgens** e de mais eventos.
+3. Nulo adequado no **1h**.
+4. Memória lenta além do que as coordenadas atuais veem (normalização local corta memória > ~1 dia no 1m).
+
+## 5. Dados: o que já foi usado
+
+| Conjunto | Estado |
+|---|---|
+| 1m mai–jul/2026 | exploratório — usado à vontade |
+| 1h 2020–2024 | exploratório — usado à vontade |
+| **1m ago–set/2026** | **gasto** para H-RUP (M19). Não serve mais como dado virgem para hipóteses sobre eventos/alarmes. |
+| 1m a partir de out/2026 | **virgem** (arquivo mensal de out/2026 só sai em nov/2026) |
+| 1h jan/2025 em diante | **virgem** (sem nulo adequado no 1h ainda) |
+
+## 6. Regras de trabalho daqui em diante
+
+1. **Posto conservador** (M21a) é a regra padrão: referência que falha conta contra o alarme; observado que falha fica inválido.
+2. Cada experimento declara **qual pergunta sobre o BTC** responde; experimento puramente sintético precisa dizer por que é necessário para uma pergunta sobre o BTC.
+3. **No máximo um ou dois experimentos por dia** e **uma síntese a cada três**.
+4. Protocolo e apostas em commit **antes** do código; dados reservados só com protocolo congelado e o OK da Ana; mudanças pós-congelamento só de engenharia, registradas.
+5. Nenhum relatório transforma achado descritivo/pós-hoc em conclusão: vira hipótese para dado virgem.

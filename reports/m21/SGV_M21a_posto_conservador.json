@@ -1,0 +1,55 @@
+{
+ "m18_BL_1m": {
+  "m11": {
+   "old_rule_valid": 57,
+   "old_rule_alarms": 6,
+   "conservative_valid": 82,
+   "conservative_alarms": 6,
+   "conservative_rate": 0.07317073170731707,
+   "wilson95": [
+    0.033964777256659195,
+    0.1505784380885484
+   ]
+  },
+  "fr_cov": {
+   "old_rule_valid": 84,
+   "old_rule_alarms": 8,
+   "conservative_valid": 84,
+   "conservative_alarms": 8,
+   "conservative_rate": 0.09523809523809523,
+   "wilson95": [
+    0.049051709909559385,
+    0.17682635594992718
+   ]
+  },
+  "energy": {
+   "old_rule_valid": 84,
+   "old_rule_alarms": 8,
+   "conservative_valid": 84,
+   "conservative_alarms": 8,
+   "conservative_rate": 0.09523809523809523,
+   "wilson95": [
+    0.049051709909559385,
+    0.17682635594992718
+   ]
+  }
+ },
+ "m19_sensitivity": {
+  "m11_valid_windows": 54,
+  "m11_alarms": {
+   "event": 0,
+   "nonevent": 1
+  },
+  "strong_alarm": {
+   "event": [
+    2,
+    15
+   ],
+   "nonevent": [
+    1,
+    43
+   ]
+  },
+  "note": "POST HOC sensitivity only. The confirmatory verdict of M19 stays as frozen (H-RUP not supported)."
+ }
+}
