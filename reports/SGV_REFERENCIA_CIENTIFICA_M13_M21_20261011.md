@@ -21,6 +21,7 @@
 | **M21b** | O BTC tem dependência entre instantes que o melhor paramétrico não reproduz? | Sim, mas **compatível com memória de volatilidade** (lags 1, 5); **nada do tipo M20**; o paramétrico falha até na dependência **linear** de curto prazo; BL levemente liberal (~10–15%) | `SGV_M21b_LEITURA_20261011.md` (ramo M21b) |
 | **M23** | Um modelo mínimo explícito (2 escalas + VAR(1) + GARCH + bloco lento real) reproduz o BTC 1m? | Melhora enorme no lag 1 (lin 70→13%, vol 88→23%), mas **não fecha a lacuna**: falta a escala **intermediária (~5–15 min)** e a forma não gaussiana | `SGV_M23_LEITURA_20261011.md` (ramo M23) |
 | **M24** | HAR (1/15/60 min) + inovações reais filtradas fecham a lacuna? | Grande avanço (HSIC_5 60→32%, M11 33→18%), mas **não fecha**: falta **memória de volatilidade multiescala**; a forma não gaussiana mora nas **inovações** | `SGV_M24_LEITURA_20261011.md` (ramo M24) |
+| **M25** | Volatilidade multiescala por coordenada (HARCH 1/15/60/240) fecha o resto? | **Não** (vol inalterada); diagnóstico exploratório: o descompasso é **cruzado** — após |retorno| grande, a agressão do minuto seguinte é **mais equilibrada** que o modelo prevê (100% das origens checadas): assinatura de **resiliência da liquidez** | `SGV_M25_LEITURA_20261011.md` (ramo M25) |
 | **M21a** | Por que o M11 falha sob BL? | Pontos fora da faixa da âncora se empilham no extremo → componente GMM degenerado → casca aberta. **Regra do posto conservador** recupera 82/84 (M18) e 54/58 (M19) sem mudar o instrumento | `reports/m21/SGV_M21a_LEITURA.md` |
 
 ## 2. O que está estabelecido (até aqui, com as ressalvas de cada relatório)
@@ -43,7 +44,7 @@
 
 ## 4. Em aberto (por prioridade)
 
-1. ~~Existe no BTC dependência temporal não linear além da volatilidade?~~ **Respondido no M21b: não nesta escala** → linha M20 encerrada. Em aberto agora: um **modelo mínimo** que feche a lacuna sem blocos reais — o M23 mostrou que duas escalas + VAR(1) + GARCH não bastam; o M24 resolveu boa parte da escala intermediária (HAR) e da forma (inovações reais); falta a **memória de volatilidade multiescala** (próximo candidato: HAR na variância / GARCH de componentes).
+1. ~~Existe no BTC dependência temporal não linear além da volatilidade?~~ **Respondido no M21b: não nesta escala** → linha M20 encerrada. Em aberto agora: um **modelo mínimo** que feche a lacuna sem blocos reais — o M23 mostrou que duas escalas + VAR(1) + GARCH não bastam; o M24 resolveu boa parte da escala intermediária (HAR) e da forma (inovações reais); o M25 mostrou que a volatilidade multiescala por coordenada não resolve; o que falta é **mecanismo cruzado e assimétrico** entre as coordenadas (resiliência da liquidez: após um choque de preço, o fluxo do minuto seguinte se reequilibra; volume antecipa a magnitude do próximo retorno).
 2. **H-FR:** eventos estruturais aparecem como mudança de **acoplamento** (Fisher–Rao)? — regras **congeladas** em `PROTOCOLO_SGV_M22_HFR_20261011.md` (ramo M21b) para o 1m out–dez/2026; execução quando os arquivos de dezembro saírem (início de jan/2027).
 3. Nulo adequado no **1h**.
 4. Memória lenta além do que as coordenadas atuais veem (normalização local corta memória > ~1 dia no 1m).
