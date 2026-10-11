@@ -9,7 +9,7 @@ def row(scenario,t):
         "scenario":scenario,"trial":t,
         "bandwidth_index":1,"sigma0":1.,"sigma_selected":1.,
         "prefix_validation_scores":[.1,.2,.3],
-        "alarms":{n:{metric:metric=="rbf_hsic_selected" for metric in m.METHODS}
+        "alarms":{n:{metric:metric in ("rbf_hsic_selected","rbf_hsic_fixed") for metric in m.METHODS}
                   for n in m.LENS},
         "observed":{n:{metric:1. for metric in m.METHODS} for n in m.LENS},
         "null_max":{n:{metric:0. for metric in m.METHODS} for n in m.LENS},
