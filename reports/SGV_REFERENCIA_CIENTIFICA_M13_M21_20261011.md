@@ -19,6 +19,7 @@
 | M20a–e | Dependência temporal que as marginais/2ª ordem não veem (sintético) | Marginais **não identificam** a dinâmica (M20a/b); detectar H± exige **saber a direção** (M20d); aprender a direção do passado falha em H± (M20e); geometria (W2/CQW2) **não** supera HSIC | `SGV_M20a..e_LEITURA_20261011.md` (ramos M20*) |
 | Nota M20 | Kernels 3D invariantes resolvem H±? | **Não** (HSIC gaussiano e dCov ≤10% com N=1800 e nulo conhecido): o gargalo é informacional | `reports/m20nota/` (ramo `research/m20-nota-kernels-invariantes`) |
 | **M21b** | O BTC tem dependência entre instantes que o melhor paramétrico não reproduz? | Sim, mas **compatível com memória de volatilidade** (lags 1, 5); **nada do tipo M20**; o paramétrico falha até na dependência **linear** de curto prazo; BL levemente liberal (~10–15%) | `SGV_M21b_LEITURA_20261011.md` (ramo M21b) |
+| **M23** | Um modelo mínimo explícito (2 escalas + VAR(1) + GARCH + bloco lento real) reproduz o BTC 1m? | Melhora enorme no lag 1 (lin 70→13%, vol 88→23%), mas **não fecha a lacuna**: falta a escala **intermediária (~5–15 min)** e a forma não gaussiana | `SGV_M23_LEITURA_20261011.md` (ramo M23) |
 | **M21a** | Por que o M11 falha sob BL? | Pontos fora da faixa da âncora se empilham no extremo → componente GMM degenerado → casca aberta. **Regra do posto conservador** recupera 82/84 (M18) e 54/58 (M19) sem mudar o instrumento | `reports/m21/SGV_M21a_LEITURA.md` |
 
 ## 2. O que está estabelecido (até aqui, com as ressalvas de cada relatório)
@@ -41,7 +42,7 @@
 
 ## 4. Em aberto (por prioridade)
 
-1. ~~Existe no BTC dependência temporal não linear além da volatilidade?~~ **Respondido no M21b: não nesta escala** → linha M20 encerrada. Em aberto agora: um **modelo mínimo** (duas escalas + autorregressão + volatilidade condicional) que feche a lacuna sem usar blocos reais.
+1. ~~Existe no BTC dependência temporal não linear além da volatilidade?~~ **Respondido no M21b: não nesta escala** → linha M20 encerrada. Em aberto agora: um **modelo mínimo** que feche a lacuna sem blocos reais — o M23 mostrou que duas escalas + VAR(1) + GARCH não bastam; falta a **escala intermediária de minutos** (próximo candidato: memória heterogênea por horizontes, tipo HAR) e a **forma não gaussiana**.
 2. **H-FR:** eventos estruturais aparecem como mudança de **acoplamento** (Fisher–Rao)? — regras **congeladas** em `PROTOCOLO_SGV_M22_HFR_20261011.md` (ramo M21b) para o 1m out–dez/2026; execução quando os arquivos de dezembro saírem (início de jan/2027).
 3. Nulo adequado no **1h**.
 4. Memória lenta além do que as coordenadas atuais veem (normalização local corta memória > ~1 dia no 1m).
