@@ -1,0 +1,47 @@
+name: SGV-M20a - Trajetorias e acoplamentos (somente sintetico)
+on:
+  push:
+    branches: [research/m20-trajetorias-transicoes]
+    paths:
+      - 'experiments/m20_trajetorias_transicoes.py'
+      - 'tests/test_m20_trajetorias_transicoes.py'
+      - 'reports/PROTOCOLO_SGV_M20a_20261011.md'
+      - '.github/workflows/m20-trajetorias-transicoes.yml'
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  sintese:
+    runs-on: ubuntu-latest
+    timeout-minutes: 25
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - run: python -m pip install numpy pytest
+      - name: Auditoria de teste e integridade
+        run: python -m pytest -q tests/test_m20_trajetorias_transicoes.py
+      - name: Piloto de engenharia (semente separada)
+        run: python experiments/m20_trajetorias_transicoes.py --mode pilot > m20_piloto.log
+      - name: Experiencia cientifica sintetica congelada
+        run: python experiments/m20_trajetorias_transicoes.py --mode full > m20_resultado.log
+      - name: Resumo textual dos portoes
+        run: |
+          python - <<'PY'
+          import json
+          r=json.load(open('reports/m20/resultados_sinteticos.json'))
+          print('GATES',r['gate'])
+          print('ALL_GATES_PASS',r['all_gates_pass'])
+          for group, results in r['results'].items():
+              print(group,[(k,v['rate']) for k,v in results.items() if isinstance(v,dict) and k in ('endpoint_w2','path_length','current_abs','lagcov_frobenius','transition_cost','excess_cost','mean_shift')])
+          PY
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: SGV-M20a-resultados-sinteticos
+          path: |
+            reports/m20/*.json
+            m20_*.log
+          if-no-files-found: warn
+          retention-days: 90
