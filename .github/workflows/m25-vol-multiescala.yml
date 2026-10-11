@@ -1,0 +1,110 @@
+name: SGV-M25 - Volatilidade multiescala
+on:
+  push:
+    branches: [research/m25-volatilidade-multiescala]
+    paths:
+      - 'experiments/m25_vol_multiescala.py'
+      - 'tests/test_m25_vol_multiescala.py'
+      - '.github/workflows/m25-vol-multiescala.yml'
+permissions:
+  contents: read
+jobs:
+  piloto:
+    name: Testes + piloto
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with: {python-version: '3.11'}
+      - run: python -m pip install numpy scipy pandas scikit-learn scikit-image trimesh hmmlearn pytest
+      - run: python scripts/baixar_klines.py --so 1m
+      - run: python -m pytest -q tests/test_m25_vol_multiescala.py tests/test_m24_har_fhs.py
+      - run: python experiments/m25_vol_multiescala.py --mode pilot
+  shards:
+    needs: piloto
+    name: M25 shard ${{ matrix.shard }}
+    runs-on: ubuntu-latest
+    timeout-minutes: 90
+    strategy:
+      fail-fast: false
+      max-parallel: 20
+      matrix:
+        shard:
+          - 0
+          - 1
+          - 2
+          - 3
+          - 4
+          - 5
+          - 6
+          - 7
+          - 8
+          - 9
+          - 10
+          - 11
+          - 12
+          - 13
+          - 14
+          - 15
+          - 16
+          - 17
+          - 18
+          - 19
+          - 20
+          - 21
+          - 22
+          - 23
+          - 24
+          - 25
+          - 26
+          - 27
+          - 28
+          - 29
+          - 30
+          - 31
+          - 32
+          - 33
+          - 34
+          - 35
+          - 36
+          - 37
+          - 38
+          - 39
+          - 40
+          - 41
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with: {python-version: '3.11'}
+      - run: python -m pip install numpy scipy pandas scikit-learn scikit-image trimesh hmmlearn
+      - run: python scripts/baixar_klines.py --so 1m
+      - run: python experiments/m25_vol_multiescala.py --mode shard --shard ${{ matrix.shard }}
+      - if: always()
+        uses: actions/upload-artifact@v4
+        with: {name: 'SGV-M25-shard-${{ matrix.shard }}', path: 'reports/m25/shard_*.json', if-no-files-found: warn, retention-days: 90}
+  consolidacao:
+    needs: [piloto, shards]
+    if: ${{ always() && needs.piloto.result == 'success' }}
+    name: Agregar e publicar
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with: {python-version: '3.11'}
+      - run: python -m pip install numpy scipy pandas scikit-learn scikit-image trimesh hmmlearn
+      - uses: actions/download-artifact@v4
+        with: {pattern: 'SGV-M25-shard-*', path: reports/m25/_dl, merge-multiple: true}
+      - run: python experiments/m25_vol_multiescala.py --mode aggregate --shards-dir reports/m25/_dl
+      - name: Commit
+        if: always()
+        run: |
+          git config user.name "sgv-m25-bot"
+          git config user.email "sgv-m25-bot@users.noreply.github.com"
+          mkdir -p reports/m25/shards && cp reports/m25/_dl/shard_*.json reports/m25/shards/ || true
+          git add -f reports/m25/shards reports/m25/SGV_M25_AGREGADO.json reports/m25/SGV_M25_RESULTADOS.md || true
+          git commit -m "results: M25 multi-scale volatility audit on exploratory BTC [skip ci]" || echo "nada a commitar"
+          git push
