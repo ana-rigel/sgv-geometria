@@ -1,0 +1,485 @@
+{
+ "n_valid": 83,
+ "status": {
+  "valid": 83,
+  "fit_failed": 1
+ },
+ "cells": {
+  "HARLMFX|m11": {
+   "alarms": 15,
+   "n": 81,
+   "rate": 0.18518518518518517,
+   "wilson95": [
+    0.11556290005906689,
+    0.28331589447245376
+   ],
+   "elevated": true
+  },
+  "HARLMFX|fr_cov": {
+   "alarms": 8,
+   "n": 83,
+   "rate": 0.0963855421686747,
+   "wilson95": [
+    0.04965274035892192,
+    0.17882636501471963
+   ],
+   "elevated": false
+  },
+  "HARLMFX|energy": {
+   "alarms": 13,
+   "n": 83,
+   "rate": 0.1566265060240964,
+   "wilson95": [
+    0.09388012275121072,
+    0.24975135495472317
+   ],
+   "elevated": true
+  },
+  "HARLMFX|lin_1": {
+   "alarms": 9,
+   "n": 83,
+   "rate": 0.10843373493975904,
+   "wilson95": [
+    0.058104915192981194,
+    0.19340466464711883
+   ],
+   "elevated": false
+  },
+  "HARLMFX|lin_5": {
+   "alarms": 16,
+   "n": 83,
+   "rate": 0.1927710843373494,
+   "wilson95": [
+    0.12228902945885581,
+    0.2904338716464535
+   ],
+   "elevated": true
+  },
+  "HARLMFX|lin_30": {
+   "alarms": 18,
+   "n": 83,
+   "rate": 0.21686746987951808,
+   "wilson95": [
+    0.14181562277368154,
+    0.31696822726454466
+   ],
+   "elevated": true
+  },
+  "HARLMFX|vol_1": {
+   "alarms": 14,
+   "n": 83,
+   "rate": 0.1686746987951807,
+   "wilson95": [
+    0.10322081202109416,
+    0.2634411401512981
+   ],
+   "elevated": true
+  },
+  "HARLMFX|vol_5": {
+   "alarms": 17,
+   "n": 83,
+   "rate": 0.20481927710843373,
+   "wilson95": [
+    0.13199870771397443,
+    0.30375466785779326
+   ],
+   "elevated": true
+  },
+  "HARLMFX|vol_30": {
+   "alarms": 19,
+   "n": 83,
+   "rate": 0.2289156626506024,
+   "wilson95": [
+    0.15173364740724513,
+    0.3300806770974395
+   ],
+   "elevated": true
+  },
+  "HARLMFX|hsic_1": {
+   "alarms": 16,
+   "n": 83,
+   "rate": 0.1927710843373494,
+   "wilson95": [
+    0.12228902945885581,
+    0.2904338716464535
+   ],
+   "elevated": true
+  },
+  "HARLMFX|hsic_5": {
+   "alarms": 22,
+   "n": 83,
+   "rate": 0.26506024096385544,
+   "wilson95": [
+    0.18204414020123172,
+    0.3688616077028284
+   ],
+   "elevated": true
+  },
+  "HARLMFX|hsic_30": {
+   "alarms": 26,
+   "n": 83,
+   "rate": 0.3132530120481928,
+   "wilson95": [
+    0.22361394104451462,
+    0.4194137047253793
+   ],
+   "elevated": true
+  },
+  "HARLMFV|m11": {
+   "alarms": 11,
+   "n": 81,
+   "rate": 0.13580246913580246,
+   "wilson95": [
+    0.07755463441730516,
+    0.22703063768778736
+   ],
+   "elevated": true
+  },
+  "HARLMFV|fr_cov": {
+   "alarms": 14,
+   "n": 83,
+   "rate": 0.1686746987951807,
+   "wilson95": [
+    0.10322081202109416,
+    0.2634411401512981
+   ],
+   "elevated": true
+  },
+  "HARLMFV|energy": {
+   "alarms": 11,
+   "n": 83,
+   "rate": 0.13253012048192772,
+   "wilson95": [
+    0.07564306492759915,
+    0.22192746384541778
+   ],
+   "elevated": true
+  },
+  "HARLMFV|lin_1": {
+   "alarms": 9,
+   "n": 83,
+   "rate": 0.10843373493975904,
+   "wilson95": [
+    0.058104915192981194,
+    0.19340466464711883
+   ],
+   "elevated": false
+  },
+  "HARLMFV|lin_5": {
+   "alarms": 16,
+   "n": 83,
+   "rate": 0.1927710843373494,
+   "wilson95": [
+    0.12228902945885581,
+    0.2904338716464535
+   ],
+   "elevated": true
+  },
+  "HARLMFV|lin_30": {
+   "alarms": 21,
+   "n": 83,
+   "rate": 0.25301204819277107,
+   "wilson95": [
+    0.1718523112711436,
+    0.35602296216645796
+   ],
+   "elevated": true
+  },
+  "HARLMFV|vol_1": {
+   "alarms": 16,
+   "n": 83,
+   "rate": 0.1927710843373494,
+   "wilson95": [
+    0.12228902945885581,
+    0.2904338716464535
+   ],
+   "elevated": true
+  },
+  "HARLMFV|vol_5": {
+   "alarms": 24,
+   "n": 83,
+   "rate": 0.2891566265060241,
+   "wilson95": [
+    0.20267448849174827,
+    0.3942922083452287
+   ],
+   "elevated": true
+  },
+  "HARLMFV|vol_30": {
+   "alarms": 23,
+   "n": 83,
+   "rate": 0.27710843373493976,
+   "wilson95": [
+    0.1923192775942012,
+    0.38161694477631736
+   ],
+   "elevated": true
+  },
+  "HARLMFV|hsic_1": {
+   "alarms": 14,
+   "n": 83,
+   "rate": 0.1686746987951807,
+   "wilson95": [
+    0.10322081202109416,
+    0.2634411401512981
+   ],
+   "elevated": true
+  },
+  "HARLMFV|hsic_5": {
+   "alarms": 23,
+   "n": 83,
+   "rate": 0.27710843373493976,
+   "wilson95": [
+    0.1923192775942012,
+    0.38161694477631736
+   ],
+   "elevated": true
+  },
+  "HARLMFV|hsic_30": {
+   "alarms": 25,
+   "n": 83,
+   "rate": 0.30120481927710846,
+   "wilson95": [
+    0.21310689683441345,
+    0.40689027446902215
+   ],
+   "elevated": true
+  },
+  "BL|m11": {
+   "alarms": 7,
+   "n": 81,
+   "rate": 0.08641975308641975,
+   "wilson95": [
+    0.04249258333995924,
+    0.16779916633870517
+   ],
+   "elevated": false
+  },
+  "BL|fr_cov": {
+   "alarms": 9,
+   "n": 83,
+   "rate": 0.10843373493975904,
+   "wilson95": [
+    0.058104915192981194,
+    0.19340466464711883
+   ],
+   "elevated": false
+  },
+  "BL|energy": {
+   "alarms": 6,
+   "n": 83,
+   "rate": 0.07228915662650602,
+   "wilson95": [
+    0.03355029552299279,
+    0.14886786091773183
+   ],
+   "elevated": false
+  },
+  "BL|lin_1": {
+   "alarms": 8,
+   "n": 83,
+   "rate": 0.0963855421686747,
+   "wilson95": [
+    0.04965274035892192,
+    0.17882636501471963
+   ],
+   "elevated": false
+  },
+  "BL|lin_5": {
+   "alarms": 12,
+   "n": 83,
+   "rate": 0.14457831325301204,
+   "wilson95": [
+    0.08468299102280806,
+    0.2359180122166673
+   ],
+   "elevated": true
+  },
+  "BL|lin_30": {
+   "alarms": 15,
+   "n": 83,
+   "rate": 0.18072289156626506,
+   "wilson95": [
+    0.11269365829519953,
+    0.2769987683436512
+   ],
+   "elevated": true
+  },
+  "BL|vol_1": {
+   "alarms": 8,
+   "n": 83,
+   "rate": 0.0963855421686747,
+   "wilson95": [
+    0.04965274035892192,
+    0.17882636501471963
+   ],
+   "elevated": false
+  },
+  "BL|vol_5": {
+   "alarms": 6,
+   "n": 83,
+   "rate": 0.07228915662650602,
+   "wilson95": [
+    0.03355029552299279,
+    0.14886786091773183
+   ],
+   "elevated": false
+  },
+  "BL|vol_30": {
+   "alarms": 6,
+   "n": 83,
+   "rate": 0.07228915662650602,
+   "wilson95": [
+    0.03355029552299279,
+    0.14886786091773183
+   ],
+   "elevated": false
+  },
+  "BL|hsic_1": {
+   "alarms": 7,
+   "n": 83,
+   "rate": 0.08433734939759036,
+   "wilson95": [
+    0.04145333632101998,
+    0.16399529458616308
+   ],
+   "elevated": false
+  },
+  "BL|hsic_5": {
+   "alarms": 9,
+   "n": 83,
+   "rate": 0.10843373493975904,
+   "wilson95": [
+    0.058104915192981194,
+    0.19340466464711883
+   ],
+   "elevated": false
+  },
+  "BL|hsic_30": {
+   "alarms": 12,
+   "n": 83,
+   "rate": 0.14457831325301204,
+   "wilson95": [
+    0.08468299102280806,
+    0.2359180122166673
+   ],
+   "elevated": true
+  }
+ },
+ "primary_vs_HARLMFV": {
+  "vol_1": {
+   "x_only": 3,
+   "y_only": 1,
+   "n_pairs": 83,
+   "p_one_sided": 0.3125,
+   "significant": false
+  },
+  "vol_5": {
+   "x_only": 9,
+   "y_only": 2,
+   "n_pairs": 83,
+   "p_one_sided": 0.03271484375,
+   "significant": false
+  },
+  "vol_30": {
+   "x_only": 7,
+   "y_only": 3,
+   "n_pairs": 83,
+   "p_one_sided": 0.171875,
+   "significant": false
+  }
+ },
+ "HARLMFX_worse_than_BL": {
+  "m11": {
+   "x_only": 8,
+   "y_only": 0,
+   "n_pairs": 81,
+   "p_one_sided": 0.00390625,
+   "significant": true
+  },
+  "fr_cov": {
+   "x_only": 1,
+   "y_only": 2,
+   "n_pairs": 83,
+   "p_one_sided": 0.875,
+   "significant": false
+  },
+  "energy": {
+   "x_only": 7,
+   "y_only": 0,
+   "n_pairs": 83,
+   "p_one_sided": 0.0078125,
+   "significant": false
+  },
+  "lin_1": {
+   "x_only": 2,
+   "y_only": 1,
+   "n_pairs": 83,
+   "p_one_sided": 0.5,
+   "significant": false
+  },
+  "lin_5": {
+   "x_only": 5,
+   "y_only": 1,
+   "n_pairs": 83,
+   "p_one_sided": 0.109375,
+   "significant": false
+  },
+  "lin_30": {
+   "x_only": 5,
+   "y_only": 2,
+   "n_pairs": 83,
+   "p_one_sided": 0.2265625,
+   "significant": false
+  },
+  "vol_1": {
+   "x_only": 6,
+   "y_only": 0,
+   "n_pairs": 83,
+   "p_one_sided": 0.015625,
+   "significant": false
+  },
+  "vol_5": {
+   "x_only": 11,
+   "y_only": 0,
+   "n_pairs": 83,
+   "p_one_sided": 0.00048828125,
+   "significant": true
+  },
+  "vol_30": {
+   "x_only": 13,
+   "y_only": 0,
+   "n_pairs": 83,
+   "p_one_sided": 0.0001220703125,
+   "significant": true
+  },
+  "hsic_1": {
+   "x_only": 9,
+   "y_only": 0,
+   "n_pairs": 83,
+   "p_one_sided": 0.001953125,
+   "significant": true
+  },
+  "hsic_5": {
+   "x_only": 13,
+   "y_only": 0,
+   "n_pairs": 83,
+   "p_one_sided": 0.0001220703125,
+   "significant": true
+  },
+  "hsic_30": {
+   "x_only": 14,
+   "y_only": 0,
+   "n_pairs": 83,
+   "p_one_sided": 6.103515625e-05,
+   "significant": true
+  }
+ },
+ "verdict": "NAO FECHA A LACUNA",
+ "mechanism": {
+  "c_iota_from_z_median": -0.04700665767980568,
+  "c_iota_from_z_negative_fraction": 1.0,
+  "sign_test_p_negative": 1.0339757656912846e-25,
+  "c_z_from_nu_median": 0.00971908990364292
+ }
+}
