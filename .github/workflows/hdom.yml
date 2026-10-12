@@ -1,0 +1,29 @@
+name: SGV H-DOM - dominancia e direcao (disparo por arquivo)
+on:
+  push:
+    branches: [research/h-dom-dominancia]
+    paths: ['reports/hdom/disparo.json']
+permissions:
+  contents: write
+jobs:
+  hdom:
+    runs-on: ubuntu-latest
+    timeout-minutes: 40
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with: {python-version: '3.11'}
+      - run: python -m pip install numpy scipy pandas
+      - run: python scripts/baixar_klines.py --so 1m
+      - name: Ensaio (dados exploratorios)
+        run: python scripts/hdom_teste.py --mode ensaio
+      - name: Confirmatorio (1m 2026-08 e 2026-09)
+        run: python scripts/hdom_teste.py --mode confirmatorio --protocol-sha "$(python -c "import json;print(json.load(open('reports/hdom/disparo.json'))['protocol_sha'])")"
+      - name: Commit
+        if: always()
+        run: |
+          git config user.name "sgv-hdom-bot"
+          git config user.email "sgv-hdom-bot@users.noreply.github.com"
+          git add -f reports/hdom/*.json reports/hdom/*.md reports/hdom/*.csv || true
+          git commit -m "results: H-DOM confirmatory test [skip ci]" || echo "nada a commitar"
+          git push
