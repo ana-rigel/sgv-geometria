@@ -48,7 +48,8 @@ def report(o,mode):
        f"**Primário:** acerto do sinal de A no retorno de 60 min = **{pr['acertos']}/{pr['n']} ({pct(pr['acerto'])})**, p unilateral = {pr['p_unilateral']:.3g} → **{'SIGNIFICATIVO' if pr['significativo'] else 'NÃO SIGNIFICATIVO'}**",'',
        '| Horizonte | Spearman (todas) | Acerto (todas) | Spearman (subconjunto) | Acerto (subconjunto) |','|---|---|---|---|---|']
     for h in H:
-        x=o[f'{h}min'];L.append(f"| {h} min | {x['todas_spearman']:+.3f} | {pct(x['todas_acerto'])} | {'—' if x['sub_spearman'] is None else f'{x['sub_spearman']:+.3f}'} | {pct(x['sub_acerto'])} |")
+        x=o[f'{h}min'];ssp='—' if x['sub_spearman'] is None else format(x['sub_spearman'],'+.3f')
+        L.append(f"| {h} min | {x['todas_spearman']:+.3f} | {pct(x['todas_acerto'])} | {ssp} | {pct(x['sub_acerto'])} |")
     e=o['economia_60min'];L+=['',f"Economia (descritiva, 60 min, subconjunto): ganho médio bruto {e['ganho_medio_bruto_pct']:+.4f}% por operação; com custo de 0,10%: {e['ganho_medio_com_custo_pct']:+.4f}% (total {e['ganho_total_com_custo_pct']:+.3f}%)."]
     return '\n'.join(L)
 def main():

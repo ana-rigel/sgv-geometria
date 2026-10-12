@@ -1,1 +1,1 @@
-{"protocol_sha": "6b71561511e7f8e80e9ce54f13970aac5917e97c84dc0c87bcc7c958bb05047f", "pedido": "Ana, Teste, 12/10/2026"}
+{"protocol_sha": "6b71561511e7f8e80e9ce54f13970aac5917e97c84dc0c87bcc7c958bb05047f", "pedido": "Ana, Teste, 12/10/2026", "tentativa": 2, "motivo": "1a tentativa falhou no ensaio (sintaxe f-string incompativel com Python 3.11), antes de baixar os dados de teste"}
