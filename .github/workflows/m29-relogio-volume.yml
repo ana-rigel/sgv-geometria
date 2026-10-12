@@ -1,0 +1,110 @@
+name: SGV-M29 - Relogio do volume
+on:
+  push:
+    branches: [research/m29-relogio-volume]
+    paths:
+      - 'experiments/m29_relogio_volume.py'
+      - 'tests/test_m29_relogio_volume.py'
+      - '.github/workflows/m29-relogio-volume.yml'
+permissions:
+  contents: read
+jobs:
+  piloto:
+    name: Testes + piloto
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with: {python-version: '3.11'}
+      - run: python -m pip install numpy scipy pandas scikit-learn scikit-image trimesh hmmlearn pytest
+      - run: python scripts/baixar_klines.py --so 1m
+      - run: python -m pytest -q tests/test_m29_relogio_volume.py tests/test_m28_atividade_escala.py
+      - run: python experiments/m29_relogio_volume.py --mode pilot
+  shards:
+    needs: piloto
+    name: M29 shard ${{ matrix.shard }}
+    runs-on: ubuntu-latest
+    timeout-minutes: 120
+    strategy:
+      fail-fast: false
+      max-parallel: 20
+      matrix:
+        shard:
+          - 0
+          - 1
+          - 2
+          - 3
+          - 4
+          - 5
+          - 6
+          - 7
+          - 8
+          - 9
+          - 10
+          - 11
+          - 12
+          - 13
+          - 14
+          - 15
+          - 16
+          - 17
+          - 18
+          - 19
+          - 20
+          - 21
+          - 22
+          - 23
+          - 24
+          - 25
+          - 26
+          - 27
+          - 28
+          - 29
+          - 30
+          - 31
+          - 32
+          - 33
+          - 34
+          - 35
+          - 36
+          - 37
+          - 38
+          - 39
+          - 40
+          - 41
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with: {python-version: '3.11'}
+      - run: python -m pip install numpy scipy pandas scikit-learn scikit-image trimesh hmmlearn
+      - run: python scripts/baixar_klines.py --so 1m
+      - run: python experiments/m29_relogio_volume.py --mode shard --shard ${{ matrix.shard }}
+      - if: always()
+        uses: actions/upload-artifact@v4
+        with: {name: 'SGV-M29-shard-${{ matrix.shard }}', path: 'reports/m29/shard_*.json', if-no-files-found: warn, retention-days: 90}
+  consolidacao:
+    needs: [piloto, shards]
+    if: ${{ always() && needs.piloto.result == 'success' }}
+    name: Agregar e publicar
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with: {python-version: '3.11'}
+      - run: python -m pip install numpy scipy pandas scikit-learn scikit-image trimesh hmmlearn
+      - uses: actions/download-artifact@v4
+        with: {pattern: 'SGV-M29-shard-*', path: reports/m29/_dl, merge-multiple: true}
+      - run: python experiments/m29_relogio_volume.py --mode aggregate --shards-dir reports/m29/_dl
+      - name: Commit
+        if: always()
+        run: |
+          git config user.name "sgv-m29-bot"
+          git config user.email "sgv-m29-bot@users.noreply.github.com"
+          mkdir -p reports/m29/shards && cp reports/m29/_dl/shard_*.json reports/m29/shards/ || true
+          git add -f reports/m29/shards reports/m29/SGV_M29_AGREGADO.json reports/m29/SGV_M29_RESULTADOS.md || true
+          git commit -m "results: M29 volume-clock audit on exploratory BTC [skip ci]" || echo "nada a commitar"
+          git push
