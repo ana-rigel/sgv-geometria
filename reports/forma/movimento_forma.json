@@ -1,0 +1,51 @@
+{
+ "cintura": {
+  "n_janelas": 2197,
+  "mediana_real": 0.8245360832509001,
+  "mediana_nulo": 0.8539838005098609,
+  "dp_real": 0.15280192365514422,
+  "dp_nulo": 0.12235445084447888,
+  "razao_dp": 1.2488464669696915,
+  "p10_p90_real": [
+   0.65,
+   1.03
+  ],
+  "p10_p90_nulo": [
+   0.71,
+   1.03
+  ],
+  "autocorr_1h": 0.7602452706337188,
+  "autocorr_6h": 0.20188709721753226,
+  "autocorr_24h": -0.014675561386128733,
+  "autocorr_nulo_1h": 0.7104001094604409,
+  "autocorr_nulo_6h": -0.04048961287467946,
+  "autocorr_nulo_24h": -0.05097150411487546,
+  "frac_real_com_cintura_forte": 0.11925352753755121,
+  "frac_real_com_pico_forte": 0.05780609922621757,
+  "duracao_media_episodios_cintura_h": 2.425925925925926,
+  "duracao_media_episodios_nulo_h": 1.75,
+  "frac_nulo_com_cintura_forte": 0.04779244424214838
+ },
+ "cone": {
+  "n_janelas": 2197,
+  "mediana_real": 1.7273972015233694,
+  "mediana_nulo": 1.6665603143681118,
+  "dp_real": 0.3096712410822352,
+  "dp_nulo": 0.1444785508210516,
+  "razao_dp": 2.1433717276538036,
+  "p10_p90_real": [
+   1.46,
+   2.2
+  ],
+  "p10_p90_nulo": [
+   1.49,
+   1.86
+  ],
+  "autocorr_1h": 0.912956468670147,
+  "autocorr_6h": 0.5147559722428201,
+  "autocorr_24h": 0.19993192548149724,
+  "autocorr_nulo_1h": 0.8166379793461741,
+  "autocorr_nulo_6h": -0.035645650207488784,
+  "autocorr_nulo_24h": 0.011676802892103133
+ }
+}
