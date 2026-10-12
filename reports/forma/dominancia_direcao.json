@@ -1,0 +1,31 @@
+{
+ "n_janelas": 366,
+ "n_cintura_e_cone": 48,
+ "15min": {
+  "spearman": -0.04,
+  "p": 0.45,
+  "acerto_sinal": 0.47,
+  "p_acerto": 0.272,
+  "cond_spearman": -0.034,
+  "cond_acerto": 0.479,
+  "cond_p_acerto": 0.885
+ },
+ "60min": {
+  "spearman": -0.017,
+  "p": 0.745,
+  "acerto_sinal": 0.514,
+  "p_acerto": 0.638,
+  "cond_spearman": 0.121,
+  "cond_acerto": 0.625,
+  "cond_p_acerto": 0.111
+ },
+ "240min": {
+  "spearman": -0.046,
+  "p": 0.375,
+  "acerto_sinal": 0.484,
+  "p_acerto": 0.565,
+  "cond_spearman": 0.196,
+  "cond_acerto": 0.542,
+  "cond_p_acerto": 0.665
+ }
+}
