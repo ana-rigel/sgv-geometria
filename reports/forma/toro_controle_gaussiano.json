@@ -1,0 +1,66 @@
+{
+ "1m": {
+  "banda x0.7 HDR25": {
+   "n": 12,
+   "comp": 4,
+   "furo": 3
+  },
+  "banda x0.7 HDR50": {
+   "n": 12,
+   "comp": 7,
+   "furo": 0
+  },
+  "banda x0.7 HDR75": {
+   "n": 7,
+   "comp": 7,
+   "furo": 2
+  },
+  "banda x0.5 HDR25": {
+   "n": 12,
+   "comp": 12,
+   "furo": 9
+  },
+  "banda x0.5 HDR50": {
+   "n": 11,
+   "comp": 11,
+   "furo": 11
+  },
+  "banda x0.5 HDR75": {
+   "n": 5,
+   "comp": 5,
+   "furo": 5
+  }
+ },
+ "1h": {
+  "banda x0.7 HDR25": {
+   "n": 12,
+   "comp": 2,
+   "furo": 1
+  },
+  "banda x0.7 HDR50": {
+   "n": 12,
+   "comp": 6,
+   "furo": 2
+  },
+  "banda x0.7 HDR75": {
+   "n": 9,
+   "comp": 8,
+   "furo": 3
+  },
+  "banda x0.5 HDR25": {
+   "n": 12,
+   "comp": 12,
+   "furo": 10
+  },
+  "banda x0.5 HDR50": {
+   "n": 12,
+   "comp": 12,
+   "furo": 12
+  },
+  "banda x0.5 HDR75": {
+   "n": 1,
+   "comp": 1,
+   "furo": 1
+  }
+ }
+}

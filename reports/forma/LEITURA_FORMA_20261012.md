@@ -16,3 +16,9 @@ Scripts: `scripts/forma_isosuperficie.py` (componentes e selas), `scripts/forma_
 
 ## Leitura
 A forma da casca é a geometria de três fatos de funcionamento: o preço se move junto com o lado que agride; com pouco volume quase nada acontece; com muito volume o minuto "escolhe um lado". Nada disso fala de direção futura: são relações dentro do mesmo minuto.
+
+## Poderia ser um toro? (checagem adicional, 12/10/2026)
+`scripts/forma_toro.py` e `scripts/forma_toro_controle.py`: topologia das HDR 25/50/75 com densidade **livre** (KDE gaussiano), nas mesmas 6 janelas × 2 metades por escala, com suavização padrão (Scott) e reduzida (×0,7, ×0,5), e um **controle** com amostras gaussianas (sem furo por construção) do mesmo tamanho e covariância.
+- **Suavização padrão:** nenhum furo (gênero 0) em todas as superfícies válidas, 1m e 1h — igual ao M1 com GMM2.
+- **Suavização reduzida:** furos aparecem, mas sempre junto com pedaços soltos, e **na mesma taxa no controle gaussiano** (ex.: ×0,5, HDR50: 12/12 real × 11/11 gaussiano no 1m; 12/12 × 12/12 no 1h). São bolhas de ruído de amostra (~525 pontos por metade), não um anel.
+- **Conclusão:** nada indica toro. A forma é de gênero 0 (feijão/coração): os dois lóbulos se ligam em volume baixo e se afastam em volume alto, sem uma segunda ponte que fechasse um anel.
