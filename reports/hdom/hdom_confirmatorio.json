@@ -1,0 +1,40 @@
+{
+ "n_janelas": 242,
+ "n_subconjunto": 58,
+ "primario": {
+  "acertos": 20,
+  "n": 58,
+  "acerto": 0.3448275862068966,
+  "p_unilateral": 0.9940359301421184,
+  "significativo": false
+ },
+ "15min": {
+  "todas_spearman": 0.01977146035991755,
+  "todas_acerto": 0.5041322314049587,
+  "sub_spearman": -0.03485188716970686,
+  "sub_acerto": 0.5172413793103449
+ },
+ "60min": {
+  "todas_spearman": -0.05053722606847214,
+  "todas_acerto": 0.45454545454545453,
+  "sub_spearman": -0.30511550647513,
+  "sub_acerto": 0.3448275862068966
+ },
+ "240min": {
+  "todas_spearman": 0.08072552508614372,
+  "todas_acerto": 0.5165289256198347,
+  "sub_spearman": -0.06628933526100465,
+  "sub_acerto": 0.46551724137931033
+ },
+ "economia_60min": {
+  "ganho_medio_bruto_pct": 0.004195665348688347,
+  "ganho_medio_com_custo_pct": -0.09580433465131168,
+  "ganho_total_com_custo_pct": -5.556651409776077
+ },
+ "modo": "confirmatorio",
+ "meses": [
+  "BTCUSDT-1m-2026-08.zip",
+  "BTCUSDT-1m-2026-09.zip"
+ ],
+ "protocolo_sha256": "6b71561511e7f8e80e9ce54f13970aac5917e97c84dc0c87bcc7c958bb05047f"
+}
