@@ -22,3 +22,9 @@ A forma da casca é a geometria de três fatos de funcionamento: o preço se mov
 - **Suavização padrão:** nenhum furo (gênero 0) em todas as superfícies válidas, 1m e 1h — igual ao M1 com GMM2.
 - **Suavização reduzida:** furos aparecem, mas sempre junto com pedaços soltos, e **na mesma taxa no controle gaussiano** (ex.: ×0,5, HDR50: 12/12 real × 11/11 gaussiano no 1m; 12/12 × 12/12 no 1h). São bolhas de ruído de amostra (~525 pontos por metade), não um anel.
 - **Conclusão:** nada indica toro. A forma é de gênero 0 (feijão/coração): os dois lóbulos se ligam em volume baixo e se afastam em volume alto, sem uma segunda ponte que fechasse um anel.
+
+## A forma se desfaz e se remonta? (checagem adicional, 12/10/2026)
+`scripts/forma_movimento.py`: janelas móveis de 6 h (passo 1 h, 2.197 janelas) no 1m mai–jul/2026, cópula local; nulo = a mesma série com os minutos embaralhados no tempo e as mesmas janelas móveis (mesma sobreposição).
+- **Cintura** (massa central da diagonal compra/venda entre os minutos de volume alto; 1 = elíptico): varia 1,25× mais que no nulo; cintura forte (abaixo do p5 do nulo) em **11,9%** das janelas contra 4,8% no nulo; episódios duram ~2,4 h (nulo 1,75 h, efeito da sobreposição); persistência entre janelas sem sobreposição: 0,20 em 6 h, ~0 em 24 h (nulo ~0). O centro nunca se esvazia: mínimo 0,32× a normal, abaixo de 0,5× em só 1,1% das janelas.
+- **Cone** (dp do retorno no volume alto / no volume baixo): varia **2,1×** mais que no nulo (p10–p90 1,46–2,20 contra 1,49–1,86), persistência 0,51 em 6 h e 0,20 em 24 h (nulo ~0).
+- **Leitura:** a forma respira. A cintura aparece e some em episódios de poucas horas; a abertura do cone muda bastante e lentamente (escala de um dia) — a imagem geométrica da não estacionariedade do M27. Nada disso chega a partir a casca nem a fechar um anel em janelas de 6 h. Com ~360 pontos por janela, a topologia (furos) não é medível com confiança (ver controle gaussiano).
