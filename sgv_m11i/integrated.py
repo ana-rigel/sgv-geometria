@@ -146,7 +146,7 @@ def synthetic():
         got=integrate_meshes(ellipsoid,b,seed=SEED)
         got["case"]=name
         cases.append(got)
-    s=sphere.copy();s.apply_transform(Rotation.from_euler("x",48,degrees=True).as_matrix())
+    s=sphere.copy();rotation4=np.eye(4);rotation4[:3,:3]=Rotation.from_euler("x",48,degrees=True).as_matrix();s.apply_transform(rotation4)
     got=integrate_meshes(sphere,s,seed=SEED);got["case"]="sphere_unidentifiable";cases.append(got)
     return cases
 
