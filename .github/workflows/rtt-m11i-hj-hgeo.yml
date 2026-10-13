@@ -1,0 +1,35 @@
+name: SGV RTT-M11I — H-J / H-GEO controles sinteticos
+on:
+  push:
+    branches: [research/ponte-rtt-m11i-hj-hgeo]
+    paths:
+      - 'sgv_bridge/**'
+      - 'scripts/run_rtt_m11i_bridge.py'
+      - 'tests/test_rtt_m11i_bridge.py'
+      - '.github/workflows/rtt-m11i-hj-hgeo.yml'
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  test_synthetic_only:
+    name: Testes e gerador sintético SEM dados de mercado
+    runs-on: ubuntu-latest
+    timeout-minutes: 35
+    env:
+      OPENBLAS_NUM_THREADS: '1'
+      OMP_NUM_THREADS: '1'
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - run: python -m pip install -r requirements_m11i.txt
+      - run: python -m pytest -q tests/test_rtt_m11i_bridge.py
+      - name: Validar controle sintético H-J
+        run: python scripts/run_rtt_m11i_bridge.py --mode synthetic --output reports/rtt_bridge_synthetic.json
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: SGV-HJ-HGEO-synthetic-only
+          path: reports/rtt_bridge_synthetic.json
+          retention-days: 30
