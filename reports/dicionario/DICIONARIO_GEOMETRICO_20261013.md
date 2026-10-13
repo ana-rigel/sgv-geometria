@@ -90,11 +90,11 @@ A casca vive em **coordenadas normalizadas**:
 ## 7. Deformação residual (M11)
 
 **Matemática.** R² 0,06; nenhuma relação com os observáveis de mercado (|r| ≤ 0,08). **Confiabilidade:** 0,32.
-**Veredito:** **sem significado de mercado identificado.** O que sobra depois de tirar movimento e tamanho é, em grande parte, ruído de estimação da casca. (Isto também explica por que os alarmes do M11 nunca marcaram eventos — M19.)
+**Veredito (corrigido em 13/10, a pedido da Ana):** **não se reduz a escalas tradicionais** — nem a momentos (R² 0,06) nem aos observáveis de mercado usados aqui. Isso **não** é o mesmo que ruído. O que a confiabilidade (0,32) mostra é outra coisa: cerca de 1/3 da variação é sinal e ~2/3 vem de estimar uma superfície 3D com ~525 pontos. **Esse terço de sinal, que nenhuma escala tradicional explica, é o candidato a algo que só a geometria mede** — e precisa de um instrumento menos ruidoso e de localização (onde a casca deforma) para ser traduzido. Ver M35.
 
 ## 8. Rotação dos eixos
 
-R² 0,04, nenhuma relação com o mercado, confiabilidade ≈ 0. **Veredito: ruído.** A casca do BTC é redonda demais, nesta escala, para ter eixos estáveis.
+R² 0,04, nenhuma relação com o mercado, confiabilidade ≈ 0 **no conjunto de todas as janelas**. A orientação só existe quando a casca tem eixos distintos; nas janelas em que ela é quase redonda, o ângulo é indefinido e domina o ruído. **Veredito (corrigido):** não medido adequadamente — precisa ser estudado só nas janelas com eixos identificáveis (M35).
 
 ---
 
@@ -120,10 +120,10 @@ Lido no dicionário: **o choque enche o mercado (casca se desloca e contrai); ho
 | intensidade da curvatura | mercado cheio, compacto e organizado | parcial (R² 0,36) | 0,69 | **claro; o mais persistente** |
 | variação da curvatura | volume ficando regular | parcial (R² 0,54) | 0,38 | ruidoso |
 | área em sela | minutos tomando partido | quase nenhuma | 0,47 | fraco nesta escala |
-| M11 | — | nenhuma | 0,32 | sem significado identificado |
-| rotação | — | nenhuma | ≈ 0 | ruído |
+| M11 | ainda sem tradução | nenhuma (não é escala tradicional) | 0,32 | **candidato a medida nova; instrumento ruidoso** |
+| rotação | ainda sem tradução | nenhuma | ≈ 0 no geral | **não medida adequadamente** |
 
-**O que o dicionário mostra:** a geometria da casca é uma linguagem visual para três coisas do funcionamento do mercado — **o nível de atividade** (onde a casca está), **a entropia do fluxo, que depende de quantos negócios há** (o tamanho da casca) e **o grau de organização** (quão compacta e torcida ela é). As três têm tradução exata ou parcial em quantidades conhecidas. As medidas "puramente geométricas" (M11, rotação, sela em metades de 9 h) são, nesta escala, sobretudo ruído.
+**O que o dicionário mostra:** a geometria da casca é uma linguagem visual para três coisas do funcionamento do mercado — **o nível de atividade** (onde a casca está), **a entropia do fluxo, que depende de quantos negócios há** (o tamanho da casca) e **o grau de organização** (quão compacta e torcida ela é). As três têm tradução exata ou parcial em quantidades conhecidas. As medidas "puramente geométricas" (M11, rotação, sela em metades de 9 h) **não se reduzem a nenhuma escala tradicional** testada; parte delas é sinal (~1/3 no M11) e parte é ruído de estimação do instrumento atual. **Traduzir essa parte é o próximo passo (M35)**: instrumento menos ruidoso, deformação localizada na superfície e comparação com escalas não tradicionais (caudas, assimetria compra/venda, quantis condicionais).
 
 ## Hipóteses com mecanismo (para amostra nova; nada disto é resultado)
 1. **Reversão da atividade:** depois de uma contração (mercado cheio), o volume das horas seguintes tende a cair, e depois de uma expansão, a subir (descritivo: ×0,89 e ×1,08).
