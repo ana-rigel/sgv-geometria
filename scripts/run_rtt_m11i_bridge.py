@@ -8,6 +8,9 @@ and a SHA256SUMS file, e.g. path to the user's 'navegador_sgv/dados'.
 from __future__ import annotations
 import argparse, hashlib, json, sys, zipfile
 from pathlib import Path
+ROOT = Path(__file__).resolve().parents[1]
+if str(ROOT) not in sys.path:
+    sys.path.insert(0, str(ROOT))
 import numpy as np
 import pandas as pd
 from sgvgeo.flow import flow_coordinates
