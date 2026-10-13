@@ -1,6 +1,9 @@
 name: Exploração E-FLX-01 (fluxo de ordens, jun–jul/2026)
 
 on:
+  push:
+    branches: ["exploracao/fluxo-ordens"]
+    paths: [".github/workflows/fluxo-ordens.yml"]
   workflow_dispatch:
 
 permissions:
