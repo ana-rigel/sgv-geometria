@@ -1,0 +1,12 @@
+BTCUSDT-1m-2026-05.zip: SHA-256 conferido
+BTCUSDT-1m-2026-06.zip: SHA-256 conferido
+BTCUSDT-1m-2026-07.zip: SHA-256 conferido
+σ real calculado para 61 dias (2026-06-01 a 2026-07-31)
+sinais sorteados 1/20sinais sorteados 2/20sinais sorteados 3/20sinais sorteados 4/20sinais sorteados 5/20sinais sorteados 6/20sinais sorteados 7/20sinais sorteados 8/20sinais sorteados 9/20sinais sorteados 10/20sinais sorteados 11/20sinais sorteados 12/20sinais sorteados 13/20sinais sorteados 14/20sinais sorteados 15/20sinais sorteados 16/20sinais sorteados 17/20sinais sorteados 18/20sinais sorteados 19/20sinais sorteados 20/20pipeline 1/20      pipeline 2/20      pipeline 3/20      pipeline 4/20      pipeline 5/20      pipeline 6/20      pipeline 7/20      pipeline 8/20      pipeline 9/20      pipeline 10/20      pipeline 11/20      pipeline 12/20      pipeline 13/20      pipeline 14/20      pipeline 15/20      pipeline 16/20      pipeline 17/20      pipeline 18/20      pipeline 19/20      pipeline 20/20      
+
+H-σRTT-01 [exploracao] 61 dias (Holm, m = 2, α = 0,05)
+  H1 real − sinais sorteados: D = +0.0217, p = 0.0000 → CONFIRMADA
+  H2 real − dia invertido: D = +0.0095, p = 0.0050 → CONFIRMADA
+  (descritivo) real − pipeline: D = +0.0147, p = 0.0002
+  (descritivo) dias com real > máx de 8 réplicas de sinais: 32.8% (acaso ≈ 11,1%)
+  resultado gravado em /home/runner/work/sgv-geometria/sgv-geometria/resultados/H-sigmaRTT-01_exploracao.json
