@@ -1,0 +1,44 @@
+{
+ "split_max_abs_diff": 0.0,
+ "trecho_continuo": true,
+ "flow_erro": "zero-size array to reduction operation maximum which has no identity",
+ "csv_com_lacunas": "aceito",
+ "lacunas_no_periodo": 0,
+ "n_full": 60,
+ "falhas_m11i": 0.016666666666666666,
+ "theta_identificavel": 0.9666666666666667,
+ "metodo_registro": {
+  "icp": 41,
+  "axis_quotient": 18
+ },
+ "m11i_vs_m11": {
+  "spearman": 0.9926943308007014,
+  "media_m11i": 0.06640447441355467,
+  "media_m11": 0.06653667271670159,
+  "fracao_m11i_menor_ou_igual": 0.8813559322033898
+ },
+ "D_vs_m2": {
+  "n": 59,
+  "max_abs_diff": 4.440892098500626e-16,
+  "frac_D_zero": 0.016666666666666666
+ },
+ "ruido": {
+  "m11i": {
+   "var_entre": 0.0006586151420318389,
+   "var_semente": 0.00016264824096054193,
+   "var_boot": 0.0004389809756034491,
+   "confiab": 0.33347876842128865,
+   "confiab_so_semente": 0.7530450932865447,
+   "parte_do_ruido_que_e_semente": 0.3705131884974197
+  },
+  "m11": {
+   "var_entre": 0.0006483277132153829,
+   "var_semente": 0.00015960672943798844,
+   "var_boot": 0.0004111729680748071,
+   "confiab": 0.36579455159244423,
+   "confiab_so_semente": 0.7538178205487801,
+   "parte_do_ruido_que_e_semente": 0.3881741793126591
+  }
+ },
+ "segundos": 422
+}
