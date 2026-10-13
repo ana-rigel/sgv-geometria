@@ -1,0 +1,29 @@
+name: SGV-M33 - T3 original (BNB 1m, disparo por arquivo)
+on:
+  push:
+    branches: [research/m33-t3-original]
+    paths: ['reports/m33/disparo.json']
+permissions:
+  contents: write
+jobs:
+  m32:
+    runs-on: ubuntu-latest
+    timeout-minutes: 180
+    env: {OPENBLAS_NUM_THREADS: '2', OMP_NUM_THREADS: '2'}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with: {python-version: '3.11'}
+      - run: python -m pip install numpy scipy pandas scikit-learn scikit-image trimesh pytest
+      - name: Testes
+        run: python -m pytest -q tests/test_m33_t3.py tests/test_m33_confirmatorio.py
+      - name: Confirmatorio (BNBUSDT 1m 2026-05..09)
+        run: python experiments/m33_confirmatorio.py --mode confirmatorio --protocol-sha "$(python -c "import json;print(json.load(open('reports/m33/disparo.json'))['protocol_sha'])")"
+      - name: Commit
+        if: always()
+        run: |
+          git config user.name "sgv-m33-bot"
+          git config user.email "sgv-m33-bot@users.noreply.github.com"
+          git add -f reports/m33/m33_confirmatorio.json reports/m33/SGV_M33_CONFIRMATORIO.md reports/m33/m33_confirmatorio_previsoes.csv.gz || true
+          git commit -m "results: M33 original T3 confirmatory (BNB 1m) [skip ci]" || echo "nada a commitar"
+          git push
