@@ -1,0 +1,45 @@
+{
+ "n_origens_elegiveis": 2470,
+ "n_casca_valida": 2470,
+ "fracao_casca_valida": 1.0,
+ "n_avaliadas": 1125,
+ "skill": 0.0012451380249337114,
+ "delta_medio": -0.00016176666544363507,
+ "dev_B1": 0.12991866138876226,
+ "dev_B1S": 0.1297568947233186,
+ "p_hac_1dia": 0.2052975509165082,
+ "p_hac_1semana": 0.16153607036535167,
+ "ic95_skill_hac_1dia": [
+  -0.0017207487463347679,
+  0.00421102479620219
+ ],
+ "ic95_skill_hac_1semana": [
+  -0.0012245628994363566,
+  0.0037148389493037795
+ ],
+ "passa": false,
+ "descritivo": {
+  "bootstrap_1dia": {
+   "p": 0.202,
+   "ic95_skill": [
+    -0.0016197349533302017,
+    0.004086537504185199
+   ]
+  },
+  "bootstrap_1semana": {
+   "p": 0.163,
+   "ic95_skill": [
+    -0.0009875954057579003,
+    0.0033838105530620824
+   ]
+  },
+  "skill_B1_vs_B0_contexto": -0.0008649162940921329,
+  "skill_por_mes": {
+   "2026-05": 0.0012451380249338673
+  }
+ },
+ "modo": "ensaio",
+ "fonte": "SINTÉTICO",
+ "n_segmentos": 1,
+ "maior_segmento_min": 40000
+}
