@@ -68,3 +68,23 @@ def test_forecasts_use_only_matured_labels():
     k=len(d)-5;e=d.copy();e.loc[k-0:,'rv_future_15']*=50   # rotulos que ainda nao maturaram em k
     v2=m.rolling_forecasts(e,m.B0,train=200)
     assert np.isfinite(v[k]) and v[k]==v2[k]
+
+
+def test_shell_saddle_deterministic_and_in_range():
+    rng=np.random.default_rng(5);x=rng.standard_normal((360,3))
+    a=m.shell_saddle(x[:,0],x[:,1],x[:,2]);b=m.shell_saddle(x[:,0],x[:,1],x[:,2])
+    assert a is not None and a==b and 0<=a<=1
+
+
+def test_shell_saddle_sees_a_waist():
+    rng=np.random.default_rng(6)
+    g=rng.standard_normal((360,3))
+    # cintura moderada (lobulos ainda ligados); com separacao total a HDR50 vira duas pecas convexas
+    l=np.r_[rng.normal(-.9,.7,(180,2)),rng.normal(.9,.7,(180,2))];lob=np.column_stack([l,rng.standard_normal(360)])
+    sg=m.shell_saddle(*g.T);sl=m.shell_saddle(*lob.T)
+    assert sl is not None and sg is not None and sl>sg+.05
+
+
+def test_build_with_shell_adds_column():
+    d,_=m.build(m.synthetic_klines(n=4200,seed=2),with_shell=True)
+    assert 'saddle_frac' in d and d.saddle_frac.notna().mean()>.9

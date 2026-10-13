@@ -44,7 +44,9 @@ B0=tuple([f'log_rv_{w}' for w in RVS]+['harq_60','harq_x_rv15','log_pk_15','log_
          'log_vol_15','log_vol_60','nu','abs_iota_15']+SEASON)
 ELAST=('elast','elast_x_nu')
 SHAPE=('cone_log','cintura','cone_log_x_nu')
-MODELS={'B0':B0,'B0plus':B0+ELAST,'B1':B0+SHAPE,'B1plus':B0+ELAST+SHAPE}
+SHELL=('saddle_frac',)
+MODELS={'B0':B0,'B0plus':B0+ELAST,'B1':B0+SHAPE,'B1plus':B0+ELAST+SHAPE,'B2':B0+ELAST+SHAPE+SHELL}
+SHELL_GRID=35;SHELL_SEED=20261012
 
 
 # ---------------------------------------------------------------- forma (original)
@@ -59,6 +61,22 @@ def shape_original(z,iota,nu):
     hv=uv>=np.quantile(uv,.6);s=uz[hv]+ui[hv];s=(s-s.mean())/s.std()
     lo=uv<=np.quantile(uv,1/3);hi=uv>=np.quantile(uv,2/3)
     return float(uz[hi].std()/uz[lo].std()),float(np.mean(np.abs(s)<.3)/P0)
+
+
+def shell_saddle(z,iota,nu,grid=SHELL_GRID,seed=SHELL_SEED):
+    """Variavel NATIVA da casca: fracao da area da HDR50 (GMM2 na copula local da janela)
+    com curvatura gaussiana analitica K<0 (mesmo instrumento do M1). None se a malha nao for
+    fechada, estiver truncada ou nao cobrir massa suficiente."""
+    from experiments import isosuperficies_morfometria as iso
+    u=cop(np.column_stack([z,iota,nu]))
+    pts,dx=iso.make_grid(grid);dens,par=iso.density_values(u,pts,'mixture',seed,with_model=True)
+    f=dens.reshape(grid,grid,grid);th,cov=iso.hdr_thresholds(f,dx)
+    mesh,trunc=iso.extract_mesh(f,th[.5]['tau'],dx)
+    top=iso.mesh_topology(np.asarray(mesh.vertices),np.asarray(mesh.faces))
+    if trunc or not top['closed_edges'] or cov<iso.MIN_COVERAGE:return None
+    K,_=iso.implicit_curvatures(np.asarray(mesh.vertices),par)
+    area=np.zeros(len(mesh.vertices));np.add.at(area,np.asarray(mesh.faces).ravel(),np.repeat(mesh.area_faces/3,3))
+    return float(area[K<0].sum()/area.sum())
 
 
 def elasticity(z,nu):
@@ -81,7 +99,7 @@ def _roll(x,w):
     out=np.full(len(x),np.nan);out[w-1:]=c[w:]-c[:-w];return out
 
 
-def segment_rows(seg):
+def segment_rows(seg,with_shell=False):
     """Linhas de origem dentro de UM segmento continuo (nenhuma informacao de fora dele)."""
     seg=seg.reset_index(drop=True);n=len(seg)
     if n<WARM+H+2:return []
@@ -99,6 +117,10 @@ def segment_rows(seg):
         if not(np.isfinite(rv[1440][i]) and rv[15][i]>0 and rq60[i]>0 and pk15[i]>0 and np.isfinite(fut[i]) and fut[i]>0):continue
         cone,cint=shape_original(zw,iw,vw);el=elasticity(zw,vw)
         if el is None or not np.isfinite(cone) or cone<=0:continue
+        sad=None
+        if with_shell:
+            try:sad=shell_saddle(zw,iw,vw)
+            except (ValueError,np.linalg.LinAlgError,RuntimeError):sad=None
         t=pd.Timestamp(int(ts[i]),unit='ms',tz='UTC');qh=t.minute//15;hod=t.hour+t.minute/60
         row={'origin_ts':int(ts[i]),'rv_future_15':float(fut[i]),
              **{f'log_rv_{w}':float(np.log(rv[w][i])) for w in RVS},
@@ -110,16 +132,17 @@ def segment_rows(seg):
              **{f'{f}_hod{k}':float(fn(2*np.pi*k*hod/24)) for k in (1,2,3) for f,fn in (('sin',np.sin),('cos',np.cos))},
              **{f'weekday_{d}':float(t.dayofweek==d) for d in range(6)},
              'elast':el,'elast_x_nu':el*float(nu[i]),
-             'cone_log':float(np.log(cone)),'cintura':cint,'cone_log_x_nu':float(np.log(cone))*float(nu[i])}
+             'cone_log':float(np.log(cone)),'cintura':cint,'cone_log_x_nu':float(np.log(cone))*float(nu[i]),
+             'saddle_frac':np.nan if sad is None else sad}
         row['harq_x_rv15']=row['harq_60']*row['log_rv_15']
         rows.append(row)
     return rows
 
 
-def build(frame):
+def build(frame,with_shell=False):
     frame=frame.sort_values('timestamp').reset_index(drop=True)
     ts=frame.timestamp.to_numpy(np.int64);rows=[];segs=segments(ts)
-    for a,b in segs:rows+=segment_rows(frame.iloc[a:b])
+    for a,b in segs:rows+=segment_rows(frame.iloc[a:b],with_shell=with_shell)
     d=pd.DataFrame(rows)
     if d.empty:raise ValueError('sem origens validas')
     d=d.sort_values('origin_ts').reset_index(drop=True)
