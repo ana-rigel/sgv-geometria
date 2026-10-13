@@ -1,0 +1,40 @@
+{
+ "n_origens_total": 14490,
+ "n_avaliadas": 11711,
+ "T1": {
+  "n": 11711,
+  "dev_media_novo": 0.3811529199845087,
+  "dev_media_ref": 0.380901452149491,
+  "delta_medio": 0.0002514678350176701,
+  "ep_hac": 0.00063638737813205,
+  "z": 0.39514899832832745,
+  "p_unilateral": 0.6536335351967081,
+  "skill": -0.0006601913266504056,
+  "skill_minimo": 0.01,
+  "passa": false,
+  "p_bootstrap_bloco_dia": 0.6405
+ },
+ "T2": {
+  "testado": false
+ },
+ "T3": {
+  "testado": false
+ },
+ "descritivo": {
+  "skill_B0plus_vs_B0": 0.00033715938734468764,
+  "fracao_casca_valida": 1.0,
+  "skill_B1_vs_B0_por_mes": {
+   "2026-06": -0.0005754262360089246,
+   "2026-07": -0.003795236680164793,
+   "2026-08": 0.001728252858231083,
+   "2026-09": -0.0008803268164994105
+  }
+ },
+ "leitura": "T1 FALHA: a forma nao acrescenta informacao de risco relevante ao baseline forte",
+ "modo": "confirmatorio",
+ "fonte": "ETHUSDT spot 1m 2026-05..09 (avaliação jun–set)",
+ "n_segmentos": 1,
+ "maior_segmento_min": 220320,
+ "protocolo_sha256": "eb82e7bbd629cdd5c3b5d944d97d2c37250edc885dcefeec097fd40524012a85",
+ "engenharia_sha256": "f8a277236f74554e6dc3016571b620ec70b578a3be65b10bb4ef9912c7072476"
+}
