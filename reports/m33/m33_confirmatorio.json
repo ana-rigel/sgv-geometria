@@ -1,0 +1,50 @@
+{
+ "n_origens_elegiveis": 14491,
+ "n_casca_valida": 14491,
+ "fracao_casca_valida": 1.0,
+ "n_avaliadas": 11711,
+ "skill": -0.0007642593319723644,
+ "delta_medio": 0.00021960759344802602,
+ "dev_B1plus": 0.2873469570613853,
+ "dev_B2": 0.2875665646548333,
+ "p_hac_1dia": 0.862280653664198,
+ "p_hac_1semana": 0.8968235985012263,
+ "ic95_skill_hac_1dia": [
+  -0.002137738472665615,
+  0.000609219808720886
+ ],
+ "ic95_skill_hac_1semana": [
+  -0.0019496657317226932,
+  0.00042114706777796426
+ ],
+ "passa": false,
+ "descritivo": {
+  "bootstrap_1dia": {
+   "p": 0.8595,
+   "ic95_skill": [
+    -0.0022487088685844616,
+    0.00059759610039418
+   ]
+  },
+  "bootstrap_1semana": {
+   "p": 0.9,
+   "ic95_skill": [
+    -0.0019733467957185817,
+    0.00042174512677062027
+   ]
+  },
+  "skill_B1plus_vs_B0_contexto": 0.004968509396332754,
+  "skill_B2_vs_B0_contexto": 0.004208047294032569,
+  "skill_por_mes": {
+   "2026-06": 0.0003883572101198718,
+   "2026-07": -0.0009596458773861727,
+   "2026-08": -0.0016458654018209895,
+   "2026-09": -0.0006371783659462338
+  }
+ },
+ "modo": "confirmatorio",
+ "fonte": "BNBUSDT spot 1m 2026-05..09 (avaliação jun–set)",
+ "n_segmentos": 1,
+ "maior_segmento_min": 220320,
+ "protocolo_sha256": "277884d04ca2c7f55c754313098b9def6a43a47ecab825a9cb44cf3c92e8754f"
+}
