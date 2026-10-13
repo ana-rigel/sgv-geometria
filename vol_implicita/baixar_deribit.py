@@ -26,11 +26,12 @@ def get(base, metodo, **params):
             with urllib.request.urlopen(url, timeout=60) as r:
                 js = json.loads(r.read().decode())
             if "result" in js:
-                return js["result"]
-            print("resposta sem result:", str(js)[:300]); time.sleep(2 + tent)
+                time.sleep(0.15); return js["result"]
+            print("resposta sem result:", str(js)[:300], flush=True); time.sleep(3 + 3 * tent)
         except Exception as e:  # noqa: BLE001
-            print(f"erro ({tent}): {e} — {url[:120]}"); time.sleep(2 + 2 * tent)
-    sys.exit("Deribit: sem resposta")
+            corpo = getattr(e, "read", lambda: b"")()
+            print(f"erro ({tent}): {e} {corpo[:200]!r} — {url[:160]}", flush=True); time.sleep(3 + 3 * tent)
+    sys.exit(f"Deribit: sem resposta em {metodo}")
 
 
 def ms(s):
