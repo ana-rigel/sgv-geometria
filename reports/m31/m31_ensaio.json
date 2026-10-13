@@ -1,0 +1,36 @@
+{
+ "n_origens_total": 3802,
+ "n_avaliadas": 2079,
+ "T1": {
+  "n": 2079,
+  "dev_media_novo": 0.12589001857163043,
+  "dev_media_ref": 0.12578696270503545,
+  "delta_medio": 0.00010305586659493791,
+  "ep_hac": 0.00014265759722007946,
+  "z": 0.7224001287218688,
+  "p_unilateral": 0.7649757461033266,
+  "skill": -0.0008192889340736809,
+  "skill_minimo": 0.01,
+  "passa": false,
+  "p_bootstrap_bloco_dia": 0.7825
+ },
+ "T2": {
+  "testado": false
+ },
+ "T3": {
+  "testado": false
+ },
+ "descritivo": {
+  "skill_B0plus_vs_B0": -0.0010159454147133928,
+  "fracao_casca_valida": 1.0,
+  "skill_B1_vs_B0_por_mes": {
+   "2026-05": 0.0006231233661077029,
+   "2026-06": -0.0022764814186115867
+  }
+ },
+ "leitura": "T1 FALHA: a forma nao acrescenta informacao de risco relevante ao baseline forte",
+ "modo": "ensaio",
+ "fonte": "SINTÉTICO (ensaio do pipeline)",
+ "n_segmentos": 1,
+ "maior_segmento_min": 60000
+}
