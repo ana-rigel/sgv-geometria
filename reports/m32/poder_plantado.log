@@ -1,0 +1,5 @@
+{'kappa': 0.0, 'skill_medio': -0.087, 'taxa_passa': 0.0, 'taxa_p1d': 0.0, 'taxa_p1sem': 0.0}
+{'kappa': 0.04, 'skill_medio': 0.14, 'taxa_passa': 0.1, 'taxa_p1d': 0.2, 'taxa_p1sem': 0.2}
+{'kappa': 0.06, 'skill_medio': 0.432, 'taxa_passa': 0.2, 'taxa_p1d': 0.4, 'taxa_p1sem': 0.4}
+{'kappa': 0.08, 'skill_medio': 0.841, 'taxa_passa': 0.6, 'taxa_p1d': 0.7, 'taxa_p1sem': 0.6}
+{'kappa': 0.12, 'skill_medio': 1.989, 'taxa_passa': 1.0, 'taxa_p1d': 1.0, 'taxa_p1sem': 1.0}
