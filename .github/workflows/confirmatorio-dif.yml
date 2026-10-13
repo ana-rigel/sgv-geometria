@@ -46,7 +46,7 @@ jobs:
           sys.exit(0 if d < 1e-6 else 1)
           PY
 
-      - name: Baixar e conferir agosto–outubro/2026 (ago–set: só aquecimento)
+      - name: "Baixar e conferir agosto–outubro/2026 (ago–set só como aquecimento)"
         run: |
           base=https://data.binance.vision/data/spot/monthly/klines/BTCUSDT/1m
           for m in 2026-08 2026-09 2026-10; do
