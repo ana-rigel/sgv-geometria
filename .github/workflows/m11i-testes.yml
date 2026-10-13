@@ -1,0 +1,33 @@
+name: SGV M11-I - engenharia instrumental
+on:
+  push:
+    branches: [research/m11i-integracao-instrumental]
+    paths:
+      - 'sgv_m11i/**'
+      - 'tests/test_m11i_integrated.py'
+      - 'requirements_m11i.txt'
+      - '.github/workflows/m11i-testes.yml'
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  synthetic:
+    runs-on: ubuntu-latest
+    timeout-minutes: 40
+    env:
+      OPENBLAS_NUM_THREADS: '1'
+      OMP_NUM_THREADS: '1'
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - run: python -m pip install -r requirements_m11i.txt
+      - run: python -m pytest -q tests/test_m11i_integrated.py
+      - run: python -m sgv_m11i.integrated --synthetic --out reports/m11i/outputs
+      - if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: M11I-Sintetico
+          path: reports/m11i/outputs/*
+          if-no-files-found: warn
