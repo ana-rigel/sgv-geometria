@@ -1,0 +1,57 @@
+name: SGV-M31G0 - Auditoria causal de features (somente engenharia)
+on:
+  push:
+    branches: [research/m31g0-engenharia-causal]
+    paths:
+      - 'experiments/m31g0_features_causais.py'
+      - 'tests/test_m31g0_features_causais.py'
+      - '.github/workflows/m31g0-engenharia-causal.yml'
+      - 'reports/M31G0_ENGENHARIA_PLANO.md'
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  auditoria:
+    runs-on: ubuntu-latest
+    timeout-minutes: 40
+    env:
+      OPENBLAS_NUM_THREADS: '1'
+      OMP_NUM_THREADS: '1'
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Instalar ambiente minimo de engenharia
+        run: python -m pip install numpy pandas scipy pytest
+      - name: Testes de causalidade, maturidade e QLIKE
+        run: python -m pytest -q tests/test_m31g0_features_causais.py
+      - name: Engenharia sintética sem avaliar desempenho
+        run: python experiments/m31g0_features_causais.py --mode synthetic --out reports/m31g0/engenharia_sintetica.json --probes 8
+      - name: Baixar SOMENTE BTC 1m maio-julho ja explorado
+        run: python scripts/baixar_klines.py --so 1m
+      - name: Auditoria exploratoria de cobertura e custo sem score preditivo
+        run: python experiments/m31g0_features_causais.py --mode exploratory --out reports/m31g0/engenharia_btc_exploratorio.json --probes 32
+      - name: Verificar que os dados de teste nunca foram carregados
+        run: |
+          python - <<'PY'
+          import json
+          from pathlib import Path
+          path=Path('reports/m31g0/engenharia_btc_exploratorio.json')
+          a=json.loads(path.read_text())
+          assert a['not_confirmatory']
+          assert 'May--July' in a['source']
+          assert a['n_probe_forecasts']==32
+          assert all(p['last_matured_label_i']<=p['origin_i']
+                     for p in a['probe_predictions'])
+          print('CAUSAL_ENGINEERING_ONLY',a['causal_origin_rows'],
+                'FEATURE_SECONDS',a['time_feature_seconds'],
+                'FIT_SECONDS',a['time_probe_fit_seconds'])
+          PY
+      - if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: SGV-M31G0-causal-engineering-only
+          path: reports/m31g0/*.json
+          if-no-files-found: warn
+          retention-days: 90
