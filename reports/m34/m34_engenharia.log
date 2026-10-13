@@ -1,0 +1,7 @@
+origens amostradas 1079 s/origem 1.13 validas 0.9777571825764597 {'malha_invalida': 23, 'm11_invalido': 1}
+confiabilidade {'trans': 0.76, 'dlogvol': 0.72, 'rot': -0.03, 'rot_ok': 0.36, 'm11': 0.32, 'jacc': 0.8, 'saddle_b': 0.47, 'dsaddle': 0.2, 'kmed_b': 0.69, 'dkmed': 0.38, 'E_dmean': 0.82, 'E_dlogdet': 0.74, 'E_dcorr_zi': 0.5, 'E_dcorr_zn': 0.48, 'E_dcorr_in': 0.53, 'E_dlogsd_z': -0.82, 'E_dlogsd_i': 0.88, 'E_dlogsd_n': 0.78, 'E_energy': 0.84, 'E_dkurt': 0.57}
+max |corr| de cada G com E {'trans': 0.97, 'dlogvol': 0.96, 'rot': 0.09, 'rot_ok': 0.08, 'm11': 0.19, 'jacc': 0.89, 'saddle_b': 0.09, 'dsaddle': 0.18, 'kmed_b': 0.43, 'dkmed': 0.65}
+ridge 100.0 {'dev_B0': 0.34560242338234987, 'penalidade_10_placebos_pct': 0.7874544922390955}
+ridge 300.0 {'dev_B0': 0.3472146859380749, 'penalidade_10_placebos_pct': 0.5819454130456261}
+ridge 1000.0 {'dev_B0': 0.3524284348957304, 'penalidade_10_placebos_pct': 0.3806586259495968}
+ridge 3000.0 {'dev_B0': 0.37216502694773795, 'penalidade_10_placebos_pct': 0.2477173567382115}

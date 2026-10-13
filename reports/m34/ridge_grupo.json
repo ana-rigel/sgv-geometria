@@ -1,0 +1,18 @@
+{
+ "100.0": {
+  "penalidade_10_placebos_pct": 1.0423835300190623,
+  "skill_com_1_sinal_plantado_pct": 0.5567621733657514
+ },
+ "1000.0": {
+  "penalidade_10_placebos_pct": 0.30373624858359666,
+  "skill_com_1_sinal_plantado_pct": 0.7205798554949299
+ },
+ "3000.0": {
+  "penalidade_10_placebos_pct": 0.0852012155637708,
+  "skill_com_1_sinal_plantado_pct": 0.4633714349747463
+ },
+ "10000.0": {
+  "penalidade_10_placebos_pct": 0.014734701662342692,
+  "skill_com_1_sinal_plantado_pct": 0.1943063295005391
+ }
+}
