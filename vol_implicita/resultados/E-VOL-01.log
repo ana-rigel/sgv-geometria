@@ -1,0 +1,18 @@
+BTCUSDT-1m-2026-05.zip: SHA-256 conferido
+BTCUSDT-1m-2026-06.zip: SHA-256 conferido
+BTCUSDT-1m-2026-07.zip: SHA-256 conferido
+opções: 930,434 negócios com IV; 176,485 curtos e ao dinheiro
+cobertura IV_curta: 100.0%; DVOL: 100.0%
+IV vs alvos (ρ parcial além dos controles fortes): {"range5": {"iv_curta": 0.13012781602623222, "dvol": 0.048683159909146165, "iv_curta|dvol": 0.1172156618106817}, "rv60": {"iv_curta": 0.269737521649764, "dvol": 0.08623378374270942, "iv_curta|dvol": 0.2497686759737201}, "rv1d": {"iv_curta": 0.7057535378400728, "dvol": 0.2073431305380579, "iv_curta|dvol": 0.6623552753469587}}
+
+== flow
+  range5  base: -0.0650±0.023  +dvol: -0.0635±0.025  +iv: -0.0654±0.025  +dvol+iv: -0.0649±0.025
+  rv60    base: -0.0515±0.024  +dvol: -0.0494±0.023  +iv: -0.0559±0.030  +dvol+iv: -0.0525±0.029
+  rv1d    base: -0.0717±0.065  +dvol: -0.0735±0.059  +iv: -0.0918±0.045  +dvol+iv: -0.0854±0.033
+
+== orig
+  range5  base: +0.0458±0.027  +dvol: +0.0442±0.027  +iv: +0.0411±0.026  +dvol+iv: +0.0414±0.026
+  rv60    base: -0.0016±0.036  +dvol: -0.0017±0.040  +iv: -0.0069±0.044  +dvol+iv: -0.0049±0.042
+  rv1d    base: +0.0498±0.120  +dvol: +0.0424±0.097  +iv: +0.0231±0.123  +dvol+iv: +0.0166±0.111
+
+→ /home/runner/work/sgv-geometria/sgv-geometria/vol_implicita/resultados/E-VOL-01.json
