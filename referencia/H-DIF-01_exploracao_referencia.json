@@ -1,0 +1,180 @@
+{
+ "hipoteses": [
+  "H-DIF-01",
+  "H-DIR-01"
+ ],
+ "periodo": "exploracao",
+ "semanas_julgadas": [
+  "2026-06-08",
+  "2026-06-15",
+  "2026-06-22",
+  "2026-06-29",
+  "2026-07-06",
+  "2026-07-13",
+  "2026-07-20",
+  "2026-07-27"
+ ],
+ "n_minutos_avaliados": 87840,
+ "congelado": {
+  "h": 0.45,
+  "n_eff_min": 30.0,
+  "alpha": 0.05,
+  "B_boot": 20000,
+  "seed_null": 2026,
+  "seed_boot": 20261013,
+  "B_perm": 5000,
+  "p_primario": "permutacao_blocos_dia",
+  "controles_dif": "σ10/30/60, HAR 1d/1s, r5/r30, logvol10/60, hora, logρ",
+  "controles_dir": "r5/r30, σ10/30/60, hora, ι5"
+ },
+ "espacos": {
+  "flow": {
+   "dif": {
+    "sinal_esperado": -1,
+    "rho_semanal": [
+     -0.0646,
+     -0.0969,
+     -0.066,
+     -0.0502,
+     -0.0137,
+     -0.0776,
+     -0.0687,
+     -0.0821
+    ],
+    "rho_media": -0.06497918250980839,
+    "rho_agrupado": -0.06459173246536007,
+    "p_blocos_dia": 0.0,
+    "p_semanas_secundario": 0.0,
+    "nula_pipeline": {
+     "rho_semanal": [
+      0.016,
+      0.0007,
+      0.0276,
+      0.0305,
+      0.0334,
+      -0.0018,
+      0.0251,
+      -0.0307
+     ],
+     "rho_media": 0.012602012609328373
+    }
+   },
+   "dir": {
+    "sinal_esperado": 0,
+    "rho_semanal": [
+     0.0535,
+     0.0413,
+     -0.0261,
+     -0.0426,
+     0.0145,
+     0.0157,
+     -0.0142,
+     -0.0274
+    ],
+    "rho_media": 0.0018576189046417939,
+    "rho_agrupado": 0.00431732572990849,
+    "p_blocos_dia": 0.7544,
+    "p_semanas_secundario": 0.8775,
+    "nula_pipeline": {
+     "rho_semanal": [
+      0.0467,
+      -0.0295,
+      -0.0256,
+      -0.0541,
+      -0.05,
+      -0.0176,
+      -0.0622,
+      -0.0609
+     ],
+     "rho_media": -0.03165999996586712
+    }
+   }
+  },
+  "orig": {
+   "dif": {
+    "sinal_esperado": 1,
+    "rho_semanal": [
+     0.027,
+     0.0384,
+     0.0901,
+     0.0655,
+     0.0026,
+     0.035,
+     0.0739,
+     0.0336
+    ],
+    "rho_media": 0.045767904031106796,
+    "rho_agrupado": 0.045245511147766565,
+    "p_blocos_dia": 0.0,
+    "p_semanas_secundario": 0.0,
+    "nula_pipeline": {
+     "rho_semanal": [
+      -0.0015,
+      0.0104,
+      0.0121,
+      -0.0349,
+      0.017,
+      0.0415,
+      0.0209,
+      -0.0216
+     ],
+     "rho_media": 0.005489362046838109
+    }
+   },
+   "dir": {
+    "sinal_esperado": 0,
+    "rho_semanal": [
+     0.0995,
+     0.0221,
+     -0.014,
+     0.0035,
+     0.0008,
+     0.027,
+     0.0037,
+     0.0255
+    ],
+    "rho_media": 0.021026121965982955,
+    "rho_agrupado": 0.021324042110032863,
+    "p_blocos_dia": 0.1254,
+    "p_semanas_secundario": 0.0191,
+    "nula_pipeline": {
+     "rho_semanal": [
+      0.0336,
+      -0.0118,
+      0.0212,
+      0.0037,
+      0.0486,
+      -0.089,
+      -0.0651,
+      -0.0412
+     ],
+     "rho_media": -0.012500790220125188
+    }
+   }
+  }
+ },
+ "H-DIF-01": {
+  "flow": {
+   "p": 0.0,
+   "p_holm": 0.0,
+   "confirmada": true
+  },
+  "orig": {
+   "p": 0.0,
+   "p_holm": 0.0,
+   "confirmada": true
+  }
+ },
+ "H-DIR-01": {
+  "flow": {
+   "p": 0.7544,
+   "p_holm": 0.7544,
+   "confirmada": false
+  },
+  "orig": {
+   "p": 0.1254,
+   "p_holm": 0.2508,
+   "confirmada": false
+  }
+ }
+}
