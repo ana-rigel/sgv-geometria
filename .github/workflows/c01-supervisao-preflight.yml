@@ -1,0 +1,27 @@
+name: SGV-C01 - Preflight supervisionado sem holdout
+on:
+  push:
+    branches: [research/hdr-fisher-entropia-controle-sintetico]
+    paths:
+      - 'scripts/c01_supervision_features.py'
+      - 'scripts/c01_auditar_shards.py'
+      - 'scripts/c01_classificar_validacao.py'
+      - 'tests/test_c01_supervisao.py'
+      - '.github/workflows/c01-supervisao-preflight.yml'
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  preflight:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - run: python -m pip install numpy scipy scikit-learn scikit-image trimesh pytest
+      - name: Verificar esquemas, isolamento e integridade
+        run: python -m pytest -q tests/test_c01_supervisao.py
+      - name: Conferir nomes de particoes sem gerar casos
+        run: python -c "from scripts.c01_supervision_features import indices; assert len(indices('training',0,1)) == 560; assert len(indices('validation',0,1)) == 140; print('preflight OK; nenhuma observacao gerada')"
