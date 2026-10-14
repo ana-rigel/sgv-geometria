@@ -1,0 +1,31 @@
+name: SGV-C01 - Controle T0 sintetico
+on:
+  push:
+    branches: [research/hdr-fisher-entropia-controle-sintetico]
+    paths:
+      - 'scripts/c01_t0_null_calibration.py'
+      - 'tests/test_c01_t0_null.py'
+      - '.github/workflows/c01-controle-t0.yml'
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  nulo-engenharia:
+    runs-on: ubuntu-latest
+    timeout-minutes: 25
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - run: python -m pip install numpy scipy scikit-learn scikit-image trimesh pytest
+      - name: Testar instrumentacao e controle de alarme
+        run: python -m pytest -q tests/test_c01_oraculo.py tests/test_c01_instrumentacao.py tests/test_c01_estimacao.py tests/test_c01_t0_null.py
+      - name: Medir 120 pares T0 com Monte Carlo 32000
+        run: OPENBLAS_NUM_THREADS=1 python scripts/c01_t0_null_calibration.py --out reports/c01_t0_null_calibration_mc32000.json
+      - if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: C01-controle-T0-120-pares
+          path: reports/c01_t0_null_calibration_mc32000.json
+          if-no-files-found: warn
