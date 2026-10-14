@@ -1,0 +1,33 @@
+name: SGV-C01 - Estimacao sintetica independente
+on:
+  push:
+    branches: [research/hdr-fisher-entropia-controle-sintetico]
+    paths:
+      - 'experiments/c01_estimacao_independente.py'
+      - 'tests/test_c01_estimacao.py'
+      - 'scripts/c01_portao2_piloto.py'
+      - '.github/workflows/c01-estimacao-sintetica.yml'
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  engenharia-estimacao:
+    runs-on: ubuntu-latest
+    timeout-minutes: 25
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Dependencias numericas
+        run: python -m pip install numpy scipy scikit-learn scikit-image trimesh pytest
+      - name: Testes matematicos e amostras independentes
+        run: python -m pytest -q tests/test_c01_oraculo.py tests/test_c01_instrumentacao.py tests/test_c01_estimacao.py
+      - name: Piloto GMM3 amostras A/B sintéticas
+        run: python scripts/c01_portao2_piloto.py --out reports/c01_piloto_estimacao.json --mc 4000
+      - if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: C01-portao2-estimacao-sintetica
+          path: reports/c01_piloto_estimacao.json
+          if-no-files-found: warn
