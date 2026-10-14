@@ -1,0 +1,40 @@
+name: SGV-M35 passo 1 - instrumento (BTC 1m mai-jul ja gasto, disparo por arquivo)
+on:
+  push:
+    branches: [research/m35-traducao-geometrica]
+    paths: ['reports/m35/disparo.json']
+permissions:
+  contents: write
+jobs:
+  m35:
+    runs-on: ubuntu-latest
+    timeout-minutes: 240
+    env: {OPENBLAS_NUM_THREADS: '1', OMP_NUM_THREADS: '1', MKL_NUM_THREADS: '1'}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with: {python-version: '3.11'}
+      - run: python -m pip install numpy scipy pandas scikit-learn scikit-image trimesh pytest
+      - name: Testes
+        run: python -m pytest -q tests/test_m35_instrumento.py
+      - name: Dados (somente BTCUSDT 1m 2026-05..07, exploratorio ja gasto)
+        run: |
+          python - <<'PY'
+          import sys;sys.path.insert(0,'scripts');import baixar_klines as bk
+          bk.SYMBOL='BTCUSDT';bk.DEST.mkdir(exist_ok=True)
+          for mo in ('2026-05','2026-06','2026-07'):
+              msg=bk.download_month('1m',mo);print(msg)
+              if not msg.startswith(('ok','já estava ok')):raise SystemExit('download falhou: '+msg)
+          PY
+      - name: M35 passo 1
+        run: |
+          nproc
+          python -W ignore scripts/m35_passo1.py 2>&1 | tee reports/m35/passo1.log
+      - name: Commit
+        if: always()
+        run: |
+          git config user.name "sgv-m35-bot"
+          git config user.email "sgv-m35-bot@users.noreply.github.com"
+          git add -f reports/m35/passo1.json reports/m35/medidas.csv.gz reports/m35/momentos.csv.gz reports/m35/passo1.log || true
+          git commit -m "results: M35 step 1 instrument measurement (BTC 1m May-Jul, spent) [skip ci]" || echo "nada a commitar"
+          git pull --rebase && git push

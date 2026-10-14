@@ -1,6 +1,6 @@
 """M35 passo 1 (plano reports/m35/PLANO_M35_PASSO1_20261013.md). BTC 1m mai-jul/2026 ja gasto + sinteticos.
 Nenhum alvo de mercado futuro. Mede: validade sintetica, ruido algoritmico, confiabilidade, identidade (momentos)."""
-import sys,json,time,numpy as np,pandas as pd;from pathlib import Path
+import os,sys,json,time,numpy as np,pandas as pd;from pathlib import Path
 from multiprocessing import Pool
 ROOT=Path(__file__).resolve().parents[1];sys.path.insert(0,str(ROOT))
 from scipy.stats import spearmanr,skew,kurtosis,norm
@@ -66,7 +66,7 @@ if __name__=='__main__':
     syn=[(float(a),float(b),9000+k) for k,(a,b) in enumerate(rng.uniform(0,3,(40,2)))]
     syn+=[(float(s),float(s),9500+k) for k,s in enumerate(rng.uniform(0,3,20))]      # pisos: mesma distribuicao
     jobs=[('synth',s,0) for s in syn]+[('full',i,0) for i in FULL]+[(k,i,r) for i in PICK for k in ('alg','boot') for r in range(REPS)]
-    with Pool(2) as pool:rows=pool.map(job,jobs,chunksize=2)
+    with Pool(int(os.environ.get("N_PROC",os.cpu_count() or 2))) as pool:rows=pool.map(job,jobs,chunksize=2)
     R=pd.DataFrame(rows);R.to_csv(OUT/'medidas.csv.gz',index=False,compression='gzip')
     print('medicoes',len(R),'s',round(time.perf_counter()-t0),flush=True)
     M=pd.DataFrame([moments(i) for i in FULL]);M.to_csv(OUT/'momentos.csv.gz',index=False,compression='gzip')

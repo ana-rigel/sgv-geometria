@@ -1,0 +1,8 @@
+{
+ "experimento": "M35 passo 1",
+ "plano": "reports/m35/PLANO_M35_PASSO1_20261013.md",
+ "plano_sha256": "7eadaf18aee7d3fcb4c8c134e5ad6ce22c10b49472956ecb64f5a4e86d375700",
+ "dados": "BTCUSDT 1m 2026-05..07 (exploratorio, ja gasto)",
+ "alvo_de_mercado": "nenhum",
+ "disparado_em": "2026-10-14T21:09:33+00:00"
+}
