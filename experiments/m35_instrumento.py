@@ -98,3 +98,67 @@ def planted(sep,n,rng,direction=(1.,1.,0.)):
     s=np.where(rng.random(n)<.5,-1.,1.)
     x=rng.standard_normal((n,3))*.8+np.outer(s*sep/2,d)
     return whiten(x)
+
+
+# ---------------- passo 2: mapa radial localizado (plano PLANO_M35_PASSO2_20261014.md) ----------------
+from itertools import product
+from scipy.ndimage import map_coordinates
+
+def _directions():
+    d=[np.array(v,float) for v in product((-1,0,1),repeat=3) if any(v)]
+    return np.array([v/np.linalg.norm(v) for v in d])
+
+DIRS=_directions()                                   # 26 direcoes unitarias em (z, iota, nu)
+DIR_NAMES=[''.join(('z','i','n')[k]+('+' if v[k]>0 else '-') for k in range(3) if v[k]!=0) for v in DIRS]
+_OPP=np.array([int(np.argmin(np.linalg.norm(DIRS+u,axis=1))) for u in DIRS])
+AXES=[k for k in range(26) if DIRS[k][np.flatnonzero(DIRS[k])[0]]>0]   # 13 eixos: representante com 1a coordenada nao nula positiva
+AXIS_NAMES=[DIR_NAMES[k] for k in AXES]
+_T=np.arange(0.,3.45,.01)
+
+
+def radial_map(field):
+    """r(u): raio do cruzamento MAIS EXTERNO da HDR50 ao longo de cada uma das 26 direcoes, a partir da origem.
+    Retorna delta(u)=log(r/R50) (26,), parte simetrica s e antissimetrica a nos 13 eixos."""
+    th,_=hdr_thresholds_tau(field);ext=(GRID-1)*DX/2
+    r=np.empty(len(DIRS))
+    for k,u in enumerate(DIRS):
+        p=_T[:,None]*u[None,:];idx=((p+ext)/DX).T
+        v=map_coordinates(field,idx,order=1,mode='nearest')-th
+        inside=np.flatnonzero(v>0)
+        if not len(inside):r[k]=np.nan;continue
+        j=inside[-1]
+        if j+1>=len(_T):r[k]=_T[j];continue
+        r[k]=_T[j]+(_T[j+1]-_T[j])*v[j]/(v[j]-v[j+1])  # interpolacao linear do cruzamento
+    d=np.log(r/R50);a=np.asarray(AXES);o=_OPP[a]
+    return d,(d[a]+d[o])/2,(d[a]-d[o])/2
+
+
+def hdr_thresholds_tau(field):
+    th,_=iso.hdr_thresholds(field,DX);return th[.5]['tau'],None
+
+
+def measure_v4_map(a,b,seed):
+    """Mesmos campos (e sementes) do V4; acrescenta os mapas radiais de A e B."""
+    fa=bagged_field(whiten(a),seed);fb=bagged_field(whiten(b),seed+1)
+    ka,kb=hdr_mask(fa),hdr_mask(fb);na,nb=jdist(ka,BALL),jdist(kb,BALL)
+    out={'V4':jdist(ka,kb),'V4n_A':na,'V4n_B':nb,'dV4n':nb-na}
+    for tag,f in (('A',fa),('B',fb)):
+        d,s,an=radial_map(f)
+        out.update({f'd{tag}_{n}':float(x) for n,x in zip(DIR_NAMES,d)})
+        out.update({f's{tag}_{n}':float(x) for n,x in zip(AXIS_NAMES,s)})
+        out.update({f'a{tag}_{n}':float(x) for n,x in zip(AXIS_NAMES,an)})
+    return out
+
+
+def planted_lobe(n,rng,axis,frac=.15,dist=2.,sd=.5):
+    """Gaussiana com um lobulo (fracao `frac`) em dist*e_axis, branqueada. axis: indice em 0..5 = (+z,-z,+i,-i,+n,-n)."""
+    e=np.zeros(3);e[axis//2]=1. if axis%2==0 else -1.
+    x=rng.standard_normal((n,3));k=rng.random(n)<frac
+    x[k]=dist*e+sd*rng.standard_normal((int(k.sum()),3))
+    return whiten(x),e
+
+
+def map_hit(an,e):
+    """Direcao (com sinal) de maior |a(u)| entre os 13 eixos, comparada com e: acerto se angulo <= 45 graus."""
+    a=np.asarray(an);k=int(np.nanargmax(np.abs(a)));u=DIRS[AXES[k]]*np.sign(a[k])
+    return float(np.degrees(np.arccos(np.clip(u@e,-1,1))))<=45.0001

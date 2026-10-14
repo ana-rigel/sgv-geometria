@@ -37,3 +37,24 @@ def test_planted_change_increases_v0_and_v4():
     same=m.measure_all(base,m.planted(0.,525,rng),11,('V0','V4'))
     big=m.measure_all(base,m.planted(3.,525,rng),11,('V0','V4'))
     assert big['V0']>same['V0'] and big['V4']>same['V4']
+
+
+def test_radial_map_gaussian_is_near_ball_and_shapes():
+    rng=np.random.default_rng(10);x=m.whiten(rng.standard_normal((2100,3)))
+    d,s,a=m.radial_map(m.bagged_field(x,1))
+    assert d.shape==(26,) and s.shape==(13,) and a.shape==(13,)
+    assert np.nanmax(np.abs(d))<.15
+
+
+def test_radial_map_recovers_planted_lobe_direction():
+    rng=np.random.default_rng(11)
+    for ax in range(6):
+        x,e=m.planted_lobe(2100,rng,ax);_,_,a=m.radial_map(m.bagged_field(x,ax))
+        assert m.map_hit(a,e)
+
+
+def test_measure_v4_map_matches_v4():
+    rng=np.random.default_rng(12);a=m.planted(1.,525,rng);b=m.planted(2.,525,rng)
+    v=m.measure(a,b,'V4',5);w=m.measure_v4_map(a,b,5)
+    for k in v:assert v[k]==w[k]
+    assert 'aB_i+' in w and 'sB_n+' in w and 'dA_z-' in w
