@@ -185,3 +185,61 @@ def precision_checks(run1: dict[str, float], run2: dict[str, float]) -> list[str
         if not np.isfinite(run1[f'{lab}_w2_hdr']) or run1[f'{lab}_w2_hdr'] != run2[f'{lab}_w2_hdr']:
             fails.append(f'{lab}:w2_hdr')
     return fails
+
+
+# ---------------------------------------------------------------------------
+# C02.1a (errata registrada em reports/PROTOCOLO_SGV_C02_1A_ERRATA_20261014.md)
+# ---------------------------------------------------------------------------
+UNIFORM_FEATURES = ('center_distance', 'log_volume_ratio', 'shape_tensor_diff')
+N_BOOT = 5
+MIN_RELIABILITY = 0.5
+
+
+def envelope_core(x: np.ndarray) -> float:
+    """log(q95/q50) of Mahalanobis radii in the sample's OWN mean/covariance (linear, no ranks)."""
+    x = np.asarray(x, float)
+    li = np.linalg.inv(np.linalg.cholesky(np.cov(x, rowvar=False))).T
+    r = np.linalg.norm((x - x.mean(0)) @ li, axis=1)
+    return float(np.log(np.quantile(r, 0.95) / np.quantile(r, 0.50)))
+
+
+def envelope_core_delta(a_obs: np.ndarray, b_obs: np.ndarray) -> float:
+    return envelope_core(b_obs) - envelope_core(a_obs)
+
+
+def reliability(main: np.ndarray, boot: np.ndarray) -> float:
+    """1 − mean within-pair refit variance / between-pair variance (one family, one feature).
+
+    main: (n_pairs,) values from the main fit; boot: (n_pairs, N_BOOT) refit values.
+    """
+    main = np.asarray(main, float)
+    boot = np.asarray(boot, float)
+    total = np.var(main, ddof=1)
+    noise = np.mean(np.var(boot, axis=1, ddof=1))
+    return float(1.0 - noise / total) if total > 0 else float('-inf')
+
+
+def precision_checks_a(run1: dict[str, float], run2: dict[str, float], retained: set[str]) -> list[str]:
+    """C02.1a precision gate on the retained features (empty list = pass)."""
+    fails: list[str] = []
+    s_a = run1['_num_scale_a']
+    for alpha in ALPHAS:
+        lab = f'hdr{int(alpha * 100)}'
+        uses_uniform = any(f'{lab}_{f}' in retained for f in UNIFORM_FEATURES)
+        for run, tag in ((run1, 'r1'), (run2, 'r2')):
+            for side in ('a', 'b'):
+                if abs(run[f'_num_{lab}_coverage_error_{side}']) > COVERAGE_TOL:
+                    fails.append(f'{lab}:{tag}:coverage_{side}')
+                if uses_uniform and run[f'_num_{lab}_ess_{side}'] < MIN_ESS:
+                    fails.append(f'{lab}:{tag}:ess_{side}')
+        d = lambda f: abs(run1[f'{lab}_{f}'] - run2[f'{lab}_{f}'])  # noqa: E731
+        lim = {'log_volume_ratio': float(np.log(1.10)),
+               'center_distance': max(0.10 * run1[f'{lab}_center_distance'], 0.05 * s_a),
+               'jaccard_loss': 0.02, 'shape_tensor_diff': 0.02, 'cross_mass_shift': 0.01}
+        for f, tol in lim.items():
+            if f'{lab}_{f}' in retained and d(f) > tol:
+                fails.append(f'{lab}:{f}')
+        k = f'{lab}_w2_hdr'
+        if k in retained and (not np.isfinite(run1[k]) or run1[k] != run2[k]):
+            fails.append(f'{lab}:w2_hdr')
+    return fails

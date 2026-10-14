@@ -99,3 +99,32 @@ def test_fail_closed():
         hdr12_ml(obs(gauss(), 1), obs(gauss(), 2), gauss(), gauss(), seed=1, scale=3)
     with pytest.raises(ValueError):
         w2_hdr(np.zeros((5, 3)), np.zeros((6, 3)), gauss(), gauss(), 0.5)
+
+
+# ---------------------------------------------------------------- C02.1a
+from experiments.c02_1_hdr_sem_malha import envelope_core_delta, precision_checks_a, reliability  # noqa: E402
+
+
+def test_envelope_core_invariant_to_affine_and_sensitive_to_tails():
+    rng = np.random.default_rng(0)
+    a = rng.standard_normal((750, 3))
+    m = np.array([[1.2, 0.3, 0.], [0., 0.8, 0.1], [0.2, 0., 1.5]])
+    assert abs(envelope_core_delta(a, a @ m.T + 3.0)) < 1e-9          # linear map + shift: unchanged
+    t = rng.standard_normal((750, 3)) / np.sqrt(rng.chisquare(3.5, (750, 1)) / 3.5)
+    assert envelope_core_delta(a, t) > 0.1                              # heavier tails: envelope grows vs core
+
+
+def test_reliability_definition():
+    main = np.array([0., 1., 2., 3.])
+    assert reliability(main, np.tile(main[:, None], 5)) == 1.0
+    boot = main[:, None] + np.array([-1., 1., -1., 1., 0.])
+    assert reliability(main, boot) < 0.5
+
+
+def test_gate_a_only_judges_retained_features():
+    p = gauss(); q = p.affine(np.eye(3), (0.3, 0.0, 0.0))
+    a, b = obs(p, 60), obs(q, 61)
+    r1 = hdr12_ml(a, b, p, q, seed=9, scale=1)
+    r2 = dict(r1); r2['hdr95_log_volume_ratio'] += 0.5                 # plant a failure in one feature
+    assert precision_checks_a(r1, r2, set(feature_names())) == ['hdr95:log_volume_ratio']
+    assert precision_checks_a(r1, r2, set(feature_names()) - {'hdr95_log_volume_ratio'}) == []
