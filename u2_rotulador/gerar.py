@@ -91,12 +91,18 @@ def painel_convencional(A, B, bw2):
 # ------------------------------------------------------------------ uma réplica
 def replica(args):
     fam, rep = args
+    parcial = ROOT / "resultados" / "parciais" / f"{fam}_{rep:02d}.csv"
+    if parcial.exists():
+        return pd.read_csv(parcial).to_dict("records")
     rng = np.random.default_rng([SEED, FAMILIAS.index(fam), rep])
     L = rot_aleatoria(rng) @ np.diag(np.sqrt(rng.uniform(0.5, 2.0, 3))); m = rng.normal(0, 0.5, 3)
     obs = lambda z: z @ L.T + m  # noqa: E731
     A = obs(latente(fam, rng, N)); CA = np.cov(A, rowvar=False)
     p = A[rng.choice(N, 300, replace=False)]; d = cdist(p, p); bw2 = float(np.median(d[np.triu_indices(300, 1)]) ** 2)
-    sA = build_shell(lex(A), seed=SEED + rep, n=GRID)
+    try:
+        sA = build_shell(lex(A), seed=SEED + rep, n=GRID); erro_A = None
+    except Exception as exc:  # noqa: BLE001  (casca de A inválida: as 7 comparações ficam inválidas no M11-I)
+        sA = None; erro_A = "casca_A:" + str(exc)[:150]
     linhas = []
     for cls in CLASSES:
         z0 = latente(fam, rng, N); B0 = obs(z0); par = {}
@@ -123,6 +129,8 @@ def replica(args):
             B = casar_momentos(B0, obs(z))
         t0 = time.time(); row = {"familia": fam, "rep": rep, "classe": cls, **{f"par_{k}": v for k, v in par.items()}}
         try:
+            if sA is None:
+                raise ValueError(erro_A)
             sg = signature(sA, build_shell(lex(B), seed=SEED + rep, n=GRID), seed=SEED + rep)
             for k in ("translation_norm", "delta_log_volume", "theta_deg", "distance_512", "delta_D", "valid", "signature_complete"):
                 row["m_" + k] = sg.get(k)
@@ -132,6 +140,8 @@ def replica(args):
         row["t_m11"] = round(time.time() - t0, 2)
         row.update(painel_convencional(A, B, bw2))
         linhas.append(row)
+    cache = ROOT / "resultados" / "parciais"; cache.mkdir(parents=True, exist_ok=True)
+    pd.DataFrame(linhas).to_csv(cache / f"{fam}_{rep:02d}.csv", index=False)
     print(f"{fam} réplica {rep} pronta", flush=True)
     return linhas
 
