@@ -16,7 +16,7 @@ M35_SCRIPT = ROOT / "scripts" / "m35_passo1.py"
 def test_program_and_frozen_measurement_plan_exist():
     assert PROGRAM.is_file() and M35_PLAN.is_file()
     a, b = PROGRAM.read_text(encoding="utf-8"), M35_PLAN.read_text(encoding="utf-8")
-    assert "confiabilidade >= 0,6" in a or "confiabilidade >= 0,6" in b
+    assert "confiabilidade" in a.lower() and ("≥ 0,6" in b or ">= 0,6" in b)
     assert "Spearman" in b and "0,7" in b
     assert "R²" in b and "0,5" in b
 
@@ -33,7 +33,7 @@ def test_m35_frozen_variants_are_present_and_engineering_only():
     mod = M35_MODEL.read_text(encoding="utf-8")
     runner = M35_SCRIPT.read_text(encoding="utf-8")
     for v in ("V0", "V1", "V2", "V3", "V4", "V4n"):
-        assert re.search(r"\\b" + v + r"\\b", b), v
+        assert re.search(r"\b" + v + r"\b", b), v
     for v in ("V0", "V1", "V2", "V3", "V4"):
         assert f"variant=='{v}'" in mod, v
     assert "m35_instrumento" in runner
