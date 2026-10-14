@@ -28,7 +28,7 @@ jobs:
           python-version: '3.11'
           cache: 'pip'
       - name: Instalar dependencias numericas e de superficie
-        run: python -m pip install -e . pytest scikit-image trimesh
+        run: python -m pip install numpy pandas scipy scikit-learn matplotlib pytest scikit-image trimesh
       - name: Verificar as regras de integracao
         run: python -m pytest -q tests/test_integracao_pesquisa.py
       - name: Testar M35 apenas com distribuições sinteticas
