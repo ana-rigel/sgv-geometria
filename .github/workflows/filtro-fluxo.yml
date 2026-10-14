@@ -1,0 +1,45 @@
+name: Exploração E-FLX-02 (fluxo de segundos como filtro, jun–jul/2026)
+
+on:
+  push:
+    branches: ["exploracao/fluxo-ordens"]
+    paths: [".github/workflows/filtro-fluxo.yml"]
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  rodar:
+    runs-on: ubuntu-latest
+    timeout-minutes: 240
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - run: pip install -r fluxo_ordens/requirements.txt
+      - name: "Baixar e conferir os 10 dias de aggTrades (jun-jul/2026)"
+        run: |
+          mkdir -p fluxo_ordens/dados fluxo_ordens/resultados
+          base=https://data.binance.vision/data/spot/daily/aggTrades/BTCUSDT
+          for d in 2026-06-02 2026-06-08 2026-06-14 2026-06-20 2026-06-26 2026-07-02 2026-07-08 2026-07-14 2026-07-20 2026-07-26; do
+            f=BTCUSDT-aggTrades-$d.zip
+            curl -fsSL --retry 3 -o fluxo_ordens/dados/$f "$base/$f"
+            curl -fsSL --retry 3 -o fluxo_ordens/dados/$f.CHECKSUM "$base/$f.CHECKSUM"
+            (cd fluxo_ordens/dados && sha256sum -c $f.CHECKSUM)
+          done
+      - name: Rodar E-FLX-02
+        run: |
+          python fluxo_ordens/filtro_fluxo.py --dias 2026-06-02 2026-06-08 2026-06-14 2026-06-20 2026-06-26 2026-07-02 2026-07-08 2026-07-14 2026-07-20 2026-07-26 | tee fluxo_ordens/resultados/E-FLX-02.log
+      - name: Gravar resultado no ramo
+        if: always()
+        run: |
+          rm -rf fluxo_ordens/dados
+          mkdir -p fluxo_ordens/resultados
+          git config user.name "github-actions[bot]"
+          git config user.email "41898+github-actions[bot]@users.noreply.github.com"
+          git add -f fluxo_ordens/resultados/ || true
+          git commit -m "Resultado E-FLX-02 (run ${{ github.run_id }})" || echo "nada"
+          git pull --rebase || true
+          git push || true
