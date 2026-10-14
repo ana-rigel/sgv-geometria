@@ -91,7 +91,6 @@ def execute_spec(stage: str, spec: dict) -> dict:
     if stage == STAGE_SYNTHETIC:
         import numpy as np
         from experiments import m35_instrumento as instrument
-        a = instrument.planted(spec["sep_a"], 525, np.random.default_rng(spec["seed"]))
         # O script original instancia um único rng para as duas chamadas.
         rng = np.random.default_rng(spec["seed"])
         a = instrument.planted(spec["sep_a"], 525, rng)
@@ -124,24 +123,28 @@ def run(stage: str, shard: int, shards: int, output: Path,
         "indices": indices, "job_specs": [jobs[i] for i in indices],
         "limit_is_smoke_only": max_jobs is not None,
     }
+    rows = []
     if output.exists() and resume:
         old = json.loads(output.read_text(encoding="utf-8"))
         for field, val in expected.items():
             if old.get(field) != val:
                 raise ValueError(f"checkpoint incompatível, recusa reutilizar: {field}")
-        if len(old.get("rows", [])) == len(indices):
+        rows = old.get("rows", [])
+        if len(rows) > len(indices):
+            raise ValueError("checkpoint contém mais linhas que jobs autorizados")
+        if len(rows) == len(indices):
             return old
-        raise ValueError("checkpoint incompleto: não descartar nem sobrescrever automaticamente")
-    rows = []
-    for no, i in enumerate(indices):
-        rows.append(execute_spec(stage, jobs[i]))
-        print(f"M35 {stage}: shard {shard}/{shards}, job {no + 1}/{len(indices)} (global {i})", flush=True)
-    result = {**expected, "rows": rows}
     output.parent.mkdir(parents=True, exist_ok=True)
     tmp = output.with_suffix(output.suffix + ".tmp")
-    tmp.write_text(json.dumps(result, ensure_ascii=False, indent=2), encoding="utf-8")
-    os.replace(tmp, output)
-    return result
+    for no in range(len(rows), len(indices)):
+        i = indices[no]
+        rows.append(execute_spec(stage, jobs[i]))
+        # Checkpoint atômico APÓS cada job: interrupção não perde medições concluídas.
+        result = {**expected, "rows": rows}
+        tmp.write_text(json.dumps(result, ensure_ascii=False, indent=2), encoding="utf-8")
+        os.replace(tmp, output)
+        print(f"M35 {stage}: shard {shard}/{shards}, job {no + 1}/{len(indices)} (global {i})", flush=True)
+    return {**expected, "rows": rows}
 
 
 def main() -> int:
