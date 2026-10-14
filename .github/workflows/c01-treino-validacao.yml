@@ -1,0 +1,86 @@
+name: SGV-C01 - Treino e validacao sinteticos (teste selado)
+on:
+  push:
+    branches: [research/hdr-fisher-entropia-controle-sintetico]
+    paths:
+      - '.github/workflows/c01-treino-validacao.yml'
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  preflight:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - run: python -m pip install numpy scipy scikit-learn scikit-image trimesh pytest
+      - run: python -m pytest -q tests/test_c01_supervisao.py tests/test_c01_estimacao.py
+  shards:
+    needs: preflight
+    runs-on: ubuntu-latest
+    timeout-minutes: 35
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - {split: training, shard: 0, total: 7}
+          - {split: training, shard: 1, total: 7}
+          - {split: training, shard: 2, total: 7}
+          - {split: training, shard: 3, total: 7}
+          - {split: training, shard: 4, total: 7}
+          - {split: training, shard: 5, total: 7}
+          - {split: training, shard: 6, total: 7}
+          - {split: validation, shard: 0, total: 2}
+          - {split: validation, shard: 1, total: 2}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - run: python -m pip install numpy scipy scikit-learn scikit-image trimesh
+      - name: Gerar apenas recursos treino e validacao
+        env:
+          OPENBLAS_NUM_THREADS: '1'
+          OMP_NUM_THREADS: '1'
+          MKL_NUM_THREADS: '1'
+        run: |
+          mkdir -p reports/c01_shards
+          python scripts/c01_supervision_features.py --split "${{ matrix.split }}" --shard "${{ matrix.shard }}" --total-shards "${{ matrix.total }}" --out "reports/c01_shards/${{ matrix.split }}_${{ matrix.shard }}.json"
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: C01-shard-${{ matrix.split }}-${{ matrix.shard }}
+          path: reports/c01_shards/*.json
+          if-no-files-found: error
+          retention-days: 30
+  audit-and-validation:
+    needs: shards
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - run: python -m pip install numpy scipy scikit-learn
+      - uses: actions/download-artifact@v4
+        with:
+          pattern: C01-shard-*
+          path: reports/c01_shards
+          merge-multiple: true
+      - name: Auditoria rigorosa de manifestos e isolamento
+        run: python scripts/c01_auditar_shards.py reports/c01_shards/*.json --out reports/c01_auditoria_supervisao.json
+      - name: Comparacao exploratoria somente validação
+        run: python scripts/c01_classificar_validacao.py reports/c01_shards/*.json --out reports/c01_validacao_descritiva.json
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: C01-auditoria-e-validacao
+          path: |
+            reports/c01_auditoria_supervisao.json
+            reports/c01_validacao_descritiva.json
+          if-no-files-found: warn
+          retention-days: 30
