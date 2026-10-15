@@ -1,0 +1,9 @@
+{
+ "experimento": "M35 passo 3 (+ adendo 1, memoria)",
+ "plano": "reports/m35/PLANO_M35_PASSO3_20261015.md",
+ "plano_sha256": "d92502c69b0a131d99a001edf6b5aee6ab6320f875719062d038d6532ba21690",
+ "dados": "BTCUSDT 1m 2026-05..07 (exploratorio, ja gasto)",
+ "alvo_de_mercado": "nenhum",
+ "autorizado_por": "Ana, 15/10/2026 (\"sim faça as adições e dispare\")",
+ "disparado_em": "2026-10-15T13:30:02+00:00"
+}
