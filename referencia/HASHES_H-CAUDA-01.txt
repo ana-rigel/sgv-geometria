@@ -1,0 +1,3 @@
+6c370cfe83de5dcf1fcbe13ed0194ab1bdb4708a22050900784ab3f2cbf57a10  PREREGISTRO_H-CAUDA-01.md
+967bf7673aa2a93fac563c6f82cb90781f4b2d508298095ca354cb4a4c29edf1  pipeline/confirmatorio_cauda.py
+95506256c585581a817ff119cbb9a048257b9712e9ae6383f64ea56cfbde096f  referencia/H-CAUDA-01_paridade_btc_referencia.json
