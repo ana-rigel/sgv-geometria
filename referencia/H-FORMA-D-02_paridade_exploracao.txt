@@ -1,0 +1,34 @@
+Paridade: pipeline/confirmatorio_forma_casca.py --periodo exploracao  x  resultados/forma_D_casca_junjul.json (explora_forma_D_casca.py)
+flow real dFD    n=366 NaN iguais=True dif. máx=0.0e+00
+flow real dFS    n=366 NaN iguais=True dif. máx=0.0e+00
+flow real angD   n=366 NaN iguais=True dif. máx=0.0e+00
+flow real angS   n=366 NaN iguais=True dif. máx=0.0e+00
+flow real dcbar  n=366 NaN iguais=True dif. máx=0.0e+00
+flow real d512   n=366 NaN iguais=True dif. máx=0.0e+00
+flow real theta  n=366 NaN iguais=True dif. máx=0.0e+00
+flow real vol    n=366 NaN iguais=True dif. máx=0.0e+00
+flow nula dFD    n=366 NaN iguais=True dif. máx=0.0e+00
+flow nula dFS    n=366 NaN iguais=True dif. máx=0.0e+00
+flow nula angD   n=366 NaN iguais=True dif. máx=0.0e+00
+flow nula angS   n=366 NaN iguais=True dif. máx=0.0e+00
+flow nula dcbar  n=366 NaN iguais=True dif. máx=0.0e+00
+flow nula d512   n=366 NaN iguais=True dif. máx=0.0e+00
+flow nula theta  n=366 NaN iguais=True dif. máx=0.0e+00
+flow nula vol    n=366 NaN iguais=True dif. máx=0.0e+00
+orig real dFD    n=366 NaN iguais=True dif. máx=0.0e+00
+orig real dFS    n=366 NaN iguais=True dif. máx=0.0e+00
+orig real angD   n=366 NaN iguais=True dif. máx=0.0e+00
+orig real angS   n=366 NaN iguais=True dif. máx=0.0e+00
+orig real dcbar  n=366 NaN iguais=True dif. máx=0.0e+00
+orig real d512   n=366 NaN iguais=True dif. máx=0.0e+00
+orig real theta  n=366 NaN iguais=True dif. máx=0.0e+00
+orig real vol    n=366 NaN iguais=True dif. máx=0.0e+00
+orig nula dFD    n=366 NaN iguais=True dif. máx=0.0e+00
+orig nula dFS    n=366 NaN iguais=True dif. máx=0.0e+00
+orig nula angD   n=366 NaN iguais=True dif. máx=0.0e+00
+orig nula angS   n=366 NaN iguais=True dif. máx=0.0e+00
+orig nula dcbar  n=366 NaN iguais=True dif. máx=0.0e+00
+orig nula d512   n=366 NaN iguais=True dif. máx=0.0e+00
+orig nula theta  n=366 NaN iguais=True dif. máx=0.0e+00
+orig nula vol    n=366 NaN iguais=True dif. máx=0.0e+00
+diferença máxima geral: 0.0e+00

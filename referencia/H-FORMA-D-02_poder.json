@@ -1,0 +1,28 @@
+{
+ "n_dias": 31,
+ "replicas": 400,
+ "B": 1000,
+ "casos": {
+  "flow dFD×dFS@+0 (primária)": {
+   "delta_exploracao_jun_set": -0.2586,
+   "encolhe_0": 0.998,
+   "encolhe_40": 0.948,
+   "encolhe_65": 0.59,
+   "encolhe_80": 0.263
+  },
+  "flow angD×angS@+0 (secundária)": {
+   "delta_exploracao_jun_set": -0.1812,
+   "encolhe_0": 0.993,
+   "encolhe_40": 0.762,
+   "encolhe_65": 0.41,
+   "encolhe_80": 0.175
+  },
+  "orig dFD×dFS@+0 (secundária)": {
+   "delta_exploracao_jun_set": 0.174,
+   "encolhe_0": 0.623,
+   "encolhe_40": 0.32,
+   "encolhe_65": 0.168,
+   "encolhe_80": 0.105
+  }
+ }
+}
