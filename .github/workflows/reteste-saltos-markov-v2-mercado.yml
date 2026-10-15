@@ -1,0 +1,62 @@
+name: SGV - V2b historico exploratorio causal (jun-set 2026)
+on:
+  push:
+    branches: ["research/saltos-markov-v2-controles-20261015"]
+    paths: [".github/workflows/reteste-saltos-markov-v2-mercado.yml"]
+  workflow_dispatch:
+permissions:
+  contents: write
+concurrency:
+  group: sgv-v2b-mercado
+  cancel-in-progress: false
+jobs:
+  dois-periodos:
+    runs-on: ubuntu-latest
+    timeout-minutes: 70
+    env:
+      OPENBLAS_NUM_THREADS: "1"
+      OMP_NUM_THREADS: "1"
+      MKL_NUM_THREADS: "1"
+      PYTHONPATH: "."
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Dependencias do pipeline original SGV
+        run: python -m pip install -r requirements.txt pytest
+      - name: Preflight com fixtures inteiramente sinteticas
+        run: python -m pytest -q tests/test_saltos_markov_v2_mercado.py
+      - name: Baixar somente agosto e setembro e verificar SHA-256
+        run: |
+          base=https://data.binance.vision/data/spot/monthly/klines/BTCUSDT/1m
+          mkdir -p dados
+          for m in 2026-08 2026-09; do
+            f=BTCUSDT-1m-$m.zip
+            curl -fsSL --retry 3 -o dados/$f "$base/$f"
+            curl -fsSL --retry 3 -o dados/$f.CHECKSUM "$base/$f.CHECKSUM"
+            (cd dados && sha256sum -c "$f.CHECKSUM")
+          done
+      - name: Executar junio-julio (historico gasto)
+        run: python -W ignore pipeline/reteste_saltos_markov_v2_mercado.py --periodo junjul | tee resultados/v2b_junjul.log
+      - name: Executar agosto-setembro (historico gasto)
+        run: python -W ignore pipeline/reteste_saltos_markov_v2_mercado.py --periodo agoset | tee resultados/v2b_agoset.log
+      - if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: SGV-v2b-historico-descritivo
+          path: |
+            resultados/saltos_markov_v2b_junjul.json
+            resultados/saltos_markov_v2b_agoset.json
+            resultados/v2b_junjul.log
+            resultados/v2b_agoset.log
+          if-no-files-found: warn
+      - name: Arquivar ambos os periodos sem ajustar nenhuma regra
+        if: always()
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898+github-actions[bot]@users.noreply.github.com"
+          git add -f resultados/saltos_markov_v2b_junjul.json resultados/saltos_markov_v2b_agoset.json resultados/v2b_junjul.log resultados/v2b_agoset.log || true
+          git commit -m "results: reanalise exploratoria causal V2b (sem outubro) [skip ci]" || true
+          git pull --rebase
+          git push
