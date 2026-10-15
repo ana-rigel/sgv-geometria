@@ -128,3 +128,18 @@ def test_gate_a_only_judges_retained_features():
     r2 = dict(r1); r2['hdr95_log_volume_ratio'] += 0.5                 # plant a failure in one feature
     assert precision_checks_a(r1, r2, set(feature_names())) == ['hdr95:log_volume_ratio']
     assert precision_checks_a(r1, r2, set(feature_names()) - {'hdr95_log_volume_ratio'}) == []
+
+
+def test_c02_1b_budget_only_changes_hdr95():
+    """C02.1b: hdr95_budget=4 leaves HDR50 bit-identical and raises the HDR95 ESS ~4x."""
+    p = gauss(); q = gauss(mu=(0.3, 0., 0.))
+    a, b = obs(p, 20), obs(q, 21)
+    f1 = hdr12_ml(a, b, p, q, seed=7)
+    f4 = hdr12_ml(a, b, p, q, seed=7, hdr95_budget=4)
+    for k in f1:
+        if k.startswith('hdr50') or k.startswith('_num_hdr50'):
+            assert f1[k] == f4[k], k
+    assert f4['hdr95_w2_hdr'] == f1['hdr95_w2_hdr']
+    assert 3.0 < f4['_num_hdr95_ess_a'] / f1['_num_hdr95_ess_a'] < 5.0
+    with pytest.raises(ValueError):
+        hdr12_ml(a, b, p, q, seed=7, hdr95_budget=2)

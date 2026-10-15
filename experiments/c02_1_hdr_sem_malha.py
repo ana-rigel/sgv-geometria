@@ -134,23 +134,29 @@ def w2_hdr(a_obs: np.ndarray, b_obs: np.ndarray, p: GMM3, q: GMM3, alpha: float)
 
 
 def hdr12_ml(a_obs: np.ndarray, b_obs: np.ndarray, p: GMM3, q: GMM3, *, seed: int,
-             scale: int = 1) -> dict[str, float]:
-    """HDR12-ML block plus `_num_*` diagnostics; raises on any fail-closed condition."""
+             scale: int = 1, hdr95_budget: int = 1) -> dict[str, float]:
+    """HDR12-ML block plus `_num_*` diagnostics; raises on any fail-closed condition.
+
+    hdr95_budget: multiplier of the Monte Carlo budget at alpha = 0.95 only (C02.1b: 4; C02.1/C02.1a: 1).
+    """
     if scale not in (1, 2):
         raise ValueError('scale is 1 (production budget) or 2 (precision gate)')
+    if hdr95_budget not in (1, 4):
+        raise ValueError('hdr95_budget is 1 (C02.1/C02.1a) or 4 (C02.1b)')
     out: dict[str, float] = {}
     _, cov_a = p.moments()
     s_a = float(np.sqrt(np.trace(cov_a) / 3))
     for alpha in ALPHAS:
         lab = f'hdr{int(alpha * 100)}'
-        ra = region(p, alpha, seed=subseed(seed, f'A|{alpha}'), scale=scale)
-        rb = region(q, alpha, seed=subseed(seed, f'B|{alpha}'), scale=scale)
+        sc = scale * (hdr95_budget if alpha == 0.95 else 1)
+        ra = region(p, alpha, seed=subseed(seed, f'A|{alpha}'), scale=sc)
+        rb = region(q, alpha, seed=subseed(seed, f'B|{alpha}'), scale=sc)
         out[f'{lab}_center_distance'] = float(np.linalg.norm(rb.centroid - ra.centroid))
         out[f'{lab}_log_volume_ratio'] = float(np.log(rb.volume) - np.log(ra.volume))
-        out[f'{lab}_jaccard_loss'] = jaccard_loss(p, q, ra, rb, seed=subseed(seed, f'J|{alpha}'), scale=scale)
+        out[f'{lab}_jaccard_loss'] = jaccard_loss(p, q, ra, rb, seed=subseed(seed, f'J|{alpha}'), scale=sc)
         out[f'{lab}_shape_tensor_diff'] = float(np.linalg.norm(rb.shape - ra.shape, ord='fro'))
         out[f'{lab}_w2_hdr'] = w2_hdr(a_obs, b_obs, p, q, alpha)
-        out[f'{lab}_cross_mass_shift'] = cross_mass_shift(p, q, ra, rb, seed=subseed(seed, f'X|{alpha}'), scale=scale)
+        out[f'{lab}_cross_mass_shift'] = cross_mass_shift(p, q, ra, rb, seed=subseed(seed, f'X|{alpha}'), scale=sc)
         out[f'_num_{lab}_coverage_error_a'] = ra.coverage - alpha
         out[f'_num_{lab}_coverage_error_b'] = rb.coverage - alpha
         out[f'_num_{lab}_ess_a'] = ra.ess
