@@ -1,0 +1,1474 @@
+{
+ "plano_sha256": "d92502c69b0a131d99a001edf6b5aee6ab6320f875719062d038d6532ba21690",
+ "n_origens": 701,
+ "n_pick": 60,
+ "reps": 8,
+ "validade_sintetica": {
+  "525": {
+   "marg_Vcop": -0.038042269187986644,
+   "marg_V4nB": 0.957285873192436,
+   "cone_Vcop": 0.9804226918798665,
+   "cintura_Vcop": 0.80734149054505,
+   "caudas_Vcop": 0.3290688639786378,
+   "falhas": 0,
+   "invariancia_ok": true,
+   "sensibilidade_ok": true,
+   "V_cop_valido": true
+  },
+  "1050": {
+   "marg_Vcop": 0.009121245828698554,
+   "marg_V4nB": 0.9764182424916574,
+   "cone_Vcop": 0.9599555061179088,
+   "cintura_Vcop": 0.6769744160177975,
+   "caudas_Vcop": 0.20088987764182425,
+   "falhas": 0,
+   "invariancia_ok": true,
+   "sensibilidade_ok": false,
+   "V_cop_valido": false
+  },
+  "2100": {
+   "marg_Vcop": -0.04093892560653777,
+   "marg_V4nB": 0.9888765294771968,
+   "cone_Vcop": 0.985761957730812,
+   "cintura_Vcop": 0.8807563959955507,
+   "caudas_Vcop": 0.1599555061179088,
+   "falhas": 0,
+   "invariancia_ok": true,
+   "sensibilidade_ok": true,
+   "V_cop_valido": true
+  }
+ },
+ "confiabilidade": {
+  "1500": {
+   "V4n_B": {
+    "confiabilidade": 0.6579543406099786,
+    "ic90": [
+     0.5648003299543632,
+     0.72958313228735
+    ],
+    "confiabilidade_mediana": 0.7345590391452077,
+    "fracao_instaveis": 0.0,
+    "var_entre": 0.004223250831182625,
+    "var_boot_media": 0.0014445446153213168,
+    "falhas": 0.0
+   },
+   "V_cop": {
+    "confiabilidade": 0.7129648855734865,
+    "ic90": [
+     0.6422255356134525,
+     0.7715308963635855
+    ],
+    "confiabilidade_mediana": 0.7138616366208573,
+    "fracao_instaveis": 0.0,
+    "var_entre": 0.003268412740228884,
+    "var_boot_media": 0.0009381492248846723,
+    "falhas": 0.0
+   },
+   "sC_n+": {
+    "confiabilidade": 0.5459514771418295,
+    "ic90": [
+     0.38300290146221483,
+     0.6666951480970879
+    ],
+    "confiabilidade_mediana": 0.6893726878992501,
+    "fracao_instaveis": 0.0,
+    "var_entre": 0.01028781156308953,
+    "var_boot_media": 0.004671165643664007,
+    "falhas": 0.0
+   },
+   "sC_i+n-": {
+    "confiabilidade": 0.3751356366611248,
+    "ic90": [
+     0.15345422577256276,
+     0.5429957151721106
+    ],
+    "confiabilidade_mediana": 0.5973964250461994,
+    "fracao_instaveis": 0.016666666666666666,
+    "var_entre": 0.004768158705832319,
+    "var_boot_media": 0.0029794524540186266,
+    "falhas": 0.0
+   },
+   "sC_i+": {
+    "confiabilidade": 0.45252878192946977,
+    "ic90": [
+     0.17164589191974794,
+     0.6366243414625409
+    ],
+    "confiabilidade_mediana": 0.5812723344640323,
+    "fracao_instaveis": 0.0,
+    "var_entre": 0.0025473185538128678,
+    "var_boot_media": 0.0013945835914695923,
+    "falhas": 0.0
+   },
+   "sC_i+n+": {
+    "confiabilidade": 0.6234852046806897,
+    "ic90": [
+     0.48313625779529107,
+     0.7256314161988363
+    ],
+    "confiabilidade_mediana": 0.7552934643106716,
+    "fracao_instaveis": 0.0,
+    "var_entre": 0.007477845832125643,
+    "var_boot_media": 0.002815519592912144,
+    "falhas": 0.0
+   },
+   "sC_z+i-n-": {
+    "confiabilidade": 0.5303461023653802,
+    "ic90": [
+     0.35745409366444264,
+     0.6648553552450459
+    ],
+    "confiabilidade_mediana": 0.6985428206093566,
+    "fracao_instaveis": 0.016666666666666666,
+    "var_entre": 0.006553202535886485,
+    "var_boot_media": 0.003077737112968162,
+    "falhas": 0.0
+   },
+   "sC_z+i-": {
+    "confiabilidade": 0.5212829462396771,
+    "ic90": [
+     0.38872064343348095,
+     0.6237640793064865
+    ],
+    "confiabilidade_mediana": 0.6083421187095139,
+    "fracao_instaveis": 0.0,
+    "var_entre": 0.004877140244118562,
+    "var_boot_media": 0.00233477020844034,
+    "falhas": 0.0
+   },
+   "sC_z+i-n+": {
+    "confiabilidade": 0.616789222790072,
+    "ic90": [
+     0.481618582945189,
+     0.7216058635541258
+    ],
+    "confiabilidade_mediana": 0.7426132975983744,
+    "fracao_instaveis": 0.0,
+    "var_entre": 0.008311803727841663,
+    "var_boot_media": 0.0031851727665625803,
+    "falhas": 0.0
+   },
+   "sC_z+n-": {
+    "confiabilidade": -0.22390926295169078,
+    "ic90": [
+     -0.7235176467212966,
+     0.1786360651069524
+    ],
+    "confiabilidade_mediana": 0.3680285207173275,
+    "fracao_instaveis": 0.03333333333333333,
+    "var_entre": 0.001680293950077217,
+    "var_boot_media": 0.002056527329981192,
+    "falhas": 0.0
+   },
+   "sC_z+": {
+    "confiabilidade": 0.30135592460991323,
+    "ic90": [
+     -0.06152120352692313,
+     0.5457724010735054
+    ],
+    "confiabilidade_mediana": 0.49577051199308864,
+    "fracao_instaveis": 0.0,
+    "var_entre": 0.0017702132837152953,
+    "var_boot_media": 0.0012367490228445217,
+    "falhas": 0.0
+   },
+   "sC_z+n+": {
+    "confiabilidade": 0.34030521432936167,
+    "ic90": [
+     -0.06783674776064243,
+     0.5817838941537555
+    ],
+    "confiabilidade_mediana": 0.5944173575433351,
+    "fracao_instaveis": 0.0,
+    "var_entre": 0.003290478876355885,
+    "var_boot_media": 0.0021707117570913584,
+    "falhas": 0.0
+   },
+   "sC_z+i+n-": {
+    "confiabilidade": 0.4052216795634729,
+    "ic90": [
+     -0.01502520263598408,
+     0.6488693933388416
+    ],
+    "confiabilidade_mediana": 0.5934827121688417,
+    "fracao_instaveis": 0.0,
+    "var_entre": 0.0019298962250320502,
+    "var_boot_media": 0.0011478604353413568,
+    "falhas": 0.0
+   },
+   "sC_z+i+": {
+    "confiabilidade": 0.3240282706491199,
+    "ic90": [
+     -0.13632216775152653,
+     0.5947654559067315
+    ],
+    "confiabilidade_mediana": 0.46371944133983434,
+    "fracao_instaveis": 0.0,
+    "var_entre": 0.0016415502763706476,
+    "var_boot_media": 0.0011096415791346818,
+    "falhas": 0.0
+   },
+   "sC_z+i+n+": {
+    "confiabilidade": 0.3457711878310732,
+    "ic90": [
+     -0.18374532243695393,
+     0.6178849563353428
+    ],
+    "confiabilidade_mediana": 0.42172950856587066,
+    "fracao_instaveis": 0.0,
+    "var_entre": 0.002223283639451514,
+    "var_boot_media": 0.0014545362145529724,
+    "falhas": 0.0
+   },
+   "aC_n+": {
+    "confiabilidade": 0.7545423796641171,
+    "ic90": [
+     0.6793148615160995,
+     0.812324540753698
+    ],
+    "confiabilidade_mediana": 0.8165712400897578,
+    "fracao_instaveis": 0.0,
+    "var_entre": 0.01579471177072537,
+    "var_boot_media": 0.0038769323651334075,
+    "falhas": 0.0
+   },
+   "aC_i+n-": {
+    "confiabilidade": 0.34785630876877693,
+    "ic90": [
+     0.17920742984013996,
+     0.48343131388705285
+    ],
+    "confiabilidade_mediana": 0.49027765872107676,
+    "fracao_instaveis": 0.0,
+    "var_entre": 0.0042673123713394484,
+    "var_boot_media": 0.0027829008414819714,
+    "falhas": 0.0
+   },
+   "aC_i+": {
+    "confiabilidade": 0.3701277276031545,
+    "ic90": [
+     0.2467899749943059,
+     0.4832809254308106
+    ],
+    "confiabilidade_mediana": 0.5489563082273491,
+    "fracao_instaveis": 0.0,
+    "var_entre": 0.0028565772832420495,
+    "var_boot_media": 0.0017992788246728772,
+    "falhas": 0.0
+   },
+   "aC_i+n+": {
+    "confiabilidade": 0.5026193944582995,
+    "ic90": [
+     0.3014872262526652,
+     0.6489934444368161
+    ],
+    "confiabilidade_mediana": 0.6544180499664114,
+    "fracao_instaveis": 0.016666666666666666,
+    "var_entre": 0.0050600218465412065,
+    "var_boot_media": 0.0025167567300868987,
+    "falhas": 0.0
+   },
+   "aC_z+i-n-": {
+    "confiabilidade": 0.6037059260568864,
+    "ic90": [
+     0.4411290670742405,
+     0.7225094369228987
+    ],
+    "confiabilidade_mediana": 0.762104636621892,
+    "fracao_instaveis": 0.016666666666666666,
+    "var_entre": 0.007908938992864144,
+    "var_boot_media": 0.0031342656540496766,
+    "falhas": 0.0
+   },
+   "aC_z+i-": {
+    "confiabilidade": 0.22766921800600093,
+    "ic90": [
+     0.027012301227276755,
+     0.3812057050123296
+    ],
+    "confiabilidade_mediana": 0.4270667876869453,
+    "fracao_instaveis": 0.0,
+    "var_entre": 0.00256068361906002,
+    "var_boot_media": 0.001977694781947849,
+    "falhas": 0.0
+   },
+   "aC_z+i-n+": {
+    "confiabilidade": 0.578141717633408,
+    "ic90": [
+     0.43309023088482257,
+     0.6909882701817333
+    ],
+    "confiabilidade_mediana": 0.7259944196950991,
+    "fracao_instaveis": 0.0,
+    "var_entre": 0.0073066127068027314,
+    "var_boot_media": 0.003082355086409715,
+    "falhas": 0.0
+   },
+   "aC_z+n-": {
+    "confiabilidade": 0.3116109655150874,
+    "ic90": [
+     0.11803030400554274,
+     0.4649789654491605
+    ],
+    "confiabilidade_mediana": 0.5272971339125625,
+    "fracao_instaveis": 0.016666666666666666,
+    "var_entre": 0.0025350452290972313,
+    "var_boot_media": 0.001745097337633827,
+    "falhas": 0.0
+   },
+   "aC_z+": {
+    "confiabilidade": 0.10789464965826479,
+    "ic90": [
+     -0.06324648347150907,
+     0.25692048631680225
+    ],
+    "confiabilidade_mediana": 0.3463200820011637,
+    "fracao_instaveis": 0.0,
+    "var_entre": 0.0011210151886404149,
+    "var_boot_media": 0.0010000636476004637,
+    "falhas": 0.0
+   },
+   "aC_z+n+": {
+    "confiabilidade": 0.3463370642002376,
+    "ic90": [
+     0.11589185041567067,
+     0.5337052007868395
+    ],
+    "confiabilidade_mediana": 0.5522871697771452,
+    "fracao_instaveis": 0.016666666666666666,
+    "var_entre": 0.003142066768188129,
+    "var_boot_media": 0.002053852588172724,
+    "falhas": 0.0
+   },
+   "aC_z+i+n-": {
+    "confiabilidade": 0.5674424118175923,
+    "ic90": [
+     0.4611679238134726,
+     0.649623666904056
+    ],
+    "confiabilidade_mediana": 0.661310902307084,
+    "fracao_instaveis": 0.0,
+    "var_entre": 0.0035913293795664103,
+    "var_boot_media": 0.0015534567747938692,
+    "falhas": 0.0
+   },
+   "aC_z+i+": {
+    "confiabilidade": -0.07655672364940247,
+    "ic90": [
+     -0.2916106685937631,
+     0.10032377135270383
+    ],
+    "confiabilidade_mediana": 0.06098352014168529,
+    "fracao_instaveis": 0.0,
+    "var_entre": 0.0012272961445424504,
+    "var_boot_media": 0.0013212539163161639,
+    "falhas": 0.0
+   },
+   "aC_z+i+n+": {
+    "confiabilidade": 0.5446666752471815,
+    "ic90": [
+     0.4340265797933625,
+     0.6374115063368591
+    ],
+    "confiabilidade_mediana": 0.6265926786601527,
+    "fracao_instaveis": 0.0,
+    "var_entre": 0.003918704548851398,
+    "var_boot_media": 0.0017843167709525006,
+    "falhas": 0.0
+   }
+  },
+  "3000": {
+   "V4n_B": {
+    "confiabilidade": 0.7275582397604672,
+    "ic90": [
+     0.6262944700064086,
+     0.8046456723958206
+    ],
+    "confiabilidade_mediana": 0.8073327944140709,
+    "fracao_instaveis": 0.016666666666666666,
+    "var_entre": 0.0035720504922911343,
+    "var_boot_media": 0.0009731757237842863,
+    "falhas": 0.0
+   },
+   "V_cop": {
+    "confiabilidade": 0.7906016103017431,
+    "ic90": [
+     0.7572986021407674,
+     0.818616994030206
+    ],
+    "confiabilidade_mediana": 0.8080681450804417,
+    "fracao_instaveis": 0.0,
+    "var_entre": 0.002574520871801118,
+    "var_boot_media": 0.0005391005247997066,
+    "falhas": 0.0
+   },
+   "sC_n+": {
+    "confiabilidade": 0.6309493410835398,
+    "ic90": [
+     0.5231046119176308,
+     0.7147776436579909
+    ],
+    "confiabilidade_mediana": 0.7499209147353574,
+    "fracao_instaveis": 0.0,
+    "var_entre": 0.007817188093839196,
+    "var_boot_media": 0.002884938416905263,
+    "falhas": 0.0
+   },
+   "sC_i+n-": {
+    "confiabilidade": 0.5252400777840929,
+    "ic90": [
+     0.35561443865128767,
+     0.6528896868360351
+    ],
+    "confiabilidade_mediana": 0.7260274067944226,
+    "fracao_instaveis": 0.016666666666666666,
+    "var_entre": 0.0032346844249709454,
+    "var_boot_media": 0.0015356985259922125,
+    "falhas": 0.0
+   },
+   "sC_i+": {
+    "confiabilidade": 0.40900344005510036,
+    "ic90": [
+     0.26492216816353414,
+     0.523312635632993
+    ],
+    "confiabilidade_mediana": 0.5817236226623235,
+    "fracao_instaveis": 0.0,
+    "var_entre": 0.00091881489237558,
+    "var_boot_media": 0.0005430164406201109,
+    "falhas": 0.0
+   },
+   "sC_i+n+": {
+    "confiabilidade": 0.5837651623332442,
+    "ic90": [
+     0.43971603166836465,
+     0.6842939980224005
+    ],
+    "confiabilidade_mediana": 0.7217699562288827,
+    "fracao_instaveis": 0.0,
+    "var_entre": 0.004462816376697749,
+    "var_boot_media": 0.001857579650091327,
+    "falhas": 0.0
+   },
+   "sC_z+i-n-": {
+    "confiabilidade": 0.7346085618228564,
+    "ic90": [
+     0.6663699412084444,
+     0.787287021293159
+    ],
+    "confiabilidade_mediana": 0.7897038733069653,
+    "fracao_instaveis": 0.0,
+    "var_entre": 0.004886637278655094,
+    "var_boot_media": 0.0012968716952323188,
+    "falhas": 0.0
+   },
+   "sC_z+i-": {
+    "confiabilidade": 0.6274215073746894,
+    "ic90": [
+     0.5642747669282013,
+     0.6817561408489711
+    ],
+    "confiabilidade_mediana": 0.6745143180460437,
+    "fracao_instaveis": 0.0,
+    "var_entre": 0.003026296156679052,
+    "var_boot_media": 0.0011275328602932519,
+    "falhas": 0.0
+   },
+   "sC_z+i-n+": {
+    "confiabilidade": 0.752683971993346,
+    "ic90": [
+     0.6900037212376205,
+     0.8000541735172364
+    ],
+    "confiabilidade_mediana": 0.8074935594688053,
+    "fracao_instaveis": 0.0,
+    "var_entre": 0.005569522888584147,
+    "var_boot_media": 0.0013774322786967773,
+    "falhas": 0.0
+   },
+   "sC_z+n-": {
+    "confiabilidade": 0.20724912759498315,
+    "ic90": [
+     0.01406357943787775,
+     0.3659600611392579
+    ],
+    "confiabilidade_mediana": 0.42575125804451375,
+    "fracao_instaveis": 0.0,
+    "var_entre": 0.0009028033407787133,
+    "var_boot_media": 0.0007156981360124887,
+    "falhas": 0.0
+   },
+   "sC_z+": {
+    "confiabilidade": -0.04639721039069866,
+    "ic90": [
+     -0.250672144262537,
+     0.12790563379252223
+    ],
+    "confiabilidade_mediana": 0.1373288840856004,
+    "fracao_instaveis": 0.0,
+    "var_entre": 0.0006137117259162008,
+    "var_boot_media": 0.0006421862379827736,
+    "falhas": 0.0
+   },
+   "sC_z+n+": {
+    "confiabilidade": 0.1661224824919677,
+    "ic90": [
+     -0.28495021911694396,
+     0.4690248247863913
+    ],
+    "confiabilidade_mediana": 0.5130439552562818,
+    "fracao_instaveis": 0.016666666666666666,
+    "var_entre": 0.0011613816564433796,
+    "var_boot_media": 0.0009684500525543719,
+    "falhas": 0.0
+   },
+   "sC_z+i+n-": {
+    "confiabilidade": 0.02125490920806461,
+    "ic90": [
+     -0.205440279349523,
+     0.2143921133364789
+    ],
+    "confiabilidade_mediana": 0.31457762727811267,
+    "fracao_instaveis": 0.0,
+    "var_entre": 0.000720310699821619,
+    "var_boot_media": 0.000705000561295313,
+    "falhas": 0.0
+   },
+   "sC_z+i+": {
+    "confiabilidade": -0.06357986575781172,
+    "ic90": [
+     -0.26590625294304177,
+     0.11317992523877221
+    ],
+    "confiabilidade_mediana": 0.14036275515141783,
+    "fracao_instaveis": 0.0,
+    "var_entre": 0.0006323441547323963,
+    "var_boot_media": 0.0006725485112030191,
+    "falhas": 0.0
+   },
+   "sC_z+i+n+": {
+    "confiabilidade": 0.24390280044947776,
+    "ic90": [
+     0.12243985106273758,
+     0.3569760935271312
+    ],
+    "confiabilidade_mediana": 0.3393557349577766,
+    "fracao_instaveis": 0.0,
+    "var_entre": 0.0007199784375701022,
+    "var_boot_media": 0.0005443736803835148,
+    "falhas": 0.0
+   },
+   "aC_n+": {
+    "confiabilidade": 0.8309066026595362,
+    "ic90": [
+     0.7831356653011968,
+     0.8678088379661913
+    ],
+    "confiabilidade_mediana": 0.8945487611068806,
+    "fracao_instaveis": 0.0,
+    "var_entre": 0.012100929297253956,
+    "var_boot_media": 0.0020461872458494225,
+    "falhas": 0.0
+   },
+   "aC_i+n-": {
+    "confiabilidade": 0.43713823823415543,
+    "ic90": [
+     0.26147001626107336,
+     0.5780854891238235
+    ],
+    "confiabilidade_mediana": 0.5737219508567137,
+    "fracao_instaveis": 0.016666666666666666,
+    "var_entre": 0.0024224650422953564,
+    "var_boot_media": 0.0013635129415225356,
+    "falhas": 0.0
+   },
+   "aC_i+": {
+    "confiabilidade": 0.42294310914642397,
+    "ic90": [
+     0.30338931792519247,
+     0.5276814793685239
+    ],
+    "confiabilidade_mediana": 0.524818573273173,
+    "fracao_instaveis": 0.0,
+    "var_entre": 0.0016881735166269201,
+    "var_boot_media": 0.0009741721607260783,
+    "falhas": 0.0
+   },
+   "aC_i+n+": {
+    "confiabilidade": 0.39836907619606343,
+    "ic90": [
+     0.2544656577474033,
+     0.5146519659020338
+    ],
+    "confiabilidade_mediana": 0.5002619864807553,
+    "fracao_instaveis": 0.0,
+    "var_entre": 0.0025001498784294066,
+    "var_boot_media": 0.0015041674810077836,
+    "falhas": 0.0
+   },
+   "aC_z+i-n-": {
+    "confiabilidade": 0.7595212076485767,
+    "ic90": [
+     0.682697308172781,
+     0.8164515265899965
+    ],
+    "confiabilidade_mediana": 0.8585225411380015,
+    "fracao_instaveis": 0.0,
+    "var_entre": 0.006314149675841082,
+    "var_boot_media": 0.0015184190887723946,
+    "falhas": 0.0
+   },
+   "aC_z+i-": {
+    "confiabilidade": 0.3497652351585303,
+    "ic90": [
+     0.18065736599483054,
+     0.4824274920052046
+    ],
+    "confiabilidade_mediana": 0.583487638191113,
+    "fracao_instaveis": 0.0,
+    "var_entre": 0.00161999448609539,
+    "var_boot_media": 0.0010533767337107135,
+    "falhas": 0.0
+   },
+   "aC_z+i-n+": {
+    "confiabilidade": 0.7481589263530036,
+    "ic90": [
+     0.6784483318162104,
+     0.8019202491048821
+    ],
+    "confiabilidade_mediana": 0.807050827486696,
+    "fracao_instaveis": 0.0,
+    "var_entre": 0.005553706368952651,
+    "var_boot_media": 0.0013986513746771974,
+    "falhas": 0.0
+   },
+   "aC_z+n-": {
+    "confiabilidade": 0.46060491371628964,
+    "ic90": [
+     0.3534319718789323,
+     0.5497000077406494
+    ],
+    "confiabilidade_mediana": 0.5768860868233617,
+    "fracao_instaveis": 0.0,
+    "var_entre": 0.0012204778225922716,
+    "var_boot_media": 0.0006583197404245134,
+    "falhas": 0.0
+   },
+   "aC_z+": {
+    "confiabilidade": 0.2312093727350666,
+    "ic90": [
+     0.09572743346921299,
+     0.3450230734760696
+    ],
+    "confiabilidade_mediana": 0.30462648232339773,
+    "fracao_instaveis": 0.0,
+    "var_entre": 0.0005192673612393606,
+    "var_boot_media": 0.0003992078803654148,
+    "falhas": 0.0
+   },
+   "aC_z+n+": {
+    "confiabilidade": 0.48436432478367386,
+    "ic90": [
+     0.3729319347091288,
+     0.5719340238536141
+    ],
+    "confiabilidade_mediana": 0.5780667466137512,
+    "fracao_instaveis": 0.0,
+    "var_entre": 0.0013491711908520537,
+    "var_boot_media": 0.0006956807979774136,
+    "falhas": 0.0
+   },
+   "aC_z+i+n-": {
+    "confiabilidade": 0.6980206249469112,
+    "ic90": [
+     0.6422894362067127,
+     0.7424190715731528
+    ],
+    "confiabilidade_mediana": 0.7368422183722895,
+    "fracao_instaveis": 0.0,
+    "var_entre": 0.00251139450320707,
+    "var_boot_media": 0.0007583893425902336,
+    "falhas": 0.0
+   },
+   "aC_z+i+": {
+    "confiabilidade": -0.10167792354322835,
+    "ic90": [
+     -0.3043090792322372,
+     0.08442300740224713
+    ],
+    "confiabilidade_mediana": 0.07112177091197514,
+    "fracao_instaveis": 0.0,
+    "var_entre": 0.0006444538127093243,
+    "var_boot_media": 0.000709980538205125,
+    "falhas": 0.0
+   },
+   "aC_z+i+n+": {
+    "confiabilidade": 0.6813490089584884,
+    "ic90": [
+     0.6050994457830454,
+     0.7390521128636309
+    ],
+    "confiabilidade_mediana": 0.756215774765726,
+    "fracao_instaveis": 0.0,
+    "var_entre": 0.0028297193611694148,
+    "var_boot_media": 0.0009016928788059873,
+    "falhas": 0.0
+   }
+  },
+  "6000": {
+   "V4n_B": {
+    "confiabilidade": 0.828433490262616,
+    "ic90": [
+     0.7875140711992964,
+     0.8611881897946572
+    ],
+    "confiabilidade_mediana": 0.8645395047938016,
+    "fracao_instaveis": 0.0,
+    "var_entre": 0.0032664197563620715,
+    "var_boot_media": 0.0005604082369362766,
+    "falhas": 0.0
+   },
+   "V_cop": {
+    "confiabilidade": 0.8002824765383467,
+    "ic90": [
+     0.7660252099312298,
+     0.8287896347948398
+    ],
+    "confiabilidade_mediana": 0.8239403210260491,
+    "fracao_instaveis": 0.0,
+    "var_entre": 0.0019195851657891495,
+    "var_boot_media": 0.00038337479538513603,
+    "falhas": 0.0
+   },
+   "sC_n+": {
+    "confiabilidade": 0.5954730303513527,
+    "ic90": [
+     0.4909922937941093,
+     0.6790227607700808
+    ],
+    "confiabilidade_mediana": 0.7035648995060022,
+    "fracao_instaveis": 0.0,
+    "var_entre": 0.005263540851881209,
+    "var_boot_media": 0.002129244230433365,
+    "falhas": 0.0
+   },
+   "sC_i+n-": {
+    "confiabilidade": 0.5423786169997094,
+    "ic90": [
+     0.40332065268970846,
+     0.6486715373329702
+    ],
+    "confiabilidade_mediana": 0.6363993748395729,
+    "fracao_instaveis": 0.016666666666666666,
+    "var_entre": 0.002142745148445075,
+    "var_boot_media": 0.0009805659982485982,
+    "falhas": 0.0
+   },
+   "sC_i+": {
+    "confiabilidade": 0.49875392928266093,
+    "ic90": [
+     0.42592408808006477,
+     0.561729579109781
+    ],
+    "confiabilidade_mediana": 0.5165031736870516,
+    "fracao_instaveis": 0.0,
+    "var_entre": 0.0005508710519883667,
+    "var_boot_media": 0.00027612195028109583,
+    "falhas": 0.0
+   },
+   "sC_i+n+": {
+    "confiabilidade": 0.6230195062931676,
+    "ic90": [
+     0.5388402895870739,
+     0.6921532321815425
+    ],
+    "confiabilidade_mediana": 0.694145662016219,
+    "fracao_instaveis": 0.0,
+    "var_entre": 0.002765303818854504,
+    "var_boot_media": 0.00104246559888116,
+    "falhas": 0.0
+   },
+   "sC_z+i-n-": {
+    "confiabilidade": 0.7302724749033174,
+    "ic90": [
+     0.6629491305126037,
+     0.7867492138838067
+    ],
+    "confiabilidade_mediana": 0.798042064585526,
+    "fracao_instaveis": 0.0,
+    "var_entre": 0.0030487995308683255,
+    "var_boot_media": 0.0008223451519770403,
+    "falhas": 0.0
+   },
+   "sC_z+i-": {
+    "confiabilidade": 0.6515984497727598,
+    "ic90": [
+     0.5975996775662574,
+     0.6989056133492493
+    ],
+    "confiabilidade_mediana": 0.6901666986643071,
+    "fracao_instaveis": 0.0,
+    "var_entre": 0.0016861979294112324,
+    "var_boot_media": 0.0005874739725968359,
+    "falhas": 0.0
+   },
+   "sC_z+i-n+": {
+    "confiabilidade": 0.756821752384027,
+    "ic90": [
+     0.697968235958064,
+     0.8024665335290551
+    ],
+    "confiabilidade_mediana": 0.8367766304629941,
+    "fracao_instaveis": 0.0,
+    "var_entre": 0.003410893909219576,
+    "var_boot_media": 0.0008294552036480117,
+    "falhas": 0.0
+   },
+   "sC_z+n-": {
+    "confiabilidade": 0.21327858493441565,
+    "ic90": [
+     0.05181179789720545,
+     0.3482812969049005
+    ],
+    "confiabilidade_mediana": 0.3878908150313545,
+    "fracao_instaveis": 0.0,
+    "var_entre": 0.000510630446312034,
+    "var_boot_media": 0.00040172390729817424,
+    "falhas": 0.0
+   },
+   "sC_z+": {
+    "confiabilidade": 0.05034812608602124,
+    "ic90": [
+     -0.1644911833799622,
+     0.21883837148252883
+    ],
+    "confiabilidade_mediana": 0.30321726884679856,
+    "fracao_instaveis": 0.0,
+    "var_entre": 0.0004841156719778353,
+    "var_boot_media": 0.0004597413550848764,
+    "falhas": 0.0
+   },
+   "sC_z+n+": {
+    "confiabilidade": 0.3776727019210032,
+    "ic90": [
+     0.20476368804767117,
+     0.5041064633737726
+    ],
+    "confiabilidade_mediana": 0.4877492903941847,
+    "fracao_instaveis": 0.0,
+    "var_entre": 0.0006455605352865562,
+    "var_boot_media": 0.00040174994367131337,
+    "falhas": 0.0
+   },
+   "sC_z+i+n-": {
+    "confiabilidade": 0.0488025499361564,
+    "ic90": [
+     -0.20257618084938797,
+     0.23824483322852097
+    ],
+    "confiabilidade_mediana": 0.2460980338494062,
+    "fracao_instaveis": 0.0,
+    "var_entre": 0.00039405889667689254,
+    "var_boot_media": 0.0003748278176940318,
+    "falhas": 0.0
+   },
+   "sC_z+i+": {
+    "confiabilidade": 0.08166967594094399,
+    "ic90": [
+     -0.1478825900553487,
+     0.26507424962650034
+    ],
+    "confiabilidade_mediana": 0.33555048506964613,
+    "fracao_instaveis": 0.0,
+    "var_entre": 0.00047370526787423787,
+    "var_boot_media": 0.0004350179121554308,
+    "falhas": 0.0
+   },
+   "sC_z+i+n+": {
+    "confiabilidade": 0.39523421666407743,
+    "ic90": [
+     0.2747045307600983,
+     0.49209434357433635
+    ],
+    "confiabilidade_mediana": 0.4765636562044897,
+    "fracao_instaveis": 0.0,
+    "var_entre": 0.0004764509881158455,
+    "var_boot_media": 0.00028814125504905366,
+    "falhas": 0.0
+   },
+   "aC_n+": {
+    "confiabilidade": 0.8446154844362173,
+    "ic90": [
+     0.807112912739062,
+     0.8750444102596501
+    ],
+    "confiabilidade_mediana": 0.8783634449871814,
+    "fracao_instaveis": 0.0,
+    "var_entre": 0.008163402072355413,
+    "var_boot_media": 0.001268466276365326,
+    "falhas": 0.0
+   },
+   "aC_i+n-": {
+    "confiabilidade": 0.467060092973675,
+    "ic90": [
+     0.306707808002035,
+     0.5904806378216843
+    ],
+    "confiabilidade_mediana": 0.6261598521696199,
+    "fracao_instaveis": 0.016666666666666666,
+    "var_entre": 0.0015668917439553237,
+    "var_boot_media": 0.0008350591403438665,
+    "falhas": 0.0
+   },
+   "aC_i+": {
+    "confiabilidade": 0.6074125750047318,
+    "ic90": [
+     0.5146816923368241,
+     0.6886447762426122
+    ],
+    "confiabilidade_mediana": 0.741695184871918,
+    "fracao_instaveis": 0.0,
+    "var_entre": 0.0010848417536098427,
+    "var_boot_media": 0.00042589523057703937,
+    "falhas": 0.0
+   },
+   "aC_i+n+": {
+    "confiabilidade": 0.5896301299224174,
+    "ic90": [
+     0.4961419384948209,
+     0.666118955042477
+    ],
+    "confiabilidade_mediana": 0.6917198483667568,
+    "fracao_instaveis": 0.0,
+    "var_entre": 0.001620631281034981,
+    "var_boot_media": 0.0006650582482419916,
+    "falhas": 0.0
+   },
+   "aC_z+i-n-": {
+    "confiabilidade": 0.7972554680758689,
+    "ic90": [
+     0.731376377610139,
+     0.8465108333602834
+    ],
+    "confiabilidade_mediana": 0.8570125117540599,
+    "fracao_instaveis": 0.016666666666666666,
+    "var_entre": 0.003919661460327343,
+    "var_boot_media": 0.0007946899280751232,
+    "falhas": 0.0
+   },
+   "aC_z+i-": {
+    "confiabilidade": 0.16409483123294277,
+    "ic90": [
+     -0.024004400564385537,
+     0.3259305590734234
+    ],
+    "confiabilidade_mediana": 0.40918556663037253,
+    "fracao_instaveis": 0.0,
+    "var_entre": 0.0009645584337512347,
+    "var_boot_media": 0.0008062793803505142,
+    "falhas": 0.0
+   },
+   "aC_z+i-n+": {
+    "confiabilidade": 0.7068342919101497,
+    "ic90": [
+     0.622687890901973,
+     0.7711660358054836
+    ],
+    "confiabilidade_mediana": 0.823212138732753,
+    "fracao_instaveis": 0.0,
+    "var_entre": 0.0035779625214070665,
+    "var_boot_media": 0.0010489359161072488,
+    "falhas": 0.0
+   },
+   "aC_z+n-": {
+    "confiabilidade": 0.45923054730118196,
+    "ic90": [
+     0.35974162436567086,
+     0.5425870763681268
+    ],
+    "confiabilidade_mediana": 0.5322254130805892,
+    "fracao_instaveis": 0.0,
+    "var_entre": 0.0007574695930696037,
+    "var_boot_media": 0.000409616417280246,
+    "falhas": 0.0
+   },
+   "aC_z+": {
+    "confiabilidade": 0.24447552018542928,
+    "ic90": [
+     0.12576059544511622,
+     0.3452749683265383
+    ],
+    "confiabilidade_mediana": 0.34485836690237537,
+    "fracao_instaveis": 0.0,
+    "var_entre": 0.00023314182905896747,
+    "var_boot_media": 0.00017614435912279396,
+    "falhas": 0.0
+   },
+   "aC_z+n+": {
+    "confiabilidade": 0.5080432449712949,
+    "ic90": [
+     0.38266058075610615,
+     0.6003594227805051
+    ],
+    "confiabilidade_mediana": 0.6502257867854849,
+    "fracao_instaveis": 0.0,
+    "var_entre": 0.0008260183320381694,
+    "var_boot_media": 0.0004063652982237213,
+    "falhas": 0.0
+   },
+   "aC_z+i+n-": {
+    "confiabilidade": 0.7005082384330846,
+    "ic90": [
+     0.6334720503841753,
+     0.7529910141695019
+    ],
+    "confiabilidade_mediana": 0.7861455385526548,
+    "fracao_instaveis": 0.0,
+    "var_entre": 0.0016674141027267749,
+    "var_boot_media": 0.0004993767868871594,
+    "falhas": 0.0
+   },
+   "aC_z+i+": {
+    "confiabilidade": 0.13635270182636405,
+    "ic90": [
+     -0.14398823165372276,
+     0.34499616553421064
+    ],
+    "confiabilidade_mediana": 0.3691759480854373,
+    "fracao_instaveis": 0.016666666666666666,
+    "var_entre": 0.00031466784421745406,
+    "var_boot_media": 0.0002717620334805268,
+    "falhas": 0.0
+   },
+   "aC_z+i+n+": {
+    "confiabilidade": 0.7603803929787366,
+    "ic90": [
+     0.7104942643768157,
+     0.8005325616099042
+    ],
+    "confiabilidade_mediana": 0.8084085997501156,
+    "fracao_instaveis": 0.0,
+    "var_entre": 0.0018870422527672377,
+    "var_boot_media": 0.0004521723230406051,
+    "falhas": 0.0
+   }
+  }
+ },
+ "adendo_A3_confiabilidade_blocos120": {
+  "1500": {
+   "V4n_B": {
+    "confiabilidade": 0.5362103715145464,
+    "ic90": [
+     0.3619511582777572,
+     0.6765160756809916
+    ],
+    "confiabilidade_mediana": 0.6974914772411612,
+    "fracao_instaveis": 0.016666666666666666,
+    "var_entre": 0.004223250831182625,
+    "var_boot_media": 0.0019586999339950726,
+    "falhas": 0.0
+   },
+   "V_cop": {
+    "confiabilidade": 0.6899185567642078,
+    "ic90": [
+     0.5976648074350123,
+     0.7597748260887117
+    ],
+    "confiabilidade_mediana": 0.7515126676094726,
+    "fracao_instaveis": 0.0,
+    "var_entre": 0.003268412740228884,
+    "var_boot_media": 0.0010134741395804228,
+    "falhas": 0.0
+   }
+  },
+  "3000": {
+   "V4n_B": {
+    "confiabilidade": 0.6406026968906156,
+    "ic90": [
+     0.5211525734011718,
+     0.7315003022072317
+    ],
+    "confiabilidade_mediana": 0.7687931498360173,
+    "fracao_instaveis": 0.016666666666666666,
+    "var_entre": 0.0035720504922911343,
+    "var_boot_media": 0.0012837853134999829,
+    "falhas": 0.0
+   },
+   "V_cop": {
+    "confiabilidade": 0.7288001760303222,
+    "ic90": [
+     0.6812183592601492,
+     0.7683595290228484
+    ],
+    "confiabilidade_mediana": 0.7462452881351479,
+    "fracao_instaveis": 0.0,
+    "var_entre": 0.002574520871801118,
+    "var_boot_media": 0.0006982096072387248,
+    "falhas": 0.0
+   }
+  },
+  "6000": {
+   "V4n_B": {
+    "confiabilidade": 0.8035767205362538,
+    "ic90": [
+     0.7559318020400777,
+     0.8391605064563893
+    ],
+    "confiabilidade_mediana": 0.8605419144224478,
+    "fracao_instaveis": 0.0,
+    "var_entre": 0.0032664197563620715,
+    "var_boot_media": 0.0006416008806498088,
+    "falhas": 0.0
+   },
+   "V_cop": {
+    "confiabilidade": 0.7550483196187169,
+    "ic90": [
+     0.7157983323206732,
+     0.7901016013608674
+    ],
+    "confiabilidade_mediana": 0.7707544725637775,
+    "fracao_instaveis": 0.0,
+    "var_entre": 0.0019195851657891495,
+    "var_boot_media": 0.0004702056119950361,
+    "falhas": 0.0
+   }
+  }
+ },
+ "regra1_escala_candidata": 1500,
+ "traducao_Vcop": {
+  "1500": {
+   "T1": {
+    "n": 701,
+    "r2_cv_linear": 0.18875482913401323,
+    "r2_cv_boosting": 0.28143762411445217
+   },
+   "T2": {
+    "n": 701,
+    "r2_cv_linear": 0.6243647485216512,
+    "r2_cv_boosting": 0.6493052819951769
+   },
+   "T1+T2": {
+    "n": 701,
+    "r2_cv_linear": 0.6059241502793118,
+    "r2_cv_boosting": 0.6512713304148712
+   },
+   "T1+T2+T3": {
+    "n": 701,
+    "r2_cv_linear": 0.6172090273246612,
+    "r2_cv_boosting": 0.6492834852836594
+   }
+  },
+  "3000": {
+   "T1": {
+    "n": 701,
+    "r2_cv_linear": 0.28622865607808223,
+    "r2_cv_boosting": 0.3399550934238815
+   },
+   "T2": {
+    "n": 701,
+    "r2_cv_linear": 0.803043658153309,
+    "r2_cv_boosting": 0.8150611840074286
+   },
+   "T1+T2": {
+    "n": 701,
+    "r2_cv_linear": 0.783902159816564,
+    "r2_cv_boosting": 0.810156630186742
+   },
+   "T1+T2+T3": {
+    "n": 701,
+    "r2_cv_linear": 0.7986525632226538,
+    "r2_cv_boosting": 0.8125431943294498
+   }
+  },
+  "6000": {
+   "T1": {
+    "n": 701,
+    "r2_cv_linear": 0.36291819387041463,
+    "r2_cv_boosting": 0.3295223422812004
+   },
+   "T2": {
+    "n": 701,
+    "r2_cv_linear": 0.8346060077053679,
+    "r2_cv_boosting": 0.8430598472976305
+   },
+   "T1+T2": {
+    "n": 701,
+    "r2_cv_linear": 0.8063837561906035,
+    "r2_cv_boosting": 0.833334929740521
+   },
+   "T1+T2+T3": {
+    "n": 701,
+    "r2_cv_linear": 0.8139951021184885,
+    "r2_cv_boosting": 0.8351072857404063
+   }
+  }
+ },
+ "Vcop_mais_ligados": {
+  "1500": [
+   [
+    0.799,
+    "T2_absz_n"
+   ],
+   [
+    0.759,
+    "T2_coskew_zzn"
+   ],
+   [
+    0.738,
+    "T3_cone"
+   ],
+   [
+    0.561,
+    "T1_sd_i"
+   ],
+   [
+    -0.503,
+    "T1_ku_i"
+   ],
+   [
+    0.45,
+    "T1_sd_n"
+   ],
+   [
+    -0.39,
+    "T2_cauda_inf_zn"
+   ],
+   [
+    0.365,
+    "T2_rho_zi"
+   ]
+  ],
+  "3000": [
+   [
+    0.869,
+    "T2_absz_n"
+   ],
+   [
+    0.817,
+    "T2_coskew_zzn"
+   ],
+   [
+    0.774,
+    "T3_cone"
+   ],
+   [
+    0.692,
+    "T1_sd_i"
+   ],
+   [
+    -0.63,
+    "T1_ku_i"
+   ],
+   [
+    -0.519,
+    "T2_cauda_inf_zn"
+   ],
+   [
+    0.487,
+    "T1_sd_n"
+   ],
+   [
+    0.47,
+    "T2_rho_zi"
+   ]
+  ],
+  "6000": [
+   [
+    0.884,
+    "T2_absz_n"
+   ],
+   [
+    0.835,
+    "T2_coskew_zzn"
+   ],
+   [
+    0.764,
+    "T1_sd_i"
+   ],
+   [
+    0.749,
+    "T3_cone"
+   ],
+   [
+    -0.702,
+    "T1_ku_i"
+   ],
+   [
+    0.53,
+    "T1_sd_n"
+   ],
+   [
+    -0.517,
+    "T2_cauda_inf_zn"
+   ],
+   [
+    -0.516,
+    "T2_cauda_inf_in"
+   ]
+  ]
+ },
+ "regra4_decomposicao_V4nB": {
+  "1500": {
+   "V4nB_por_Vcop": {
+    "n": 701,
+    "r2_cv_linear": 0.41651556347894364,
+    "r2_cv_boosting": 0.43612873292275867
+   },
+   "V4nB_por_T1": {
+    "n": 701,
+    "r2_cv_linear": 0.12849226009425913,
+    "r2_cv_boosting": 0.1292952398737982
+   },
+   "V4nB_por_Vcop_T1": {
+    "n": 701,
+    "r2_cv_linear": 0.45283721317162656,
+    "r2_cv_boosting": 0.40579822254373765
+   },
+   "corr_spearman_V4nB_Vcop": 0.7098050398721404
+  },
+  "3000": {
+   "V4nB_por_Vcop": {
+    "n": 701,
+    "r2_cv_linear": 0.4350416653662895,
+    "r2_cv_boosting": 0.38509471001658246
+   },
+   "V4nB_por_T1": {
+    "n": 701,
+    "r2_cv_linear": 0.06148317012831959,
+    "r2_cv_boosting": 0.016175307905541936
+   },
+   "V4nB_por_Vcop_T1": {
+    "n": 701,
+    "r2_cv_linear": 0.43678254449949494,
+    "r2_cv_boosting": 0.3300927375864724
+   },
+   "corr_spearman_V4nB_Vcop": 0.7152239544233119
+  },
+  "6000": {
+   "V4nB_por_Vcop": {
+    "n": 701,
+    "r2_cv_linear": -0.0722897734973607,
+    "r2_cv_boosting": -0.22978825305087
+   },
+   "V4nB_por_T1": {
+    "n": 701,
+    "r2_cv_linear": -0.7283855793321489,
+    "r2_cv_boosting": -0.7471731497397192
+   },
+   "V4nB_por_Vcop_T1": {
+    "n": 701,
+    "r2_cv_linear": -0.34710963418613466,
+    "r2_cv_boosting": -0.4026755503730984
+   },
+   "corr_spearman_V4nB_Vcop": 0.5777526120616691
+  }
+ },
+ "adendo_A3_residuo_blocos120": {
+  "confiabilidade": 0.3127927869204067,
+  "ic90": [
+   -0.2830532262546672,
+   0.6204796145146946
+  ],
+  "confiabilidade_mediana": 0.4835113629149933,
+  "fracao_instaveis": 0.0,
+  "var_entre": 0.0010523545715823547,
+  "var_boot_media": 0.0007231856523086794,
+  "falhas": 0.0
+ },
+ "adendo_RA3_rotulo": null,
+ "regra2_residuo": {
+  "confiabilidade": 0.35669164743321125,
+  "ic90": [
+   -0.21515636115374653,
+   0.6365833140355249
+  ],
+  "confiabilidade_mediana": 0.421928824911293,
+  "fracao_instaveis": 0.0,
+  "var_entre": 0.0010523545715823547,
+  "var_boot_media": 0.0006769884857607734,
+  "falhas": 0.0,
+  "fracao_var_residuo": 0.3219772578382066,
+  "candidato_medida_nova": false,
+  "coeficientes_T2": {
+   "intercepto": 0.012831126828598615,
+   "T2_rho_zi": -0.09924873382212795,
+   "T2_cokurt_zi": -0.03844192348150996,
+   "T2_cauda_sup_zi": -0.019261851453360904,
+   "T2_cauda_inf_zi": 0.014180752852036526,
+   "T2_rho_zn": -0.02684910367902161,
+   "T2_cokurt_zn": -0.06685330802902241,
+   "T2_cauda_sup_zn": -0.06340678827803188,
+   "T2_cauda_inf_zn": 0.09353619533583647,
+   "T2_rho_in": -0.027095924060517394,
+   "T2_cokurt_in": -0.017783067158279587,
+   "T2_cauda_sup_in": -0.007860094880992083,
+   "T2_cauda_inf_in": 0.08666962400827355,
+   "T2_coskew_zzi": 0.05295251981358871,
+   "T2_coskew_zzn": 0.11324683078632915,
+   "T2_coskew_iiz": -0.032174144108607944,
+   "T2_coskew_iin": -0.05615241007748592,
+   "T2_coskew_nnz": 0.004373887798910727,
+   "T2_coskew_nni": 0.0382869698645528,
+   "T2_absz_n": 0.5401099599225563,
+   "T2_absi_n": 0.006279765948624113,
+   "T2_absz_absi": 0.14066521916180627
+  }
+ },
+ "adendo_A1_A2_memoria": {
+  "1500": {
+   "contiguidade_mediana": 0.0443279280578731,
+   "contiguidade_q25_q75": [
+    -0.0001778093883359,
+    0.1123475532579161
+   ],
+   "fracao_contiguidade_maior_0_2": 0.15263908701854492,
+   "spearman_contiguidade_Vcop": -0.07669752990997333,
+   "peso_menor_mediana": 0.4342857142857143,
+   "mistura_mediana": -0.0209895877253749,
+   "Vcop_quartos_contiguos_mediana": 0.2868563339708888,
+   "Vcop_quartos_embaralhados_mediana": 0.264925937851743,
+   "spearman_mistura_Vcop": 0.16601141627532126,
+   "n_sem_sobreposicao": 78,
+   "fracao_positiva_sem_sobreposicao": 0.21794871794871795,
+   "p_sinal_unilateral": 0.9999999243510931,
+   "RA2_mistura_presente": false
+  },
+  "3000": {
+   "contiguidade_mediana": 0.0388219978096328,
+   "contiguidade_q25_q75": [
+    0.0047628888397341,
+    0.0949491567749033
+   ],
+   "fracao_contiguidade_maior_0_2": 0.14835948644793154,
+   "spearman_contiguidade_Vcop": -0.07805265476000929,
+   "peso_menor_mediana": 0.4447619047619047,
+   "mistura_mediana": -0.0176726751199844,
+   "Vcop_quartos_contiguos_mediana": 0.2469449540423619,
+   "Vcop_quartos_embaralhados_mediana": 0.228991623731037,
+   "spearman_mistura_Vcop": 0.06762903342914382,
+   "n_sem_sobreposicao": 42,
+   "fracao_positiva_sem_sobreposicao": 0.21428571428571427,
+   "p_sinal_unilateral": 0.9999656144425444,
+   "RA2_mistura_presente": false
+  },
+  "6000": {
+   "contiguidade_mediana": 0.0281163812912219,
+   "contiguidade_q25_q75": [
+    0.005327327234444,
+    0.0648560195135168
+   ],
+   "fracao_contiguidade_maior_0_2": 0.10841654778887304,
+   "spearman_contiguidade_Vcop": -0.024161050059876336,
+   "peso_menor_mediana": 0.4519047619047619,
+   "mistura_mediana": -0.0142733063029893,
+   "Vcop_quartos_contiguos_mediana": 0.223671790234503,
+   "Vcop_quartos_embaralhados_mediana": 0.2108276668969329,
+   "spearman_mistura_Vcop": 0.13988790475283294,
+   "n_sem_sobreposicao": 21,
+   "fracao_positiva_sem_sobreposicao": 0.23809523809523808,
+   "p_sinal_unilateral": 0.996401309967041,
+   "RA2_mistura_presente": false
+  }
+ },
+ "segundos": 31
+}
