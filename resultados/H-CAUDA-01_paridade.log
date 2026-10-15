@@ -1,0 +1,49 @@
+BTCUSDT-1m-2026-05.zip: SHA-256 conferido
+BTCUSDT-1m-2026-06.zip: SHA-256 conferido
+BTCUSDT-1m-2026-07.zip: SHA-256 conferido
+{
+ "hipotese": "H-CAUDA-01",
+ "simbolo": "BTCUSDT",
+ "modo": "paridade",
+ "regua": {
+  "mediana_maio": [
+   -0.01398127058931272,
+   -1.35039970539097e-07,
+   -0.0003071822946937308
+  ],
+  "escala": [
+   2.254106616169215,
+   0.0015027692644586797,
+   0.07897067984231103
+  ]
+ },
+ "semanas_julgadas": [
+  "2026-06-08",
+  "2026-06-15",
+  "2026-06-22",
+  "2026-06-29",
+  "2026-07-06",
+  "2026-07-13",
+  "2026-07-20"
+ ],
+ "minutos_na_faixa": 972,
+ "janelas": 616,
+ "rho_parcial": 0.12468528427733075,
+ "p_permutacao_dia": 0.0009998000399920016,
+ "rho_todos_minutos_da_faixa": 0.08768554770229227,
+ "quintis": [
+  -3.76,
+  -1.42,
+  -0.88,
+  1.56,
+  4.53
+ ],
+ "rho_por_mes": {
+  "2026-06": 0.15019920456450683,
+  "2026-07": 0.08381273418673649
+ },
+ "nula_pipeline": {
+  "janelas": 538,
+  "rho_parcial": 0.027884258198418707
+ }
+}
