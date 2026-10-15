@@ -46,7 +46,7 @@
 **Origem e registro:**
 - Este diagnóstico foi registrado primeiro, no commit `f3c4d5d`, numa execução deste mesmo pedido que foi interrompida quando o ambiente reiniciou.
 - Na retomada, eu não o vi e fiz o diagnóstico acima.
-- Rodei este depois, sem alteração: o script ficou no commit `28fe1d8`, e o registro é `PROTOCOLO_SGV_C02_1B_DIAGNOSTICO_SEMENTES_20261014.md`.
+- Rodei este depois, sem alteração: o script ficou no commit `50e66b5`, e o registro é `PROTOCOLO_SGV_C02_1B_DIAGNOSTICO_SEMENTES_20261014.md`.
 
 **Desenho:** o mesmo par de execuções do portão, com produção HDR50 ×1 e HDR95 ×4 e comparação com o dobro, nos 42 pares (G3 e BS35). Variam 10 conjuntos novos de sementes de Monte Carlo. Ficam fixos o ajuste, o conjunto retido e os limites.
 
