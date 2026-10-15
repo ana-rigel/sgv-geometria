@@ -1,0 +1,23 @@
+BTCUSDT-1m-2026-05.zip: SHA-256 conferido
+BTCUSDT-1m-2026-06.zip: SHA-256 conferido
+BTCUSDT-1m-2026-07.zip: SHA-256 conferido
+BTCUSDT-1m-2026-08.zip: SHA-256 conferido
+BTCUSDT-1m-2026-09.zip: SHA-256 conferido
+  real: ok
+  S_2026: ok
+  S_2027: ok
+  S_2028: ok
+  G_3026: ok
+  G_3027: ok
+  G_3028: ok
+
+== saltos × difusão e Markov [agoset]
+  real    κ_E núcleo   2.80 meio   1.53 extremos   1.09  | κ_jerk ext  -0.51 κ_mf ext   0.81  | M_3D +0.334 M_4D +0.239 Red +0.29
+  S_2026  κ_E núcleo   3.32 meio   2.75 extremos   2.56  | κ_jerk ext  -0.74 κ_mf ext   1.54  | M_3D +0.309 M_4D +0.210 Red +0.32
+  S_2027  κ_E núcleo   3.36 meio   2.83 extremos   2.63  | κ_jerk ext  -0.82 κ_mf ext   2.24  | M_3D +0.303 M_4D +0.205 Red +0.32
+  S_2028  κ_E núcleo   3.28 meio   2.73 extremos   1.67  | κ_jerk ext  -0.89 κ_mf ext   1.16  | M_3D +0.306 M_4D +0.208 Red +0.32
+  G_3026  κ_E núcleo   1.37 meio   1.02 extremos   0.35  | κ_jerk ext  -0.93 κ_mf ext   0.32  | M_3D +0.315 M_4D +0.217 Red +0.31
+  G_3027  κ_E núcleo   1.42 meio   0.89 extremos   0.47  | κ_jerk ext  -0.82 κ_mf ext   0.40  | M_3D +0.318 M_4D +0.211 Red +0.34
+  G_3028  κ_E núcleo   1.28 meio   0.98 extremos   0.40  | κ_jerk ext  -0.99 κ_mf ext   0.35  | M_3D +0.329 M_4D +0.223 Red +0.32
+  T1 (E_norm): {'nucleo': 'saltos, reproduzidos pelas caudas dos choques', 'meio': 'saltos, reproduzidos pelas caudas dos choques', 'extremos': 'saltos, reproduzidos pelas caudas dos choques'}
+  T2: não é a volatilidade
