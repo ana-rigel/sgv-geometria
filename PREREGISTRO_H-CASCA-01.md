@@ -98,3 +98,21 @@ Com ~40 pares válidos (52 pares possíveis, ~87 % de janelas válidas no BTC), 
 **Aposta de Claude: ~75 % de confirmação.** A ligação é em parte mecânica e apareceu igual nos dois desenhos do BTC. Os riscos são:
 - o LTC ter caudas que tirem muitas janelas da grade (menos pares);
 - a relação ser mais fraca num ativo de menor liquidez.
+
+## Emenda 1 (14/10/2026, antes de qualquer dado do LTC): a expectativa sobre a nula de pipeline estava errada
+
+O ensaio a seco do caminho do julgamento rodou no BTC jun–jul (exploração; dois meses, 20 pares, por isso INCONCLUSIVO pelo mínimo de 25). Ele mostrou o contrário do que escrevi nos secundários:
+
+- a nula de pipeline dá ρ = **+0,08** (25 pares), contra +0,66 no real;
+- ρ por semente do GMM: 0,63 a 0,67; confiabilidade 0,9997;
+- só núcleo −0,55; só envelope +0,21;
+- curtose de E_norm +0,73; q99 +0,81; máximo +0,55.
+
+A permutação dentro do dia mantém o conjunto de retornos de cada dia e destrói a ordem. Se a casca lesse só a distribuição de |r| na janela, o ρ deveria continuar alto. Ele cai, então a ligação passa pelo arranjo no tempo: retornos grandes em sequência, que deslocam E_norm e memory_flux.
+
+Com 20–25 pares a diferença é imprecisa (z ≈ 2,2), e por isso fica como leitura, não como resultado.
+
+**O que muda e o que não muda:**
+- **Não muda:** hipótese primária, estatística, limiares, ativo, período e mínimo de pares.
+- **Muda:** a frase "espera-se que o ρ continue alto" na nula de pipeline fica retirada. A nula continua secundária e só de leitura.
+- **Muda:** se a H-CASCA-01 for confirmada e a nula do LTC também cair, a leitura correta passa a ser "a casca lê a cauda produzida por episódios agrupados no tempo", não "a casca lê a distribuição de |r|".
