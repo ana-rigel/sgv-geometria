@@ -17,3 +17,11 @@ F0 gravado em 2202s
 [  1996s] F2 caudas20 ok
 F2 gravado em 1996s
 [   265s] F4 nulo ok
+[   516s] F4 translacao ok
+[   770s] F4 expansao ok
+[  1023s] F4 rotacao ok
+[  1274s] F4 anisotropia ok
+[  1524s] F4 caudas05 ok
+[  1773s] F4 caudas10 ok
+[  1982s] F4 caudas20 ok
+F4 gravado em 1982s

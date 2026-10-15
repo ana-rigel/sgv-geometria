@@ -17,3 +17,11 @@ F1 gravado em 2144s
 [  1960s] F3 caudas20 ok
 F3 gravado em 1960s
 [   256s] F5 nulo ok
+[   504s] F5 translacao ok
+[   752s] F5 expansao ok
+[  1002s] F5 rotacao ok
+[  1242s] F5 anisotropia ok
+[  1487s] F5 caudas05 ok
+[  1733s] F5 caudas10 ok
+[  1963s] F5 caudas20 ok
+F5 gravado em 1963s
