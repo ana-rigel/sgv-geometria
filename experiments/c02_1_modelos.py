@@ -40,8 +40,10 @@ def logit():
 def carregar(nome):
     rows = [json.loads(l) for l in (DIR / nome).read_text().splitlines()]
     df = pd.DataFrame(rows)
-    falhas = df[df['falha'].notna()] if 'falha' in df else df.iloc[:0]
-    ok = df[df['falha'].isna()] if 'falha' in df else df
+    if 'falha' not in df:
+        df['falha'] = np.nan
+    falhas = df[df['falha'].notna()]
+    ok = df[df['falha'].isna()]
     return ok.sort_values(['familia', 'classe', 'rep']).reset_index(drop=True), falhas
 
 
