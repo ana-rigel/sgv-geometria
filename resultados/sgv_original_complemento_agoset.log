@@ -1,0 +1,17 @@
+BTCUSDT-1m-2026-05.zip: SHA-256 conferido
+BTCUSDT-1m-2026-06.zip: SHA-256 conferido
+BTCUSDT-1m-2026-07.zip: SHA-256 conferido
+BTCUSDT-1m-2026-08.zip: SHA-256 conferido
+BTCUSDT-1m-2026-09.zip: SHA-256 conferido
+  [real] pronto
+  [pipeline] pronto
+real     log_rho prim -0.1065 (9/9) | sec_orig -0.0522 | sec_fluxo -0.0915 | sec_ret -0.1065 | semanas prim [-0.112, -0.177, -0.132, -0.064, -0.098, -0.074, -0.114, -0.093, -0.097]
+real     basin   prim -0.1071 (9/9) | sec_orig -0.0532 | sec_fluxo -0.0921 | sec_ret -0.1070 | semanas prim [-0.109, -0.177, -0.134, -0.066, -0.097, -0.075, -0.115, -0.094, -0.096]
+real     disp    prim +0.0613 (9/9) | sec_orig +0.0014 | sec_fluxo +0.0435 | sec_ret +0.0619 | semanas prim [0.08, 0.097, 0.048, 0.03, 0.051, 0.034, 0.073, 0.06, 0.08]
+real     n_obs   prim -0.1023 (9/9) | sec_orig -0.0499 | sec_fluxo -0.0884 | sec_ret -0.1021 | semanas prim [-0.102, -0.174, -0.108, -0.074, -0.104, -0.07, -0.102, -0.094, -0.09]
+real     mem_e   prim -0.0178 (8/9) | sec_orig -0.0206 | sec_fluxo -0.0172 | sec_ret -0.0189 | semanas prim [-0.012, -0.007, 0.016, -0.042, -0.009, -0.062, -0.001, -0.002, -0.04]
+pipeline log_rho prim -0.0028 (6/9) | sec_orig -0.0219 | sec_fluxo -0.0022 | sec_ret -0.0031 | semanas prim [-0.005, -0.026, -0.015, 0.063, 0.024, 0.0, -0.006, -0.03, -0.031]
+pipeline basin   prim -0.0040 (7/9) | sec_orig -0.0234 | sec_fluxo -0.0034 | sec_ret -0.0046 | semanas prim [-0.005, -0.03, -0.016, 0.06, 0.025, -0.001, -0.007, -0.027, -0.036]
+pipeline disp    prim -0.0118 (5/9) | sec_orig -0.0061 | sec_fluxo -0.0129 | sec_ret -0.0112 | semanas prim [0.003, -0.01, 0.008, -0.065, 0.013, -0.03, -0.025, 0.03, -0.028]
+pipeline n_obs   prim -0.0062 (6/9) | sec_orig -0.0260 | sec_fluxo -0.0057 | sec_ret -0.0057 | semanas prim [-0.014, -0.016, -0.021, 0.055, 0.014, 0.004, -0.01, -0.039, -0.03]
+pipeline mem_e   prim +0.0077 (6/9) | sec_orig +0.0082 | sec_fluxo +0.0080 | sec_ret +0.0034 | semanas prim [0.008, 0.002, 0.014, -0.009, -0.003, 0.035, 0.031, 0.007, -0.015]
