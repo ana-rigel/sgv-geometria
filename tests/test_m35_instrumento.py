@@ -58,3 +58,29 @@ def test_measure_v4_map_matches_v4():
     v=m.measure(a,b,'V4',5);w=m.measure_v4_map(a,b,5)
     for k in v:assert v[k]==w[k]
     assert 'aB_i+' in w and 'sB_n+' in w and 'dA_z-' in w
+
+
+def test_rank_normal_removes_marginal_shape_keeps_ranks():
+    rng=np.random.default_rng(20);x=np.exp(rng.standard_normal((800,3)))
+    u=m.rank_normal(x)
+    from scipy.stats import skew,kurtosis,spearmanr
+    assert np.all(np.abs(skew(u,axis=0))<1e-6) and np.all(np.abs(kurtosis(u,axis=0))<.2)
+    for j in range(3):assert spearmanr(x[:,j],u[:,j])[0]>.9999
+
+
+def test_v_cop_invariant_to_monotone_marginal_transform():
+    rng=np.random.default_rng(21);x=m.synth_joint(1050,.8,rng,'cintura')
+    y=np.column_stack([np.exp(x[:,0]),x[:,1]**3,np.sinh(2*x[:,2])])
+    assert m.measure_cop(x,3)['V_cop']==m.measure_cop(y,3)['V_cop']
+
+
+def test_v_cop_sees_waist_and_cone():
+    rng=np.random.default_rng(22)
+    base=m.measure_cop(m.synth_joint(2100,0.,rng,'cintura'),4)['V_cop']
+    for kind in ('cintura','cone'):
+        assert m.measure_cop(m.synth_joint(2100,1.,rng,kind),4)['V_cop']>base+.05
+
+
+def test_dependence_scales_keys():
+    rng=np.random.default_rng(23);o=m.dependence_scales(rng.standard_normal((600,3)))
+    assert len(o)==3*4+6+3 and all(np.isfinite(v) for v in o.values())

@@ -162,3 +162,63 @@ def map_hit(an,e):
     """Direcao (com sinal) de maior |a(u)| entre os 13 eixos, comparada com e: acerto se angulo <= 45 graus."""
     a=np.asarray(an);k=int(np.nanargmax(np.abs(a)));u=DIRS[AXES[k]]*np.sign(a[k])
     return float(np.degrees(np.arccos(np.clip(u@e,-1,1))))<=45.0001
+
+
+# ---------------- passo 3: deformacao da combinacao dos eixos (plano PLANO_M35_PASSO3_20261015.md) ----------------
+from scipy.stats import rankdata,norm as _norm
+
+def rank_normal(x):
+    """Cada eixo levado a normal pelos proprios postos: u = Phi^-1((posto-1/2)/n). Elimina a forma de cada eixo."""
+    x=np.asarray(x,float);n=len(x)
+    return np.column_stack([_norm.ppf((rankdata(x[:,j])-.5)/n) for j in range(x.shape[1])])
+
+
+def measure_cop(b,seed):
+    """V4n_B (deformacao total) e V_cop (so a combinacao dos eixos) + mapa radial da casca de V_cop.
+    Mesmas sementes e mesmo ensacamento nas duas."""
+    fb=bagged_field(whiten(b),seed);fc=bagged_field(whiten(rank_normal(b)),seed)
+    out={'V4n_B':jdist(hdr_mask(fb),BALL),'V_cop':jdist(hdr_mask(fc),BALL)}
+    d,s,an=radial_map(fc)
+    out.update({f'sC_{n}':float(x) for n,x in zip(AXIS_NAMES,s)})
+    out.update({f'aC_{n}':float(x) for n,x in zip(AXIS_NAMES,an)})
+    return out
+
+
+_RC=np.array([[1,.3,.2],[.3,1,.4],[.2,.4,1.]]);_LC=np.linalg.cholesky(_RC)
+
+def synth_marginal(n,s,rng):
+    """Copula gaussiana fixa; cada eixo deformado por seno-hiperbolico (assimetria e caudas crescem com s)."""
+    g=rng.standard_normal((n,3))@_LC.T;delta=1/(1+1.5*s);eps=np.array([1.,-1.,.6])*s
+    return np.sinh((np.arcsinh(g)+eps)/delta)
+
+
+def synth_joint(n,s,rng,kind):
+    """Eixos exatamente gaussianos (postos); a combinacao dos eixos muda com s."""
+    g=rng.standard_normal((n,3))@_LC.T
+    if kind=='cone':
+        x=g.copy();x[:,0]=g[:,0]*np.exp(1.2*s*g[:,2])
+    elif kind=='cintura':
+        x=g.copy();hv=g[:,2]>=np.quantile(g[:,2],.6);sg=np.where(rng.random(int(hv.sum()))<.5,-1.,1.)
+        x[hv,:2]+=np.outer(sg*1.5*s,np.ones(2)/np.sqrt(2))
+    elif kind=='caudas':
+        df=3+27*(1-s);w=rng.chisquare(df,n)/df;x=g/np.sqrt(w)[:,None]
+    else:raise ValueError(kind)
+    return rank_normal(x)
+
+
+def dependence_scales(b):
+    """T2: dependencia tradicional calculada nos postos normais da metade."""
+    u=rank_normal(b);nm='zin';o={}
+    for j,k in ((0,1),(0,2),(1,2)):
+        r=float(np.corrcoef(u[:,j],u[:,k])[0,1]);p=nm[j]+nm[k]
+        o[f'T2_rho_{p}']=r;o[f'T2_cokurt_{p}']=float(np.mean(u[:,j]**2*u[:,k]**2)-(1+2*r*r))
+        for q,lab in ((.9,'sup'),(.1,'inf')):
+            a=u[:,j]>np.quantile(u[:,j],q) if lab=='sup' else u[:,j]<np.quantile(u[:,j],q)
+            c=u[:,k]>np.quantile(u[:,k],q) if lab=='sup' else u[:,k]<np.quantile(u[:,k],q)
+            o[f'T2_cauda_{lab}_{p}']=float(np.mean(a&c)/.1)
+    for j in range(3):
+        for k in range(3):
+            if j!=k:o[f'T2_coskew_{nm[j]}{nm[j]}{nm[k]}']=float(np.mean(u[:,j]**2*u[:,k]))
+    o['T2_absz_n']=float(np.corrcoef(np.abs(u[:,0]),u[:,2])[0,1]);o['T2_absi_n']=float(np.corrcoef(np.abs(u[:,1]),u[:,2])[0,1])
+    o['T2_absz_absi']=float(np.corrcoef(np.abs(u[:,0]),np.abs(u[:,1]))[0,1])
+    return o
