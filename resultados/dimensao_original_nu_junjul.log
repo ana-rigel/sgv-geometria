@@ -1,0 +1,11 @@
+BTCUSDT-1m-2026-05.zip: SHA-256 conferido
+BTCUSDT-1m-2026-06.zip: SHA-256 conferido
+BTCUSDT-1m-2026-07.zip: SHA-256 conferido
+
+== orig [junjul] controle: log ρ e ν̄ (primária desta exploração)
+   persistência do resíduo: real +0.278 | nula +0.186 | Δ médio +0.092 | real acima em 6/8 pares
+   R²: real 0.867 | nula 0.765 | resíduo médio × {'|E_norm|': 0.012, '|jerk|': 0.15, '|memory_flux|': -0.073}
+
+== orig [junjul] controle: só log ρ (rodada anterior, para comparação)
+   persistência do resíduo: real +0.392 | nula +0.217 | Δ médio +0.175 | real acima em 8/8 pares
+   R²: real 0.788 | nula 0.735 | resíduo médio × {'|E_norm|': 0.383, '|jerk|': 0.067, '|memory_flux|': 0.198}
