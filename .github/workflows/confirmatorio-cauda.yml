@@ -1,0 +1,72 @@
+name: Confirmatório H-CAUDA-01 (XRPUSDT)
+
+on:
+  push:
+    paths: [".github/workflows/confirmatorio-cauda.yml"]
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: confirmatorio-cauda
+  cancel-in-progress: false
+
+jobs:
+  julgar:
+    runs-on: ubuntu-latest
+    timeout-minutes: 300
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Julgamento único (não roda de novo se já houver resultado)
+        run: |
+          if [ -f resultados/H-CAUDA-01_XRPUSDT_julgamento.json ]; then echo "Já julgado"; exit 1; fi
+
+      - name: Preparar Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Instalar dependências
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r requirements.txt
+          pip freeze > versoes_runner_cauda.txt
+
+      - name: Conferir hashes do pré-registro H-CAUDA-01
+        run: sha256sum -c referencia/HASHES_H-CAUDA-01.txt
+
+      - name: Ensaio de paridade em BTC junho–julho
+        run: |
+          mkdir -p resultados
+          python -W ignore pipeline/confirmatorio_cauda.py --paridade-btc | tee resultados/H-CAUDA-01_paridade.log
+          python - <<'PY'
+          import json, sys
+          a = json.load(open("resultados/H-CAUDA-01_BTCUSDT_paridade.json"))["rho_parcial"]
+          b = json.load(open("referencia/H-CAUDA-01_paridade_btc_referencia.json"))["rho_parcial"]
+          print(f"paridade: {a:.5f} vs referência {b:.5f} (exploração +0,125)")
+          sys.exit(0 if abs(a - 0.125) < 0.005 else 1)
+          PY
+
+      - name: Baixar e conferir XRPUSDT maio–setembro/2026
+        run: |
+          base=https://data.binance.vision/data/spot/monthly/klines/XRPUSDT/1m
+          for m in 2026-05 2026-06 2026-07 2026-08 2026-09; do
+            f=XRPUSDT-1m-$m.zip
+            curl -fsSL --retry 3 -o dados/$f "$base/$f"
+            curl -fsSL --retry 3 -o dados/$f.CHECKSUM "$base/$f.CHECKSUM"
+            (cd dados && sha256sum -c $f.CHECKSUM)
+          done
+
+      - name: Julgamento
+        run: python -W ignore pipeline/confirmatorio_cauda.py --simbolo XRPUSDT | tee resultados/H-CAUDA-01_julgamento.log
+
+      - name: Publicar resultado
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898283+github-actions[bot]@users.noreply.github.com"
+          git add resultados/ versoes_runner_cauda.txt dados/XRPUSDT-1m-*.CHECKSUM
+          git commit -m "H-CAUDA-01: julgamento XRPUSDT jun–set/2026 (gerado pelo runner)"
+          git push
