@@ -1,0 +1,54 @@
+name: Exploração volatilidade multiescala (ago–set/2026)
+
+on:
+  push:
+    branches: ["exploracao/volatilidade-multiescala"]
+    paths: [".github/workflows/explora-volatilidade-multiescala.yml"]
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: explora-volatilidade-multiescala
+  cancel-in-progress: false
+
+jobs:
+  rodar:
+    runs-on: ubuntu-latest
+    timeout-minutes: 300
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Instalar dependências
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r requirements.txt
+
+      - name: "Baixar e conferir agosto e setembro/2026 (outubro não é lido)"
+        run: |
+          base=https://data.binance.vision/data/spot/monthly/klines/BTCUSDT/1m
+          for m in 2026-08 2026-09; do
+            f=BTCUSDT-1m-$m.zip
+            curl -fsSL --retry 3 -o dados/$f "$base/$f"
+            curl -fsSL --retry 3 -o dados/$f.CHECKSUM "$base/$f.CHECKSUM"
+            (cd dados && sha256sum -c $f.CHECKSUM)
+          done
+
+      - name: Rodar (agosto–setembro)
+        run: |
+          mkdir -p resultados
+          python -W ignore pipeline/explora_volatilidade_multiescala.py --periodo agoset | tee resultados/volatilidade_multiescala_agoset.log
+
+      - name: Gravar o resultado no ramo
+        if: always()
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898+github-actions[bot]@users.noreply.github.com"
+          git add -f resultados/volatilidade_multiescala_agoset.json resultados/volatilidade_multiescala_agoset.log || true
+          git commit -m "Exploração volatilidade multiescala: resultado ago–set (run ${{ github.run_id }})" || echo "nada para gravar"
+          git push || true
