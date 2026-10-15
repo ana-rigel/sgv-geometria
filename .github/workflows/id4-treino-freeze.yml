@@ -1,0 +1,48 @@
+name: SGV-ID4 - Preparacao e freeze (SEM teste final)
+on:
+  push:
+    branches: [research/identificabilidade-4d-memoria-direcional-20261015]
+    paths: [".github/workflows/id4-treino-freeze.yml"]
+  workflow_dispatch:
+permissions:
+  contents: write
+concurrency:
+  group: id4-freeze-only
+  cancel-in-progress: false
+jobs:
+  freeze:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    env:
+      OPENBLAS_NUM_THREADS: "1"
+      OMP_NUM_THREADS: "1"
+      MKL_NUM_THREADS: "1"
+      PYTHONPATH: "."
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - run: python -m pip install numpy scipy scikit-learn pytest
+      - name: Verificar causalidade, energia emparelhada e teste selado
+        run: python -m pytest -q tests/test_id4_vol_direction.py
+      - name: Treinar apenas IDs 0-11 e validar apenas 12-17
+        run: |
+          python pipeline/id4_vol_direction.py --stage train \
+            --freeze resultados/id4_modelos_congelados.json \
+            --out resultados/id4_desenvolvimento.json
+          sha256sum resultados/id4_modelos_congelados.json
+      - name: Preservar modelos congelados sem abrir IDs 18-29
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898+github-actions[bot]@users.noreply.github.com"
+          git add -f resultados/id4_modelos_congelados.json
+          git commit -m "freeze(ID4): modelos e validacao congelados antes do teste [skip ci]"
+          git pull --rebase
+          git push
+      - if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: ID4-modelos-congelados
+          path: resultados/id4_modelos_congelados.json
+          if-no-files-found: warn
