@@ -1,0 +1,20 @@
+BTCUSDT-1m-2026-05.zip: SHA-256 conferido
+BTCUSDT-1m-2026-06.zip: SHA-256 conferido
+BTCUSDT-1m-2026-07.zip: SHA-256 conferido
+  real: ok
+  sint_2026: ok
+  sint_2027: ok
+  sint_2028: ok
+  sint_2029: ok
+  sint_2030: ok
+  perm: ok
+
+== geometria residual [junjul]
+  real       P1 R 6.83  perfil [0.3, 0.73, 1.31, 1.95, 3.2]  | P2 rot 16.2° logV50 0.215 | P3 ρ +0.640 (pares 292)
+  sint_2026  P1 R 6.85  perfil [0.32, 0.73, 1.3, 2.02, 3.05]  | P2 rot 17.6° logV50 0.214 | P3 ρ +0.789 (pares 296)
+  sint_2027  P1 R 6.81  perfil [0.31, 0.71, 1.31, 2.05, 3.17]  | P2 rot 29.5° logV50 0.207 | P3 ρ +0.674 (pares 295)
+  sint_2028  P1 R 5.97  perfil [0.33, 0.72, 1.29, 1.88, 2.79]  | P2 rot 14.0° logV50 0.205 | P3 ρ +0.696 (pares 287)
+  sint_2029  P1 R 5.70  perfil [0.32, 0.74, 1.32, 1.81, 2.35]  | P2 rot 33.9° logV50 0.186 | P3 ρ +0.658 (pares 291)
+  sint_2030  P1 R 6.08  perfil [0.32, 0.73, 1.26, 1.89, 2.2]  | P2 rot 23.5° logV50 0.197 | P3 ρ +0.618 (pares 295)
+  perm       P1 R 2.72  perfil [0.37, 0.65, 0.92, 1.05, 0.89]  | P2 rot 20.5° logV50 0.204 | P3 ρ +0.522 (pares 337)
+  classificação: {'P1_agitacao_extremos': 'indício', 'P2_rotacao_cascas': 'indício', 'P2_secundaria_logV50': 'reproduzida', 'P3_assinatura_caudas': 'reproduzida'}
