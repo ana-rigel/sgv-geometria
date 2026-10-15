@@ -376,13 +376,11 @@
  "veredito": {
   "H-SGV-01a": {
    "p": 0.0,
-   "p_holm": 0.0,
-   "confirmada": null
+   "resultado": null
   },
   "H-SGV-01b": {
    "p": 0.0066,
-   "p_holm": 0.0066,
-   "confirmada": null
+   "resultado": null
   }
  },
  "secundarias_BH": {

@@ -1,3 +1,5 @@
+> **SUPERADO** em 15/10/2026 por `PREREGISTRO_H-SGV-01.md` (congelado, opção C). Este rascunho v2 fica só como histórico.
+
 # RASCUNHO v2: Pré-registro H-SGV-01. O SGV original complementa o espaço de fluxo?
 
 **Estado: rascunho, NÃO congelado.**

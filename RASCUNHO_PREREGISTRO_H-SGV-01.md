@@ -1,3 +1,5 @@
+> **SUPERADO** em 15/10/2026 por `PREREGISTRO_H-SGV-01.md` (congelado, opção C). Este rascunho v1 fica só como histórico.
+
 # RASCUNHO — Pré-registro H-SGV-01: as variáveis de densidade, deslocamento e memória do sgv_original
 
 **Estado: rascunho, NÃO congelado.** Escrito em 15/10/2026, a pedido de Ana: testar as variáveis do `sgv_original` que sobreviveram à varredura de 188 métricas, exceto o espaço original (coordenadas) e o que já está em teste (D(x), log ρ 3D e a forma de D, nos H-DIF-01 e H-FORMA-D-01). O congelamento só ocorre com o OK de Ana, antes de existir o arquivo mensal de outubro.

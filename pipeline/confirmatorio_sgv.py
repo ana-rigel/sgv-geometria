@@ -1,14 +1,19 @@
-"""H-SGV-01 (rascunho v2, NÃO congelado): o SGV original complementa o espaço de fluxo?
+"""H-SGV-01: o SGV original complementa o espaço de fluxo?
 
-Pré-registro: RASCUNHO_PREREGISTRO_H-SGV-01_v2.md. Depois do congelamento: sem edição; hashes em referencia/HASHES_H-SGV-01.txt.
+Pré-registro: PREREGISTRO_H-SGV-01.md. Sem edição depois do congelamento; hashes em referencia/HASHES_H-SGV-01.txt.
+Calendário (opção C, decisão de Ana em 15/10/2026):
 
     python pipeline/confirmatorio_sgv.py --periodo exploracao     # ensaio de paridade em jun–jul/2026
-    python pipeline/confirmatorio_sgv.py --periodo confirmatorio  # julgamento: outubro/2026
-    python pipeline/confirmatorio_sgv.py --periodo replicacao     # replicação: novembro/2026
+    python pipeline/confirmatorio_sgv.py --periodo confirmatorio  # outubro/2026: julga H-SGV-01a
+    python pipeline/confirmatorio_sgv.py --periodo replicacao     # novembro/2026: replica H-SGV-01a
+    python pipeline/confirmatorio_sgv.py --periodo conjunto       # outubro + novembro/2026: julga H-SGV-01b (Holm com o p de a de outubro)
+    python pipeline/confirmatorio_sgv.py --periodo replicacao_b   # dezembro/2026: replica H-SGV-01b
 
 Família primária (m = 2, Holm, α = 0,05), sinal registrado NEGATIVO nas duas, com o espaço de FLUXO nos controles:
-    H-SGV-01a  raridade no plano (E_norm, jerk) do sgv_original: log rho_field
-    H-SGV-01b  memória do esticamento: mem_e = EMA_0,05(E_norm)
+    H-SGV-01a  raridade no plano (E_norm, jerk) do sgv_original: log rho_field   (julgada em outubro)
+    H-SGV-01b  memória do esticamento: mem_e = EMA_0,05(E_norm)                  (julgada em outubro + novembro)
+Holm com calendários diferentes: em outubro, a é confirmada se p_a < α/2 (isso a confirma pelo Holm qualquer que seja
+p_b). Se p_a ≥ α/2, o veredito de a espera p_b. Com p_a (outubro) e p_b (outubro + novembro), o Holm m = 2 dá os vereditos finais.
 Alvo log Range dos 5 min seguintes; 1 minuto a cada 5; ρ parcial de Spearman sobre os pares de resíduos agrupados das
 semanas julgadas; p por permutação do par dentro de cada dia (B = 5.000), unilateral (funções do H-FORMA-D-01).
 Controles "fluxo": os primários do H-FORMA-D-01 sem log ρ e log tr D (σ 10/30/60, HAR 1d/1s, r5/r30, logvol 10/60,
@@ -34,6 +39,15 @@ SECUNDARIAS = [("raridade_prim", "log_rho", "prim", -1), ("esticamento_prim", "m
                ("deslocamento_prim", "disp", "prim", +1), ("deslocamento_fluxo", "disp", "fluxo", +1),
                ("basin_fluxo", "basin", "fluxo", -1), ("n_obs_fluxo", "n_obs", "fluxo", -1)]
 MEDIDAS = PRIMARIAS + SECUNDARIAS
+_M = ["2026-05", "2026-06", "2026-07", "2026-08", "2026-09", "2026-10", "2026-11", "2026-12"]
+PERIODOS = {
+    "exploracao": F.PERIODOS["exploracao"],
+    "confirmatorio": F.PERIODOS["confirmatorio"],     # outubro: semanas 01, 08, 15 e 22/10 (treino 24/09)
+    "replicacao": F.PERIODOS["replicacao"],           # novembro: semanas 01, 08, 15 e 22/11 (treino 25/10)
+    "conjunto": {"meses": _M[:7], "inicio": "2026-10-01", "fim": "2026-12-01", "treino0": "2026-09-24"},   # 9 semanas: 01/10 … 26/11–01/12
+    "replicacao_b": {"meses": _M[:8], "inicio": "2026-12-01", "fim": "2027-01-01", "treino0": "2026-11-24"},  # dezembro
+}
+JULGA = {"confirmatorio": ["H-SGV-01a"], "replicacao": ["H-SGV-01a"], "conjunto": ["H-SGV-01b"], "replicacao_b": ["H-SGV-01b"], "exploracao": []}
 
 
 def controles(kl, hour_d):
@@ -84,8 +98,8 @@ def analisar(V, Go, Gf, kl, ts, wk, hour_d, label):
 
 
 def main():
-    ap = argparse.ArgumentParser(); ap.add_argument("--periodo", choices=list(F.PERIODOS), required=True)
-    a = ap.parse_args(); P = F.PERIODOS[a.periodo]
+    ap = argparse.ArgumentParser(); ap.add_argument("--periodo", choices=list(PERIODOS), required=True)
+    a = ap.parse_args(); P = PERIODOS[a.periodo]
     kl = F.carregar(P["meses"]); ts = pd.to_datetime(kl.timestamp, unit="ms", utc=True)
     assert ts.iloc[-1] < pd.Timestamp(P["fim"], tz="UTC") and ts.iloc[-1] >= pd.Timestamp(P["inicio"], tz="UTC") + pd.Timedelta(days=5)
     may = (ts < pd.Timestamp("2026-06-01", tz="UTC")).to_numpy()
@@ -117,15 +131,26 @@ def main():
         out["medidas"][nome] = {"variavel": var, "controles": cj, "sinal_registrado": sg, "rho_semanal": r["rho_semanal"], "rho_media": r["rho_media"],
                                 "rho_agrupado": float(rho_pool), "p_blocos_dia": float(p), "p_semanas_secundario": float(p2),
                                 "nula_pipeline": {"rho_semanal": res["pipeline"][nome]["rho_semanal"], "rho_media": res["pipeline"][nome]["rho_media"]}}
-    ps = [out["medidas"][n]["p_blocos_dia"] for n, *_ in PRIMARIAS]; adj = F.holm(np.array(ps))
-    print(f"\nH-SGV-01 [{a.periodo}] {len(wk) - 1} semanas; família primária m = 2, Holm, α = {ALPHA}; espaço de fluxo nos controles")
+    print(f"\nH-SGV-01 [{a.periodo}] {len(wk) - 1} semanas; espaço de fluxo nos controles; julga aqui: {JULGA[a.periodo] or 'nada (ensaio)'}")
     out["veredito"] = {}
-    for (nome, var, _, _), p, pa in zip(PRIMARIAS, ps, adj):
-        e = out["medidas"][nome]; conf = bool(pa < ALPHA)
-        out["veredito"][nome] = {"p": float(p), "p_holm": float(pa), "confirmada": conf if a.periodo != "exploracao" else None}
-        rot = ("CONFIRMADA" if conf else "não confirmada") if a.periodo != "exploracao" else ("critério atingido no ensaio (não julga)" if conf else "critério não atingido no ensaio (não julga)")
-        print(f"  {nome} ({var}): ρ agrupado {e['rho_agrupado']:+.4f} (ρ̄ semanal {e['rho_media']:+.4f}; nula {e['nula_pipeline']['rho_media']:+.4f}) "
-              f"p {p:.4f} Holm {pa:.4f} → {rot}")
+    for nome, var, _, _ in PRIMARIAS:
+        e = out["medidas"][nome]; p = e["p_blocos_dia"]
+        if a.periodo == "exploracao":
+            rot = f"ensaio, não julga (p {p:.4f})"; v = None
+        elif nome not in JULGA[a.periodo]:
+            rot = f"só leitura neste período (p {p:.4f}); julgada em outro período"; v = None
+        elif a.periodo == "confirmatorio":     # a: confirmada já se p_a < α/2; senão espera p_b
+            v = "CONFIRMADA" if p < ALPHA / 2 else "pendente: Holm com p_b de outubro + novembro"; rot = f"p {p:.4f} (limiar α/2 = {ALPHA / 2}) → {v}"
+        elif a.periodo == "conjunto":          # b: Holm m = 2 com p_a de outubro
+            pa_out = json.load(open(ROOT / "resultados" / "H-SGV-01_confirmatorio.json", encoding="utf-8"))["medidas"]["H-SGV-01a"]["p_blocos_dia"]
+            adj = F.holm(np.array([pa_out, p]))
+            v = {"H-SGV-01a": "CONFIRMADA" if adj[0] < ALPHA else "não confirmada", "H-SGV-01b": "CONFIRMADA" if adj[1] < ALPHA else "não confirmada"}
+            out["holm_final"] = {"p_a_outubro": float(pa_out), "p_b_conjunto": float(p), "p_holm_a": float(adj[0]), "p_holm_b": float(adj[1]), "vereditos": v}
+            rot = f"p {p:.4f}; Holm final com p_a(outubro) {pa_out:.4f}: a {adj[0]:.4f} → {v['H-SGV-01a']}; b {adj[1]:.4f} → {v['H-SGV-01b']}"; v = v[nome]
+        else:                                  # replicações: p < α unilateral, relatadas à parte
+            v = "REPLICADA" if p < ALPHA else "não replicada"; rot = f"p {p:.4f} → {v}"
+        out["veredito"][nome] = {"p": float(p), "resultado": v}
+        print(f"  {nome} ({var}): ρ agrupado {e['rho_agrupado']:+.4f} (ρ̄ semanal {e['rho_media']:+.4f}; nula {e['nula_pipeline']['rho_media']:+.4f}) {rot}")
     qs = F.bh([out["medidas"][n]["p_blocos_dia"] for n, *_ in SECUNDARIAS])
     out["secundarias_BH"] = {n: {"rho_media": out["medidas"][n]["rho_media"], "p": out["medidas"][n]["p_blocos_dia"], "p_bh": float(q)} for (n, *_), q in zip(SECUNDARIAS, qs)}
     for n, d in out["secundarias_BH"].items(): print(f"  secundária {n}: ρ̄ {d['rho_media']:+.4f} p_bh {d['p_bh']:.4f}")
