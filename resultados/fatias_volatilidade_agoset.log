@@ -1,0 +1,14 @@
+BTCUSDT-1m-2026-05.zip: SHA-256 conferido
+BTCUSDT-1m-2026-06.zip: SHA-256 conferido
+BTCUSDT-1m-2026-07.zip: SHA-256 conferido
+BTCUSDT-1m-2026-08.zip: SHA-256 conferido
+BTCUSDT-1m-2026-09.zip: SHA-256 conferido
+  real: ok
+  M_4026: ok
+  M_4027: ok
+
+== fatias de volatilidade [agoset]
+  real    1a: R_todos 6.48 R_fatias 2.75 (razão 0.42, R por fatia [nan, nan, 2.75]) | 1b: rot todos 15.8° fatias 43.0° [90.00318054797594, 15.28913746533081, 23.823274758012037] | 2: Disp bruto 1.74 padr 0.14 C 0.92
+  M_4026  1a: R_todos 14.04 R_fatias 4.31 (razão 0.31, R por fatia [nan, nan, 4.31]) | 1b: rot todos 55.4° fatias 64.3° [80.45275493807968, 79.80192940940084, 32.69256798325556] | 2: Disp bruto 1.94 padr 0.22 C 0.89
+  M_4027  1a: R_todos 12.05 R_fatias 3.23 (razão 0.27, R por fatia [3.17, 2.31, 4.21]) | 1b: rot todos 17.9° fatias 66.5° [60.6308764891279, 83.992574794605, 54.933549190462514] | 2: Disp bruto 2.05 padr 0.22 C 0.89
+  classificação (real): {'1a': 'explica', 'razao_R': 0.4247946216955658, '1b_mais_estaveis': False, '2': 'colapsa', 'C': 0.9215498717549078}
