@@ -1,0 +1,29 @@
+BTCUSDT-1m-2026-05.zip: SHA-256 conferido
+BTCUSDT-1m-2026-06.zip: SHA-256 conferido
+BTCUSDT-1m-2026-07.zip: SHA-256 conferido
+BTCUSDT-1m-2026-08.zip: SHA-256 conferido
+BTCUSDT-1m-2026-09.zip: SHA-256 conferido
+  [flow real] 9 semanas
+  [flow nula 0] 9 semanas
+  [flow nula 1] 9 semanas
+  [flow nula 2] 9 semanas
+  [flow nula 3] 9 semanas
+  [flow nula 4] 9 semanas
+
+== flow [agoset] 9 semanas, 8 pares consecutivos
+   persistência do resíduo: real +0.301 | nula +0.209 | Δ médio +0.092 | real acima em 6/8 pares
+   persistência de log tr D bruto: real +0.776 | nula +0.564
+   R² de ν e log ρ: real 0.682 | nula 0.530
+   resíduo médio × coordenada: {'z': 0.098, '|z|': -0.032, 'iota': 0.066, '|iota|': 0.554, 'nu': 0.025, '|nu|': 0.052}
+  [orig real] 9 semanas
+  [orig nula 0] 9 semanas
+  [orig nula 1] 9 semanas
+  [orig nula 2] 9 semanas
+  [orig nula 3] 9 semanas
+  [orig nula 4] 9 semanas
+
+== orig [agoset] 9 semanas, 8 pares consecutivos
+   persistência do resíduo: real +0.308 | nula +0.177 | Δ médio +0.131 | real acima em 6/8 pares
+   persistência de log tr D bruto: real +0.902 | nula +0.882
+   R² de log ρ: real 0.869 | nula 0.851
+   resíduo médio × coordenada: {'E_norm': -0.021, '|E_norm|': 0.456, 'jerk': 0.042, '|jerk|': 0.056, 'memory_flux': -0.058, '|memory_flux|': 0.275}
