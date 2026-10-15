@@ -1,0 +1,87 @@
+BTCUSDT-1m-2026-05.zip: SHA-256 conferido
+BTCUSDT-1m-2026-06.zip: SHA-256 conferido
+BTCUSDT-1m-2026-07.zip: SHA-256 conferido
+BTCUSDT-1m-2026-08.zip: SHA-256 conferido
+BTCUSDT-1m-2026-09.zip: SHA-256 conferido
+  [flow real] mapa 0
+  [flow real] mapa 60
+  [flow real] mapa 120
+  [flow real] mapa 180
+  [flow real] mapa 240
+  [flow real] mapa 300
+  [flow real] mapa 360
+  [flow nula] mapa 0
+  [flow nula] mapa 60
+  [flow nula] mapa 120
+  [flow nula] mapa 180
+  [flow nula] mapa 240
+  [flow nula] mapa 300
+  [flow nula] mapa 360
+
+== flow [agoset] Spearman de Δforma(D)_k com Δforma(casca)_(k+j); j > 0: D antecede
+          dFD×dFS@-2: real +0.176 [+0.068, +0.261] | nula +0.292 [+0.174, +0.393]
+          dFD×dFS@-1: real +0.210 [+0.120, +0.298] | nula +0.351 [+0.229, +0.450]
+          dFD×dFS@+0: real +0.639 [+0.563, +0.703] | nula +0.896 [+0.868, +0.916]
+          dFD×dFS@+1: real +0.279 [+0.161, +0.388] | nula +0.358 [+0.229, +0.465]
+          dFD×dFS@+2: real +0.214 [+0.103, +0.314] | nula +0.275 [+0.153, +0.388]
+         dFD×d512@-2: real +0.242 [+0.133, +0.342] | nula +0.124 [+0.017, +0.219]
+         dFD×d512@-1: real +0.204 [+0.095, +0.308] | nula +0.232 [+0.112, +0.344]
+         dFD×d512@+0: real +0.425 [+0.324, +0.505] | nula +0.514 [+0.407, +0.604]
+         dFD×d512@+1: real +0.275 [+0.149, +0.386] | nula +0.272 [+0.145, +0.379]
+         dFD×d512@+2: real +0.263 [+0.136, +0.376] | nula +0.186 [+0.076, +0.294]
+        angD×angS@-2: real +0.211 [+0.090, +0.310] | nula +0.298 [+0.175, +0.412]
+        angD×angS@-1: real +0.240 [+0.114, +0.360] | nula +0.374 [+0.256, +0.471]
+        angD×angS@+0: real +0.683 [+0.606, +0.744] | nula +0.865 [+0.825, +0.893]
+        angD×angS@+1: real +0.286 [+0.165, +0.395] | nula +0.374 [+0.261, +0.472]
+        angD×angS@+2: real +0.189 [+0.080, +0.286] | nula +0.295 [+0.180, +0.394]
+       angD×theta@-2: real +0.245 [+0.124, +0.372] | nula +0.244 [+0.157, +0.322]
+       angD×theta@-1: real +0.227 [+0.096, +0.348] | nula +0.272 [+0.141, +0.389]
+       angD×theta@+0: real +0.496 [+0.384, +0.593] | nula +0.507 [+0.397, +0.596]
+       angD×theta@+1: real +0.336 [+0.217, +0.438] | nula +0.307 [+0.161, +0.426]
+       angD×theta@+2: real +0.195 [+0.076, +0.305] | nula +0.160 [+0.021, +0.286]
+       dcbar×d512@-2: real +0.073 [-0.046, +0.186] | nula +0.179 [+0.049, +0.291]
+       dcbar×d512@-1: real +0.094 [-0.020, +0.213] | nula +0.255 [+0.126, +0.371]
+       dcbar×d512@+0: real +0.181 [+0.072, +0.277] | nula +0.294 [+0.133, +0.438]
+       dcbar×d512@+1: real +0.103 [-0.006, +0.199] | nula +0.234 [+0.102, +0.348]
+       dcbar×d512@+2: real +0.076 [-0.028, +0.171] | nula +0.139 [+0.016, +0.262]
+  [orig real] mapa 0
+  [orig real] mapa 60
+  [orig real] mapa 120
+  [orig real] mapa 180
+  [orig real] mapa 240
+  [orig real] mapa 300
+  [orig real] mapa 360
+  [orig nula] mapa 0
+  [orig nula] mapa 60
+  [orig nula] mapa 120
+  [orig nula] mapa 180
+  [orig nula] mapa 240
+  [orig nula] mapa 300
+  [orig nula] mapa 360
+
+== orig [agoset] Spearman de Δforma(D)_k com Δforma(casca)_(k+j); j > 0: D antecede
+          dFD×dFS@-2: real -0.039 [-0.133, +0.059] | nula -0.019 [-0.133, +0.087]
+          dFD×dFS@-1: real +0.207 [+0.100, +0.303] | nula +0.115 [+0.008, +0.235]
+          dFD×dFS@+0: real +0.362 [+0.275, +0.438] | nula +0.120 [+0.022, +0.223]
+          dFD×dFS@+1: real +0.117 [+0.016, +0.215] | nula +0.100 [-0.017, +0.214]
+          dFD×dFS@+2: real +0.038 [-0.077, +0.147] | nula +0.125 [+0.035, +0.210]
+         dFD×d512@-2: real +0.031 [-0.070, +0.145] | nula +0.082 [-0.030, +0.196]
+         dFD×d512@-1: real +0.055 [-0.038, +0.155] | nula +0.095 [-0.016, +0.198]
+         dFD×d512@+0: real +0.084 [-0.027, +0.194] | nula +0.116 [+0.011, +0.219]
+         dFD×d512@+1: real -0.041 [-0.140, +0.065] | nula +0.029 [-0.091, +0.152]
+         dFD×d512@+2: real +0.050 [-0.043, +0.154] | nula +0.050 [-0.060, +0.161]
+        angD×angS@-2: real -0.093 [-0.211, +0.025] | nula -0.179 [-0.313, -0.041]
+        angD×angS@-1: real +0.007 [-0.096, +0.120] | nula -0.114 [-0.240, +0.017]
+        angD×angS@+0: real +0.046 [-0.069, +0.154] | nula -0.008 [-0.141, +0.131]
+        angD×angS@+1: real -0.080 [-0.178, +0.018] | nula -0.048 [-0.162, +0.076]
+        angD×angS@+2: real -0.148 [-0.259, -0.045] | nula -0.068 [-0.193, +0.055]
+       angD×theta@-2: real -0.040 [-0.148, +0.059] | nula +0.030 [-0.078, +0.141]
+       angD×theta@-1: real +0.089 [-0.023, +0.187] | nula +0.007 [-0.085, +0.106]
+       angD×theta@+0: real +0.057 [-0.060, +0.172] | nula +0.006 [-0.110, +0.112]
+       angD×theta@+1: real -0.100 [-0.216, +0.016] | nula +0.034 [-0.092, +0.156]
+       angD×theta@+2: real -0.035 [-0.138, +0.082] | nula +0.029 [-0.087, +0.154]
+       dcbar×d512@-2: real -0.027 [-0.133, +0.079] | nula -0.008 [-0.111, +0.092]
+       dcbar×d512@-1: real +0.056 [-0.035, +0.159] | nula -0.006 [-0.105, +0.087]
+       dcbar×d512@+0: real +0.030 [-0.076, +0.139] | nula -0.015 [-0.111, +0.077]
+       dcbar×d512@+1: real -0.033 [-0.144, +0.082] | nula -0.023 [-0.141, +0.080]
+       dcbar×d512@+2: real -0.037 [-0.134, +0.054] | nula -0.065 [-0.175, +0.047]
