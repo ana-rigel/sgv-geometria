@@ -41,13 +41,48 @@
 2. **O bloqueio não é azar.** Com orçamento ×4, o Jaccard do HDR95 no BS35 fica rente ao limite em alguns pares, sobretudo T4·2, que falha uma vez em três. Rerodar o portão com sementes novas passaria mais ou menos metade das vezes. Um "passou" assim seria sorte, não precisão.
 3. **Consequência para o portão oficial:** se o BS35 oficial se comportar como a imitação, as regras vigentes (C02.1 + a + b) dão **~30–50 %** de chance de passar.
 
+## Segundo diagnóstico: o portão inteiro com 10 conjuntos de sementes
+
+**Origem e registro:**
+- Este diagnóstico foi registrado primeiro, no commit `f3c4d5d`, numa execução deste mesmo pedido que foi interrompida quando o ambiente reiniciou.
+- Na retomada, eu não o vi e fiz o diagnóstico acima.
+- Rodei este depois, sem alteração: o script ficou no commit `28fe1d8`, e o registro é `PROTOCOLO_SGV_C02_1B_DIAGNOSTICO_SEMENTES_20261014.md`.
+
+**Desenho:** o mesmo par de execuções do portão, com produção HDR50 ×1 e HDR95 ×4 e comparação com o dobro, nos 42 pares (G3 e BS35). Variam 10 conjuntos novos de sementes de Monte Carlo. Ficam fixos o ajuste, o conjunto retido e os limites.
+
+| Conjunto | Portão | Falhas |
+|---|---|---|
+| 1, 4, 5, 6, 9, 10 | passaria | — |
+| 2 | bloqueado | BS35·T4·2 Jaccard HDR95 (0,0205) |
+| 3 | bloqueado | **G3**·T6·0 centro HDR50 |
+| 7 | bloqueado | BS35·T4·2 Jaccard HDR95 (0,0285) e log V HDR95 |
+| 8 | bloqueado | BS35·T0·1 Jaccard **HDR50**; BS35·T3·0 log V HDR95 |
+
+**4 de 10 conjuntos bloqueiam.** Pelo critério registrado antes de rodar (≥ 3 em 10), a falha é **frequente**. A aposta registrada era de ~35 %.
+
+## Leitura conjunta
+
+1. **O portão, como está desenhado, é quase um sorteio.** Com o extrator funcionando como esperado, um conjunto de sementes passa ~60 % das vezes.
+2. **A causa é estrutural.** São dezenas de checagens por par em 42 pares, cada uma com limite fixo perto do percentil 97–99 do próprio ruído. Com tantas checagens, alguma tende a passar do limite por acaso.
+3. **O BS35·T4·2 é o caso mais frágil,** mas não o único:
+   - 2 das 5 falhas não são do HDR95: centro do HDR50 no **G3**, a família de caudas leves, e Jaccard do HDR50 no BS35;
+   - aumentar só o orçamento do HDR95 não resolveria tudo.
+
 ## Decisão pendente (da Ana, antes do portão oficial)
 
-A errata C02.1b registrou que seria a última julgada no substituto e que o oficial rodaria com as regras vigentes. Há duas opções:
+A errata C02.1b registrou que seria a última julgada no substituto e que o oficial rodaria com as regras vigentes.
 
-- **(a) Manter o registrado.** O oficial roda uma vez com ×4, aceitando ~30–50 % de chance de bloqueio.
-- **(b) Errata C02.1c antes do portão oficial**, com orçamento ×16 no HDR95.
-  - Pela raiz do orçamento, metade do ruído outra vez: o pior par cairia para ~0,017.
-  - Custo computacional ~4× no HDR95.
-  - Seria um desvio declarado do compromisso do C02.1b, motivado por este diagnóstico, e não por um resultado de classificador.
-  - Ela não seria testada antes no substituto, para não repetir o ciclo.
+**Correção da versão anterior deste relatório:** a opção (b) original propunha só ×16 no HDR95. O segundo diagnóstico mostra que isso não basta.
+
+As opções passam a ser três:
+
+- **(a) Manter o registrado.** O oficial roda uma vez com as regras C02.1 + a + b, com chance de ~50–60 % de passar se o oficial se comportar como a imitação.
+- **(b) Errata C02.1c só de orçamento,** antes do oficial: HDR95 ×16 e HDR50 ×4.
+  - Pela raiz do orçamento, o ruído cai pela metade nos dois níveis.
+  - Custo computacional ~4×.
+  - Fica dentro da filosofia do portão atual.
+- **(c) Errata C02.1c de desenho do portão.** Em vez de "nenhuma checagem acima do limite em nenhum par", o portão passaria a julgar a **taxa** de checagens acima do limite contra um teto fixado agora, por exemplo ≤ 1 % por variável e família.
+  - Isso enfrenta a multiplicidade de frente.
+  - É uma mudança de filosofia, e precisaria ser registrada com cuidado.
+
+Nas três opções, o portão oficial roda uma única vez, e nenhuma é testada antes no substituto.
