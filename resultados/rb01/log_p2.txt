@@ -1,0 +1,19 @@
+[   278s] F1 nulo ok
+[   545s] F1 translacao ok
+[   817s] F1 expansao ok
+[  1083s] F1 rotacao ok
+[  1357s] F1 anisotropia ok
+[  1634s] F1 caudas05 ok
+[  1886s] F1 caudas10 ok
+[  2144s] F1 caudas20 ok
+F1 gravado em 2144s
+[   264s] F3 nulo ok
+[   506s] F3 translacao ok
+[   752s] F3 expansao ok
+[   996s] F3 rotacao ok
+[  1246s] F3 anisotropia ok
+[  1485s] F3 caudas05 ok
+[  1721s] F3 caudas10 ok
+[  1960s] F3 caudas20 ok
+F3 gravado em 1960s
+[   256s] F5 nulo ok
