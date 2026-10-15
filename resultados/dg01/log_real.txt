@@ -1,0 +1,17 @@
+BTCUSDT-1m-2026-05.zip: SHA-256 conferido
+BTCUSDT-1m-2026-06.zip: SHA-256 conferido
+BTCUSDT-1m-2026-07.zip: SHA-256 conferido
+[    9s] real relatório 0/366
+[  269s] real relatório 30/366
+[  527s] real relatório 60/366
+[  776s] real relatório 90/366
+[ 1026s] real relatório 120/366
+[ 1276s] real relatório 150/366
+[ 1526s] real relatório 180/366
+[ 1771s] real relatório 210/366
+[ 2020s] real relatório 240/366
+[ 2272s] real relatório 270/366
+[ 2526s] real relatório 300/366
+[ 2779s] real relatório 330/366
+[ 3024s] real relatório 360/366
+real gravado em 3508s
