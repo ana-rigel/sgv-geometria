@@ -1,0 +1,51 @@
+BTCUSDT-1m-2026-05.zip: SHA-256 conferido
+BTCUSDT-1m-2026-06.zip: SHA-256 conferido
+BTCUSDT-1m-2026-07.zip: SHA-256 conferido
+real      log_rho  ρ̄ prim -0.0787 (8/8)  ρ̄ sec -0.0199  semanas [-0.031, -0.054, -0.105, -0.079, -0.043, -0.123, -0.112, -0.083]
+real      basin    ρ̄ prim -0.0783 (8/8)  ρ̄ sec -0.0197  semanas [-0.028, -0.053, -0.101, -0.08, -0.043, -0.125, -0.113, -0.084]
+real      disp     ρ̄ prim +0.0313 (8/8)  ρ̄ sec -0.0297  semanas [0.036, 0.044, 0.028, 0.02, 0.003, 0.047, 0.032, 0.041]
+real      n_obs    ρ̄ prim -0.0789 (8/8)  ρ̄ sec -0.0227  semanas [-0.031, -0.063, -0.1, -0.079, -0.045, -0.122, -0.109, -0.081]
+real      mem_e    ρ̄ prim -0.0274 (8/8)  ρ̄ sec -0.0198  semanas [-0.053, -0.005, -0.017, -0.018, -0.024, -0.022, -0.04, -0.04]
+pipeline  log_rho  ρ̄ prim -0.0053 (5/8)  ρ̄ sec -0.0124  semanas [0.019, 0.008, 0.014, -0.029, -0.026, -0.009, -0.014, -0.004]
+pipeline  basin    ρ̄ prim -0.0055 (5/8)  ρ̄ sec -0.0122  semanas [0.018, 0.008, 0.013, -0.031, -0.027, -0.009, -0.014, -0.003]
+pipeline  disp     ρ̄ prim -0.0039 (4/8)  ρ̄ sec -0.0054  semanas [-0.016, -0.04, 0.004, 0.009, 0.022, -0.02, -0.009, 0.018]
+pipeline  n_obs    ρ̄ prim -0.0086 (3/8)  ρ̄ sec -0.0147  semanas [0.004, 0.003, 0.003, -0.031, -0.034, 0.001, -0.017, 0.002]
+pipeline  mem_e    ρ̄ prim -0.0031 (3/8)  ρ̄ sec -0.0032  semanas [0.006, 0.005, -0.029, 0.004, 0.011, -0.003, 0.01, -0.028]
+correlações (real): {
+"log_rho": {
+"log_rho": 1.0,
+"basin": 0.997,
+"disp": -0.553,
+"n_obs": 0.978,
+"mem_e": 0.032
+},
+"basin": {
+"log_rho": 0.997,
+"basin": 1.0,
+"disp": -0.551,
+"n_obs": 0.975,
+"mem_e": 0.025
+},
+"disp": {
+"log_rho": -0.553,
+"basin": -0.551,
+"disp": 1.0,
+"n_obs": -0.547,
+"mem_e": -0.019
+},
+"n_obs": {
+"log_rho": 0.978,
+"basin": 0.975,
+"disp": -0.547,
+"n_obs": 1.0,
+"mem_e": 0.029
+},
+"mem_e": {
+"log_rho": 0.032,
+"basin": 0.025,
+"disp": -0.019,
+"n_obs": 0.029,
+"mem_e": 1.0
+}
+}
+→ /home/claude/sgv-geometria/resultados/explorar_sgv_original_jun_jul.json
