@@ -1,0 +1,97 @@
+BTCUSDT-1m-2026-05.zip: SHA-256 conferido
+BTCUSDT-1m-2026-06.zip: SHA-256 conferido
+BTCUSDT-1m-2026-07.zip: SHA-256 conferido
+  [flow real] mapa 0
+  [flow real] mapa 60
+  [flow real] mapa 120
+  [flow real] mapa 180
+  [flow real] mapa 240
+  [flow real] mapa 300
+  [flow real] mapa 360
+  [flow nula 0] mapa 0
+  [flow nula 0] mapa 60
+  [flow nula 0] mapa 120
+  [flow nula 0] mapa 180
+  [flow nula 0] mapa 240
+  [flow nula 0] mapa 300
+  [flow nula 0] mapa 360
+  [flow nula 1] mapa 0
+  [flow nula 1] mapa 60
+  [flow nula 1] mapa 120
+  [flow nula 1] mapa 180
+  [flow nula 1] mapa 240
+  [flow nula 1] mapa 300
+  [flow nula 1] mapa 360
+  [flow nula 2] mapa 0
+  [flow nula 2] mapa 60
+  [flow nula 2] mapa 120
+  [flow nula 2] mapa 180
+  [flow nula 2] mapa 240
+  [flow nula 2] mapa 300
+  [flow nula 2] mapa 360
+  [flow nula 3] mapa 0
+  [flow nula 3] mapa 60
+  [flow nula 3] mapa 120
+  [flow nula 3] mapa 180
+  [flow nula 3] mapa 240
+  [flow nula 3] mapa 300
+  [flow nula 3] mapa 360
+  [flow nula 4] mapa 0
+  [flow nula 4] mapa 60
+  [flow nula 4] mapa 120
+  [flow nula 4] mapa 180
+  [flow nula 4] mapa 240
+  [flow nula 4] mapa 300
+  [flow nula 4] mapa 360
+
+== flow [junjul] A ρ(dFD,dFS) real +0.627 | B ρ(dFD,dFQ) real +0.905 | C ρ(dFD,dFQ) nula +0.882 | nula ρ(dFD,dFS) +0.872
+   F = (B−A)/(C−A) = +1.092 IC90 [1.0068, 1.2021] | parcial ρ(dFD,dFS | dFQ) -0.199 | parcial ρ(dFD,dFQ | dFS) +0.845
+   eixo (resíduo de dFD dado dFS × |Δφ|): real {'z': -0.051, 'iota': 0.035, 'nu': -0.135} | nula {'z': 0.041, 'iota': -0.002, 'nu': 0.019}
+   φ mediano real {'z': -0.01, 'iota': 0.103, 'nu': 0.503} | nula {'z': 0.002, 'iota': -0.001, 'nu': 0.02} | FQ mais perto de FD que FS em 100% dos mapas
+  [orig real] mapa 0
+  [orig real] mapa 60
+  [orig real] mapa 120
+  [orig real] mapa 180
+  [orig real] mapa 240
+  [orig real] mapa 300
+  [orig real] mapa 360
+  [orig nula 0] mapa 0
+  [orig nula 0] mapa 60
+  [orig nula 0] mapa 120
+  [orig nula 0] mapa 180
+  [orig nula 0] mapa 240
+  [orig nula 0] mapa 300
+  [orig nula 0] mapa 360
+  [orig nula 1] mapa 0
+  [orig nula 1] mapa 60
+  [orig nula 1] mapa 120
+  [orig nula 1] mapa 180
+  [orig nula 1] mapa 240
+  [orig nula 1] mapa 300
+  [orig nula 1] mapa 360
+  [orig nula 2] mapa 0
+  [orig nula 2] mapa 60
+  [orig nula 2] mapa 120
+  [orig nula 2] mapa 180
+  [orig nula 2] mapa 240
+  [orig nula 2] mapa 300
+  [orig nula 2] mapa 360
+  [orig nula 3] mapa 0
+  [orig nula 3] mapa 60
+  [orig nula 3] mapa 120
+  [orig nula 3] mapa 180
+  [orig nula 3] mapa 240
+  [orig nula 3] mapa 300
+  [orig nula 3] mapa 360
+  [orig nula 4] mapa 0
+  [orig nula 4] mapa 60
+  [orig nula 4] mapa 120
+  [orig nula 4] mapa 180
+  [orig nula 4] mapa 240
+  [orig nula 4] mapa 300
+  [orig nula 4] mapa 360
+
+== orig [junjul] A ρ(dFD,dFS) real +0.198 | B ρ(dFD,dFQ) real +0.477 | C ρ(dFD,dFQ) nula +0.569 | nula ρ(dFD,dFS) +0.110
+   F = (B−A)/(C−A) = +0.752 IC90 [0.5828, 0.9317] | parcial ρ(dFD,dFS | dFQ) +0.000 | parcial ρ(dFD,dFQ | dFS) +0.443
+   eixo (resíduo de dFD dado dFS × |Δφ|): real {'E_norm': 0.04, 'jerk': 0.122, 'memory_flux': 0.065} | nula {'E_norm': 0.049, 'jerk': 0.055, 'memory_flux': 0.038}
+   φ mediano real {'E_norm': 0.939, 'jerk': -0.65, 'memory_flux': 0.944} | nula {'E_norm': 0.944, 'jerk': -0.659, 'memory_flux': 0.95} | FQ mais perto de FD que FS em 100% dos mapas
