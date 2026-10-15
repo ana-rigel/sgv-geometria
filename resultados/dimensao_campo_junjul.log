@@ -1,0 +1,19 @@
+BTCUSDT-1m-2026-05.zip: SHA-256 conferido
+BTCUSDT-1m-2026-06.zip: SHA-256 conferido
+BTCUSDT-1m-2026-07.zip: SHA-256 conferido
+/home/claude/sgv-geometria/pipeline/explora_dimensao_campo.py:124: RuntimeWarning: Mean of empty slice
+  rm = np.nanmean(np.vstack(real["residuos"]), 0); okm = np.isfinite(rm)
+
+== flow [junjul] 9 semanas, 8 pares consecutivos
+   persistência do resíduo: real +0.116 | nula +0.165 | Δ médio -0.049 | real acima em 3/8 pares
+   persistência de log tr D bruto: real +0.818 | nula +0.543
+   R² de ν e log ρ: real 0.769 | nula 0.514
+   resíduo médio × coordenada: {'z': 0.269, '|z|': -0.001, 'iota': 0.261, '|iota|': 0.465, 'nu': 0.034, '|nu|': 0.023}
+/home/claude/sgv-geometria/pipeline/explora_dimensao_campo.py:124: RuntimeWarning: Mean of empty slice
+  rm = np.nanmean(np.vstack(real["residuos"]), 0); okm = np.isfinite(rm)
+
+== orig [junjul] 9 semanas, 8 pares consecutivos
+   persistência do resíduo: real +0.392 | nula +0.217 | Δ médio +0.175 | real acima em 8/8 pares
+   persistência de log tr D bruto: real +0.886 | nula +0.815
+   R² de log ρ: real 0.788 | nula 0.736
+   resíduo médio × coordenada: {'E_norm': 0.066, '|E_norm|': 0.383, 'jerk': -0.072, '|jerk|': 0.067, 'memory_flux': 0.182, '|memory_flux|': 0.198}
