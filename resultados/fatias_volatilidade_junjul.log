@@ -1,0 +1,12 @@
+BTCUSDT-1m-2026-05.zip: SHA-256 conferido
+BTCUSDT-1m-2026-06.zip: SHA-256 conferido
+BTCUSDT-1m-2026-07.zip: SHA-256 conferido
+  real: ok
+  M_4026: ok
+  M_4027: ok
+
+== fatias de volatilidade [junjul]
+  real    1a: R_todos 6.83 R_fatias 4.11 (razão 0.60, R por fatia [nan, nan, 4.11]) | 1b: rot todos 15.8° fatias 27.9° [44.49788943581749, 21.37203655362442, 17.758925104789803] | 2: Disp bruto 1.80 padr 0.21 C 0.88
+  M_4026  1a: R_todos 6.87 R_fatias 3.81 (razão 0.56, R por fatia [nan, nan, 3.81]) | 1b: rot todos 11.0° fatias 43.8° [87.36985451349139, 36.29869336314654, 7.7463573596116655] | 2: Disp bruto 1.99 padr 0.10 C 0.95
+  M_4027  1a: R_todos 6.53 R_fatias 3.72 (razão 0.57, R por fatia [nan, nan, 3.72]) | 1b: rot todos 7.3° fatias 51.9° [89.95775037237796, 56.514281400109255, 9.192219541408724] | 2: Disp bruto 1.77 padr 0.20 C 0.89
+  classificação (real): {'1a': 'explica em parte', 'razao_R': 0.6018941353808573, '1b_mais_estaveis': False, '2': 'colapsa', 'C': 0.8842608200176915}
