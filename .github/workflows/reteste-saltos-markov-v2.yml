@@ -1,0 +1,48 @@
+name: SGV - Reteste saltos Markov V2 (somente controles)
+on:
+  push:
+    branches: ["research/saltos-markov-v2-controles-20261015"]
+    paths:
+      - ".github/workflows/reteste-saltos-markov-v2.yml"
+  workflow_dispatch:
+permissions:
+  contents: write
+concurrency:
+  group: sgv-saltos-markov-v2-controles
+  cancel-in-progress: false
+jobs:
+  controles-conhecidos:
+    runs-on: ubuntu-latest
+    timeout-minutes: 35
+    env:
+      OPENBLAS_NUM_THREADS: "1"
+      OMP_NUM_THREADS: "1"
+      MKL_NUM_THREADS: "1"
+      PYTHONPATH: "."
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Instalar dependencias minimas
+        run: python -m pip install numpy scipy pandas pytest
+      - name: Nove verificacoes de sanidade antes da medida
+        run: python -m pytest -q tests/test_saltos_markov_v2.py
+      - name: Executar controles positivos e negativos independentes
+        run: python pipeline/reteste_saltos_markov_v2.py --out resultados/saltos_markov_v2_controles_20261015.json
+      - if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: controles-saltos-markov-v2
+          path: resultados/saltos_markov_v2_controles_20261015.json
+          if-no-files-found: warn
+      - name: Registrar resultado sem reajustar o protocolo
+        if: always()
+        run: |
+          if [ ! -f resultados/saltos_markov_v2_controles_20261015.json ]; then exit 0; fi
+          git config user.name "github-actions[bot]"
+          git config user.email "41898+github-actions[bot]@users.noreply.github.com"
+          git add -f resultados/saltos_markov_v2_controles_20261015.json
+          git commit -m "results: controles V2 executados sem BTC [skip ci]" || true
+          git pull --rebase
+          git push
