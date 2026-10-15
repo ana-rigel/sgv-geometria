@@ -84,3 +84,22 @@ def test_v_cop_sees_waist_and_cone():
 def test_dependence_scales_keys():
     rng=np.random.default_rng(23);o=m.dependence_scales(rng.standard_normal((600,3)))
     assert len(o)==3*4+6+3 and all(np.isfinite(v) for v in o.values())
+
+
+def _regimes(n,rng,sequential):
+    lab=np.r_[np.zeros(n//2,int),np.ones(n-n//2,int)]
+    if not sequential:lab=rng.permutation(lab)
+    x=rng.standard_normal((n,3));x[:,0]+=np.where(lab==1,2.5,-2.5);x[:,2]+=np.where(lab==1,1.5,-1.5)
+    return x
+
+
+def test_contiguity_separates_regimes_in_time_from_interleaved():
+    rng=np.random.default_rng(30)
+    seq=m.lobe_contiguity(_regimes(1050,rng,True),1)['contiguidade'];mix=m.lobe_contiguity(_regimes(1050,rng,False),1)['contiguidade']
+    assert seq>.8 and abs(mix)<.15
+
+
+def test_mixture_part_positive_only_for_sequential_regimes():
+    rng=np.random.default_rng(31)
+    seq=m.mixture_part(_regimes(1050,rng,True),2)['mistura'];mix=m.mixture_part(_regimes(1050,rng,False),2)['mistura']
+    assert seq>.05 and seq>mix+.05

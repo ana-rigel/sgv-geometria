@@ -222,3 +222,26 @@ def dependence_scales(b):
     o['T2_absz_n']=float(np.corrcoef(np.abs(u[:,0]),u[:,2])[0,1]);o['T2_absi_n']=float(np.corrcoef(np.abs(u[:,1]),u[:,2])[0,1])
     o['T2_absz_absi']=float(np.corrcoef(np.abs(u[:,0]),np.abs(u[:,1]))[0,1])
     return o
+
+
+# ---------------- passo 3, adendo 1: memoria nao markoviana ----------------
+from sklearn.mixture import GaussianMixture as _GM
+
+def _vcop_only(x,seed):
+    return jdist(hdr_mask(bagged_field(whiten(rank_normal(x)),seed)),BALL)
+
+
+def lobe_contiguity(b,seed):
+    """A1: rotulo do componente GMM2 por minuto (ordem temporal) e contiguidade normalizada."""
+    y=whiten(rank_normal(b));gm=_GM(n_components=2,covariance_type='full',reg_covar=1e-4,max_iter=100,n_init=2,random_state=seed).fit(y)
+    lab=gm.predict(y);pi=np.bincount(lab,minlength=2)/len(lab);p0=float((pi**2).sum());ps=float(np.mean(lab[1:]==lab[:-1]))
+    return {'contiguidade':(ps-p0)/(1-p0) if p0<1-1e-9 else np.nan,'peso_menor':float(pi.min())}
+
+
+def mixture_part(b,seed):
+    """A2: media V_cop de 4 quartos embaralhados no tempo menos media de 4 quartos contiguos."""
+    b=np.asarray(b,float);q=np.array_split(np.arange(len(b)),4)
+    perm=np.random.default_rng(seed).permutation(len(b))
+    cont=[_vcop_only(b[ix],seed+j) for j,ix in enumerate(q)]
+    shuf=[_vcop_only(b[perm[ix]],seed+j) for j,ix in enumerate(q)]
+    return {'Vcop_quartos_contiguos':float(np.mean(cont)),'Vcop_quartos_embaralhados':float(np.mean(shuf)),'mistura':float(np.mean(shuf)-np.mean(cont))}

@@ -28,10 +28,16 @@ def job(arg):
     kind=arg[0]
     if kind=='real':
         _,i,W,r=arg;b=half_b(i,W);seed=SEED+int(ts[i]//60000)%100000+7*r
-        if r>0:b=circular_blocks(b,np.random.default_rng(seed),15)
-        out={'kind':'full' if r==0 else 'boot','origin_ts':int(ts[i]),'W':W,'rep':r}
+        blk=120 if r>100 else 15                                   # adendo A3: reps 101..108 com blocos de 120 min
+        if r>0:b=circular_blocks(b,np.random.default_rng(seed),blk)
+        out={'kind':'full' if r==0 else ('boot120' if r>100 else 'boot'),'origin_ts':int(ts[i]),'W':W,'rep':r}
         try:out.update(m.measure_cop(b,seed))
         except (ValueError,RuntimeError,np.linalg.LinAlgError,IndexError):pass
+        if r==0:                                                   # adendo A1/A2: so na amostra original, em ordem temporal
+            try:out.update(m.lobe_contiguity(b,seed))
+            except (ValueError,RuntimeError,np.linalg.LinAlgError,IndexError):pass
+            try:out.update(m.mixture_part(b,seed))
+            except (ValueError,RuntimeError,np.linalg.LinAlgError,IndexError):pass
         out.update(m.dependence_scales(b));return out
     _,n,typ,k,s=arg;rng=np.random.default_rng(31000+1000*n+100*['marg','cone','cintura','caudas'].index(typ)+k)
     x=m.synth_marginal(n,s,rng) if typ=='marg' else m.synth_joint(n,s,rng,typ)
@@ -76,15 +82,30 @@ def reliability(full,boot,col,B=2000,seed=0):
             'var_entre':float(tot),'var_boot_media':float(vb.mean()),'falhas':float(full[col].isna().mean())}
 
 
-if __name__=='__main__':
-    t0=time.perf_counter();rng=np.random.default_rng(5)
-    jobs=[('real',i,W,0) for W in SCALES for i in ORIG]+[('real',i,W,r) for W in SCALES for i in PICK for r in range(1,REPS+1)]
-    for n in SIZES.values():
+def jobs_for(W):
+    rng=np.random.default_rng(5);syn=[]
+    for n in SIZES.values():                       # mesma sequencia de forcas para qualquer particao
         for typ in ('marg','cone','cintura','caudas'):
-            jobs+=[('syn',n,typ,k,float(s)) for k,s in enumerate(rng.uniform(0,1,NSYN))]
-    print('origens',len(ORIG),'jobs',len(jobs),flush=True)
-    with Pool(int(os.environ.get('N_PROC',os.cpu_count() or 2))) as pool:rows=pool.map(job,jobs,chunksize=1)
-    D=pd.DataFrame(rows);D.to_csv(OUT/'medidas.csv.gz',index=False,compression='gzip');print('medicoes s',round(time.perf_counter()-t0),flush=True)
+            syn+=[('syn',n,typ,k,float(s)) for k,s in enumerate(rng.uniform(0,1,NSYN))]
+    return ([('real',i,W,0) for i in ORIG]+[('real',i,W,r) for i in PICK for r in list(range(1,REPS+1))+list(range(101,101+REPS))]
+            +[j for j in syn if j[1]==SIZES[W]])
+
+
+if __name__=='__main__':
+    t0=time.perf_counter()
+    stage=sys.argv[1] if len(sys.argv)>1 else 'tudo'
+    if stage=='medir':                             # particao por escala (engenharia de execucao; mesmas medidas)
+        W=int(sys.argv[2]);jobs=jobs_for(W);print('escala',W,'origens',len(ORIG),'jobs',len(jobs),flush=True)
+        with Pool(int(os.environ.get('N_PROC',os.cpu_count() or 2))) as pool:rows=pool.map(job,jobs,chunksize=1)
+        pd.DataFrame(rows).to_csv(OUT/f'medidas_{W}.csv.gz',index=False,compression='gzip');print('medicoes s',round(time.perf_counter()-t0),flush=True)
+        raise SystemExit(0)
+    if stage=='tudo':
+        for W in SCALES:
+            jobs=jobs_for(W)
+            with Pool(int(os.environ.get('N_PROC',os.cpu_count() or 2))) as pool:rows=pool.map(job,jobs,chunksize=1)
+            pd.DataFrame(rows).to_csv(OUT/f'medidas_{W}.csv.gz',index=False,compression='gzip')
+    D=pd.concat([pd.read_csv(OUT/f'medidas_{W}.csv.gz') for W in SCALES],ignore_index=True)
+    D.to_csv(OUT/'medidas.csv.gz',index=False,compression='gzip');print('medicoes',len(D),flush=True)
     Dsc=pd.DataFrame([describe(i,W) for W in SCALES for i in ORIG]);Dsc.to_csv(OUT/'descritores.csv.gz',index=False,compression='gzip')
     res={'plano_sha256':hashlib.sha256(PLANO.read_bytes()).hexdigest(),'n_origens':len(ORIG),'n_pick':NPICK,'reps':REPS}
     # validade sintetica
@@ -103,6 +124,8 @@ if __name__=='__main__':
         fu=D[(D.kind=='full')&(D.W==W)];bo=D[(D.kind=='boot')&(D.W==W)]
         conf[W]={c:reliability(fu,bo,c) for c in ['V4n_B','V_cop']+mapc}
     res['confiabilidade']=conf
+    b120={W:D[(D.kind=='boot120')&(D.W==W)] for W in SCALES}
+    res['adendo_A3_confiabilidade_blocos120']={W:{c:reliability(D[(D.kind=='full')&(D.W==W)],b120[W],c) for c in ('V4n_B','V_cop')} for W in SCALES}
     # regra 1
     cand=[W for W in SCALES if val[SIZES[W]]['V_cop_valido'] and (conf[W]['V_cop'] or {}).get('confiabilidade',-9)>=.6]
     Wc=min(cand) if cand else None;res['regra1_escala_candidata']=Wc
@@ -124,11 +147,34 @@ if __name__=='__main__':
         fu=fu.copy();fu['res']=fu.V_cop-Z@beta;bo['res']=bo.V_cop-np.column_stack([np.ones(len(bo)),bo[T2].to_numpy(float)])@beta
         rr=reliability(fu,bo,'res');frac=float(fu.res.var()/fu.V_cop.var())
         cand2=bool(rr and rr['confiabilidade']>=.5 and frac>=.25)
+        b2=D[(D.kind=='boot120')&(D.W==Wc)].dropna(subset=['V_cop']+T2).copy()
+        b2['res']=b2.V_cop-np.column_stack([np.ones(len(b2)),b2[T2].to_numpy(float)])@beta
+        rr120=reliability(fu,b2,'res')
+        res['adendo_A3_residuo_blocos120']=rr120
+        res['adendo_RA3_rotulo']=(None if not cand2 else ('candidato dependente de memoria' if not rr120 or rr120['confiabilidade']<.5 else 'candidato robusto a blocos de 120 min'))
         res['regra2_residuo']={**(rr or {}),'fracao_var_residuo':frac,'candidato_medida_nova':cand2,
                                'coeficientes_T2':dict(zip(['intercepto']+T2,[float(b) for b in beta]))}
     else:res['regra2_residuo']={'nao_avaliado':'nenhuma escala candidata (regra 1)'}
+    # adendo A1/A2: memoria
+    from scipy.stats import binomtest
+    mem={}
+    for W in SCALES:
+        fu=D[(D.kind=='full')&(D.W==W)].sort_values('origin_ts');o=fu.origin_ts.to_numpy();keep=[];last=-10**18
+        for k,t in enumerate(o):
+            if t-last>=W*60000:keep.append(k);last=t
+        nov=fu.iloc[keep];mx=nov.mistura.dropna();ct=fu.contiguidade.dropna()
+        mem[W]={'contiguidade_mediana':float(ct.median()),'contiguidade_q25_q75':[float(ct.quantile(.25)),float(ct.quantile(.75))],
+                'fracao_contiguidade_maior_0_2':float((ct>.2).mean()),'spearman_contiguidade_Vcop':float(fu[['contiguidade','V_cop']].corr('spearman').iloc[0,1]),
+                'peso_menor_mediana':float(fu.peso_menor.median()),
+                'mistura_mediana':float(fu.mistura.median()),'Vcop_quartos_contiguos_mediana':float(fu.Vcop_quartos_contiguos.median()),
+                'Vcop_quartos_embaralhados_mediana':float(fu.Vcop_quartos_embaralhados.median()),
+                'spearman_mistura_Vcop':float(fu[['mistura','V_cop']].corr('spearman').iloc[0,1]),
+                'n_sem_sobreposicao':int(len(mx)),'fracao_positiva_sem_sobreposicao':float((mx>0).mean()) if len(mx) else None,
+                'p_sinal_unilateral':float(binomtest(int((mx>0).sum()),len(mx),.5,alternative='greater').pvalue) if len(mx) else None}
+        mem[W]['RA2_mistura_presente']=bool(mem[W]['p_sinal_unilateral'] is not None and mem[W]['p_sinal_unilateral']<.05)
+    res['adendo_A1_A2_memoria']=mem
     res['segundos']=round(time.perf_counter()-t0)
     (OUT/'passo3.json').write_text(json.dumps(res,indent=1,ensure_ascii=False))
-    print(json.dumps({k:res[k] for k in ('validade_sintetica','regra1_escala_candidata','regra2_residuo')},ensure_ascii=False)[:4000])
+    print(json.dumps({k:res.get(k) for k in ('validade_sintetica','regra1_escala_candidata','regra2_residuo','adendo_RA3_rotulo','adendo_A1_A2_memoria')},ensure_ascii=False)[:6000])
     print('conf V_cop',{W:(conf[W]['V_cop'] or {}).get('confiabilidade') for W in SCALES},'V4n_B',{W:(conf[W]['V4n_B'] or {}).get('confiabilidade') for W in SCALES})
     print('total s',res['segundos'])

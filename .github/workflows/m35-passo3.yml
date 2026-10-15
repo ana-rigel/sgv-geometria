@@ -1,15 +1,18 @@
-name: SGV-M35 passo 3 - eixos x combinacao dos eixos (BTC 1m mai-jul ja gasto, disparo por arquivo)
+name: SGV-M35 passo 3 - eixos x combinacao dos eixos + memoria (BTC 1m mai-jul ja gasto, disparo por arquivo)
 on:
   push:
     branches: [research/m35-traducao-geometrica]
     paths: ['reports/m35/passo3/disparo.json']
 permissions:
   contents: write
+env: {OPENBLAS_NUM_THREADS: '1', OMP_NUM_THREADS: '1', MKL_NUM_THREADS: '1'}
 jobs:
-  m35p3:
+  medir:
     runs-on: ubuntu-latest
-    timeout-minutes: 330
-    env: {OPENBLAS_NUM_THREADS: '1', OMP_NUM_THREADS: '1', MKL_NUM_THREADS: '1'}
+    timeout-minutes: 355
+    strategy:
+      fail-fast: false
+      matrix: {W: [1500, 3000, 6000]}
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-python@v5
@@ -26,15 +29,43 @@ jobs:
               msg=bk.download_month('1m',mo);print(msg)
               if not msg.startswith(('ok','já estava ok')):raise SystemExit('download falhou: '+msg)
           PY
-      - name: M35 passo 3
+      - name: Medir escala ${{ matrix.W }}
         run: |
           nproc
-          python -W ignore scripts/m35_passo3.py 2>&1 | tee reports/m35/passo3/passo3.log
+          python -W ignore scripts/m35_passo3.py medir ${{ matrix.W }} 2>&1 | tee reports/m35/passo3/medir_${{ matrix.W }}.log
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: m35p3-${{ matrix.W }}
+          path: reports/m35/passo3/*_${{ matrix.W }}.*
+  analisar:
+    needs: medir
+    runs-on: ubuntu-latest
+    timeout-minutes: 60
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with: {python-version: '3.11'}
+      - run: python -m pip install numpy scipy pandas scikit-learn scikit-image trimesh pytest
+      - uses: actions/download-artifact@v4
+        with: {path: art, pattern: 'm35p3-*', merge-multiple: true}
+      - run: cp art/* reports/m35/passo3/ && ls -la reports/m35/passo3/
+      - name: Dados
+        run: |
+          python - <<'PY'
+          import sys;sys.path.insert(0,'scripts');import baixar_klines as bk
+          bk.SYMBOL='BTCUSDT';bk.DEST.mkdir(exist_ok=True)
+          for mo in ('2026-05','2026-06','2026-07'):
+              msg=bk.download_month('1m',mo);print(msg)
+              if not msg.startswith(('ok','já estava ok')):raise SystemExit('download falhou: '+msg)
+          PY
+      - name: Analisar (regras congeladas)
+        run: python -W ignore scripts/m35_passo3.py analisar 2>&1 | tee reports/m35/passo3/passo3.log
       - name: Commit
         if: always()
         run: |
           git config user.name "sgv-m35-bot"
           git config user.email "sgv-m35-bot@users.noreply.github.com"
-          git add -f reports/m35/passo3/passo3.json reports/m35/passo3/medidas.csv.gz reports/m35/passo3/descritores.csv.gz reports/m35/passo3/passo3.log || true
-          git commit -m "results: M35 step 3 per-axis vs joint deformation (BTC 1m May-Jul, spent) [skip ci]" || echo "nada a commitar"
+          git add -f reports/m35/passo3/passo3.json reports/m35/passo3/medidas.csv.gz reports/m35/passo3/descritores.csv.gz reports/m35/passo3/passo3.log reports/m35/passo3/medir_*.log || true
+          git commit -m "results: M35 step 3 per-axis vs joint deformation + memory (BTC 1m May-Jul, spent) [skip ci]" || echo "nada a commitar"
           git pull --rebase && git push
