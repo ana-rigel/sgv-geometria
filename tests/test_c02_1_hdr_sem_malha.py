@@ -143,3 +143,18 @@ def test_c02_1b_budget_only_changes_hdr95():
     assert 3.0 < f4['_num_hdr95_ess_a'] / f1['_num_hdr95_ess_a'] < 5.0
     with pytest.raises(ValueError):
         hdr12_ml(a, b, p, q, seed=7, hdr95_budget=2)
+
+
+def test_c02_1c_budgets_scale_each_level_independently():
+    """C02.1c: hdr50_budget=4, hdr95_budget=16 — each level's ESS scales by its own factor; W2 unchanged."""
+    p = gauss(); q = gauss(mu=(0.3, 0., 0.))
+    a, b = obs(p, 20), obs(q, 21)
+    f1 = hdr12_ml(a, b, p, q, seed=7)
+    fc = hdr12_ml(a, b, p, q, seed=7, hdr50_budget=4, hdr95_budget=16)
+    assert 3.0 < fc['_num_hdr50_ess_a'] / f1['_num_hdr50_ess_a'] < 5.0
+    assert 12.0 < fc['_num_hdr95_ess_a'] / f1['_num_hdr95_ess_a'] < 20.0
+    assert fc['hdr50_w2_hdr'] == f1['hdr50_w2_hdr'] and fc['hdr95_w2_hdr'] == f1['hdr95_w2_hdr']
+    # the larger budget still recovers the analytic gaussian answer for a pure translation
+    assert abs(fc['hdr95_log_volume_ratio']) < 0.02 and abs(fc['hdr95_center_distance'] - 0.3) < 0.02
+    with pytest.raises(ValueError):
+        hdr12_ml(a, b, p, q, seed=7, hdr50_budget=16)

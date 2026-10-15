@@ -134,21 +134,24 @@ def w2_hdr(a_obs: np.ndarray, b_obs: np.ndarray, p: GMM3, q: GMM3, alpha: float)
 
 
 def hdr12_ml(a_obs: np.ndarray, b_obs: np.ndarray, p: GMM3, q: GMM3, *, seed: int,
-             scale: int = 1, hdr95_budget: int = 1) -> dict[str, float]:
+             scale: int = 1, hdr95_budget: int = 1, hdr50_budget: int = 1) -> dict[str, float]:
     """HDR12-ML block plus `_num_*` diagnostics; raises on any fail-closed condition.
 
-    hdr95_budget: multiplier of the Monte Carlo budget at alpha = 0.95 only (C02.1b: 4; C02.1/C02.1a: 1).
+    hdr95_budget: multiplier of the Monte Carlo budget at alpha = 0.95 only (C02.1/C02.1a: 1; C02.1b: 4; C02.1c: 16).
+    hdr50_budget: multiplier at alpha = 0.50 only (C02.1/a/b: 1; C02.1c: 4).
     """
     if scale not in (1, 2):
         raise ValueError('scale is 1 (production budget) or 2 (precision gate)')
-    if hdr95_budget not in (1, 4):
-        raise ValueError('hdr95_budget is 1 (C02.1/C02.1a) or 4 (C02.1b)')
+    if hdr95_budget not in (1, 4, 16):
+        raise ValueError('hdr95_budget is 1 (C02.1/C02.1a), 4 (C02.1b) or 16 (C02.1c)')
+    if hdr50_budget not in (1, 4):
+        raise ValueError('hdr50_budget is 1 (C02.1/a/b) or 4 (C02.1c)')
     out: dict[str, float] = {}
     _, cov_a = p.moments()
     s_a = float(np.sqrt(np.trace(cov_a) / 3))
     for alpha in ALPHAS:
         lab = f'hdr{int(alpha * 100)}'
-        sc = scale * (hdr95_budget if alpha == 0.95 else 1)
+        sc = scale * (hdr95_budget if alpha == 0.95 else hdr50_budget)
         ra = region(p, alpha, seed=subseed(seed, f'A|{alpha}'), scale=sc)
         rb = region(q, alpha, seed=subseed(seed, f'B|{alpha}'), scale=sc)
         out[f'{lab}_center_distance'] = float(np.linalg.norm(rb.centroid - ra.centroid))
