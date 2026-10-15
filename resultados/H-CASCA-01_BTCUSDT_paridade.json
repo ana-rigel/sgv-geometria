@@ -1,0 +1,13 @@
+{
+ "modo": "paridade",
+ "relatorio": {
+  "mapas_validos": 329,
+  "pares": 291,
+  "rho": 0.6379573311776536
+ },
+ "disjunto": {
+  "pares": 20,
+  "rho": 0.6556390977443608
+ },
+ "confere": true
+}

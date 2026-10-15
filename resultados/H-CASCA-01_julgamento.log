@@ -1,0 +1,66 @@
+LTCUSDT-1m-2026-05.zip: SHA-256 conferido
+LTCUSDT-1m-2026-06.zip: SHA-256 conferido
+LTCUSDT-1m-2026-07.zip: SHA-256 conferido
+LTCUSDT-1m-2026-08.zip: SHA-256 conferido
+LTCUSDT-1m-2026-09.zip: SHA-256 conferido
+{
+ "hipotese": "H-CASCA-01",
+ "simbolo": "LTCUSDT",
+ "modo": "julgamento",
+ "regua": {
+  "mediana_maio": [
+   0.005604717213067587,
+   1.2701617535526566e-11,
+   0.0007182324755965475
+  ],
+  "escala": [
+   1.964159396174307,
+   0.0018199332976017266,
+   0.06892889002300635
+  ]
+ },
+ "janelas": 104,
+ "janelas_validas": 89,
+ "pares_possiveis": 52,
+ "pares_validos": 41,
+ "rho": 0.3482578397212544,
+ "p_permutacao": 0.013098690130986902,
+ "erros": [
+  "insufficient_coverage:0.80378",
+  "insufficient_coverage:0.87083",
+  "insufficient_coverage:0.87522",
+  "insufficient_coverage:0.89292",
+  "insufficient_coverage:0.90900",
+  "insufficient_coverage:0.91061",
+  "insufficient_coverage:0.92073",
+  "insufficient_coverage:0.92881",
+  "insufficient_coverage:0.92993",
+  "insufficient_coverage:0.93327",
+  "insufficient_coverage:0.94026",
+  "insufficient_coverage:0.94164",
+  "insufficient_coverage:0.94893",
+  "insufficient_coverage:0.94910",
+  "insufficient_coverage:0.94960"
+ ],
+ "secundarios": {
+  "rho_curtose_E": 0.5334494773519164,
+  "rho_q99": 0.17700348432055754,
+  "rho_max": 0.24616724738675966,
+  "rho_so_v50": -0.11829268292682929,
+  "rho_so_v95": 0.11306620209059236,
+  "confiabilidade_sementes": 0.9562214713640226,
+  "rho_por_semente": [
+   0.3482578397212544,
+   0.3738675958188154,
+   0.3794425087108015,
+   0.3390243902439025,
+   0.4033101045296168
+  ],
+  "nula_pipeline": {
+   "pares": 48,
+   "rho": 0.3277247069040382
+  }
+ },
+ "valido": true,
+ "veredito": "NÃO CONFIRMADA"
+}
