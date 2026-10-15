@@ -1,0 +1,3 @@
+d533adb39f29a1e8b433a1bf98f406a4d993dc59d74b6dea3fae2e57c0aceda0  regua/rb01.py
+d92fd3d38b55c43c5172a9028e5cacd6eee4731b63e75825800f7b062c389b87  regua/run_rb01.py
+29bed90ddac6ae5d5ab22baecd686c435bd360fbce5592ef83f91812a2cdd3a6  tests/test_rb01.py
