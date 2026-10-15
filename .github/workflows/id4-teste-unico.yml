@@ -1,0 +1,70 @@
+name: SGV-ID4 - Teste unico de identificabilidade
+on:
+  push:
+    branches: [research/identificabilidade-4d-memoria-direcional-20261015]
+    paths: [".github/workflows/id4-teste-unico.yml"]
+permissions:
+  contents: write
+concurrency:
+  group: id4-heldout-once
+  cancel-in-progress: false
+jobs:
+  heldout:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    env:
+      OPENBLAS_NUM_THREADS: "1"
+      OMP_NUM_THREADS: "1"
+      MKL_NUM_THREADS: "1"
+      PYTHONPATH: "."
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - run: python -m pip install numpy scipy scikit-learn pytest
+      - name: Reproducao de preflight sem gerar os testes
+        run: python -m pytest -q tests/test_id4_vol_direction.py
+      - name: Validar blobs congelados e inexistencia de liberacao anterior
+        run: |
+          test "$(git hash-object pipeline/id4_vol_direction.py)" = "471070b3d179d9bad50aaab3756ac1484008bd15"
+          test "$(git hash-object resultados/id4_modelos_congelados.json)" = "d99568bd2f4998a0f1ca8e6411ca6afa44135c4b"
+          test ! -f resultados/id4_TEST_RELEASE.txt
+          test ! -f resultados/id4_resultado_teste_unico.json
+          sha256sum resultados/id4_modelos_congelados.json
+      - name: Registrar liberacao antes de gerar os 12 pares
+        run: |
+          mkdir -p resultados
+          echo "SGV-ID4 HELDOUT RELEASED; ids 18-29; 2026-10-15; source blob 471070b3d179d9bad50aaab3756ac1484008bd15; freeze blob d99568bd2f4998a0f1ca8e6411ca6afa44135c4b" > resultados/id4_TEST_RELEASE.txt
+          git config user.name "github-actions[bot]"
+          git config user.email "41898+github-actions[bot]@users.noreply.github.com"
+          git add -f resultados/id4_TEST_RELEASE.txt
+          git commit -m "holdout(ID4): registrar liberacao unica antes de gerar dados [skip ci]"
+          git pull --rebase
+          git push
+      - name: Gerar e avaliar somente teste final com modelos congelados
+        run: |
+          model_sha=$(sha256sum resultados/id4_modelos_congelados.json | awk '{print $1}')
+          python pipeline/id4_vol_direction.py --stage test \
+            --freeze resultados/id4_modelos_congelados.json \
+            --freeze-sha "$model_sha" \
+            --out resultados/id4_resultado_teste_unico.json
+      - name: Preservar resultado integral independentemente do veredito
+        if: always()
+        run: |
+          if [ ! -f resultados/id4_resultado_teste_unico.json ]; then exit 0; fi
+          git config user.name "github-actions[bot]"
+          git config user.email "41898+github-actions[bot]@users.noreply.github.com"
+          git add -f resultados/id4_resultado_teste_unico.json
+          git commit -m "results(ID4): teste unico de memoria direcional - positivo ou negativo [skip ci]" || true
+          git pull --rebase
+          git push
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: SGV-ID4-teste-unico
+          path: |
+            resultados/id4_TEST_RELEASE.txt
+            resultados/id4_modelos_congelados.json
+            resultados/id4_resultado_teste_unico.json
+          if-no-files-found: warn
