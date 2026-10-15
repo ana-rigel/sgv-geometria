@@ -1,0 +1,30 @@
+BTCUSDT-1m-2026-05.zip: SHA-256 conferido
+BTCUSDT-1m-2026-06.zip: SHA-256 conferido
+BTCUSDT-1m-2026-07.zip: SHA-256 conferido
+BTCUSDT-1m-2026-08.zip: SHA-256 conferido
+BTCUSDT-1m-2026-09.zip: SHA-256 conferido
+  real: ok
+  M_4026: ok
+  M_4027: ok
+  M_4028: ok
+  M_4029: ok
+  M_4030: ok
+  G_3026: ok
+  G_3027: ok
+  G_3028: ok
+  G_3029: ok
+  G_3030: ok
+
+== volatilidade multiescala [agoset]  (M = memória da surpresa do retorno; menor = mais markoviano)
+  real    sem_vol +0.349  c60 +0.154  ew10 +0.062  ew30 +0.121  har +0.101
+  M_4026  sem_vol +0.306  c60 +0.261  ew10 +0.088  ew30 +0.208  har +0.194  oraculo +0.005
+  M_4027  sem_vol +0.308  c60 +0.262  ew10 +0.080  ew30 +0.205  har +0.188  oraculo +0.005
+  M_4028  sem_vol +0.295  c60 +0.266  ew10 +0.084  ew30 +0.214  har +0.201  oraculo +0.003
+  M_4029  sem_vol +0.311  c60 +0.285  ew10 +0.098  ew30 +0.229  har +0.213  oraculo +0.003
+  M_4030  sem_vol +0.316  c60 +0.276  ew10 +0.090  ew30 +0.222  har +0.208  oraculo +0.003
+  G_3026  sem_vol +0.308  c60 +0.118  ew10 -0.040  ew30 +0.069  har +0.065  oraculo -0.002
+  G_3027  sem_vol +0.311  c60 +0.121  ew10 -0.035  ew30 +0.072  har +0.068  oraculo +0.004
+  G_3028  sem_vol +0.318  c60 +0.119  ew10 -0.032  ew30 +0.072  har +0.067  oraculo +0.005
+  G_3029  sem_vol +0.305  c60 +0.114  ew10 -0.041  ew30 +0.066  har +0.065  oraculo -0.003
+  G_3030  sem_vol +0.315  c60 +0.118  ew10 -0.034  ew30 +0.070  har +0.064  oraculo +0.004
+  calibração por semana (φ_h, Var h): [(0.864, 0.036), (0.894, 0.065), (0.83, 0.064), (0.886, 0.069), (0.911, 0.047), (0.933, 0.177), (0.949, 0.246), (0.97, 0.336), (0.948, 0.269), (0.98, 0.529), (0.971, 0.429), (0.851, 0.093), (0.956, 0.57), (0.923, 0.241), (0.958, 0.261), (0.86, 0.156), (0.927, 0.251), (0.855, 0.13)]
