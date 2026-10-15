@@ -1,0 +1,23 @@
+BTCUSDT-1m-2026-05.zip: SHA-256 conferido
+BTCUSDT-1m-2026-06.zip: SHA-256 conferido
+BTCUSDT-1m-2026-07.zip: SHA-256 conferido
+  real: ok
+  G_3026: ok
+  G_3027: ok
+  G_3028: ok
+  G_3029: ok
+  G_3030: ok
+  S_2026: ok
+  S_2027: ok
+  S_2028: ok
+
+== volatilidade escondida [junjul]  (M = memória da surpresa; menor = mais markoviano)
+  real    sem_vol +0.221  c60 +0.300  ew10 +0.169  ew30 +0.245  har +0.209
+  G_3026  sem_vol +0.252  c60 +0.320  ew10 +0.203  ew30 +0.273  har +0.256  oraculo +0.256
+  G_3027  sem_vol +0.251  c60 +0.319  ew10 +0.204  ew30 +0.272  har +0.257  oraculo +0.248
+  G_3028  sem_vol +0.247  c60 +0.313  ew10 +0.195  ew30 +0.264  har +0.246  oraculo +0.238
+  G_3029  sem_vol +0.241  c60 +0.324  ew10 +0.209  ew30 +0.276  har +0.257  oraculo +0.259
+  G_3030  sem_vol +0.251  c60 +0.322  ew10 +0.206  ew30 +0.273  har +0.255  oraculo +0.261
+  S_2026  sem_vol +0.236  c60 +0.327  ew10 +0.206  ew30 +0.276  har +0.243  oraculo +0.281
+  S_2027  sem_vol +0.238  c60 +0.321  ew10 +0.198  ew30 +0.267  har +0.235  oraculo +0.269
+  S_2028  sem_vol +0.252  c60 +0.324  ew10 +0.190  ew30 +0.269  har +0.241  oraculo +0.269

@@ -1,0 +1,21 @@
+{
+ "etapa_A": {
+  "junjul": {
+   "red_oraculo_G": -0.016810765909088254,
+   "red_c60_G": -0.2870758330574457,
+   "red_ew10_G": 0.18046864872998702,
+   "red_ew30_G": -0.09433784400125131,
+   "red_har_G": -0.023230195088280614
+  },
+  "agoset": {
+   "red_oraculo_G": -0.02056515331991258,
+   "red_c60_G": -0.23788869917672262,
+   "red_ew10_G": 0.1247413869525755,
+   "red_ew30_G": -0.1108012079438209,
+   "red_har_G": -0.10602587751890558
+  }
+ },
+ "validacao_passa": false,
+ "estimativa_escolhida": "ew10",
+ "veredito": "INCONCLUSIVO (o método não remove a memória nem com a volatilidade verdadeira)"
+}
