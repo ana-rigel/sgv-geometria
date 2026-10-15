@@ -1,0 +1,435 @@
+{
+ "hipotese": "H-SGV-01",
+ "periodo": "exploracao",
+ "semanas_julgadas": [
+  "2026-06-08",
+  "2026-06-15",
+  "2026-06-22",
+  "2026-06-29",
+  "2026-07-06",
+  "2026-07-13",
+  "2026-07-20",
+  "2026-07-27"
+ ],
+ "congelado": {
+  "alpha": 0.05,
+  "B_perm": 5000,
+  "B_boot": 20000,
+  "seed_boot": 20261013,
+  "seed_null": 2026,
+  "p_primario": "permutacao do par dentro do dia (p_blocos do H-FORMA-D-01)"
+ },
+ "medidas": {
+  "H-SGV-01a": {
+   "variavel": "log_rho",
+   "controles": "fluxo",
+   "sinal_registrado": -1,
+   "rho_semanal": [
+    -0.0156,
+    -0.0412,
+    -0.0956,
+    -0.062,
+    -0.0327,
+    -0.103,
+    -0.0946,
+    -0.0658
+   ],
+   "rho_media": -0.06381436745399069,
+   "rho_agrupado": -0.06302779247100031,
+   "p_blocos_dia": 0.0,
+   "p_semanas_secundario": 0.0,
+   "nula_pipeline": {
+    "rho_semanal": [
+     0.0192,
+     0.0029,
+     0.0163,
+     -0.0318,
+     -0.0272,
+     -0.0085,
+     -0.0141,
+     -0.0031
+    ],
+    "rho_media": -0.005786252529928676
+   }
+  },
+  "H-SGV-01b": {
+   "variavel": "mem_e",
+   "controles": "fluxo",
+   "sinal_registrado": -1,
+   "rho_semanal": [
+    -0.053,
+    -0.0061,
+    -0.0091,
+    -0.0199,
+    -0.0241,
+    -0.0192,
+    -0.0432,
+    -0.0332
+   ],
+   "rho_media": -0.025974753991399646,
+   "rho_agrupado": -0.02438289259268883,
+   "p_blocos_dia": 0.0066,
+   "p_semanas_secundario": 0.0,
+   "nula_pipeline": {
+    "rho_semanal": [
+     0.0053,
+     0.0069,
+     -0.0276,
+     0.0014,
+     0.0104,
+     -0.0049,
+     0.0113,
+     -0.0288
+    ],
+    "rho_media": -0.003234888886010974
+   }
+  },
+  "raridade_prim": {
+   "variavel": "log_rho",
+   "controles": "prim",
+   "sinal_registrado": -1,
+   "rho_semanal": [
+    -0.0311,
+    -0.0544,
+    -0.105,
+    -0.0788,
+    -0.0427,
+    -0.1228,
+    -0.1117,
+    -0.0829
+   ],
+   "rho_media": -0.07867601314514075,
+   "rho_agrupado": -0.07780445916763543,
+   "p_blocos_dia": 0.0,
+   "p_semanas_secundario": 0.0,
+   "nula_pipeline": {
+    "rho_semanal": [
+     0.019,
+     0.0079,
+     0.0137,
+     -0.0287,
+     -0.0264,
+     -0.0091,
+     -0.0141,
+     -0.0044
+    ],
+    "rho_media": -0.005266508188334543
+   }
+  },
+  "esticamento_prim": {
+   "variavel": "mem_e",
+   "controles": "prim",
+   "sinal_registrado": -1,
+   "rho_semanal": [
+    -0.053,
+    -0.0047,
+    -0.017,
+    -0.0185,
+    -0.0242,
+    -0.0223,
+    -0.0396,
+    -0.0398
+   ],
+   "rho_media": -0.02738671537803971,
+   "rho_agrupado": -0.025757143068267676,
+   "p_blocos_dia": 0.0046,
+   "p_semanas_secundario": 0.0,
+   "nula_pipeline": {
+    "rho_semanal": [
+     0.0059,
+     0.0054,
+     -0.0291,
+     0.0036,
+     0.0105,
+     -0.0026,
+     0.01,
+     -0.0284
+    ],
+    "rho_media": -0.0030888783390829984
+   }
+  },
+  "raridade_campo_orig": {
+   "variavel": "log_rho",
+   "controles": "orig",
+   "sinal_registrado": -1,
+   "rho_semanal": [
+    0.0239,
+    0.0027,
+    -0.0538,
+    -0.043,
+    0.029,
+    -0.023,
+    -0.0119,
+    -0.0827
+   ],
+   "rho_media": -0.01985795312091003,
+   "rho_agrupado": -0.014829774103114118,
+   "p_blocos_dia": 0.0526,
+   "p_semanas_secundario": 0.05865,
+   "nula_pipeline": {
+    "rho_semanal": [
+     0.0326,
+     -0.0289,
+     0.0164,
+     -0.0096,
+     -0.012,
+     -0.0469,
+     -0.0389,
+     -0.0116
+    ],
+    "rho_media": -0.01236883372579976
+   }
+  },
+  "esticamento_campo_orig": {
+   "variavel": "mem_e",
+   "controles": "orig",
+   "sinal_registrado": -1,
+   "rho_semanal": [
+    -0.0285,
+    -0.0062,
+    -0.0088,
+    0.0015,
+    -0.028,
+    -0.0143,
+    -0.033,
+    -0.0414
+   ],
+   "rho_media": -0.019844522650792663,
+   "rho_agrupado": -0.01774164215054242,
+   "p_blocos_dia": 0.0458,
+   "p_semanas_secundario": 0.0,
+   "nula_pipeline": {
+    "rho_semanal": [
+     0.0056,
+     0.0055,
+     -0.0266,
+     0.0007,
+     0.0117,
+     -0.0017,
+     0.0055,
+     -0.0261
+    ],
+    "rho_media": -0.0031774490883358557
+   }
+  },
+  "esticamento_retornos_lentos": {
+   "variavel": "mem_e",
+   "controles": "ret",
+   "sinal_registrado": -1,
+   "rho_semanal": [
+    -0.0403,
+    -0.0229,
+    -0.0367,
+    -0.0203,
+    -0.0302,
+    -0.0008,
+    -0.0249,
+    -0.0436
+   ],
+   "rho_media": -0.027453619088922097,
+   "rho_agrupado": -0.02648314962235878,
+   "p_blocos_dia": 0.0032,
+   "p_semanas_secundario": 0.0,
+   "nula_pipeline": {
+    "rho_semanal": [
+     -0.0102,
+     0.0066,
+     0.0195,
+     -0.025,
+     -0.0083,
+     0.0044,
+     0.0026,
+     -0.0238
+    ],
+    "rho_media": -0.004270933056198538
+   }
+  },
+  "deslocamento_prim": {
+   "variavel": "disp",
+   "controles": "prim",
+   "sinal_registrado": 1,
+   "rho_semanal": [
+    0.0356,
+    0.0435,
+    0.0282,
+    0.0197,
+    0.003,
+    0.0467,
+    0.0324,
+    0.0412
+   ],
+   "rho_media": 0.03127646386624913,
+   "rho_agrupado": 0.02998336400658406,
+   "p_blocos_dia": 0.0002,
+   "p_semanas_secundario": 0.0,
+   "nula_pipeline": {
+    "rho_semanal": [
+     -0.0159,
+     -0.0395,
+     0.0039,
+     0.0091,
+     0.0223,
+     -0.0198,
+     -0.0089,
+     0.0177
+    ],
+    "rho_media": -0.0039084947451105394
+   }
+  },
+  "deslocamento_fluxo": {
+   "variavel": "disp",
+   "controles": "fluxo",
+   "sinal_registrado": 1,
+   "rho_semanal": [
+    0.0156,
+    0.0279,
+    0.0163,
+    -0.0071,
+    -0.0098,
+    0.0324,
+    0.016,
+    0.0241
+   ],
+   "rho_media": 0.014416641915955637,
+   "rho_agrupado": 0.013083742368934101,
+   "p_blocos_dia": 0.0466,
+   "p_semanas_secundario": 0.0043,
+   "nula_pipeline": {
+    "rho_semanal": [
+     -0.0154,
+     -0.0342,
+     0.0017,
+     0.0123,
+     0.0241,
+     -0.0199,
+     -0.0109,
+     0.0183
+    ],
+    "rho_media": -0.0030155255140343184
+   }
+  },
+  "basin_fluxo": {
+   "variavel": "basin",
+   "controles": "fluxo",
+   "sinal_registrado": -1,
+   "rho_semanal": [
+    -0.0128,
+    -0.0399,
+    -0.0913,
+    -0.0638,
+    -0.0332,
+    -0.1041,
+    -0.0964,
+    -0.0668
+   ],
+   "rho_media": -0.06354380004182374,
+   "rho_agrupado": -0.06265962601700119,
+   "p_blocos_dia": 0.0,
+   "p_semanas_secundario": 0.0,
+   "nula_pipeline": {
+    "rho_semanal": [
+     0.0179,
+     0.0037,
+     0.0157,
+     -0.0337,
+     -0.0278,
+     -0.0078,
+     -0.0137,
+     -0.0021
+    ],
+    "rho_media": -0.005988075285158344
+   }
+  },
+  "n_obs_fluxo": {
+   "variavel": "n_obs",
+   "controles": "fluxo",
+   "sinal_registrado": -1,
+   "rho_semanal": [
+    -0.0164,
+    -0.0507,
+    -0.0911,
+    -0.0621,
+    -0.0357,
+    -0.1022,
+    -0.0943,
+    -0.0663
+   ],
+   "rho_media": -0.06485355307112717,
+   "rho_agrupado": -0.06387154759335034,
+   "p_blocos_dia": 0.0,
+   "p_semanas_secundario": 0.0,
+   "nula_pipeline": {
+    "rho_semanal": [
+     0.0043,
+     -0.0017,
+     0.0051,
+     -0.0336,
+     -0.0342,
+     0.0032,
+     -0.0167,
+     0.0017
+    ],
+    "rho_media": -0.008997427771461114
+   }
+  }
+ },
+ "veredito": {
+  "H-SGV-01a": {
+   "p": 0.0,
+   "p_holm": 0.0,
+   "confirmada": null
+  },
+  "H-SGV-01b": {
+   "p": 0.0066,
+   "p_holm": 0.0066,
+   "confirmada": null
+  }
+ },
+ "secundarias_BH": {
+  "raridade_prim": {
+   "rho_media": -0.07867601314514075,
+   "p": 0.0,
+   "p_bh": 0.0
+  },
+  "esticamento_prim": {
+   "rho_media": -0.02738671537803971,
+   "p": 0.0046,
+   "p_bh": 0.0069
+  },
+  "raridade_campo_orig": {
+   "rho_media": -0.01985795312091003,
+   "p": 0.0526,
+   "p_bh": 0.0526
+  },
+  "esticamento_campo_orig": {
+   "rho_media": -0.019844522650792663,
+   "p": 0.0458,
+   "p_bh": 0.052425
+  },
+  "esticamento_retornos_lentos": {
+   "rho_media": -0.027453619088922097,
+   "p": 0.0032,
+   "p_bh": 0.00576
+  },
+  "deslocamento_prim": {
+   "rho_media": 0.03127646386624913,
+   "p": 0.0002,
+   "p_bh": 0.00045000000000000004
+  },
+  "deslocamento_fluxo": {
+   "rho_media": 0.014416641915955637,
+   "p": 0.0466,
+   "p_bh": 0.052425
+  },
+  "basin_fluxo": {
+   "rho_media": -0.06354380004182374,
+   "p": 0.0,
+   "p_bh": 0.0
+  },
+  "n_obs_fluxo": {
+   "rho_media": -0.06485355307112717,
+   "p": 0.0,
+   "p_bh": 0.0
+  }
+ }
+}
