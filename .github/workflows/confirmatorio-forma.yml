@@ -1,0 +1,78 @@
+name: Confirmatório H-FORMA-D-01
+
+on:
+  workflow_dispatch:   # só manual: nenhum push lê outubro ou novembro
+    inputs:
+      periodo:
+        description: "confirmatorio (outubro/2026) ou replicacao (novembro/2026)"
+        required: true
+        type: choice
+        options: [confirmatorio, replicacao]
+
+permissions:
+  contents: write
+
+concurrency:
+  group: confirmatorio-forma
+  cancel-in-progress: false
+
+jobs:
+  julgar:
+    runs-on: ubuntu-latest
+    timeout-minutes: 300
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Preparar Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Instalar dependências
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r requirements.txt
+          pip freeze > versoes_runner_forma.txt
+
+      - name: Conferir hashes do pré-registro H-FORMA-D-01
+        run: sha256sum -c referencia/HASHES_H-FORMA-D-01.txt
+
+      - name: Ensaio de paridade em junho–julho (antes de abrir o reservado)
+        run: |
+          mkdir -p resultados
+          python pipeline/confirmatorio_forma.py --periodo exploracao | tee resultados/ensaio_paridade_forma.log
+          python - <<'PY'
+          import json, sys
+          import numpy as np
+          a = json.load(open("resultados/H-FORMA-D-01_exploracao.json"))["espacos"]
+          b = json.load(open("referencia/H-FORMA-D-01_exploracao_referencia.json"))["espacos"]
+          d = max(float(np.max(np.abs(np.array(a[sp][h]["rho_semanal"]) - np.array(b[sp][h]["rho_semanal"])))) for sp in a for h in a[sp])
+          print(f"diferença máxima dos ρ semanais contra a referência: {d:.2e}")
+          sys.exit(0 if d < 1e-6 else 1)
+          PY
+
+      - name: "Baixar e conferir os meses depois de julho (só o necessário para o período escolhido)"
+        run: |
+          base=https://data.binance.vision/data/spot/monthly/klines/BTCUSDT/1m
+          meses="2026-08 2026-09 2026-10"
+          if [ "${{ inputs.periodo }}" = "replicacao" ]; then meses="$meses 2026-11"; fi
+          for m in $meses; do
+            f=BTCUSDT-1m-$m.zip
+            curl -fsSL --retry 3 -o dados/$f "$base/$f"
+            curl -fsSL --retry 3 -o dados/$f.CHECKSUM "$base/$f.CHECKSUM"
+            (cd dados && sha256sum -c $f.CHECKSUM)
+          done
+
+      - name: Julgamento
+        run: python pipeline/confirmatorio_forma.py --periodo ${{ inputs.periodo }} | tee resultados/julgamento_forma_${{ inputs.periodo }}.log
+
+      - name: Gravar o resultado no ramo
+        if: always()
+        run: |
+          cp versoes_runner_forma.txt resultados/ || true
+          git config user.name "github-actions[bot]"
+          git config user.email "41898+github-actions[bot]@users.noreply.github.com"
+          git add -f resultados/ || true
+          git commit -m "Resultado H-FORMA-D-01 (${{ inputs.periodo }}, run ${{ github.run_id }})" || echo "nada para gravar"
+          git push || true
