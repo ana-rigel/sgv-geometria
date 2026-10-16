@@ -1,0 +1,83 @@
+name: SGV-D01 - Recuperacao somente mercado ago-set
+on:
+  push:
+    branches: [research/sgv-d01-direcao-ago-set-20261015]
+    paths: [".github/workflows/d01-mercado-recuperacao.yml"]
+permissions:
+  contents: write
+jobs:
+  recuperar_btc:
+    runs-on: ubuntu-latest
+    timeout-minutes: 25
+    env:
+      PYTHONPATH: "."
+      OPENBLAS_NUM_THREADS: "1"
+      OMP_NUM_THREADS: "1"
+      MKL_NUM_THREADS: "1"
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Instalacao
+        run: python -m pip install -r requirements.txt
+      - name: Validar freeze original e proibicao de reabrir holdout
+        run: |
+          set -euo pipefail
+          test "$(git hash-object pipeline/sgv_d01_direcao.py)" = "c7ef72ae2e6d72f79c7dade06013a3c7add0cdc8"
+          test "$(git hash-object resultados/d01_modelos_congelados.json)" = "142f4ffafa3c9b8fdb676fa271a5306a37acd736"
+          test -f resultados/d01_TEST_RELEASE.txt
+          test -f resultados/d01_sinteticos_teste_final.json
+          test ! -f resultados/d01_mercado_agoset_exploratorio.json
+      - name: Baixar agosto e setembro oficialmente e conferir checksums
+        run: |
+          set -euo pipefail
+          base=https://data.binance.vision/data/spot/monthly/klines/BTCUSDT/1m
+          for m in 2026-08 2026-09; do
+            f=BTCUSDT-1m-$m.zip
+            curl -fsSL --retry 3 -o dados/$f "$base/$f"
+            curl -fsSL --retry 3 -o dados/$f.CHECKSUM "$base/$f.CHECKSUM"
+            (cd dados && sha256sum -c $f.CHECKSUM)
+          done
+      - name: Auditar paridade binaria e checksum congelado NESTE job
+        run: |
+          set -euo pipefail
+          python scripts/d01_diagnostico_paridade_prefixo.py --out resultados/d01_diagnostico_pre_btc.json
+          python - <<'PY'
+          import json
+          d=json.load(open("resultados/d01_diagnostico_pre_btc.json"))
+          assert d["diagnosis"]=="PREFIX_PARITY"
+          assert d["train_digest_matches_frozen"]
+          assert d["n_orig"]==d["n_full"]==85760
+          print("PREFIX_PARITY_AND_FROZEN_DIGEST_OK")
+          PY
+      - name: Rodar somente mercado agosto-setembro com CHECK estrito
+        run: |
+          set -euo pipefail
+          modelsha=$(sha256sum resultados/d01_modelos_congelados.json | awk '{print $1}')
+          python pipeline/sgv_d01_direcao.py --stage market \
+            --freeze resultados/d01_modelos_congelados.json \
+            --freeze-sha "$modelsha" \
+            --out resultados/d01_mercado_agoset_exploratorio.json \
+            | tee resultados/d01_mercado_agoset.log
+          test -s resultados/d01_mercado_agoset_exploratorio.json
+      - name: Preservar auditoria resultado e log separadamente
+        if: always()
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898+github-actions[bot]@users.noreply.github.com"
+          for p in resultados/d01_diagnostico_pre_btc.json resultados/d01_mercado_agoset_exploratorio.json resultados/d01_mercado_agoset.log; do
+            if [ -f "$p" ]; then git add -f "$p"; fi
+          done
+          git commit -m "results(D01): mercado exploratorio com validação binaria [skip ci]" || true
+          git pull --rebase
+          git push
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: D01-btc-recuperacao-exploratoria
+          path: |
+            resultados/d01_diagnostico_pre_btc.json
+            resultados/d01_mercado_agoset_exploratorio.json
+            resultados/d01_mercado_agoset.log
+          if-no-files-found: warn
