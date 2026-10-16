@@ -1,0 +1,1 @@
+SGV-D01 RELEASED once 2026-10-15 UTC IDs16-23 and BTC 2026-08,09 only; freeze git blob 142f4ffafa3c9b8fdb676fa271a5306a37acd736; source c7ef72ae2e6d72f79c7dade06013a3c7add0cdc8
