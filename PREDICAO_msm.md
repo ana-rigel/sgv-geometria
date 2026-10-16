@@ -16,7 +16,7 @@ O v3 achou duas memórias (10–50 min, 1–3 dias); a multifractal v2 achou que
 
 - MSM binomial (Calvet & Fisher 2004): r_t = σ̄ · (Π_{i=1}^{k} M_{i,t})^{1/2} · ε_t, com M_{i,t} ∈ {m₀, 2 − m₀}, trocas independentes com probabilidade γ_i = 1 − (1 − γ_k)^{b^{i−k}}; estados 2^k; filtro de Hamilton.
 - **Inovações Student-t** com ν livre, não gaussianas: a v1/v2 mostraram cauda gorda condicional em 1 min; com ε gaussiano, componentes extras serviriam para imitar a cauda e inflariam k. Declarado antes.
-- Parâmetros livres: m₀ ∈ (1, 2), b ∈ (1,01, 50), γ_k ∈ (0,001, 0,999), ν ∈ (2,1, 50); σ̄ = desvio-padrão amostral, fixo (perfilado). Nelder–Mead a partir de 3 pontos iniciais; fica o melhor.
+- Parâmetros livres: m₀ ∈ (1, 2), b ∈ (1,01, 50), γ_k ∈ (0,001, 0,999), ν ∈ (2,1, 50); σ̄ = desvio-padrão amostral, fixo (perfilado). Nelder–Mead a partir de 2 pontos iniciais (reduzido de 3 após a fumaça, por custo: ~1 h por período); fica o melhor.
 - Retornos log de 1 min do período (índices das semanas), sem dessazonalizar (declarado: o ciclo diário pode aparecer como uma componente de ~1 dia).
 - **Seleção:** BIC por k; k* = argmin BIC em {1, 2, 3, 4}. Descritivo: ΔBIC entre k consecutivos; as escalas 1/γ_i em minutos; ν.
 

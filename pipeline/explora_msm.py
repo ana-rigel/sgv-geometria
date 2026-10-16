@@ -47,8 +47,8 @@ def loglik(theta, r, k, sig):
 
 def ajustar(r, k):
     sig = float(np.std(r)); best = None
-    for x0 in ([1.4, 3.0, 0.5, 4.0], [1.6, 5.0, 0.2, 3.0], [1.25, 2.0, 0.8, 6.0]):
-        res = minimize(loglik, x0, args=(r, k, sig), method="Nelder-Mead", options={"maxfev": 400, "xatol": 1e-3, "fatol": 0.5})
+    for x0 in ([1.4, 3.0, 0.5, 4.0], [1.6, 5.0, 0.2, 3.0]):
+        res = minimize(loglik, x0, args=(r, k, sig), method="Nelder-Mead", options={"maxfev": 300, "xatol": 1e-3, "fatol": 0.5})
         if best is None or res.fun < best.fun: best = res
     m0, b, gk, nu = best.x; gam = estrutura(k, m0, b, gk)[0]; n = len(r); npar = 4
     return {"k": k, "nll": float(best.fun), "bic": float(2 * best.fun + npar * np.log(n)), "m0": float(m0), "b": float(b), "gamma_k": float(gk), "nu": float(nu),
