@@ -1,0 +1,27 @@
+BTCUSDT-1m-2026-05.zip: SHA-256 conferido
+BTCUSDT-1m-2026-06.zip: SHA-256 conferido
+BTCUSDT-1m-2026-07.zip: SHA-256 conferido
+   1m real: ok
+   1m M_4026: ok
+   1m M_4027: ok
+   1m M_4028: ok
+   1m M_4029: ok
+   1m M_4030: ok
+   5m real: ok
+   5m M_4026: ok
+   5m M_4027: ok
+   5m M_4028: ok
+   5m M_4029: ok
+   5m M_4030: ok
+  15m real: ok
+  15m M_4026: ok
+  15m M_4027: ok
+  15m M_4028: ok
+  15m M_4029: ok
+  15m M_4030: ok
+
+== auto-similaridade temporal [junjul]
+   1m real R 6.83 (n_ext 1294) M [6.53; 7.14] → dentro | C real 0.88 M [0.88; 0.95] → colapsa | ρ_forma 0.14103460407949336 zoom 1.3787210497447275 R²q 0.2876851474382898
+   5m real R 5.52 (n_ext 335) M [4.00; 5.47] → acima | C real 0.93 M [0.87; 0.92] → colapsa | ρ_forma -0.24533702759852713 zoom 1.2436743376738872 R²q 0.34856991280474586
+  15m real R 4.60 (n_ext 166) M [2.05; 5.25] → dentro | C real 0.80 M [0.72; 0.91] → colapsa | ρ_forma -0.12494857934784961 zoom 1.334224770384567 R²q 0.36382382305761696
+  R(15)/R(1) real: 0.67;  veredito: borda muda de escala; colapso auto-similar
