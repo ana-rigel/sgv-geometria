@@ -1,0 +1,243 @@
+<title>Fatia 4D do SGV</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<style>
+/* Layout: visor da fatia com um mapa de posição em σ̂ embaixo; texto depois. */
+:root{
+  --bg:#f3f2ee; --panel:#ffffff; --fg:#1d1f1a; --muted:#5f655c; --line:#d8d9cf;
+  --accent:#2f6f5e; --accent-soft:#dfeae4; --w:#8a4fb5;
+  --hot:#c84b2d; --warm:#d9a441; --cold:#3a6fb0;
+  --sans:"IBM Plex Sans",system-ui,-apple-system,"Segoe UI",sans-serif;
+  --mono:"IBM Plex Mono",ui-monospace,Menlo,Consolas,monospace;
+  --canvas-bg:#faf9f5;
+}
+@media (prefers-color-scheme: dark){ :root:not([data-theme="light"]){
+  --bg:#15171a; --panel:#1d2024; --fg:#e8e6df; --muted:#a3a79d; --line:#33373c;
+  --accent:#7fc2ab; --accent-soft:#23332d; --w:#c39ae6; --hot:#f0785a; --warm:#e6b85c; --cold:#6fa1e0;
+  --canvas-bg:#121417; color-scheme:dark } }
+:root[data-theme="dark"]{
+  --bg:#15171a; --panel:#1d2024; --fg:#e8e6df; --muted:#a3a79d; --line:#33373c;
+  --accent:#7fc2ab; --accent-soft:#23332d; --w:#c39ae6; --hot:#f0785a; --warm:#e6b85c; --cold:#6fa1e0;
+  --canvas-bg:#121417; color-scheme:dark }
+
+body{background:var(--bg);color:var(--fg);font-family:var(--sans);font-size:15px;line-height:1.55;
+  padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));padding-block:20px 48px}
+h1,h2{text-wrap:balance;margin:0}
+h1{font-size:1.55rem;font-weight:600;letter-spacing:-.01em}
+h2{font-size:1.05rem;font-weight:600;margin:0 0 6px}
+.eyebrow{font-family:var(--mono);font-size:.72rem;letter-spacing:.08em;text-transform:uppercase;color:var(--muted)}
+.lead{color:var(--muted);max-width:68ch;margin-top:6px}
+main{max-width:980px;margin:0 auto;display:grid;gap:18px}
+.viewer{background:var(--panel);border:1px solid var(--line);border-radius:10px;overflow:hidden;min-width:0}
+canvas#c{display:block;width:100%;height:auto;background:var(--canvas-bg);touch-action:none;cursor:grab}
+.controls{padding:12px 14px;border-top:1px solid var(--line);display:grid;gap:10px}
+.row{display:flex;flex-wrap:wrap;gap:8px 16px;align-items:center}
+.row label{display:inline-flex;align-items:center;gap:6px;font-size:.85rem}
+input[type=range]{accent-color:var(--w)}
+#w{width:min(520px,100%)}
+#eps,#phi{width:min(200px,100%)}
+input[type=checkbox]{accent-color:var(--accent)}
+button{font:inherit;font-size:.8rem;padding:3px 9px;border:1px solid var(--line);background:transparent;color:var(--fg);border-radius:6px;cursor:pointer}
+button[aria-pressed="true"]{background:var(--accent-soft);border-color:var(--accent)}
+button:focus-visible,input:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+.status{font-family:var(--mono);font-size:.74rem;color:var(--muted)}
+.strip{display:block;width:100%;height:46px;border-radius:6px;border:1px solid var(--line)}
+.sw{display:inline-block;width:10px;height:10px;border-radius:50%;vertical-align:-1px;margin-right:4px}
+.legend{display:flex;flex-wrap:wrap;gap:6px 14px;font-size:.8rem;color:var(--muted)}
+.prose{max-width:70ch}
+.prose p{margin:0 0 10px}
+kbd{font-family:var(--mono);font-size:.78rem;border:1px solid var(--line);border-radius:4px;padding:0 5px}
+</style>
+
+<header style="max-width:980px;margin:0 auto 16px">
+  <div class="eyebrow">SGV · a quarta dimensão por cortes, como no Miegakure e no 4D Toys</div>
+  <h1>Andando pela temperatura</h1>
+  <p class="lead">Em vez de achatar o hipercubo, esta página o corta. Você vê só os minutos cuja temperatura σ̂ está na fatia atual, e o controle (ou as setas <kbd>←</kbd> <kbd>→</kbd>) move a fatia do calmo ao quente. O hipercubo cortado aparece como um cubo que existe enquanto a fatia passa por ele; girado em 4D, suas fatias viram outros sólidos.</p>
+</header>
+
+<main>
+  <section class="viewer" aria-label="fatia 3D">
+    <canvas id="c" width="960" height="600"></canvas>
+    <div class="controls">
+      <div class="row">
+        <label for="w">posição na 4ª dimensão (σ̂)</label>
+        <input type="range" id="w" min="-5" max="5" value="0" step="0.05">
+        <span class="status" id="st">—</span>
+      </div>
+      <canvas class="strip" id="strip" width="960" height="46" aria-label="quantos minutos há em cada temperatura"></canvas>
+      <div class="row">
+        <label for="eps">espessura da fatia</label>
+        <input type="range" id="eps" min="0.1" max="2" value="0.5" step="0.05">
+        <label for="phi">giro do hipercubo em 4D</label>
+        <input type="range" id="phi" min="0" max="90" value="0" step="1">
+        <label><input type="checkbox" id="l-auto"> andar sozinho</label>
+      </div>
+      <div class="row">
+        <label><input type="checkbox" id="l-tess" checked> corte do hipercubo</label>
+        <label><input type="checkbox" id="l-ghost" checked> todos os minutos, apagados</label>
+        <label><input type="checkbox" id="l-shell" checked> casca HDR50 da fatia</label>
+        <label><input type="checkbox" id="l-std"> casca em unidades de σ̂</label>
+      </div>
+      <div class="legend">
+        <span><i class="sw" style="background:var(--cold)"></i>calma</span>
+        <span><i class="sw" style="background:var(--warm)"></i>média</span>
+        <span><i class="sw" style="background:var(--hot)"></i>quente</span>
+        <span><i class="sw" style="background:var(--w)"></i>corte do hipercubo</span>
+        <span>arraste para girar em 3D · roda para aproximar</span>
+      </div>
+      <div class="status">Pontos simulados com a receita do sintético M, não dados do BTC. A 4ª coordenada é log σ̂ na mesma régua de caudas dos outros eixos.</div>
+    </div>
+  </section>
+
+  <section class="prose">
+    <h2>O que muda em relação à projeção</h2>
+    <p>Projetar (a página do hipercubo) mostra tudo de uma vez, deformado: os minutos quentes maiores, os calmos menores, as 32 arestas ao mesmo tempo. Cortar mostra pouco de cada vez, sem deformar: só os minutos de uma temperatura, com a geometria 3D deles intacta. É a diferença entre a sombra de um prédio e a planta de um andar. Miegakure escolheu o segundo porque é o único em que dá para "estar dentro" do objeto 4D.</p>
+    <p>Ande devagar de −5 a +5. Perto de −3 a fatia é um caroço pequeno e apertado, quase esférico. No meio é a nuvem de sempre. De +2 para cima o caroço se abre, os pontos se espalham até a borda da caixa e a casca HDR50 cresce. A faixa colorida embaixo diz quantos minutos moram em cada temperatura: muitos no meio, poucos nas pontas, porque o mercado passa a maior parte do tempo morno.</p>
+    <h2>O corte do hipercubo</h2>
+    <p>Em 0° de giro, o corte é sempre o mesmo cubo enquanto |σ̂| &lt; 1 e some fora disso: é o que acontece com um cubo cortado por um plano paralelo a uma face. Gire o hipercubo em 4D e ande de novo: o corte começa como um ponto, vira um tetraedro, um octaedro, cresce, encolhe e some, sem que nada tenha se deformado. É a cena mais famosa do 4D Toys, e aqui é só a projeção trocada por uma interseção com o plano σ̂ = constante.</p>
+    <h2>A ligação com o teste de colapso</h2>
+    <p>Ligue "casca em unidades de σ̂" e ande de novo. As cascas de todas as fatias passam a ter quase o mesmo tamanho: o que mudava de uma temperatura para outra era só a escala. É o C ≈ 0,9 da rodada de fatias, visto andando pela quarta dimensão em vez de lendo uma tabela.</p>
+  </section>
+</main>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+<script>
+(function(){
+  if(!window.THREE){ document.getElementById('st').textContent='A biblioteca 3D não carregou.'; return; }
+  const css=getComputedStyle(document.documentElement);
+  const col=n=>new THREE.Color(css.getPropertyValue(n).trim());
+  const canvas=document.getElementById('c');
+  const renderer=new THREE.WebGLRenderer({canvas,antialias:true,alpha:true});
+  renderer.setPixelRatio(Math.min(window.devicePixelRatio||1,2));
+  const scene=new THREE.Scene();
+  const camera=new THREE.PerspectiveCamera(36,960/600,0.1,100); camera.position.set(0,0,15);
+  const root=new THREE.Group(); scene.add(root); root.rotation.set(0.35,-0.55,0);
+
+  /* ---------- dados ---------- */
+  function mulberry(a){return function(){a|=0;a=a+0x6D2B79F5|0;let t=Math.imul(a^a>>>15,1|a);t=t+Math.imul(t^t>>>7,61|t)^t;return((t^t>>>14)>>>0)/4294967296;}}
+  const rnd=mulberry(20261016);
+  function gauss(){let u=0,v=0;while(u===0)u=rnd();while(v===0)v=rnd();return Math.sqrt(-2*Math.log(u))*Math.cos(2*Math.PI*v);}
+  const N=8000, phi3=[0.35,0.15,0.6];
+  const P4=new Float32Array(N*4); let slow=0,fast=0,x=[0,0,0];
+  for(let t=0;t<N;t++){slow=0.995*slow+0.05*gauss();fast=0.80*fast+0.35*gauss();const sig=Math.exp(0.9*slow+0.5*fast-0.4);
+    for(let k=0;k<3;k++){x[k]=phi3[k]*x[k]+sig*gauss()*(k===1?1.4:1);P4[t*4+k]=x[k];}P4[t*4+3]=Math.log(sig);}
+  let scW=1;
+  for(let k=0;k<4;k++){const a=[];for(let t=0;t<1500;t++)a.push(P4[t*4+k]);a.sort((p,q)=>p-q);
+    const med=a[Math.floor(a.length/2)];const d=a.map(v=>Math.abs(v-med)).sort((p,q)=>p-q);const sc=d[Math.floor(0.995*d.length)]/3;
+    if(k===3)scW=sc;
+    for(let t=0;t<N;t++)P4[t*4+k]=(P4[t*4+k]-med)/sc;}
+  const lab=new Uint8Array(N);{const ls=[];for(let t=0;t<1500;t++)ls.push(P4[t*4+3]);ls.sort((p,q)=>p-q);
+    const q1=ls[Math.floor(ls.length/3)],q2=ls[Math.floor(2*ls.length/3)];for(let t=0;t<N;t++){const v=P4[t*4+3];lab[t]=v<q1?0:v<q2?1:2;}}
+  const colors=[col('--cold'),col('--warm'),col('--hot')];
+  const SIDE=4.2, U=SIDE/5;   // unidade da régua na cena
+  const state={w:0,eps:0.5,phi:0,auto:false,std:false};
+
+  /* ---------- camadas ---------- */
+  const box=new THREE.LineSegments(new THREE.EdgesGeometry(new THREE.BoxGeometry(2*SIDE,2*SIDE,2*SIDE)),new THREE.LineBasicMaterial({color:col('--line')})); root.add(box);
+  function label(txt,color){const cv=document.createElement('canvas');cv.width=320;cv.height=64;const g=cv.getContext('2d');
+    g.font='500 30px IBM Plex Mono, monospace';g.fillStyle=css.getPropertyValue(color).trim();g.textAlign='center';g.fillText(txt,160,42);
+    const sp=new THREE.Sprite(new THREE.SpriteMaterial({map:new THREE.CanvasTexture(cv),transparent:true,depthTest:false}));sp.scale.set(3,0.6,1);root.add(sp);return sp;}
+  label('E_norm','--muted').position.set(SIDE*1.15,-SIDE,-SIDE); label('jerk','--muted').position.set(-SIDE,SIDE*1.15,-SIDE); label('memory_flux','--muted').position.set(-SIDE,-SIDE,SIDE*1.2);
+
+  // pontos da fatia e fantasmas
+  const mk=(size,op)=>{const g=new THREE.BufferGeometry();const p=new Float32Array(N*3),c=new Float32Array(N*3);
+    g.setAttribute('position',new THREE.BufferAttribute(p,3));g.setAttribute('color',new THREE.BufferAttribute(c,3));
+    return {g,p,c,obj:new THREE.Points(g,new THREE.PointsMaterial({size,vertexColors:true,transparent:true,opacity:op}))};};
+  const ghost=mk(0.035,0.12), slice=mk(0.085,0.95); root.add(ghost.obj); root.add(slice.obj);
+  for(let t=0;t<N;t++){const c=colors[lab[t]];for(const L of[ghost,slice]){L.c[t*3]=c.r;L.c[t*3+1]=c.g;L.c[t*3+2]=c.b;}
+    for(let k=0;k<3;k++)ghost.p[t*3+k]=Math.max(-SIDE,Math.min(SIDE,P4[t*4+k]*U));}
+  ghost.g.attributes.position.needsUpdate=true;
+
+  // casca HDR50 da fatia
+  const shell=new THREE.Mesh(new THREE.SphereGeometry(1,32,24),new THREE.MeshBasicMaterial({color:col('--accent'),transparent:true,opacity:0.2,side:THREE.DoubleSide}));
+  const shellEdge=new THREE.Mesh(new THREE.SphereGeometry(1,16,12),new THREE.MeshBasicMaterial({color:col('--accent'),wireframe:true,transparent:true,opacity:0.35}));
+  root.add(shell);root.add(shellEdge);shell.matrixAutoUpdate=false;shellEdge.matrixAutoUpdate=false;
+
+  // corte do hipercubo: 24 faces quadradas, cada uma cortada pelo plano σ̂ = w
+  const faces=[];
+  for(let a=0;a<4;a++)for(let b=a+1;b<4;b++){const others=[0,1,2,3].filter(k=>k!==a&&k!==b);
+    for(let s=0;s<4;s++){const base=[0,0,0,0];base[others[0]]=(s&1)?1:-1;base[others[1]]=(s&2)?1:-1;
+      const sq=[[-1,-1],[1,-1],[1,1],[-1,1]].map(([u,v])=>{const p=base.slice();p[a]=u;p[b]=v;return p;});faces.push(sq);}}
+  const cutGeo=new THREE.BufferGeometry(); const cutPos=new Float32Array(faces.length*6); cutGeo.setAttribute('position',new THREE.BufferAttribute(cutPos,3));
+  const cut=new THREE.LineSegments(cutGeo,new THREE.LineBasicMaterial({color:col('--w'),transparent:true,opacity:0.95})); root.add(cut);
+  function rot4(p){ // giro no plano (E_norm, σ̂) e um pouco no plano (jerk, σ̂), para o corte mudar de forma
+    const a=state.phi*Math.PI/180,c=Math.cos(a),s=Math.sin(a);const q=p.slice();
+    let x0=q[0],w=q[3];q[0]=c*x0-s*w;q[3]=s*x0+c*w;
+    const a2=a*0.6,c2=Math.cos(a2),s2=Math.sin(a2);let y0=q[1];w=q[3];q[1]=c2*y0-s2*w;q[3]=s2*y0+c2*w;return q;}
+  function refreshCut(){
+    const w0=state.w/5; let n=0;
+    for(const sq of faces){const R=sq.map(rot4);const hits=[];
+      for(let i=0;i<4;i++){const p=R[i],q=R[(i+1)%4];const d1=p[3]-w0,d2=q[3]-w0;
+        if((d1<=0&&d2>0)||(d1>0&&d2<=0)){const t=d1/(d1-d2);hits.push([p[0]+t*(q[0]-p[0]),p[1]+t*(q[1]-p[1]),p[2]+t*(q[2]-p[2])]);}}
+      if(hits.length>=2){for(let k=0;k<3;k++){cutPos[n*6+k]=hits[0][k]*SIDE;cutPos[n*6+3+k]=hits[1][k]*SIDE;}n++;}}
+    cutGeo.setDrawRange(0,n*2);cutGeo.attributes.position.needsUpdate=true;}
+
+  function refreshSlice(){
+    let n=0;const mu=[0,0,0];const idx=[];
+    for(let t=0;t<N;t++){const w=P4[t*4+3];const inside=Math.abs(w-state.w)<=state.eps;
+      if(!inside){slice.p[t*3]=slice.p[t*3+1]=slice.p[t*3+2]=1e3;continue;}
+      idx.push(t);for(let k=0;k<3;k++){const v=Math.max(-SIDE,Math.min(SIDE,P4[t*4+k]*U));slice.p[t*3+k]=v;mu[k]+=v;}n++;}
+    slice.g.attributes.position.needsUpdate=true;
+    // casca
+    if(n<40){shell.visible=shellEdge.visible=false;}
+    else{
+      for(let k=0;k<3;k++)mu[k]/=n;
+      const scale = state.std ? Math.exp(-state.w*scW) : 1; // unidades de σ̂: divide pela σ̂ da fatia (σ̂/σ̂_mediana = exp(w·régua))
+      const C=[[0,0,0],[0,0,0],[0,0,0]];
+      for(const t of idx){const d=[slice.p[t*3]-mu[0],slice.p[t*3+1]-mu[1],slice.p[t*3+2]-mu[2]];for(let i=0;i<3;i++)for(let j=0;j<3;j++)C[i][j]+=d[i]*d[j]/n;}
+      let A=C.map(r=>r.slice()),V=[[1,0,0],[0,1,0],[0,0,1]];
+      for(let it=0;it<30;it++){let p=0,q=1,mx=0;for(let i=0;i<3;i++)for(let j=i+1;j<3;j++)if(Math.abs(A[i][j])>mx){mx=Math.abs(A[i][j]);p=i;q=j;}
+        if(mx<1e-9)break;const th=0.5*Math.atan2(2*A[p][q],A[q][q]-A[p][p]);const c=Math.cos(th),s=Math.sin(th);
+        const R=[[1,0,0],[0,1,0],[0,0,1]];R[p][p]=c;R[q][q]=c;R[p][q]=s;R[q][p]=-s;
+        const mul=(M1,M2)=>M1.map((r,i)=>M2[0].map((_,j)=>r.reduce((acc,_,k)=>acc+M1[i][k]*M2[k][j],0)));
+        const RT=R[0].map((_,j)=>R.map(r=>r[j]));A=mul(mul(RT,A),R);V=mul(V,R);}
+      const k=1.538*scale;const e=[0,1,2].map(i=>Math.sqrt(Math.max(A[i][i],1e-4)));
+      const m=new THREE.Matrix4();m.set(V[0][0]*e[0]*k,V[0][1]*e[1]*k,V[0][2]*e[2]*k,mu[0],V[1][0]*e[0]*k,V[1][1]*e[1]*k,V[1][2]*e[2]*k,mu[1],V[2][0]*e[0]*k,V[2][1]*e[1]*k,V[2][2]*e[2]*k,mu[2],0,0,0,1);
+      shell.visible=shellEdge.visible=document.getElementById('l-shell').checked;shell.matrix.copy(m);shellEdge.matrix.copy(m);}
+    const nome=state.w<-1.2?'calma':state.w>1.2?'quente':'média';
+    document.getElementById('st').textContent=`σ̂ = ${state.w.toFixed(2)} ± ${state.eps.toFixed(2)} · ${n} minutos · ${nome}`;
+    drawStrip();
+  }
+
+  // faixa: histograma de log σ̂ com o cursor
+  const strip=document.getElementById('strip'), sg=strip.getContext('2d');
+  const hist=new Float32Array(100);{let mx=0;for(let t=0;t<N;t++){const b=Math.floor((P4[t*4+3]+5)/10*100);if(b>=0&&b<100){hist[b]++;}}for(const h of hist)mx=Math.max(mx,h);for(let i=0;i<100;i++)hist[i]/=mx;}
+  function drawStrip(){const W=strip.width,H=strip.height;sg.clearRect(0,0,W,H);
+    const cols=[css.getPropertyValue('--cold').trim(),css.getPropertyValue('--warm').trim(),css.getPropertyValue('--hot').trim()];
+    for(let i=0;i<100;i++){const v=-5+i/10;sg.fillStyle=v<-1.2?cols[0]:v>1.2?cols[2]:cols[1];sg.globalAlpha=0.25+0.75*hist[i];sg.fillRect(i/100*W,H-hist[i]*(H-6)-3,W/100-1,hist[i]*(H-6));}
+    sg.globalAlpha=1;const x=(state.w+5)/10*W,hw=state.eps/10*W;
+    sg.fillStyle=css.getPropertyValue('--w').trim();sg.globalAlpha=0.25;sg.fillRect(x-hw,0,2*hw,H);sg.globalAlpha=1;sg.fillRect(x-1,0,2,H);}
+
+  function refreshAll(){refreshSlice();refreshCut();}
+  refreshAll();
+
+  /* ---------- controles ---------- */
+  const sw=document.getElementById('w'),se=document.getElementById('eps'),sp=document.getElementById('phi');
+  sw.addEventListener('input',()=>{state.w=+sw.value;refreshAll();});
+  se.addEventListener('input',()=>{state.eps=+se.value;refreshSlice();});
+  sp.addEventListener('input',()=>{state.phi=+sp.value;refreshCut();});
+  document.getElementById('l-auto').addEventListener('change',e=>state.auto=e.target.checked);
+  document.getElementById('l-tess').addEventListener('change',e=>cut.visible=e.target.checked);
+  document.getElementById('l-ghost').addEventListener('change',e=>ghost.obj.visible=e.target.checked);
+  document.getElementById('l-shell').addEventListener('change',()=>refreshSlice());
+  document.getElementById('l-std').addEventListener('change',e=>{state.std=e.target.checked;refreshSlice();});
+  window.addEventListener('keydown',e=>{if(e.key==='ArrowLeft'||e.key==='ArrowRight'){e.preventDefault();state.w=Math.max(-5,Math.min(5,state.w+(e.key==='ArrowRight'?0.1:-0.1)));sw.value=state.w;refreshAll();}});
+  strip.addEventListener('pointerdown',e=>{const r=strip.getBoundingClientRect();state.w=((e.clientX-r.left)/r.width)*10-5;sw.value=state.w;refreshAll();});
+
+  let drag=false,lx=0,ly=0;
+  canvas.addEventListener('pointerdown',e=>{drag=true;lx=e.clientX;ly=e.clientY;canvas.setPointerCapture(e.pointerId);canvas.style.cursor='grabbing';});
+  canvas.addEventListener('pointerup',()=>{drag=false;canvas.style.cursor='grab';});
+  canvas.addEventListener('pointercancel',()=>{drag=false;});
+  canvas.addEventListener('pointermove',e=>{if(!drag)return;root.rotation.y+=(e.clientX-lx)*0.008;root.rotation.x+=(e.clientY-ly)*0.008;lx=e.clientX;ly=e.clientY;});
+  canvas.addEventListener('wheel',e=>{e.preventDefault();camera.position.z=Math.max(7,Math.min(28,camera.position.z+e.deltaY*0.01));},{passive:false});
+  const reduce=window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  let dir=1;
+  function resize(){const w=canvas.clientWidth||960;const h=Math.round(w*0.625);if(canvas.width!==w||canvas.height!==h){renderer.setSize(w,h,false);camera.aspect=w/h;camera.updateProjectionMatrix();}
+    const sw_=strip.clientWidth||960;if(strip.width!==sw_){strip.width=sw_;drawStrip();}}
+  function loop(){resize();
+    if(state.auto&&!reduce){state.w+=0.02*dir;if(state.w>=5){state.w=5;dir=-1;}if(state.w<=-5){state.w=-5;dir=1;}sw.value=state.w;refreshAll();}
+    if(!drag&&!reduce)root.rotation.y+=0.001;
+    renderer.render(scene,camera);requestAnimationFrame(loop);}
+  loop();
+})();
+</script>

@@ -1,0 +1,209 @@
+<title>Hipercubo SGV</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<style>
+/* Layout: visor 3D em cima, explicação em texto corrido embaixo; uma coluna. */
+:root{
+  --bg:#f3f2ee; --panel:#ffffff; --fg:#1d1f1a; --muted:#5f655c; --line:#d8d9cf;
+  --accent:#2f6f5e; --accent-soft:#dfeae4; --w:#8a4fb5;
+  --hot:#c84b2d; --warm:#d9a441; --cold:#3a6fb0;
+  --sans:"IBM Plex Sans",system-ui,-apple-system,"Segoe UI",sans-serif;
+  --mono:"IBM Plex Mono",ui-monospace,Menlo,Consolas,monospace;
+  --canvas-bg:#faf9f5;
+}
+@media (prefers-color-scheme: dark){ :root:not([data-theme="light"]){
+  --bg:#15171a; --panel:#1d2024; --fg:#e8e6df; --muted:#a3a79d; --line:#33373c;
+  --accent:#7fc2ab; --accent-soft:#23332d; --w:#c39ae6; --hot:#f0785a; --warm:#e6b85c; --cold:#6fa1e0;
+  --canvas-bg:#121417; color-scheme:dark } }
+:root[data-theme="dark"]{
+  --bg:#15171a; --panel:#1d2024; --fg:#e8e6df; --muted:#a3a79d; --line:#33373c;
+  --accent:#7fc2ab; --accent-soft:#23332d; --w:#c39ae6; --hot:#f0785a; --warm:#e6b85c; --cold:#6fa1e0;
+  --canvas-bg:#121417; color-scheme:dark }
+
+body{background:var(--bg);color:var(--fg);font-family:var(--sans);font-size:15px;line-height:1.55;
+  padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));padding-block:20px 48px}
+h1,h2{text-wrap:balance;margin:0}
+h1{font-size:1.55rem;font-weight:600;letter-spacing:-.01em}
+h2{font-size:1.05rem;font-weight:600;margin:0 0 6px}
+.eyebrow{font-family:var(--mono);font-size:.72rem;letter-spacing:.08em;text-transform:uppercase;color:var(--muted)}
+.lead{color:var(--muted);max-width:68ch;margin-top:6px}
+main{max-width:980px;margin:0 auto;display:grid;gap:18px}
+.viewer{background:var(--panel);border:1px solid var(--line);border-radius:10px;overflow:hidden;min-width:0}
+canvas{display:block;width:100%;height:auto;background:var(--canvas-bg);touch-action:none;cursor:grab}
+.controls{padding:12px 14px;border-top:1px solid var(--line);display:grid;gap:10px}
+.row{display:flex;flex-wrap:wrap;gap:8px 16px;align-items:center}
+.row label{display:inline-flex;align-items:center;gap:6px;font-size:.85rem}
+input[type=range]{width:min(360px,100%);accent-color:var(--w)}
+input[type=checkbox]{accent-color:var(--accent)}
+.grp button{font:inherit;font-size:.8rem;padding:3px 9px;border:1px solid var(--line);background:transparent;color:var(--fg);border-radius:6px;cursor:pointer}
+.grp button[aria-pressed="true"]{background:var(--accent-soft);border-color:var(--accent)}
+button:focus-visible,input:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+.status{font-family:var(--mono);font-size:.74rem;color:var(--muted)}
+.prose{max-width:70ch}
+.prose p{margin:0 0 10px}
+.sw{display:inline-block;width:10px;height:10px;border-radius:50%;vertical-align:-1px;margin-right:4px}
+.legend{display:flex;flex-wrap:wrap;gap:6px 14px;font-size:.8rem;color:var(--muted)}
+em{font-style:normal;color:var(--w);font-weight:500}
+</style>
+
+<header style="max-width:980px;margin:0 auto 16px">
+  <div class="eyebrow">SGV · quatro coordenadas por minuto</div>
+  <h1>O hipercubo, achatado para caber na tela</h1>
+  <p class="lead">Cada minuto tem quatro números: E_norm, jerk, memory_flux e a temperatura σ̂. O cubo de ontem mostrava três e guardava o quarto na cor. Aqui o quarto vira um eixo de verdade, e o controle gira esse eixo para dentro da tela.</p>
+</header>
+
+<main>
+  <section class="viewer" aria-label="hipercubo">
+    <canvas id="c" width="960" height="600"></canvas>
+    <div class="controls">
+      <div class="row">
+        <label for="theta">giro da 4ª dimensão (plano E_norm × σ̂)</label>
+        <input type="range" id="theta" min="0" max="90" value="0" step="1">
+        <span class="status" id="th">0°: σ̂ escondido, é o cubo de ontem</span>
+      </div>
+      <div class="row">
+        <label><input type="checkbox" id="l-tess" checked> hipercubo (16 vértices, 32 arestas)</label>
+        <label><input type="checkbox" id="l-pts" checked> estados</label>
+        <label><input type="checkbox" id="l-auto"> girar sozinho</label>
+        <span class="grp" role="group" aria-label="plano de giro">
+          <button data-plane="0" aria-pressed="true">E_norm × σ̂</button>
+          <button data-plane="1" aria-pressed="false">jerk × σ̂</button>
+          <button data-plane="2" aria-pressed="false">memory_flux × σ̂</button>
+        </span>
+      </div>
+      <div class="legend">
+        <span><i class="sw" style="background:var(--cold)"></i>calma</span>
+        <span><i class="sw" style="background:var(--warm)"></i>média</span>
+        <span><i class="sw" style="background:var(--hot)"></i>quente</span>
+        <span><i class="sw" style="background:var(--w)"></i>arestas que apontam na direção de σ̂</span>
+        <span>arraste para girar em 3D · roda para aproximar</span>
+      </div>
+      <div class="status">Pontos simulados com a receita do sintético M, não dados do BTC. A 4ª coordenada é log σ̂, centrada e na mesma régua dos outros eixos.</div>
+    </div>
+  </section>
+
+  <section class="prose">
+    <h2>Por que não dá para desenhar</h2>
+    <p>Não é falta de técnica, é geometria do olho. A retina é uma superfície: tudo que você vê é uma imagem 2D, e o cérebro reconstrói a profundidade a partir de duas imagens e do movimento. Um objeto 3D na tela já é uma projeção: o cubo que você gira é um desenho plano que finge profundidade. Para um objeto 4D seriam necessárias duas camadas de fingimento: achatar a quarta para a terceira, e a terceira para a tela. Perde-se informação nas duas vezes, do mesmo jeito que a sombra de um cubo no chão não diz qual face está em cima.</p>
+    <p>É o que esta página faz. O hipercubo tem 16 vértices, cada um com quatro coordenadas iguais a +1 ou −1, e 32 arestas. Ele é projetado para 3D com perspectiva (quem está mais longe na 4ª dimensão aparece menor), e depois para a tela. Em 0° o eixo σ̂ aponta "para dentro", na direção que você não enxerga, e o hipercubo parece um cubo dentro de outro: o cubo interno são os 8 vértices com σ̂ = −1, o externo os 8 com σ̂ = +1. É exatamente o cubo de ontem com uma sombra atrás.</p>
+    <p>Quando você gira, a 4ª dimensão troca de lugar com uma das três visíveis. O cubo interno cresce, o externo encolhe, e a meio caminho o objeto parece se virar do avesso. Nada está se deformando: é a mesma rotação rígida de sempre, só que num plano que inclui o eixo que a tela não tem.</p>
+    <h2>O que isso mostra do SGV</h2>
+    <p>Em 0°, a nuvem é a de ontem: caroço no meio, borda rala, e as cores da temperatura misturadas pela nuvem como se fossem uma propriedade a mais. Gire até 90° no plano E_norm × σ̂: agora o eixo horizontal é a temperatura, e a nuvem se organiza. Calma de um lado, quente do outro, e a borda rala vai quase toda para o lado quente. É a mesma coisa que o teste de colapso disse em números (C ≈ 0,9): a volatilidade não é uma cor pintada por cima do cubo, é uma coordenada que estava fora do plano da tela.</p>
+    <p>Esse é o sentido de "4ª dimensão" aqui. Não é misticismo nem relatividade; é só que precisamos de quatro números para localizar um minuto, e três eixos não bastam para ver o quarto sem girar.</p>
+  </section>
+</main>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+<script>
+(function(){
+  if(!window.THREE){ document.getElementById('th').textContent='A biblioteca 3D não carregou.'; return; }
+  const css=getComputedStyle(document.documentElement);
+  const col=n=>new THREE.Color(css.getPropertyValue(n).trim());
+  const canvas=document.getElementById('c');
+  const renderer=new THREE.WebGLRenderer({canvas,antialias:true,alpha:true});
+  renderer.setPixelRatio(Math.min(window.devicePixelRatio||1,2));
+  const scene=new THREE.Scene();
+  const camera=new THREE.PerspectiveCamera(36,960/600,0.1,100); camera.position.set(0,0,15);
+  const root=new THREE.Group(); scene.add(root); root.rotation.set(0.35,-0.55,0);
+
+  /* ---------- simulação 4D: três coordenadas + log σ̂ ---------- */
+  function mulberry(a){return function(){a|=0;a=a+0x6D2B79F5|0;let t=Math.imul(a^a>>>15,1|a);t=t+Math.imul(t^t>>>7,61|t)^t;return((t^t>>>14)>>>0)/4294967296;}}
+  const rnd=mulberry(20261016);
+  function gauss(){let u=0,v=0;while(u===0)u=rnd();while(v===0)v=rnd();return Math.sqrt(-2*Math.log(u))*Math.cos(2*Math.PI*v);}
+  const N=5000, phi=[0.35,0.15,0.6];
+  const P4=new Float32Array(N*4); let slow=0,fast=0,x=[0,0,0];
+  for(let t=0;t<N;t++){
+    slow=0.995*slow+0.05*gauss(); fast=0.80*fast+0.35*gauss();
+    const sig=Math.exp(0.9*slow+0.5*fast-0.4);
+    for(let k=0;k<3;k++){x[k]=phi[k]*x[k]+sig*gauss()*(k===1?1.4:1);P4[t*4+k]=x[k];}
+    P4[t*4+3]=Math.log(sig);
+  }
+  // régua de caudas em cada uma das 4 coordenadas (calibrada nos primeiros 1500 pontos)
+  for(let k=0;k<4;k++){
+    const a=[];for(let t=0;t<1500;t++)a.push(P4[t*4+k]);a.sort((p,q)=>p-q);
+    const med=a[Math.floor(a.length/2)];const d=a.map(v=>Math.abs(v-med)).sort((p,q)=>p-q);const sc=d[Math.floor(0.995*d.length)]/3;
+    for(let t=0;t<N;t++)P4[t*4+k]=(P4[t*4+k]-med)/sc;
+  }
+  const lab=new Uint8Array(N);{const ls=[];for(let t=0;t<1500;t++)ls.push(P4[t*4+3]);ls.sort((p,q)=>p-q);
+    const q1=ls[Math.floor(ls.length/3)],q2=ls[Math.floor(2*ls.length/3)];
+    for(let t=0;t<N;t++){const v=P4[t*4+3];lab[t]=v<q1?0:v<q2?1:2;}}
+
+  /* ---------- hipercubo ---------- */
+  const V=[];for(let i=0;i<16;i++)V.push([(i&1?1:-1),(i&2?1:-1),(i&4?1:-1),(i&8?1:-1)]);
+  const E=[];for(let i=0;i<16;i++)for(let b=0;b<4;b++){const j=i^(1<<b);if(j>i)E.push([i,j,b]);}
+  const SIDE=4.2;                       // meia-aresta do hipercubo na cena (igual ao ±5 ÷ régua do cubo de ontem, reduzido)
+  const edgeGeo=new THREE.BufferGeometry(); const edgePos=new Float32Array(E.length*6); const edgeCol=new Float32Array(E.length*6);
+  edgeGeo.setAttribute('position',new THREE.BufferAttribute(edgePos,3)); edgeGeo.setAttribute('color',new THREE.BufferAttribute(edgeCol,3));
+  const edges=new THREE.LineSegments(edgeGeo,new THREE.LineBasicMaterial({vertexColors:true,transparent:true,opacity:0.9})); root.add(edges);
+  const cLine=col('--muted'), cW=col('--w');
+
+  const ptsGeo=new THREE.BufferGeometry(); const pos=new Float32Array(N*3), colr=new Float32Array(N*3);
+  ptsGeo.setAttribute('position',new THREE.BufferAttribute(pos,3)); ptsGeo.setAttribute('color',new THREE.BufferAttribute(colr,3));
+  const pts=new THREE.Points(ptsGeo,new THREE.PointsMaterial({size:0.06,vertexColors:true,transparent:true,opacity:0.8})); root.add(pts);
+  const colors=[col('--cold'),col('--warm'),col('--hot')];
+  for(let t=0;t<N;t++){const c=colors[lab[t]];colr[t*3]=c.r;colr[t*3+1]=c.g;colr[t*3+2]=c.b;}
+
+  // rótulos
+  function label(txt,color){const cv=document.createElement('canvas');cv.width=320;cv.height=64;const g=cv.getContext('2d');
+    g.font='500 30px IBM Plex Mono, monospace';g.fillStyle=css.getPropertyValue(color).trim();g.textAlign='center';g.fillText(txt,160,42);
+    const sp=new THREE.Sprite(new THREE.SpriteMaterial({map:new THREE.CanvasTexture(cv),transparent:true,depthTest:false}));sp.scale.set(3.2,0.64,1);root.add(sp);return sp;}
+  const labels=[label('E_norm','--muted'),label('jerk','--muted'),label('memory_flux','--muted'),label('σ̂ (temperatura)','--w')];
+
+  /* ---------- projeção 4D → 3D ---------- */
+  const state={theta:0,plane:0,auto:false};
+  const D4=3.2; // distância do "olho" 4D
+  function project(v,out){
+    // rotação rígida no plano (eixo plane, eixo w)
+    const a=state.theta*Math.PI/180, c=Math.cos(a), s=Math.sin(a);
+    const p=[v[0],v[1],v[2],v[3]]; const i=state.plane;
+    const xi=p[i], w=p[3]; p[i]=c*xi-s*w; p[3]=s*xi+c*w;
+    // perspectiva: quem está mais longe em w aparece menor
+    const f=D4/(D4-p[3]*0.55);
+    out[0]=p[0]*f; out[1]=p[1]*f; out[2]=p[2]*f;
+  }
+  const tmp=[0,0,0];
+  function refresh(){
+    for(let e=0;e<E.length;e++){const [i,j,b]=E[e];
+      const a=V[i].map(v=>v*SIDE/1.0), bb=V[j].map(v=>v*SIDE/1.0);
+      project(a,tmp);edgePos[e*6]=tmp[0];edgePos[e*6+1]=tmp[1];edgePos[e*6+2]=tmp[2];
+      project(bb,tmp);edgePos[e*6+3]=tmp[0];edgePos[e*6+4]=tmp[1];edgePos[e*6+5]=tmp[2];
+      const c=b===3?cW:cLine; for(let k=0;k<2;k++){edgeCol[e*6+k*3]=c.r;edgeCol[e*6+k*3+1]=c.g;edgeCol[e*6+k*3+2]=c.b;}}
+    edgeGeo.attributes.position.needsUpdate=true;edgeGeo.attributes.color.needsUpdate=true;
+    const v=[0,0,0,0];
+    for(let t=0;t<N;t++){for(let k=0;k<4;k++)v[k]=Math.max(-SIDE,Math.min(SIDE,P4[t*4+k]*SIDE/5));project(v,tmp);pos[t*3]=tmp[0];pos[t*3+1]=tmp[1];pos[t*3+2]=tmp[2];}
+    ptsGeo.attributes.position.needsUpdate=true;
+    // rótulos nas pontas dos eixos projetados
+    const axes=[[SIDE*1.15,0,0,0],[0,SIDE*1.15,0,0],[0,0,SIDE*1.15,0],[0,0,0,SIDE*1.15]];
+    axes.forEach((ax,k)=>{project(ax,tmp);labels[k].position.set(tmp[0],tmp[1]+0.3,tmp[2]);});
+    const th=document.getElementById('th'); const names=['E_norm','jerk','memory_flux'][state.plane];
+    th.textContent = state.theta===0 ? '0°: σ̂ escondido, é o cubo de ontem'
+      : state.theta===90 ? `90°: o eixo ${names} virou σ̂; calma de um lado, quente do outro`
+      : `${state.theta}°: σ̂ entrando no lugar de ${names}`;
+  }
+  refresh();
+
+  /* ---------- controles ---------- */
+  const slider=document.getElementById('theta');
+  slider.addEventListener('input',()=>{state.theta=+slider.value;refresh();});
+  document.getElementById('l-tess').addEventListener('change',e=>edges.visible=e.target.checked);
+  document.getElementById('l-pts').addEventListener('change',e=>pts.visible=e.target.checked);
+  document.getElementById('l-auto').addEventListener('change',e=>state.auto=e.target.checked);
+  document.querySelectorAll('.grp button').forEach(b=>b.addEventListener('click',()=>{
+    state.plane=+b.dataset.plane;document.querySelectorAll('.grp button').forEach(o=>o.setAttribute('aria-pressed',String(o===b)));refresh();}));
+
+  let drag=false,lx=0,ly=0;
+  canvas.addEventListener('pointerdown',e=>{drag=true;lx=e.clientX;ly=e.clientY;canvas.setPointerCapture(e.pointerId);canvas.style.cursor='grabbing';});
+  canvas.addEventListener('pointerup',()=>{drag=false;canvas.style.cursor='grab';});
+  canvas.addEventListener('pointercancel',()=>{drag=false;});
+  canvas.addEventListener('pointermove',e=>{if(!drag)return;root.rotation.y+=(e.clientX-lx)*0.008;root.rotation.x+=(e.clientY-ly)*0.008;lx=e.clientX;ly=e.clientY;});
+  canvas.addEventListener('wheel',e=>{e.preventDefault();camera.position.z=Math.max(7,Math.min(28,camera.position.z+e.deltaY*0.01));},{passive:false});
+  const reduce=window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  let dir=1, acc=0;
+  function resize(){const w=canvas.clientWidth||960;const h=Math.round(w*0.625);if(canvas.width!==w||canvas.height!==h){renderer.setSize(w,h,false);camera.aspect=w/h;camera.updateProjectionMatrix();}}
+  function loop(){resize();
+    if(state.auto&&!reduce){acc+=0.4;if(acc>=1){acc=0;state.theta+=dir;if(state.theta>=90){state.theta=90;dir=-1;}if(state.theta<=0){state.theta=0;dir=1;}slider.value=state.theta;refresh();}}
+    if(!drag&&!reduce)root.rotation.y+=0.0012;
+    renderer.render(scene,camera);requestAnimationFrame(loop);}
+  loop();
+})();
+</script>

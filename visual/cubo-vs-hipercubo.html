@@ -1,0 +1,239 @@
+<title>Cubo versus hipercubo</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<style>
+/* Layout: dois visores lado a lado com a mesma nuvem e a mesma rotação 3D; um só controle para a 4ª dimensão. */
+:root{
+  --bg:#f3f2ee; --panel:#ffffff; --fg:#1d1f1a; --muted:#5f655c; --line:#d8d9cf;
+  --accent:#2f6f5e; --accent-soft:#dfeae4; --w:#8a4fb5;
+  --hot:#c84b2d; --warm:#d9a441; --cold:#3a6fb0;
+  --sans:"IBM Plex Sans",system-ui,-apple-system,"Segoe UI",sans-serif;
+  --mono:"IBM Plex Mono",ui-monospace,Menlo,Consolas,monospace;
+  --canvas-bg:#faf9f5;
+}
+@media (prefers-color-scheme: dark){ :root:not([data-theme="light"]){
+  --bg:#15171a; --panel:#1d2024; --fg:#e8e6df; --muted:#a3a79d; --line:#33373c;
+  --accent:#7fc2ab; --accent-soft:#23332d; --w:#c39ae6; --hot:#f0785a; --warm:#e6b85c; --cold:#6fa1e0;
+  --canvas-bg:#121417; color-scheme:dark } }
+:root[data-theme="dark"]{
+  --bg:#15171a; --panel:#1d2024; --fg:#e8e6df; --muted:#a3a79d; --line:#33373c;
+  --accent:#7fc2ab; --accent-soft:#23332d; --w:#c39ae6; --hot:#f0785a; --warm:#e6b85c; --cold:#6fa1e0;
+  --canvas-bg:#121417; color-scheme:dark }
+
+body{background:var(--bg);color:var(--fg);font-family:var(--sans);font-size:15px;line-height:1.55;
+  padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));padding-block:20px 48px}
+h1,h2,h3{text-wrap:balance;margin:0}
+h1{font-size:1.55rem;font-weight:600;letter-spacing:-.01em}
+h3{font-size:.95rem;font-weight:600}
+.eyebrow{font-family:var(--mono);font-size:.72rem;letter-spacing:.08em;text-transform:uppercase;color:var(--muted)}
+.lead{color:var(--muted);max-width:68ch;margin-top:6px}
+main{max-width:1240px;margin:0 auto;display:grid;gap:16px}
+.pair{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+@media (max-width:820px){.pair{grid-template-columns:1fr}}
+.viewer{background:var(--panel);border:1px solid var(--line);border-radius:10px;overflow:hidden;min-width:0}
+.viewer .hd{display:flex;justify-content:space-between;align-items:baseline;gap:10px;padding:10px 14px;border-bottom:1px solid var(--line)}
+.viewer .hd span{font-family:var(--mono);font-size:.74rem;color:var(--muted)}
+canvas{display:block;width:100%;height:auto;background:var(--canvas-bg);touch-action:none;cursor:grab}
+.cap{padding:8px 14px 12px;font-size:.84rem;color:var(--muted)}
+.controls{background:var(--panel);border:1px solid var(--line);border-radius:10px;padding:12px 14px;display:grid;gap:10px}
+.row{display:flex;flex-wrap:wrap;gap:8px 16px;align-items:center}
+.row label{display:inline-flex;align-items:center;gap:6px;font-size:.85rem}
+input[type=range]{width:min(420px,100%);accent-color:var(--w)}
+input[type=checkbox]{accent-color:var(--accent)}
+.grp button{font:inherit;font-size:.8rem;padding:3px 9px;border:1px solid var(--line);background:transparent;color:var(--fg);border-radius:6px;cursor:pointer}
+.grp button[aria-pressed="true"]{background:var(--accent-soft);border-color:var(--accent)}
+button:focus-visible,input:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+.status{font-family:var(--mono);font-size:.74rem;color:var(--muted)}
+.sw{display:inline-block;width:10px;height:10px;border-radius:50%;vertical-align:-1px;margin-right:4px}
+.legend{display:flex;flex-wrap:wrap;gap:6px 14px;font-size:.8rem;color:var(--muted)}
+.prose{max-width:72ch}
+.prose p{margin:0 0 10px}
+table{border-collapse:collapse;font-size:.86rem;width:100%}
+th,td{text-align:left;vertical-align:top;padding:6px 8px;border-top:1px solid var(--line)}
+th{border-top:0;color:var(--muted);font-size:.74rem;letter-spacing:.05em;text-transform:uppercase}
+td:first-child{font-weight:500;white-space:nowrap}
+.tbl{overflow-x:auto}
+</style>
+
+<header style="max-width:1240px;margin:0 auto 16px">
+  <div class="eyebrow">SGV · mesma nuvem, três eixos à esquerda, quatro à direita</div>
+  <h1>Cubo versus hipercubo</h1>
+  <p class="lead">Os dois visores mostram os mesmos minutos simulados e giram juntos quando você arrasta qualquer um deles. A única diferença é que o da direita tem a temperatura σ̂ como eixo, e o controle abaixo gira esse eixo para dentro da tela. À esquerda, o mesmo controle não faz nada: o cubo não tem onde pôr a quarta coordenada, só a cor.</p>
+</header>
+
+<main>
+  <div class="pair">
+    <section class="viewer" aria-label="cubo 3D">
+      <div class="hd"><h3>Cubo: 3 eixos + cor</h3><span>o navegador de ontem</span></div>
+      <canvas id="c3" width="600" height="440"></canvas>
+      <div class="cap">E_norm, jerk, memory_flux. A temperatura só aparece como cor. Girar não separa calma de quente: as três cores ficam misturadas em qualquer ângulo.</div>
+    </section>
+    <section class="viewer" aria-label="hipercubo 4D">
+      <div class="hd"><h3>Hipercubo: 4 eixos</h3><span id="st4">0°: σ̂ apontando para fora da tela</span></div>
+      <canvas id="c4" width="600" height="440"></canvas>
+      <div class="cap">Os mesmos três eixos mais σ̂. Em 0° parece o cubo da esquerda com uma sombra atrás. Com o giro, σ̂ entra no lugar de um eixo visível e a nuvem se separa por temperatura.</div>
+    </section>
+  </div>
+
+  <div class="controls">
+    <div class="row">
+      <label for="theta">giro da 4ª dimensão</label>
+      <input type="range" id="theta" min="0" max="90" value="0" step="1">
+      <span class="grp" role="group" aria-label="plano de giro">
+        <button data-plane="0" aria-pressed="true">E_norm × σ̂</button>
+        <button data-plane="1" aria-pressed="false">jerk × σ̂</button>
+        <button data-plane="2" aria-pressed="false">memory_flux × σ̂</button>
+      </span>
+      <label><input type="checkbox" id="l-auto"> girar sozinho</label>
+    </div>
+    <div class="row">
+      <label><input type="checkbox" id="l-box" checked> caixa / hipercubo</label>
+      <label><input type="checkbox" id="l-pts" checked> estados</label>
+      <span class="grp" role="group" aria-label="fatia">
+        <button data-f="-1" aria-pressed="true">todas</button>
+        <button data-f="0" aria-pressed="false">calma</button>
+        <button data-f="1" aria-pressed="false">média</button>
+        <button data-f="2" aria-pressed="false">quente</button>
+      </span>
+    </div>
+    <div class="legend">
+      <span><i class="sw" style="background:var(--cold)"></i>calma</span>
+      <span><i class="sw" style="background:var(--warm)"></i>média</span>
+      <span><i class="sw" style="background:var(--hot)"></i>quente</span>
+      <span><i class="sw" style="background:var(--w)"></i>arestas na direção de σ̂ (só à direita)</span>
+      <span>arraste em qualquer visor: os dois giram juntos · roda para aproximar</span>
+    </div>
+    <div class="status">Pontos simulados com a receita do sintético M (AR(1) + volatilidade em duas escalas), não dados do BTC. Régua de caudas nos quatro eixos.</div>
+  </div>
+
+  <section class="prose">
+    <div class="tbl"><table>
+      <thead><tr><th>Experimente</th><th>No cubo</th><th>No hipercubo</th></tr></thead>
+      <tbody>
+        <tr><td>Arrastar</td><td>a caixa gira; a nuvem gira junto; as cores continuam misturadas</td><td>idem, e o cubo pequeno continua dentro do grande em qualquer ângulo: nenhuma rotação 3D muda σ̂</td></tr>
+        <tr><td>Giro da 4ª dimensão a 90°</td><td>nada muda</td><td>o eixo escolhido vira σ̂; calma de um lado, quente do outro; a borda rala vai para o lado quente</td></tr>
+        <tr><td>Escolher a fatia "quente"</td><td>sobra a borda e um pouco do centro, espalhada pelo cubo</td><td>em 90° a fatia quente ocupa uma lâmina inteira de um lado: é um lugar, não uma cor</td></tr>
+        <tr><td>Giro a 45°</td><td>nada muda</td><td>o hipercubo parece se virar do avesso; é uma rotação rígida num plano que a tela não tem</td></tr>
+      </tbody>
+    </table></div>
+    <p style="margin-top:12px">O que o cubo faz com a temperatura é pintar. O que o hipercubo faz é medir: um minuto quente fica a uma distância de um minuto calmo, mesmo que os dois tenham E_norm, jerk e memory_flux iguais. É essa distância que o teste de colapso (C ≈ 0,9) disse ser a única diferença entre as fatias.</p>
+  </section>
+</main>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+<script>
+(function(){
+  if(!window.THREE){ document.getElementById('st4').textContent='A biblioteca 3D não carregou.'; return; }
+  const css=getComputedStyle(document.documentElement);
+  const col=n=>new THREE.Color(css.getPropertyValue(n).trim());
+
+  /* ---------- dados compartilhados ---------- */
+  function mulberry(a){return function(){a|=0;a=a+0x6D2B79F5|0;let t=Math.imul(a^a>>>15,1|a);t=t+Math.imul(t^t>>>7,61|t)^t;return((t^t>>>14)>>>0)/4294967296;}}
+  const rnd=mulberry(20261016);
+  function gauss(){let u=0,v=0;while(u===0)u=rnd();while(v===0)v=rnd();return Math.sqrt(-2*Math.log(u))*Math.cos(2*Math.PI*v);}
+  const N=5000, phi=[0.35,0.15,0.6];
+  const P4=new Float32Array(N*4); let slow=0,fast=0,x=[0,0,0];
+  for(let t=0;t<N;t++){slow=0.995*slow+0.05*gauss();fast=0.80*fast+0.35*gauss();const sig=Math.exp(0.9*slow+0.5*fast-0.4);
+    for(let k=0;k<3;k++){x[k]=phi[k]*x[k]+sig*gauss()*(k===1?1.4:1);P4[t*4+k]=x[k];} P4[t*4+3]=Math.log(sig);}
+  for(let k=0;k<4;k++){const a=[];for(let t=0;t<1500;t++)a.push(P4[t*4+k]);a.sort((p,q)=>p-q);
+    const med=a[Math.floor(a.length/2)];const d=a.map(v=>Math.abs(v-med)).sort((p,q)=>p-q);const sc=d[Math.floor(0.995*d.length)]/3;
+    for(let t=0;t<N;t++)P4[t*4+k]=(P4[t*4+k]-med)/sc;}
+  const lab=new Uint8Array(N);{const ls=[];for(let t=0;t<1500;t++)ls.push(P4[t*4+3]);ls.sort((p,q)=>p-q);
+    const q1=ls[Math.floor(ls.length/3)],q2=ls[Math.floor(2*ls.length/3)];for(let t=0;t<N;t++){const v=P4[t*4+3];lab[t]=v<q1?0:v<q2?1:2;}}
+  const colors=[col('--cold'),col('--warm'),col('--hot')];
+  const SIDE=4.2, state={theta:0,plane:0,fatia:-1,auto:false};
+  const rot={x:0.35,y:-0.55};
+
+  /* ---------- fábrica de visor ---------- */
+  function makeViewer(id, fourD){
+    const canvas=document.getElementById(id);
+    const renderer=new THREE.WebGLRenderer({canvas,antialias:true,alpha:true});
+    renderer.setPixelRatio(Math.min(window.devicePixelRatio||1,2));
+    const scene=new THREE.Scene();
+    const camera=new THREE.PerspectiveCamera(36,600/440,0.1,100); camera.position.set(0,0,15);
+    const root=new THREE.Group(); scene.add(root);
+
+    // caixa (3D) ou hipercubo (4D)
+    const V=[],E=[];
+    if(fourD){for(let i=0;i<16;i++)V.push([(i&1?1:-1),(i&2?1:-1),(i&4?1:-1),(i&8?1:-1)]);
+      for(let i=0;i<16;i++)for(let b=0;b<4;b++){const j=i^(1<<b);if(j>i)E.push([i,j,b]);}}
+    else{for(let i=0;i<8;i++)V.push([(i&1?1:-1),(i&2?1:-1),(i&4?1:-1),0]);
+      for(let i=0;i<8;i++)for(let b=0;b<3;b++){const j=i^(1<<b);if(j>i)E.push([i,j,b]);}}
+    const eg=new THREE.BufferGeometry(); const ep=new Float32Array(E.length*6), ec=new Float32Array(E.length*6);
+    eg.setAttribute('position',new THREE.BufferAttribute(ep,3)); eg.setAttribute('color',new THREE.BufferAttribute(ec,3));
+    const edges=new THREE.LineSegments(eg,new THREE.LineBasicMaterial({vertexColors:true,transparent:true,opacity:0.9})); root.add(edges);
+    const cLine=col('--muted'), cW=col('--w');
+
+    const pg=new THREE.BufferGeometry(); const pos=new Float32Array(N*3), colr=new Float32Array(N*3);
+    pg.setAttribute('position',new THREE.BufferAttribute(pos,3)); pg.setAttribute('color',new THREE.BufferAttribute(colr,3));
+    const pts=new THREE.Points(pg,new THREE.PointsMaterial({size:0.06,vertexColors:true,transparent:true,opacity:0.8})); root.add(pts);
+    for(let t=0;t<N;t++){const c=colors[lab[t]];colr[t*3]=c.r;colr[t*3+1]=c.g;colr[t*3+2]=c.b;}
+
+    function label(txt,color){const cv=document.createElement('canvas');cv.width=320;cv.height=64;const g=cv.getContext('2d');
+      g.font='500 30px IBM Plex Mono, monospace';g.fillStyle=css.getPropertyValue(color).trim();g.textAlign='center';g.fillText(txt,160,42);
+      const sp=new THREE.Sprite(new THREE.SpriteMaterial({map:new THREE.CanvasTexture(cv),transparent:true,depthTest:false}));sp.scale.set(3.0,0.6,1);root.add(sp);return sp;}
+    const labels=[label('E_norm','--muted'),label('jerk','--muted'),label('memory_flux','--muted')];
+    if(fourD) labels.push(label('σ̂','--w'));
+
+    const D4=3.2, tmp=[0,0,0];
+    function project(v,out){
+      if(!fourD){out[0]=v[0];out[1]=v[1];out[2]=v[2];return;}
+      const a=state.theta*Math.PI/180,c=Math.cos(a),s=Math.sin(a);const p=[v[0],v[1],v[2],v[3]];const i=state.plane;
+      const xi=p[i],w=p[3];p[i]=c*xi-s*w;p[3]=s*xi+c*w;
+      const f=D4/(D4-p[3]*0.55);out[0]=p[0]*f;out[1]=p[1]*f;out[2]=p[2]*f;}
+    function refresh(){
+      for(let e=0;e<E.length;e++){const [i,j,b]=E[e];
+        project(V[i].map(v=>v*SIDE),tmp);ep[e*6]=tmp[0];ep[e*6+1]=tmp[1];ep[e*6+2]=tmp[2];
+        project(V[j].map(v=>v*SIDE),tmp);ep[e*6+3]=tmp[0];ep[e*6+4]=tmp[1];ep[e*6+5]=tmp[2];
+        const c=b===3?cW:cLine;for(let k=0;k<2;k++){ec[e*6+k*3]=c.r;ec[e*6+k*3+1]=c.g;ec[e*6+k*3+2]=c.b;}}
+      eg.attributes.position.needsUpdate=true;eg.attributes.color.needsUpdate=true;
+      const v=[0,0,0,0];
+      for(let t=0;t<N;t++){
+        if(state.fatia>=0&&lab[t]!==state.fatia){pos[t*3]=pos[t*3+1]=pos[t*3+2]=1e3;continue;}
+        for(let k=0;k<4;k++)v[k]=Math.max(-SIDE,Math.min(SIDE,P4[t*4+k]*SIDE/5));
+        if(!fourD)v[3]=0;
+        project(v,tmp);pos[t*3]=tmp[0];pos[t*3+1]=tmp[1];pos[t*3+2]=tmp[2];}
+      pg.attributes.position.needsUpdate=true;
+      const axes=[[SIDE*1.15,0,0,0],[0,SIDE*1.15,0,0],[0,0,SIDE*1.15,0],[0,0,0,SIDE*1.15]];
+      labels.forEach((L,k)=>{project(axes[k],tmp);L.position.set(tmp[0],tmp[1]+0.3,tmp[2]);});
+    }
+    // interação: arrastar em qualquer um gira os dois
+    let drag=false,lx=0,ly=0;
+    canvas.addEventListener('pointerdown',e=>{drag=true;lx=e.clientX;ly=e.clientY;canvas.setPointerCapture(e.pointerId);canvas.style.cursor='grabbing';});
+    canvas.addEventListener('pointerup',()=>{drag=false;canvas.style.cursor='grab';});
+    canvas.addEventListener('pointercancel',()=>{drag=false;});
+    canvas.addEventListener('pointermove',e=>{if(!drag)return;rot.y+=(e.clientX-lx)*0.008;rot.x+=(e.clientY-ly)*0.008;lx=e.clientX;ly=e.clientY;});
+    canvas.addEventListener('wheel',e=>{e.preventDefault();zoom=Math.max(7,Math.min(28,zoom+e.deltaY*0.01));},{passive:false});
+    function render(){const w=canvas.clientWidth||600;const h=Math.round(w*0.733);
+      if(canvas.width!==w||canvas.height!==h){renderer.setSize(w,h,false);camera.aspect=w/h;camera.updateProjectionMatrix();}
+      root.rotation.set(rot.x,rot.y,0);camera.position.z=zoom;renderer.render(scene,camera);}
+    return {refresh,render,edges,pts,isDragging:()=>drag};
+  }
+  let zoom=15;
+  const v3=makeViewer('c3',false), v4=makeViewer('c4',true);
+  function refreshAll(){v3.refresh();v4.refresh();
+    const names=['E_norm','jerk','memory_flux'][state.plane];
+    document.getElementById('st4').textContent= state.theta===0?'0°: σ̂ apontando para fora da tela'
+      : state.theta===90?`90°: ${names} trocado por σ̂`:`${state.theta}°: σ̂ entrando no lugar de ${names}`;}
+  refreshAll();
+
+  /* ---------- controles ---------- */
+  const slider=document.getElementById('theta');
+  slider.addEventListener('input',()=>{state.theta=+slider.value;refreshAll();});
+  document.getElementById('l-auto').addEventListener('change',e=>state.auto=e.target.checked);
+  document.getElementById('l-box').addEventListener('change',e=>{v3.edges.visible=v4.edges.visible=e.target.checked;});
+  document.getElementById('l-pts').addEventListener('change',e=>{v3.pts.visible=v4.pts.visible=e.target.checked;});
+  document.querySelectorAll('button[data-plane]').forEach(b=>b.addEventListener('click',()=>{state.plane=+b.dataset.plane;
+    document.querySelectorAll('button[data-plane]').forEach(o=>o.setAttribute('aria-pressed',String(o===b)));refreshAll();}));
+  document.querySelectorAll('button[data-f]').forEach(b=>b.addEventListener('click',()=>{state.fatia=+b.dataset.f;
+    document.querySelectorAll('button[data-f]').forEach(o=>o.setAttribute('aria-pressed',String(o===b)));refreshAll();}));
+
+  const reduce=window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  let dir=1,acc=0;
+  function loop(){
+    if(state.auto&&!reduce){acc+=0.4;if(acc>=1){acc=0;state.theta+=dir;if(state.theta>=90){state.theta=90;dir=-1;}if(state.theta<=0){state.theta=0;dir=1;}slider.value=state.theta;refreshAll();}}
+    if(!v3.isDragging()&&!v4.isDragging()&&!reduce)rot.y+=0.0012;
+    v3.render();v4.render();requestAnimationFrame(loop);}
+  loop();
+})();
+</script>

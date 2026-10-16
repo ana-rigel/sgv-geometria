@@ -1,0 +1,323 @@
+<title>Navegador SGV hoje</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<style>
+/* Layout: painel 3D à esquerda (sticky no desktop), leitura à direita; uma coluna no celular. */
+:root{
+  --bg:#f3f2ee; --panel:#ffffff; --fg:#1d1f1a; --muted:#5f655c; --line:#d8d9cf;
+  --accent:#2f6f5e; --accent-soft:#dfeae4;
+  --hot:#c84b2d; --warm:#d9a441; --cold:#3a6fb0;
+  --ok:#2f6f5e; --no:#9a3b2a; --wait:#7a6a2b;
+  --sans:"IBM Plex Sans",system-ui,-apple-system,"Segoe UI",sans-serif;
+  --mono:"IBM Plex Mono",ui-monospace,Menlo,Consolas,monospace;
+  --canvas-bg:#faf9f5;
+}
+@media (prefers-color-scheme: dark){ :root:not([data-theme="light"]){
+  --bg:#15171a; --panel:#1d2024; --fg:#e8e6df; --muted:#a3a79d; --line:#33373c;
+  --accent:#7fc2ab; --accent-soft:#23332d; --hot:#f0785a; --warm:#e6b85c; --cold:#6fa1e0;
+  --ok:#7fc2ab; --no:#e0806b; --wait:#d5b95a; --canvas-bg:#121417; color-scheme:dark } }
+:root[data-theme="dark"]{
+  --bg:#15171a; --panel:#1d2024; --fg:#e8e6df; --muted:#a3a79d; --line:#33373c;
+  --accent:#7fc2ab; --accent-soft:#23332d; --hot:#f0785a; --warm:#e6b85c; --cold:#6fa1e0;
+  --ok:#7fc2ab; --no:#e0806b; --wait:#d5b95a; --canvas-bg:#121417; color-scheme:dark }
+
+body{background:var(--bg);color:var(--fg);font-family:var(--sans);font-size:15px;line-height:1.5;
+  padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));padding-block:20px 48px}
+h1,h2,h3{text-wrap:balance;margin:0}
+h1{font-size:1.55rem;font-weight:600;letter-spacing:-.01em}
+h2{font-size:1.05rem;font-weight:600;margin-bottom:8px}
+.eyebrow{font-family:var(--mono);font-size:.72rem;letter-spacing:.08em;text-transform:uppercase;color:var(--muted)}
+.lead{color:var(--muted);max-width:68ch;margin-top:6px}
+header{max-width:1200px;margin:0 auto 18px}
+.wrap{max-width:1200px;margin:0 auto;display:grid;grid-template-columns:minmax(0,1.15fr) minmax(0,1fr);gap:20px;align-items:start}
+@media (max-width:860px){.wrap{grid-template-columns:1fr}}
+.viewer{position:sticky;top:env(safe-area-inset-top,0px);background:var(--panel);border:1px solid var(--line);border-radius:10px;overflow:hidden;min-width:0}
+@media (max-width:860px){.viewer{position:static}}
+canvas{display:block;width:100%;height:auto;background:var(--canvas-bg);touch-action:none;cursor:grab}
+.controls{padding:10px 12px 12px;border-top:1px solid var(--line);display:flex;flex-wrap:wrap;gap:8px 14px;align-items:center}
+.controls label{display:inline-flex;align-items:center;gap:6px;font-size:.85rem;cursor:pointer}
+.controls input[type=checkbox]{accent-color:var(--accent)}
+.controls .grp{display:inline-flex;gap:4px;flex-wrap:wrap}
+.controls button{font:inherit;font-size:.8rem;padding:3px 9px;border:1px solid var(--line);background:transparent;color:var(--fg);border-radius:6px;cursor:pointer}
+.controls button[aria-pressed="true"]{background:var(--accent-soft);border-color:var(--accent);color:var(--fg)}
+.controls button:focus-visible,.controls input:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+.legend{display:flex;flex-wrap:wrap;gap:6px 14px;padding:8px 12px 10px;font-size:.8rem;color:var(--muted);border-top:1px solid var(--line)}
+.sw{display:inline-block;width:10px;height:10px;border-radius:50%;vertical-align:-1px;margin-right:5px}
+.note{font-family:var(--mono);font-size:.72rem;color:var(--muted);padding:0 12px 10px}
+.side{min-width:0;display:grid;gap:16px}
+.card{background:var(--panel);border:1px solid var(--line);border-radius:10px;padding:14px 16px;min-width:0}
+table{width:100%;border-collapse:collapse;font-size:.86rem}
+th,td{text-align:left;vertical-align:top;padding:7px 8px;border-top:1px solid var(--line)}
+th{font-weight:600;color:var(--muted);font-size:.75rem;letter-spacing:.05em;text-transform:uppercase;border-top:0}
+td:first-child{font-weight:500;white-space:nowrap}
+.tbl{overflow-x:auto}
+.pill{display:inline-block;font-family:var(--mono);font-size:.68rem;padding:1px 7px;border-radius:999px;border:1px solid currentColor;margin-left:4px;vertical-align:1px}
+.ok{color:var(--ok)} .no{color:var(--no)} .wait{color:var(--wait)}
+.kv{display:grid;grid-template-columns:auto 1fr;gap:4px 12px;font-size:.86rem}
+.kv dt{color:var(--muted);font-family:var(--mono);font-size:.74rem;padding-top:2px}
+.kv dd{margin:0}
+.num{font-variant-numeric:tabular-nums;font-family:var(--mono)}
+ul{margin:6px 0 0;padding-left:18px}
+li{margin:3px 0}
+a{color:var(--accent)}
+</style>
+
+<header>
+  <div class="eyebrow">SGV · campo, trajetória, superfície · 16/10/2026</div>
+  <h1>Em que pé está o navegador</h1>
+  <p class="lead">A visão de 13/10 era um único mapa 3D com o campo, a trajetória e a casca. O cubo abaixo mostra o que cada camada virou depois dos testes desta semana, e a tabela ao lado diz o que mudou em relação ao navegador que está no repositório.</p>
+</header>
+
+<div class="wrap">
+  <section class="viewer" aria-label="Cubo 3D do SGV">
+    <canvas id="c" width="900" height="640"></canvas>
+    <div class="controls">
+      <label><input type="checkbox" id="l-pts" checked> estados (cor = temperatura σ̂)</label>
+      <label><input type="checkbox" id="l-shell" checked> casca HDR50</label>
+      <label><input type="checkbox" id="l-traj" checked> trajetória (últimos 240 min)</label>
+      <label><input type="checkbox" id="l-field" checked> campo D(x): anéis ×1 · ×3 · ×10</label>
+      <label><input type="checkbox" id="l-dir"> direção μ(x)</label>
+      <span class="grp" role="group" aria-label="fatia de temperatura">
+        <button id="f-all" aria-pressed="true">todas</button>
+        <button id="f-0" aria-pressed="false">calma</button>
+        <button id="f-1" aria-pressed="false">média</button>
+        <button id="f-2" aria-pressed="false">quente</button>
+      </span>
+      <label><input type="checkbox" id="l-std"> medir em unidades de σ̂ (colapso)</label>
+    </div>
+    <div class="legend">
+      <span><i class="sw" style="background:var(--cold)"></i>calma</span>
+      <span><i class="sw" style="background:var(--warm)"></i>média</span>
+      <span><i class="sw" style="background:var(--hot)"></i>quente</span>
+      <span>eixos: E_norm · jerk · memory_flux, régua de caudas (mediana e q99,5 de maio ÷ 3)</span>
+      <span>arraste para girar</span>
+    </div>
+    <div class="note" id="status">—</div>
+    <div class="note">Pontos simulados com a receita do nosso sintético M (AR(1) + volatilidade real-like em duas escalas), não dados do BTC. Servem para ver as camadas, não para ler números.</div>
+  </section>
+
+  <aside class="side">
+    <div class="card">
+      <h2>Navegador de 13/10 × hoje</h2>
+      <div class="tbl"><table>
+        <thead><tr><th>Camada</th><th>No navegador</th><th>Hoje (16/10)</th></tr></thead>
+        <tbody>
+          <tr><td>Espaço</td><td>original e fluxo, com gaussianização (M11-I)</td><td>mesmos eixos, mas na <b>régua de caudas</b>. A gaussianização apagava as caudas que o campo vê. <span class="pill ok">fechado</span></td></tr>
+          <tr><td>Campo D(x)</td><td>mapa de agitação, nula pobre (×2,7)</td><td>localmente linear, k = 200; borda ×10 do núcleo, <b>real e não especial</b>: AR(1) + vol reproduz (R 5,7–6,9 vs 6,8). Julgamento H-DIF-01 em 3/11. <span class="pill wait">3/11</span></td></tr>
+          <tr><td>Trajetória</td><td>linha no cubo, ponto a ponto</td><td>difusão com saltos; não markoviana <i>dado o cubo</i>; a memória da surpresa cabe na <b>volatilidade multiescala</b> (FECHADO, 4 estimativas). H-VOL-01 em 3/11. <span class="pill wait">3/11</span></td></tr>
+          <tr><td>Casca HDR50</td><td>superfície que gira; rotação como sinal</td><td>gira, mas a rotação não prevê (H-CASCA-01 LTC ρ +0,35 = nula +0,33). Casca↔cauda +0,64 é validade de instrumento. "Expande quando o mercado esvazia." <span class="pill no">não prevê</span></td></tr>
+          <tr><td>Régua RTT</td><td>giro σ como relógio do mercado</td><td>H-σRTT-01: excesso de σ é real (H1, p &lt; 10⁻⁴) mas estático; sem flecha do tempo (H2, p 0,18). <span class="pill ok">julgado</span></td></tr>
+          <tr><td>4ª dimensão</td><td>ausente</td><td><b>volatilidade σ̂</b> como cor. Fixando a temperatura o campo colapsa (C ≈ 0,9): a borda agitada é em boa parte a fatia quente. <span class="pill ok">exploração</span></td></tr>
+          <tr><td>Direção μ(x)</td><td>perguntada ("para onde vai?")</td><td>ausente em 8 testes, 3 ativos, 2 pesquisadores. H-DIR-01 registrado com expectativa de nulo. <span class="pill no">ausente</span></td></tr>
+          <tr><td>Nulas ao lado</td><td>permutação intradiária</td><td>+ nula de pipeline, sintéticos G, S e M, matriz reversibilizada. A nula certa é metade do teste. <span class="pill ok">método</span></td></tr>
+          <tr><td>Leitura humana</td><td>U03 (Lovable), U2, W-HDR</td><td>máquina não supera o painel convencional (U2); U03.2 e RB-02 pendentes, sem pré-registro. <span class="pill wait">pendente</span></td></tr>
+        </tbody>
+      </table></div>
+    </div>
+
+    <div class="card">
+      <h2>O que o cubo está mostrando</h2>
+      <dl class="kv">
+        <dt>estados</dt><dd>um ponto por minuto, cor pela temperatura σ̂ (tercis fixos de maio: calma, média, quente). É a 4ª dimensão que o navegador não tinha.</dd>
+        <dt>anéis</dt><dd>onde o campo D(x) vale ×1, ×3 e ×10 do núcleo. Ligue "unidades de σ̂" e veja as fatias se sobreporem: é o colapso de escala.</dd>
+        <dt>casca</dt><dd>HDR50 da janela corrente. Troque de fatia: a casca da fatia quente é a borda.</dd>
+        <dt>direção</dt><dd>setas μ(x) da semana anterior. Ficam desligadas por padrão porque é isso que os testes dizem: nada estável.</dd>
+      </dl>
+    </div>
+
+    <div class="card">
+      <h2>Para o navegador ficar atualizado</h2>
+      <ul>
+        <li>Trocar a régua: remover a gaussianização, usar mediana e q99,5 de maio ÷ 3.</li>
+        <li>Colorir os estados por σ̂ multiescala (har ou ew10) e oferecer as fatias.</li>
+        <li>Mostrar o campo em unidades de σ̂ como opção, ao lado do bruto.</li>
+        <li>Tirar a rotação da casca da lista de sinais; manter como descrição.</li>
+        <li>Ao lado de cada instrumento, a nula M (não só a permutação).</li>
+        <li>Depois de 3/11, carimbar os vereditos de H-DIF, H-DIR, H-VOL e H-SGV-01a.</li>
+      </ul>
+    </div>
+  </aside>
+</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+<script>
+(function(){
+  if(!window.THREE){ document.getElementById('status').textContent='A biblioteca 3D não carregou.'; return; }
+  const css = getComputedStyle(document.documentElement);
+  const col = n => new THREE.Color(css.getPropertyValue(n).trim());
+  const canvas = document.getElementById('c');
+  const renderer = new THREE.WebGLRenderer({canvas, antialias:true, alpha:true});
+  renderer.setPixelRatio(Math.min(window.devicePixelRatio||1, 2));
+  const scene = new THREE.Scene();
+  const camera = new THREE.PerspectiveCamera(38, 900/640, 0.1, 100);
+  camera.position.set(0,0,17);
+  const root = new THREE.Group(); scene.add(root);
+  root.rotation.set(0.45, -0.6, 0);
+
+  /* ---------- simulação: AR(1) + volatilidade em duas escalas, 3 coordenadas ---------- */
+  function mulberry(a){ return function(){ a|=0; a=a+0x6D2B79F5|0; let t=Math.imul(a^a>>>15,1|a); t=t+Math.imul(t^t>>>7,61|t)^t; return ((t^t>>>14)>>>0)/4294967296; } }
+  const rnd = mulberry(20261016);
+  function gauss(){ let u=0,v=0; while(u===0)u=rnd(); while(v===0)v=rnd(); return Math.sqrt(-2*Math.log(u))*Math.cos(2*Math.PI*v); }
+  const N = 6000, phi=[0.35,0.15,0.6];
+  const X = new Float32Array(N*3), S = new Float32Array(N);
+  let slow=0, fast=0, x=[0,0,0];
+  for(let t=0;t<N;t++){
+    slow = 0.995*slow + 0.05*gauss();          // escala lenta (horas)
+    fast = 0.80*fast  + 0.35*gauss();          // escala rápida (minutos)
+    const sig = Math.exp(0.9*slow + 0.5*fast - 0.4);
+    S[t]=sig;
+    for(let k=0;k<3;k++){ x[k] = phi[k]*x[k] + sig*gauss()*(k===1?1.4:1); X[t*3+k]=x[k]; }
+  }
+  // régua de caudas: mediana e q99,5 de |x−med| ÷ 3, calibradas nos primeiros 1500 pontos ("maio")
+  const med=[0,0,0], sc=[1,1,1];
+  for(let k=0;k<3;k++){
+    const a=[]; for(let t=0;t<1500;t++) a.push(X[t*3+k]); a.sort((p,q)=>p-q);
+    med[k]=a[Math.floor(a.length/2)];
+    const d=a.map(v=>Math.abs(v-med[k])).sort((p,q)=>p-q); sc[k]=d[Math.floor(0.995*d.length)]/3;
+  }
+  for(let t=0;t<N;t++) for(let k=0;k<3;k++) X[t*3+k]=(X[t*3+k]-med[k])/sc[k];
+  // tercis de log σ̂ em "maio"
+  const ls=[]; for(let t=0;t<1500;t++) ls.push(Math.log(S[t])); ls.sort((p,q)=>p-q);
+  const q1=ls[Math.floor(ls.length/3)], q2=ls[Math.floor(2*ls.length/3)];
+  const lab=new Uint8Array(N); for(let t=0;t<N;t++){ const v=Math.log(S[t]); lab[t]= v<q1?0 : v<q2?1 : 2; }
+  const medSig = Math.exp(ls[Math.floor(ls.length/2)]);
+
+  /* ---------- camadas ---------- */
+  const SCALE=1.1;
+  const state={fatia:-1, std:false};
+  const colors=[col('--cold'),col('--warm'),col('--hot')];
+
+  // estados
+  const ptsGeo=new THREE.BufferGeometry();
+  const pos=new Float32Array(N*3), colr=new Float32Array(N*3);
+  ptsGeo.setAttribute('position', new THREE.BufferAttribute(pos,3));
+  ptsGeo.setAttribute('color', new THREE.BufferAttribute(colr,3));
+  const pts=new THREE.Points(ptsGeo, new THREE.PointsMaterial({size:0.055, vertexColors:true, transparent:true, opacity:0.75, sizeAttenuation:true}));
+  root.add(pts);
+
+  function coord(t,k){ const v=X[t*3+k]; return (state.std ? v*(medSig/S[t]) : v)*SCALE; }
+  function refreshPoints(){
+    let shown=0;
+    for(let t=0;t<N;t++){
+      const vis = state.fatia<0 || lab[t]===state.fatia;
+      const c=colors[lab[t]];
+      for(let k=0;k<3;k++) pos[t*3+k]= vis ? coord(t,k) : 1e3;
+      colr[t*3]=c.r; colr[t*3+1]=c.g; colr[t*3+2]=c.b;
+      if(vis) shown++;
+    }
+    ptsGeo.attributes.position.needsUpdate=true; ptsGeo.attributes.color.needsUpdate=true;
+    return shown;
+  }
+
+  // eixos + caixa
+  const box=new THREE.LineSegments(new THREE.EdgesGeometry(new THREE.BoxGeometry(10,10,10)), new THREE.LineBasicMaterial({color:col('--line')}));
+  root.add(box);
+  function axisLabel(txt, p){
+    const cv=document.createElement('canvas'); cv.width=256; cv.height=64; const g=cv.getContext('2d');
+    g.font='500 30px IBM Plex Mono, monospace'; g.fillStyle=css.getPropertyValue('--muted').trim(); g.textAlign='center'; g.fillText(txt,128,42);
+    const sp=new THREE.Sprite(new THREE.SpriteMaterial({map:new THREE.CanvasTexture(cv), transparent:true, depthTest:false}));
+    sp.scale.set(2.6,0.65,1); sp.position.copy(p); root.add(sp);
+  }
+  axisLabel('E_norm', new THREE.Vector3(5.9,-5,-5));
+  axisLabel('jerk', new THREE.Vector3(-5,5.9,-5));
+  axisLabel('memory_flux', new THREE.Vector3(-5,-5,6.2));
+
+  // anéis do campo: extremidade 1, 3, 10 (régua de caudas) — o navegador não tinha isso
+  const field=new THREE.Group(); root.add(field);
+  [[1,'×1'],[3,'×3'],[5,'×10']].forEach(([r,l],i)=>{
+    const m=new THREE.Mesh(new THREE.SphereGeometry(r*SCALE*0.95,32,24), new THREE.MeshBasicMaterial({color:col('--accent'), wireframe:true, transparent:true, opacity:0.10+0.05*i}));
+    field.add(m);
+    const cv=document.createElement('canvas'); cv.width=128; cv.height=64; const g=cv.getContext('2d');
+    g.font='500 30px IBM Plex Mono, monospace'; g.fillStyle=css.getPropertyValue('--accent').trim(); g.textAlign='center'; g.fillText('D '+l,64,42);
+    const sp=new THREE.Sprite(new THREE.SpriteMaterial({map:new THREE.CanvasTexture(cv), transparent:true, depthTest:false}));
+    sp.scale.set(1.3,0.65,1); sp.position.set(r*SCALE*0.95,0.35,0); field.add(sp);
+  });
+
+  // casca HDR50: elipsoide da covariância da janela corrente (fatia escolhida)
+  const shell=new THREE.Mesh(new THREE.SphereGeometry(1,32,24), new THREE.MeshBasicMaterial({color:col('--accent'), transparent:true, opacity:0.22, side:THREE.DoubleSide}));
+  const shellEdge=new THREE.Mesh(new THREE.SphereGeometry(1,16,12), new THREE.MeshBasicMaterial({color:col('--accent'), wireframe:true, transparent:true, opacity:0.35}));
+  root.add(shell); root.add(shellEdge);
+  function refreshShell(){
+    const W=1500, t0=N-W; const mu=[0,0,0]; let n=0;
+    for(let t=t0;t<N;t++){ if(state.fatia>=0 && lab[t]!==state.fatia) continue; for(let k=0;k<3;k++) mu[k]+=coord(t,k); n++; }
+    if(n<30){ shell.visible=false; shellEdge.visible=false; return; }
+    for(let k=0;k<3;k++) mu[k]/=n;
+    const C=[[0,0,0],[0,0,0],[0,0,0]];
+    for(let t=t0;t<N;t++){ if(state.fatia>=0 && lab[t]!==state.fatia) continue;
+      const d=[coord(t,0)-mu[0],coord(t,1)-mu[1],coord(t,2)-mu[2]];
+      for(let i=0;i<3;i++) for(let j=0;j<3;j++) C[i][j]+=d[i]*d[j]/n; }
+    // Jacobi para autovetores
+    let A=C.map(r=>r.slice()), V=[[1,0,0],[0,1,0],[0,0,1]];
+    for(let it=0;it<30;it++){ let p=0,q=1,mx=0;
+      for(let i=0;i<3;i++) for(let j=i+1;j<3;j++) if(Math.abs(A[i][j])>mx){mx=Math.abs(A[i][j]);p=i;q=j;}
+      if(mx<1e-9) break;
+      const th=0.5*Math.atan2(2*A[p][q], A[q][q]-A[p][p]); const c=Math.cos(th), s=Math.sin(th);
+      const R=[[1,0,0],[0,1,0],[0,0,1]]; R[p][p]=c;R[q][q]=c;R[p][q]=s;R[q][p]=-s;
+      const mul=(M1,M2)=>M1.map((r,i)=>M2[0].map((_,j)=>r.reduce((a,_,k)=>a+M1[i][k]*M2[k][j],0)));
+      const RT=R[0].map((_,j)=>R.map(r=>r[j]));
+      A=mul(mul(RT,A),R); V=mul(V,R); }
+    // HDR50 de uma gaussiana 3D: raio ≈ sqrt(χ²₃(0,5)) = 1,538 desvios
+    const k=1.538;
+    const m=new THREE.Matrix4(); const e=[Math.sqrt(Math.max(A[0][0],1e-4)),Math.sqrt(Math.max(A[1][1],1e-4)),Math.sqrt(Math.max(A[2][2],1e-4))];
+    m.set(V[0][0]*e[0]*k,V[0][1]*e[1]*k,V[0][2]*e[2]*k,mu[0],
+          V[1][0]*e[0]*k,V[1][1]*e[1]*k,V[1][2]*e[2]*k,mu[1],
+          V[2][0]*e[0]*k,V[2][1]*e[1]*k,V[2][2]*e[2]*k,mu[2], 0,0,0,1);
+    [shell,shellEdge].forEach(o=>{ o.visible=true; o.matrixAutoUpdate=false; o.matrix.copy(m); });
+  }
+
+  // trajetória: últimos 240 min
+  const T=240; const trGeo=new THREE.BufferGeometry(); const trPos=new Float32Array(T*3);
+  trGeo.setAttribute('position', new THREE.BufferAttribute(trPos,3));
+  const traj=new THREE.Line(trGeo, new THREE.LineBasicMaterial({color:col('--fg'), transparent:true, opacity:0.8}));
+  const head=new THREE.Mesh(new THREE.SphereGeometry(0.12,12,10), new THREE.MeshBasicMaterial({color:col('--fg')}));
+  root.add(traj); root.add(head);
+  function refreshTraj(){ for(let i=0;i<T;i++){ const t=N-T+i; for(let k=0;k<3;k++) trPos[i*3+k]=coord(t,k); }
+    trGeo.attributes.position.needsUpdate=true; head.position.set(coord(N-1,0),coord(N-1,1),coord(N-1,2)); }
+
+  // direção μ(x): média dos passos por célula — no simulado, como no real, ruído em torno de zero
+  const dir=new THREE.Group(); root.add(dir); dir.visible=false;
+  (function buildDir(){
+    const G=5, cells={};
+    for(let t=1;t<N;t++){ const key=[0,1,2].map(k=>Math.max(0,Math.min(G-1,Math.floor((X[t*3+k]+2.5)/5*G)))).join(',');
+      (cells[key]=cells[key]||{n:0,s:[0,0,0],c:[0,0,0]}); const c=cells[key]; c.n++;
+      for(let k=0;k<3;k++){ c.s[k]+=X[t*3+k]-X[(t-1)*3+k]; c.c[k]+=X[t*3+k]; } }
+    Object.values(cells).forEach(c=>{ if(c.n<40) return;
+      const o=new THREE.Vector3(c.c[0]/c.n*SCALE,c.c[1]/c.n*SCALE,c.c[2]/c.n*SCALE);
+      const d=new THREE.Vector3(c.s[0]/c.n,c.s[1]/c.n,c.s[2]/c.n); const L=d.length(); if(L<1e-6) return;
+      dir.add(new THREE.ArrowHelper(d.normalize(), o, Math.min(0.9, L*6+0.15), col('--no').getHex(), 0.12, 0.08)); });
+  })();
+
+  /* ---------- controles ---------- */
+  const layers={'l-pts':pts,'l-shell':null,'l-traj':null,'l-field':field,'l-dir':dir};
+  function bind(id,fn){ document.getElementById(id).addEventListener('change',e=>{fn(e.target.checked);}); }
+  bind('l-pts',v=>pts.visible=v);
+  bind('l-shell',v=>{shell.visible=v;shellEdge.visible=v; if(v) refreshShell();});
+  bind('l-traj',v=>{traj.visible=v;head.visible=v;});
+  bind('l-field',v=>field.visible=v);
+  bind('l-dir',v=>dir.visible=v);
+  bind('l-std',v=>{state.std=v; refreshAll();});
+  ['all',0,1,2].forEach(f=>{ document.getElementById('f-'+f).addEventListener('click',()=>{
+    state.fatia = f==='all'?-1:f;
+    ['all',0,1,2].forEach(g=>document.getElementById('f-'+g).setAttribute('aria-pressed', String(g===f)));
+    refreshAll(); }); });
+  const status=document.getElementById('status');
+  function refreshAll(){
+    const shown=refreshPoints(); refreshTraj(); if(document.getElementById('l-shell').checked) refreshShell();
+    const nome=['calma','média','quente'][state.fatia]||'todas as fatias';
+    status.textContent = `${shown} estados · ${nome} · ${state.std?'unidades de σ̂ (as três fatias caem no mesmo objeto)':'régua de caudas bruta'}`;
+  }
+  refreshAll();
+
+  /* ---------- interação ---------- */
+  let drag=false, lx=0, ly=0;
+  canvas.addEventListener('pointerdown',e=>{drag=true;lx=e.clientX;ly=e.clientY;canvas.setPointerCapture(e.pointerId);canvas.style.cursor='grabbing';});
+  canvas.addEventListener('pointerup',e=>{drag=false;canvas.style.cursor='grab';});
+  canvas.addEventListener('pointercancel',()=>{drag=false;});
+  canvas.addEventListener('pointermove',e=>{ if(!drag) return; root.rotation.y+=(e.clientX-lx)*0.008; root.rotation.x+=(e.clientY-ly)*0.008; lx=e.clientX; ly=e.clientY; });
+  canvas.addEventListener('wheel',e=>{ e.preventDefault(); camera.position.z=Math.max(8,Math.min(30,camera.position.z+e.deltaY*0.01)); },{passive:false});
+  const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  function resize(){ const w=canvas.clientWidth||900; const h=Math.round(w*0.71); if(canvas.width!==w||canvas.height!==h){ renderer.setSize(w,h,false); camera.aspect=w/h; camera.updateProjectionMatrix(); } }
+  function loop(){ resize(); if(!drag && !reduce) root.rotation.y+=0.0015; renderer.render(scene,camera); requestAnimationFrame(loop); }
+  loop();
+})();
+</script>
