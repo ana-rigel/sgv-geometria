@@ -42,14 +42,14 @@ jobs:
       - name: Rodar (agosto–setembro)
         run: |
           mkdir -p resultados
-          python -W ignore pipeline/explora_memoria_potencia.py --periodo agoset --v2 | tee resultados/memoria_potencia_v2_agoset.log
-          python -W ignore pipeline/explora_memoria_potencia.py --periodo junset --v2 | tee resultados/memoria_potencia_v2_junset.log
+          python -W ignore pipeline/explora_memoria_potencia_v3.py --periodo agoset | tee resultados/memoria_potencia_v3_agoset.log
+          python -W ignore pipeline/explora_memoria_potencia_v3.py --periodo junset | tee resultados/memoria_potencia_v3_junset.log
 
       - name: Gravar o resultado no ramo
         if: always()
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "41898+github-actions[bot]@users.noreply.github.com"
-          git add -f resultados/memoria_potencia_v2_*.json resultados/memoria_potencia_v2_*.log || true
-          git commit -m "Exploração memória em lei de potência: resultado v2 ago–set e jun–set (run ${{ github.run_id }})" || echo "nada para gravar"
+          git add -f resultados/memoria_potencia_v3_*.json resultados/memoria_potencia_v3_*.log || true
+          git commit -m "Exploração memória em lei de potência: resultado v3 ago–set e jun–set (run ${{ github.run_id }})" || echo "nada para gravar"
           git push || true
