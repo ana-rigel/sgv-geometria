@@ -1,0 +1,34 @@
+{
+  "status": "READ_ONLY_AUDIT_PASSED",
+  "gates": {
+    "null_specificity": true,
+    "direction_sensitive": true,
+    "energy_unidentifiable_by_construction": true
+  },
+  "outcomes": {
+    "null": {
+      "mean_base": 0.6931696042754507,
+      "mean_plus": 0.6931853598961619,
+      "delta": -1.575562071111832e-05,
+      "ci95": [
+        -4.043667854765805e-05,
+        6.430130522272013e-06
+      ],
+      "n_paths": 12
+    },
+    "direction": {
+      "mean_base": 0.6602183172375117,
+      "mean_plus": 0.42069291338510045,
+      "delta": 0.23952540385241128,
+      "ci95": [
+        0.23418861104183858,
+        0.24501016281247387
+      ],
+      "n_paths": 12
+    }
+  },
+  "model_sha256": "8a29b35c292d43cdd4cbb56858f8df3f49363cd0662b3ce1247c9618f4c62538",
+  "checked_exact_blobs": 3,
+  "n_trajectories_tested": 12,
+  "note": "Energy equality is verified by generators/unit tests, not raw samples (not stored). No new holdout generated."
+}
