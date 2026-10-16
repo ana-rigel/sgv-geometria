@@ -48,3 +48,54 @@ Lido com esse defeito à vista, o ordenamento é informativo e repetiu nos dois 
 | κ_real entre 0,05 e 0,30 | 65 % | sim (0,24 e 0,23) |
 
 O erro de 90 % é o maior erro de aposta das rodadas de 16/10 e fica registrado como tal: eu não sabia que caudas i.i.d. bastam para uma ζ(q) côncava nesta amostra. Agora sei, e o repositório também.
+
+---
+
+# v2: cascata ou cauda? κ₁ e o espectro de z = r/σ̂ (jun–jul e ago–set/2026)
+
+**Predição:** PREDICAO_multifractal_v2.md, congelada em 390615d antes de rodar. **Resultados:** resultados/multifractal_v2_{junjul,agoset}.json (ago–set: Actions run 38973675304).
+
+## Números (ajuste até 240 min)
+
+| | jun–jul | ago–set |
+|---|---|---|
+| (1) κ₁ = 2ζ(1) − ζ(2), real | +0,026 | −0,010 |
+| κ₁, M | +0,006 a +0,044 | +0,038 a +0,071 |
+| κ₁, embaralhado | +0,064 a +0,072 | +0,068 a +0,079 |
+| **Classe (1)** | sem cascata além da cauda | sem cascata além da cauda |
+| (2) κ₁(z), real | +0,032 | +0,030 |
+| κ₁(z), z embaralhado | +0,033 a +0,041 | +0,038 a +0,049 |
+| **Classe (2)** | σ̂ absorve a cascata | σ̂ absorve a cascata |
+| κ(z) de q alto, real / z embaralhado | +0,275 / 0,255–0,287 | +0,259 / 0,321–0,389 |
+| H real / H(z) | 0,482 / 0,491 | 0,496 / 0,495 |
+
+## Veredito
+
+**(1) "Sem cascata além da cauda"** e **(2) "σ̂ absorve a cascata"**, nos dois períodos. Os dois critérios registrados repetiram.
+
+## Segundo defeito de desenho, registrado
+
+A predição afirmou que κ₁ teria **sinal oposto** entre i.i.d. de cauda gorda (κ₁ ≲ 0) e cascata (κ₁ > 0). O raciocínio estava certo até a metade e errado na conclusão: para i.i.d., a razão ⟨|r|⟩/√⟨r²⟩ sobe ao gaussianizar, logo ζ(1) > ½ enquanto ζ(2) ≈ 1, e κ₁ = 2ζ(1) − ζ(2) fica **positivo**, não negativo. O embaralhado deu +0,06 a +0,08 nos dois períodos. κ₁ não discrimina cascata de cauda; mede a mesma gaussianização que κ, só que pelo momento 1. A aposta de 70 % em "κ₁_embaralhado ≤ 0" errou nos dois períodos, pelo mesmo motivo de fundo da v1: subestimei o quanto caudas i.i.d. produzem concavidade. Dois erros seguidos na mesma direção são um padrão, e ficam anotados como tal.
+
+O que (1) ainda diz, lido com o defeito à vista: o ordenamento **embaralhado > M ≥ real** repetiu (ago–set até com κ₁ real negativo). O agrupamento de volatilidade do real *retarda* a gaussianização mais do que o do M, e muito mais do que nenhum agrupamento. Mesma informação da v1 e do R: o real tem memória curta e caudas que o M não reproduz.
+
+## O que (2) fecha
+
+Dividindo cada retorno pelo σ̂ HAR do minuto anterior (10, 60 e 240 min), o espectro de escala do real fica **indistinguível do espectro do próprio z embaralhado**, em q baixo e em q alto, nos dois períodos (em ago–set, o real fica até abaixo do envelope em q alto). Toda a estrutura de escala que os momentos enxergam entre 1 min e 4 h está **contida no σ̂ causal de três janelas**. Não sobra hierarquia de escalas a explicar: a "multifractalidade" do BTC de 1 min é cauda gorda da distribuição condicional mais um σ̂ de poucas escalas, exatamente a leitura do v3 da memória (duas exponenciais) e do colapso (C ≈ 0,9).
+
+## Apostas da v2
+
+| Aposta | Prob. | Saiu |
+|---|---|---|
+| κ₁_embaralhado ≤ 0 nos dois períodos | 70 % | **não** (positivo nos dois) |
+| κ₁_real > máx embaralhado nos dois períodos | 65 % | **não** |
+| "Cascata como o M" | 40 % | não |
+| "Cascata além do M" | 25 % | não |
+| "σ̂ absorve a cascata", dois períodos | 55 % | sim |
+| κ(z) real < κ bruto da v1 | 80 % | **não** (0,275 > 0,240; 0,259 > 0,231) |
+
+Três apostas erradas de seis. A última errou porque padronizar por um σ̂ ruidoso infla a cauda de z em vez de afiná-la; o nulo de z embaralhado, previsto na predição, foi o que salvou o critério (2).
+
+## Encerramento
+
+Pergunta "o BTC é multifractal?" nestes dados: **a concavidade de ζ(q) existe e é estável (κ ≈ 0,23–0,24), mas é explicada por cauda gorda + σ̂ de três escalas; não há cascata residual.** Duas versões, dois defeitos de instrumento registrados, um resultado que fecha. Não haverá v3 por iniciativa minha.
