@@ -25,7 +25,7 @@ def test_features_are_strictly_causal():
     xx=d.synthetic_coords(r)
     t1,x1,y1=d.feature_matrix(r,xx)
     np.testing.assert_allclose(x0[t0==k],x1[t1==k],atol=1e-12,rtol=0)
-    assert np.array_equal(y0[t0==k],y1[t1==k])
+    assert not np.array_equal(y0[t0==k],y1[t1==k])  # o alvo futuro DEVE mudar; as features nao
 
 def test_feature_design_columns_and_lags():
     z=d.synthetic_pair(0)
