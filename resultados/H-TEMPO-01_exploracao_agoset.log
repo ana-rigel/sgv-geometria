@@ -1,0 +1,21 @@
+BTCUSDT-1m-2026-05.zip: SHA-256 conferido
+BTCUSDT-1m-2026-06.zip: SHA-256 conferido
+BTCUSDT-1m-2026-07.zip: SHA-256 conferido
+BTCUSDT-1m-2026-08.zip: SHA-256 conferido
+BTCUSDT-1m-2026-09.zip: SHA-256 conferido
+  real: ok
+  M_4026: ok
+  M_4027: ok
+  M_4028: ok
+  M_4029: ok
+  M_4030: ok
+
+== H-TEMPO-01 [agoset]
+  real    a: β 0.176 R²pot 0.868 R²exp 0.371 ΔR² +0.498 (n_pos 21; har β 0.12 ΔR² -0.05) | b: φ_borda +0.025 φ_núcleo +0.025 Δφ +0.001 φ5_borda -0.011 flips 0.49/0.55 sem 6
+  M_4026  a: β 0.240 R²pot 0.909 R²exp 0.397 ΔR² +0.512 (n_pos 21; har β 0.14 ΔR² +0.00) | b: φ_borda -0.002 φ_núcleo +0.001 Δφ -0.002 φ5_borda +0.046 flips 0.49/0.50 sem 8
+  M_4027  a: β 0.235 R²pot 0.881 R²exp 0.360 ΔR² +0.520 (n_pos 21; har β 0.13 ΔR² +0.03) | b: φ_borda +0.036 φ_núcleo +0.037 Δφ -0.001 φ5_borda -0.051 flips 0.49/0.50 sem 8
+  M_4028  a: β 0.261 R²pot 0.906 R²exp 0.418 ΔR² +0.488 (n_pos 21; har β 0.15 ΔR² +0.04) | b: φ_borda -0.021 φ_núcleo -0.019 Δφ -0.002 φ5_borda +0.026 flips 0.51/0.50 sem 8
+  M_4029  a: β 0.247 R²pot 0.882 R²exp 0.350 ΔR² +0.532 (n_pos 21; har β 0.14 ΔR² +0.05) | b: φ_borda -0.044 φ_núcleo +0.024 Δφ -0.067 φ5_borda -0.052 flips 0.52/0.49 sem 7
+  M_4030  a: β 0.244 R²pot 0.899 R²exp 0.404 ΔR² +0.495 (n_pos 21; har β 0.14 ΔR² -0.03) | b: φ_borda +0.014 φ_núcleo -0.007 Δφ +0.021 φ5_borda +0.019 flips 0.50/0.50 sem 8
+  ρ(τ) real: [0.307, 0.291, 0.259, 0.248, 0.244, 0.228, 0.215, 0.195, 0.184, 0.162, 0.164, 0.161, 0.147, 0.128, 0.121, 0.116, 0.105, 0.092, 0.083, 0.076, 0.155]
+  classificação: {"a": {"delta_r2_real": 0.4975540664880199, "M_max": 0.5320673304015683, "beta_real": 0.17576602628242982, "cond_envelope": false, "cond_beta": true, "veredito": "NÃO CONFIRMADA", "descola_em": 1}, "b": {"delta_phi_real": 0.0005659419614216758, "M_min": -0.06746986748335251, "M_max": 0.02110522902617844, "veredito": "NÃO CONFIRMADA", "classe": "dentro do M"}}
