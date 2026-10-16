@@ -4,6 +4,7 @@ This does not fit or test classifiers, does not regenerate any heldout synthetic
 nor read Oct/Nov. The goal is to explain a failed invariant in the first market run.
 """
 import argparse
+import hashlib
 import json
 from pathlib import Path
 import numpy as np
@@ -34,6 +35,11 @@ def main():
             res['columns'].append({'name':name,'n_bitdiff':int(len(different)),
                 'max_abs_diff':float(z.max()),'n_gt_1e-10':int((z>1e-10).sum()),
                 'first_different':int(different[0]) if len(different) else None})
+    frozen=json.loads(Path('resultados/d01_modelos_congelados.json').read_text())
+    res['train_sha256_frozen']=frozen['market']['train_sha256']
+    res['train_sha256_current_short']=hashlib.sha256(np.ascontiguousarray(np.column_stack([b0,c0])).tobytes()).hexdigest()
+    res['train_sha256_current_full']=hashlib.sha256(np.ascontiguousarray(np.column_stack([b1,c1])).tobytes()).hexdigest()
+    res['train_digest_matches_frozen']=(res['train_sha256_current_full']==res['train_sha256_frozen'])
     res['diagnosis']='PREFIX_PARITY' if all(col['n_bitdiff']==0 for col in res['columns']) and res['same_training_labels'] else 'PREFIX_NOT_BYTE_IDENTICAL'
     Path(a.out).parent.mkdir(parents=True,exist_ok=True)
     Path(a.out).write_text(json.dumps(res,indent=2,ensure_ascii=False)+'\n')
