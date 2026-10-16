@@ -17,7 +17,7 @@ Regra prática: ext e w você lê a cada minuto e esquece; R e C você lê uma v
 
 ## ext: onde o minuto está no cubo
 
-ext é a distância do minuto ao centro do cubo, medida pelo eixo que mais se afastou. O cubo tem três eixos (energia dos retornos, jerk e fluxo de memória), cada um numa régua em que 0 é a mediana de maio e 3 é a cauda de maio (o quantil 99,5%). ext é o maior dos três valores absolutos.
+ext é a distância do minuto ao centro do cubo, medida pelo eixo que mais se afastou. O cubo tem três eixos, todos com sinal: E_norm (o preço acima ou abaixo da sua média móvel, em z robusto), jerk (a variação da aceleração do retorno) e fluxo de memória (a variação da E_norm suavizada), cada um numa régua em que 0 é a mediana de maio e 3 é a cauda de maio (o quantil 99,5%). ext é o maior dos três valores absolutos.
 
 Como ler:
 
