@@ -1,0 +1,19 @@
+BTCUSDT-1m-2026-05.zip: SHA-256 conferido
+BTCUSDT-1m-2026-06.zip: SHA-256 conferido
+BTCUSDT-1m-2026-07.zip: SHA-256 conferido
+  real: ok
+  M_4026: ok
+  M_4027: ok
+  M_4028: ok
+  M_4029: ok
+  M_4030: ok
+
+== H-4D-01 [junjul]
+  real    a: ρ_forma +0.141 (s12 +0.028, s23 +0.081) zoom 1.38 sem 8 | b: R² 0.022 quad 0.288 ew10 0.022 ρ_eixos [0.01, -0.0, 0.01]
+  M_4026  a: ρ_forma +0.397 (s12 +0.103, s23 +0.347) zoom 1.24 sem 8 | b: R² 0.024 quad 0.293 ew10 0.023 ρ_eixos [0.0, -0.0, -0.01]
+  M_4027  a: ρ_forma +0.378 (s12 +0.167, s23 +0.316) zoom 1.28 sem 8 | b: R² 0.012 quad 0.301 ew10 0.014 ρ_eixos [-0.0, -0.0, -0.0]
+  M_4028  a: ρ_forma +0.387 (s12 +0.093, s23 +0.257) zoom 1.24 sem 8 | b: R² 0.013 quad 0.304 ew10 0.012 ρ_eixos [0.02, -0.0, -0.0]
+  M_4029  a: ρ_forma +0.390 (s12 +0.125, s23 +0.303) zoom 1.28 sem 8 | b: R² 0.016 quad 0.324 ew10 0.015 ρ_eixos [-0.02, 0.0, 0.0]
+  M_4030  a: ρ_forma +0.421 (s12 -0.006, s23 +0.439) zoom 1.22 sem 8 | b: R² 0.017 quad 0.304 ew10 0.019 ρ_eixos [0.01, -0.0, 0.0]
+  s13 por fatia (real): [1.95, 1.97, 1.97, 2.17, 2.15, 2.06, 2.12]
+  classificação: {"a": {"rho_real": 0.14103460407949336, "M_min": 0.378019378002941, "M_max": 0.42120910002384, "veredito": "NÃO CONFIRMADA", "classe": "abaixo do M"}, "b": {"r2_real": 0.02163618589993035, "M_min": 0.012406740588155496, "M_max": 0.023778916465471058, "veredito": "CONFIRMADA"}}
