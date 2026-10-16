@@ -1,0 +1,93 @@
+name: SGV-D01 - Teste sintético único e BTC ago-set exploratorio
+on:
+  push:
+    branches: [research/sgv-d01-direcao-ago-set-20261015]
+    paths: [".github/workflows/d01-avaliacao-unica.yml"]
+permissions:
+  contents: write
+concurrency:
+  group: sgv-d01-teste-final-unico
+  cancel-in-progress: false
+jobs:
+  evaluate:
+    runs-on: ubuntu-latest
+    timeout-minutes: 80
+    env:
+      PYTHONPATH: "."
+      OPENBLAS_NUM_THREADS: "1"
+      OMP_NUM_THREADS: "1"
+      MKL_NUM_THREADS: "1"
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - run: python -m pip install -r requirements.txt pytest
+      - name: Preflight invariantes sem gerar controles finais
+        run: python -m pytest -q tests/test_sgv_d01_direcao.py
+      - name: Integridade da previsão código e freeze / não reabrir casos
+        run: |
+          test "$(git hash-object pipeline/sgv_d01_direcao.py)" = "c7ef72ae2e6d72f79c7dade06013a3c7add0cdc8"
+          test "$(git hash-object resultados/d01_modelos_congelados.json)" = "142f4ffafa3c9b8fdb676fa271a5306a37acd736"
+          test "$(git hash-object reports/D01_PROTOCOLO_PRE_REGISTRO_20261015.md)" = "6bc9f44538ccd3a802dc40b62f8bed12a8d7c88f"
+          test "$(git hash-object reports/D01_ERRATA_INDEXACAO_PRECODIGO_20261015.md)" = "162d602fb2267fdffa0df87bf7cc348094994bf5"
+          test ! -f resultados/d01_TEST_RELEASE.txt
+          test ! -f resultados/d01_sinteticos_teste_final.json
+          test ! -f resultados/d01_mercado_agoset_exploratorio.json
+          sha256sum resultados/d01_modelos_congelados.json
+      - name: Registrar liberação antes de gerar sintéticos IDs 16-23 ou avaliar ago-set
+        run: |
+          echo "SGV-D01 RELEASED once 2026-10-15 UTC IDs16-23 and BTC 2026-08,09 only; freeze git blob 142f4ffafa3c9b8fdb676fa271a5306a37acd736; source c7ef72ae2e6d72f79c7dade06013a3c7add0cdc8" > resultados/d01_TEST_RELEASE.txt
+          git config user.name "github-actions[bot]"
+          git config user.email "41898+github-actions[bot]@users.noreply.github.com"
+          git add -f resultados/d01_TEST_RELEASE.txt
+          git commit -m "holdout(D01): registro único antes do teste [skip ci]"
+          git pull --rebase
+          git push
+      - name: Avaliar oito pares sintéticos uma vez com modelos congelados
+        run: |
+          modelsha=$(sha256sum resultados/d01_modelos_congelados.json | awk '{print $1}')
+          python pipeline/sgv_d01_direcao.py --stage synthetic \
+            --freeze resultados/d01_modelos_congelados.json \
+            --freeze-sha "$modelsha" \
+            --out resultados/d01_sinteticos_teste_final.json \
+            | tee resultados/d01_sinteticos_teste_final.log
+      - name: Baixar e verificar SHA256 dos dois meses JÁ EXAMINADOS, nunca outubro/novembro
+        if: always()
+        run: |
+          base=https://data.binance.vision/data/spot/monthly/klines/BTCUSDT/1m
+          mkdir -p dados
+          for month in 2026-08 2026-09; do
+            file=BTCUSDT-1m-$month.zip
+            curl -fsSL --retry 3 -o dados/$file "$base/$file"
+            curl -fsSL --retry 3 -o dados/$file.CHECKSUM "$base/$file.CHECKSUM"
+            (cd dados && sha256sum -c $file.CHECKSUM)
+          done
+      - name: Avaliar ago-set, sem ajuste, com checagem da paridade de treino
+        run: |
+          modelsha=$(sha256sum resultados/d01_modelos_congelados.json | awk '{print $1}')
+          python pipeline/sgv_d01_direcao.py --stage market \
+            --freeze resultados/d01_modelos_congelados.json \
+            --freeze-sha "$modelsha" \
+            --out resultados/d01_mercado_agoset_exploratorio.json \
+            | tee resultados/d01_mercado_agoset.log
+      - name: Registrar todos os resultados sem alterar as regras
+        if: always()
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898+github-actions[bot]@users.noreply.github.com"
+          git add -f resultados/d01_sinteticos_teste_final.json resultados/d01_sinteticos_teste_final.log resultados/d01_mercado_agoset_exploratorio.json resultados/d01_mercado_agoset.log || true
+          git commit -m "results(D01): sintético único e agosto-setembro exploratório [skip ci]" || true
+          git pull --rebase
+          git push
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: D01-avaliacao-sinteticos-e-mercado
+          path: |
+            resultados/d01_TEST_RELEASE.txt
+            resultados/d01_sinteticos_teste_final.json
+            resultados/d01_sinteticos_teste_final.log
+            resultados/d01_mercado_agoset_exploratorio.json
+            resultados/d01_mercado_agoset.log
+          if-no-files-found: warn
