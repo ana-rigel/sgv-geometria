@@ -2,7 +2,7 @@ name: SGV-D01 - Treino e freeze sem ago-set
 on:
   push:
     branches: [research/sgv-d01-direcao-ago-set-20261015]
-    paths: [".github/workflows/d01-freeze.yml"]
+    paths: [".github/workflows/d01-freeze.yml", "tests/test_sgv_d01_direcao.py"]
 permissions:
   contents: write
 concurrency:
