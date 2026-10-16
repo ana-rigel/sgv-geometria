@@ -20,7 +20,7 @@ import explora_volatilidade_multiescala as MS  # noqa: E402
 
 E = GR.E
 KS = [1, 2, 3, 4]
-VALID = {"S2": (2, 8026), "S3": (3, 8027)}; PARAMS_VALID = dict(m0=1.4, b=3.0, gk=0.5, nu=4.0)
+VALID = {"S2": (2, 8026), "S3": (3, 8027)}; PARAMS_VALID = dict(m0=1.4, b=25.0, gk=0.5, nu=4.0)   # Emenda 2: escalas separadas (~2 min, ~50 min, ~21 h)
 
 
 def estrutura(k, m0, b, gk):
