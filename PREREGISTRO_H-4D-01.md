@@ -84,3 +84,34 @@ Antes de outubro, o mesmo script roda jun–jul (localmente) e ago–set (no Git
 - **b confirmada:** o jeito como a temperatura "vaza" para dentro do cubo (principalmente por E_norm) é o mesmo de um processo de volatilidade pura. Explica por que ela ficou escondida no original: parte dela já estava projetada num eixo.
 - **b não confirmada:** o entrelaçamento entre temperatura e cubo difere do M; a direção (mais/menos) diz onde procurar.
 - **Em nenhum caso há direção, previsão ou lucro.** São medidas descritivas de geometria, como todas desta linha.
+
+## Emenda 1 (16/10/2026, depois dos meses abertos, antes de outubro)
+
+Jun–jul rodou localmente (`resultados/H-4D-01_exploracao_junjul.json`) e ago–set no Actions (run 38911836311). **Nenhum critério acima muda.** O que muda é a expectativa.
+
+| | jun–jul | ago–set |
+|---|---|---|
+| ρ_forma real | +0,141 | +0,096 |
+| ρ_forma M (mín–máx) | +0,378 a +0,421 | +0,199 a +0,471 |
+| classe de a | abaixo do M | abaixo do M |
+| R²_tilt linear real | 0,022 | 0,032 |
+| R²_tilt linear M | 0,012 a 0,024 | 0,009 a 0,033 |
+| classe de b | dentro (CONFIRMADA) | dentro (CONFIRMADA), rente ao máximo |
+| R² quadrático real / M | 0,288 / 0,293–0,324 | 0,250 / 0,253–0,279 |
+| taxa de zoom real / M | 1,38 / 1,22–1,28 | 1,31 / 1,24–1,30 |
+
+**O que isso diz, antes de outubro:**
+
+1. **a:** a forma da fatia muda com a temperatura *menos* no real do que no M. A aposta "real acima do M" (~35 %) estava errada nos dois períodos; a direção ρ_forma > 0 acertou. Expectativa para outubro: **NÃO CONFIRMADA, abaixo do M** (~75 %). Leitura se repetir: a temperatura é zoom na forma também, e com folga; o M, por ter escala rápida AR(1) com choques gaussianos, produz fatias quentes mais alongadas que o real.
+2. **b:** o R² linear é quase zero em todas as séries (0,01 a 0,03). Pela simetria das coordenadas (E_norm e jerk têm sinal), a temperatura não se inclina linearmente sobre o cubo: ela se liga a ele por termos pares, e o R² quadrático (secundário) é que carrega o entrelaçamento, 0,25 a 0,29 no real, no limite inferior ou abaixo do envelope M. O critério primário de b, tal como registrado, é portanto **fraco**: "dentro do envelope" é quase garantido quando todos estão perto de zero, e em ago–set o real ficou a 0,0004 do máximo. Isso fica registrado como defeito de desenho, não se conserta agora. Expectativa para outubro: CONFIRMADA (~60 %), com a ressalva de que confirma pouco. O secundário quadrático será relatado ao lado e é o que vale ler.
+3. **Zoom:** a nuvem real incha mais por unidade de temperatura (1,31–1,38) do que o M (1,22–1,30). É descritivo, sem critério, mas aponta para onde o M fica aquém: no real, "mais quente" é um pouco mais "maior" do que a volatilidade estimada sugere.
+
+**Apostas revistas (outubro):**
+
+| Aposta | Antes | Agora |
+|---|---|---|
+| a CONFIRMADA | ~35 % | ~10 % |
+| a abaixo do M | — | ~75 % |
+| b CONFIRMADA | ~50 % | ~60 % |
+| R² quadrático real abaixo do mínimo M | — | ~55 % |
+| taxa de zoom real acima do máximo M | — | ~55 % |

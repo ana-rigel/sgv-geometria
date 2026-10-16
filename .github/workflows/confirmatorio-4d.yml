@@ -1,0 +1,65 @@
+name: Confirmatório H-4D-01 (outubro/2026)
+
+on:
+  workflow_dispatch:   # só manual: nenhum push lê outubro
+
+permissions:
+  contents: write
+
+concurrency:
+  group: confirmatorio-4d
+  cancel-in-progress: false
+
+jobs:
+  julgar:
+    runs-on: ubuntu-latest
+    timeout-minutes: 120
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Julgamento único (não roda de novo se já houver resultado)
+        run: |
+          if [ -f resultados/H-4D-01_julgamento.json ]; then echo "Já julgado"; exit 1; fi
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Instalar dependências
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r requirements.txt
+          mkdir -p resultados
+          pip freeze > resultados/H-4D-01_versoes_runner.txt
+
+      - name: Conferir hashes do pré-registro H-4D-01
+        run: sha256sum -c referencia/HASHES_H-4D-01.txt
+
+      - name: Ensaio de paridade em junho–julho (antes de abrir outubro)
+        run: |
+          set -o pipefail
+          python -W ignore pipeline/confirmatorio_4d.py --paridade | tee resultados/H-4D-01_paridade.log
+
+      - name: "Baixar e conferir agosto–outubro/2026"
+        run: |
+          base=https://data.binance.vision/data/spot/monthly/klines/BTCUSDT/1m
+          for m in 2026-08 2026-09 2026-10; do
+            f=BTCUSDT-1m-$m.zip
+            curl -fsSL --retry 3 -o dados/$f "$base/$f"
+            curl -fsSL --retry 3 -o dados/$f.CHECKSUM "$base/$f.CHECKSUM"
+            (cd dados && sha256sum -c $f.CHECKSUM)
+          done
+
+      - name: Julgamento
+        run: |
+          set -o pipefail
+          python -W ignore pipeline/confirmatorio_4d.py --julgamento | tee resultados/H-4D-01_julgamento.log
+
+      - name: Gravar o resultado no ramo
+        if: always()
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898+github-actions[bot]@users.noreply.github.com"
+          git add -f resultados/H-4D-01_* || true
+          git commit -m "Resultado H-4D-01 (run ${{ github.run_id }})" || echo "nada para gravar"
+          git push || true
