@@ -84,3 +84,50 @@ O E2 reprovou a validação em jun–jul, ago–set e jun–set: com a grade at�
 ## Frase que fecha
 
 A v2 não mediu o mercado; mediu o instrumento, e o instrumento reprovou. Dois defeitos meus: a grade de atrasos pisa nos múltiplos de um dia e o sintético é re-ancorado no real toda semana. Ficam escritos para a v3. O que se mantém de descritivo é o β ≈ 0,15 do real e o fato de que ele tem mais memória curta que qualquer sintético de duas escalas.
+
+---
+
+# Leitura v3: duas exponenciais, estável, com o instrumento validado
+
+**Previsão:** `PREDICAO_memoria_potencia_v3.md` (a926702). **Resultados:** `resultados/memoria_potencia_v3_{junjul,agoset,junset}.json` (jun–jul local; ago–set e jun–set no run 38930158205).
+
+## Veredito pela regra: **DUAS EXPONENCIAIS**, estável
+
+| | jun–jul | ago–set | jun–set (principal) |
+|---|---|---|---|
+| E2 "duas exponenciais" | 10/10 → valida | 10/10 → valida | 10/10 → valida |
+| Real: classe | duas exponenciais | duas exponenciais | **duas exponenciais** |
+| Real: AIC pot / 2exp | −79 / −122 | 0 / −34 | −72 / −129 |
+| Real: θ₁ / θ₂ (min) | 50 / 4.312 | 10 / 1.330 | 44 / 3.746 |
+| Real: ΔAIC por corte (1,5 / 2,5 / 3,5 / 4,5 d) | −19 / +10 / +33 / +43 | +27 / +37 / +62 / +35 | −7 / +19 / +42 / +58 |
+| Real: ρ em 1.800 … 6.480 min | 0,084 … 0,031 | 0,056 … 0,000 | 0,082 … 0,026 |
+| E2: ρ em 1.800 … 6.480 min (réplica 6026) | 0,007 … 0,027 | 0,006 … 0,017 | 0,015 … 0,005 |
+| Real vs envelope E2 (ΔR²) | dentro | abaixo | abaixo |
+| M: classe (5/5) | duas exponenciais | duas exponenciais | duas exponenciais |
+
+## O que isso diz
+
+1. **A v1 estava errada pelo motivo que a v2 diagnosticou.** Até 1,5 dia de atraso, a reta em log-log ganha (ΔAIC −19 e −7 em jun–jul e jun–set); de 2,5 dias em diante, as duas exponenciais ganham por 10 a 60 pontos de AIC. Com a grade curta, com a sazonalidade impressa pela divisão e com o E2 re-ancorado, a v1 não tinha como ver isso. Com a grade limpa, o E2 honesto e 10 réplicas, o instrumento valida em 30 de 30 e o real cai do lado das duas exponenciais nos três períodos.
+
+2. **As duas escalas do real:** uma rápida de 10 a 50 min e uma lenta de 1 a 3 dias. A lenta é mais longa que a do E2 ajustado (τ_ℓ ≈ 10 h): o AR(1) por MQO no log do caminho de 61 min subestima a persistência (viés de atenuação por ruído de medida), e o real mostra, além disso, mais memória que o E2 em todos os atrasos, descolando já no primeiro minuto. Então "duas exponenciais" é a forma, não a afirmação de que o E2 tem as constantes certas.
+
+3. **A lei de potência, no sentido de uma reta de 1 min a 5 dias, não está nos dados.** O β ≈ 0,15 da v1 era o ajuste de uma reta a uma curva que, vista até 5 dias, dobra. Isso não contradiz a literatura de memória longa em volatilidade, que usa dias a meses de atraso e séries de anos; diz que, no intervalo em que o SGV opera, poucas escalas bastam. É a mesma conclusão do M17 ("Markov de várias escalas basta") e do fechamento multiescala, agora com a forma medida e um sintético que não cola no real.
+
+4. **Para o H-TEMPO-01a (outubro):** o critério congelado fica, mas a leitura de 3/11 deve citar esta v3. Um "CONFIRMADA" lá significaria "o real é mais reto que o M até 1 dia", que agora sabemos ser o trecho em que a reta ainda ganha; não significaria lei de potência.
+
+## Apostas da v3
+
+| Aposta | Prob. | Resultado |
+|---|---|---|
+| E2 valida em jun–set | ~65 % | acertou (10/10) |
+| Real "potência" em jun–set | ~50 % | errou |
+| Real "indistinguível" | ~35 % | errou |
+| Real "duas exponenciais" | ~15 % | **acertou a de menor probabilidade** |
+| Estável | ~40 % | acertou |
+| ρ(6.480) real > 0,03 | ~55 % | errou por pouco (0,026; 0,031 em jun–jul) |
+| ρ(6.480) E2 < 0,02 em ≥ 8 | ~70 % | acertou |
+| τ_ℓ entre 5 e 15 h | ~60 % | acertou (10 h) |
+
+## Frase que fecha
+
+Entre 1 minuto e 4,5 dias, a memória da volatilidade do BTC é bem descrita por duas escalas, uma de dezenas de minutos e outra de 1 a 3 dias, e não por uma lei de potência. O que parecia potência era a janela curta. O sintético M fecha a memória de 10 minutos por bons motivos: a forma é mesmo de poucas escalas. Nada aqui é direção, previsão ou lucro.
