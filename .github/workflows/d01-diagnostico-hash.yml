@@ -1,0 +1,44 @@
+name: SGV-D01 - Checagem hash de treino congelado (somente auditoria)
+on:
+  push:
+    branches: [research/sgv-d01-direcao-ago-set-20261015]
+    paths: [".github/workflows/d01-diagnostico-hash.yml"]
+permissions:
+  contents: write
+jobs:
+  diagnostico:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    env:
+      PYTHONPATH: "."
+      OPENBLAS_NUM_THREADS: "1"
+      OMP_NUM_THREADS: "1"
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - run: python -m pip install -r requirements.txt
+      - name: Verificar prefixo e modelo congelado
+        run: |
+          test "$(git hash-object resultados/d01_modelos_congelados.json)" = "142f4ffafa3c9b8fdb676fa271a5306a37acd736"
+          test "$(git hash-object pipeline/sgv_d01_direcao.py)" = "c7ef72ae2e6d72f79c7dade06013a3c7add0cdc8"
+      - name: Obter agosto e setembro para diagnostico, nao usar novembro
+        run: |
+          base=https://data.binance.vision/data/spot/monthly/klines/BTCUSDT/1m
+          for m in 2026-08 2026-09; do
+            f=BTCUSDT-1m-$m.zip
+            curl -fsSL --retry 3 -o dados/$f "$base/$f"
+            curl -fsSL --retry 3 -o dados/$f.CHECKSUM "$base/$f.CHECKSUM"
+            (cd dados && sha256sum -c $f.CHECKSUM)
+          done
+      - name: Diagnosticar SHA-256 do treino em dois comprimentos
+        run: python scripts/d01_diagnostico_paridade_prefixo.py --out resultados/d01_diagnostico_paridade_hash.json
+      - name: Preservar auditoria
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898+github-actions[bot]@users.noreply.github.com"
+          git add -f resultados/d01_diagnostico_paridade_hash.json
+          git commit -m "audit(D01): verificar reproducibilidade hash entre jobs [skip ci]"
+          git pull --rebase
+          git push
