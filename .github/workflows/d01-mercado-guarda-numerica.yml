@@ -1,0 +1,66 @@
+name: SGV-D01 - Mercado ago-set avaliacao com guarda numerica
+on:
+  push:
+    branches: [research/sgv-d01-direcao-ago-set-20261015]
+    paths: [".github/workflows/d01-mercado-guarda-numerica.yml"]
+permissions:
+  contents: write
+jobs:
+  eval:
+    runs-on: ubuntu-latest
+    timeout-minutes: 25
+    env:
+      PYTHONPATH: "."
+      OPENBLAS_NUM_THREADS: "1"
+      OMP_NUM_THREADS: "1"
+      MKL_NUM_THREADS: "1"
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - run: python -m pip install -r requirements.txt
+      - name: Integridade dos modelos ciencia e adapter
+        run: |
+          set -euo pipefail
+          test "$(git hash-object pipeline/sgv_d01_direcao.py)" = "c7ef72ae2e6d72f79c7dade06013a3c7add0cdc8"
+          test "$(git hash-object resultados/d01_modelos_congelados.json)" = "142f4ffafa3c9b8fdb676fa271a5306a37acd736"
+          test "$(git hash-object scripts/d01_mercado_guardia_numerica.py)" = "fd32518768aecb726ad97919d9566c08bb232d5b"
+          test -f resultados/d01_sinteticos_teste_final.json
+          test ! -f resultados/d01_mercado_agoset_exploratorio.json
+      - name: Baixar somente agosto setembro com SHA256
+        run: |
+          set -euo pipefail
+          base=https://data.binance.vision/data/spot/monthly/klines/BTCUSDT/1m
+          for m in 2026-08 2026-09; do
+            f=BTCUSDT-1m-$m.zip
+            curl -fsSL --retry 3 -o dados/$f "$base/$f"
+            curl -fsSL --retry 3 -o dados/$f.CHECKSUM "$base/$f.CHECKSUM"
+            (cd dados && sha256sum -c $f.CHECKSUM)
+          done
+      - name: Rodar avaliacao original somente se guardas de prefixo e modelo congelado passarem
+        run: |
+          set -euo pipefail
+          python scripts/d01_mercado_guardia_numerica.py \
+            --out resultados/d01_mercado_agoset_exploratorio.json \
+            | tee resultados/d01_mercado_agoset_audit.log
+          test -s resultados/d01_mercado_agoset_exploratorio.json
+      - name: Preservar logs e dados gerados sem reteste do sintético
+        if: always()
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898+github-actions[bot]@users.noreply.github.com"
+          for p in resultados/d01_mercado_agoset_exploratorio.json resultados/d01_mercado_agoset_audit.log; do
+            if [ -f "$p" ]; then git add -f "$p"; fi
+          done
+          git commit -m "results(D01): agosto-setembro exploratorio auditado sem reajuste [skip ci]" || true
+          git pull --rebase
+          git push
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: D01-mercado-avaliacao-numerica
+          path: |
+            resultados/d01_mercado_agoset_exploratorio.json
+            resultados/d01_mercado_agoset_audit.log
+          if-no-files-found: warn
