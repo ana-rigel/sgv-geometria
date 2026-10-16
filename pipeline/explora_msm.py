@@ -1,4 +1,4 @@
-"""MSM de Calvet–Fisher com inovações Student-t, k = 1…4, seleção por BIC. Previsão: PREDICAO_msm.md.
+"""MSM de Calvet–Fisher com inovações Student-t, k = 1…4, seleção por BIC. Previsão: PREDICAO_msm.md + PREDICAO_msm_v2.md (escala da t corrigida).
 
     python pipeline/explora_msm.py --periodo fumaca|junjul|agoset
 """
@@ -35,7 +35,7 @@ def estrutura(k, m0, b, gk):
 def loglik(theta, r, k, sig):
     m0, b, gk, nu = theta
     if not (1 < m0 < 2 and 1.01 < b < 50 and 1e-3 < gk < 0.999 and 2.1 < nu < 50): return 1e18
-    gam, fator, P = estrutura(k, m0, b, gk); vol = sig * fator
+    gam, fator, P = estrutura(k, m0, b, gk); vol = sig * fator * np.sqrt((nu - 2) / nu)   # v2: t padronizada (variância 1)
     dens = student.pdf(r[:, None] / vol[None, :], nu) / vol[None, :]
     p = np.full(len(vol), 1 / len(vol)); ll = 0.0
     for t in range(len(r)):
