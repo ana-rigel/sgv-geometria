@@ -1,0 +1,29 @@
+BTCUSDT-1m-2026-05.zip: SHA-256 conferido
+BTCUSDT-1m-2026-06.zip: SHA-256 conferido
+BTCUSDT-1m-2026-07.zip: SHA-256 conferido
+  real: ok
+  E2_5026: ok
+  E2_5027: ok
+  E2_5028: ok
+  E2_5029: ok
+  E2_5030: ok
+  M_4026: ok
+  M_4027: ok
+  M_4028: ok
+  M_4029: ok
+  M_4030: ok
+
+== memória em lei de potência [junjul]
+  real     β 0.128 θ   2353.8 θ1/θ2    30.0/ 10000.0 AIC pot   -86.1 exp   -54.6 2exp   -79.9 ΔR² +0.547 → potência
+  E2_5026  β 0.255 θ    873.4 θ1/θ2   139.5/ 10000.0 AIC pot   -40.1 exp   -27.2 2exp   -45.2 ΔR² +0.251 → duas exponenciais
+  E2_5027  β 0.207 θ   1013.1 θ1/θ2   156.4/ 10000.0 AIC pot   -56.7 exp   -42.6 2exp   -62.4 ΔR² +0.214 → duas exponenciais
+  E2_5028  β 0.194 θ   1258.8 θ1/θ2   106.6/ 10000.0 AIC pot   -57.9 exp   -38.7 2exp   -58.3 ΔR² +0.355 → indistinguível
+  E2_5029  β 0.204 θ   1138.6 θ1/θ2   117.9/ 10000.0 AIC pot   -59.0 exp   -39.4 2exp   -62.3 ΔR² +0.324 → duas exponenciais
+  E2_5030  β 0.189 θ   1213.9 θ1/θ2   139.8/ 10000.0 AIC pot   -56.5 exp   -40.6 2exp   -58.7 ΔR² +0.293 → duas exponenciais
+  M_4026   β 0.156 θ   1879.8 θ1/θ2    36.5/ 10000.0 AIC pot   -79.5 exp   -47.2 2exp   -80.8 ΔR² +0.536 → indistinguível
+  M_4027   β 0.160 θ   1877.8 θ1/θ2    37.1/ 10000.0 AIC pot   -75.5 exp   -45.1 2exp   -77.5 ΔR² +0.539 → indistinguível
+  M_4028   β 0.146 θ   1976.8 θ1/θ2    39.7/ 10000.0 AIC pot   -85.3 exp   -50.8 2exp   -86.5 ΔR² +0.538 → indistinguível
+  M_4029   β 0.162 θ   1729.5 θ1/θ2    41.7/ 10000.0 AIC pot   -76.9 exp   -46.3 2exp   -79.2 ΔR² +0.503 → duas exponenciais
+  M_4030   β 0.146 θ   1960.9 θ1/θ2    43.7/ 10000.0 AIC pot   -80.3 exp   -49.8 2exp   -80.0 ΔR² +0.515 → indistinguível
+  E2 por semana (φ_ℓ, τ_ℓ min, Var η): [(0.998, 492.0, 0.00071), (0.9977, 441.0, 0.00108), (0.9969, 325.0, 0.00101), (0.9979, 468.0, 0.00093), (0.9976, 420.0, 0.00085), (0.9972, 362.0, 0.00127), (0.998, 491.0, 0.00106), (0.9979, 471.0, 0.00106), (0.9975, 406.0, 0.00082)]
+  validação E2: True; classe real: potência; ΔR² real vs E2: acima; descola em: 1 min
