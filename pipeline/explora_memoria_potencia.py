@@ -20,6 +20,8 @@ import confirmatorio_tempo as T  # noqa: E402  (retornos, perfil_dia, acf, LAGS)
 
 E = GR.E
 SEEDS_E2 = [5026, 5027, 5028, 5029, 5030]
+LAGS_V2 = T.LAGS + [2048, 2880, 4096, 5760, 7200]        # v2: até 5 dias
+PERIODOS_V2 = {**GR.PERIODOS, "junset": (["2026-05", "2026-06", "2026-07", "2026-08", "2026-09"], "2026-06-01", "2026-10-01")}
 
 
 def gerar_e2(kl, ts, i0, seed):
@@ -57,8 +59,8 @@ def dois_exp(tau, A, t1, B, t2):
     return np.log(np.maximum(A * np.exp(-tau / t1) + B * np.exp(-tau / t2), 1e-12))
 
 
-def ajustar_formas(rho):
-    tau = np.array(T.LAGS, float); ok = np.isfinite(rho) & (rho > 0); n = int(ok.sum()); out = {"n_pos": n}
+def ajustar_formas(rho, lags=None):
+    tau = np.array(lags or T.LAGS, float); ok = np.isfinite(rho) & (rho > 0); n = int(ok.sum()); out = {"n_pos": n}
     if n < 6: return out
     y = np.log(rho[ok]); t = tau[ok]
     def aic(sqr, k): return float(n * np.log(max(sqr, 1e-300) / n) + 2 * k)
@@ -89,42 +91,49 @@ def classe(f):
     return "indistinguível"
 
 
-def medir(kl, ts, may, wk, s_dia):
-    a = np.abs(T.retornos(kl)) / s_dia; blk = [np.concatenate(wk)]
-    rho = T.acf(a, blk, T.LAGS); f = ajustar_formas(rho); f["rho"] = [None if not np.isfinite(v) else float(v) for v in rho]; f["classe"] = classe(f)
+def medir(kl, ts, may, wk, s_dia, lags=None):
+    lags = lags or T.LAGS; a = np.abs(T.retornos(kl)) / s_dia; blk = [np.concatenate(wk)]
+    rho = T.acf(a, blk, lags); f = ajustar_formas(rho, lags); f["rho"] = [None if not np.isfinite(v) else float(v) for v in rho]; f["classe"] = classe(f)
+    if len(lags) > 21:   # v2: ΔAIC em função do atraso máximo (1, 2, 3, 5 dias)
+        f["d_aic_por_corte"] = {}
+        for corte in (1440, 2880, 4320, 7200):
+            m = [i for i, L in enumerate(lags) if L <= corte]; g = ajustar_formas(rho[m], [lags[i] for i in m])
+            f["d_aic_por_corte"][str(corte)] = g.get("d_aic")
     return f
 
 
 def main():
-    ap = argparse.ArgumentParser(); ap.add_argument("--periodo", choices=list(GR.PERIODOS), required=True); ap.add_argument("--dados", default=str(ROOT / "dados"))
-    a = ap.parse_args(); meses, ini, fim = GR.PERIODOS[a.periodo]
+    ap = argparse.ArgumentParser(); ap.add_argument("--periodo", choices=list(PERIODOS_V2), required=True); ap.add_argument("--dados", default=str(ROOT / "dados"))
+    ap.add_argument("--v2", action="store_true", help="grade até 5 dias (PREDICAO_memoria_potencia_v2.md)")
+    a = ap.parse_args(); meses, ini, fim = PERIODOS_V2[a.periodo]; lags = LAGS_V2 if a.v2 else None; tag = "_v2" if a.v2 else ""
     kl = E.carregar(meses, Path(a.dados)); ts = pd.to_datetime(kl.timestamp, unit="ms", utc=True)
     assert ts.iloc[-1] < pd.Timestamp("2026-10-01", tz="UTC"), "nada de outubro"
     may = (ts < pd.Timestamp("2026-05-03" if a.periodo == "fumaca" else "2026-06-01", tz="UTC")).to_numpy(); i0 = int(np.argmax(~may)); wk = GR.semanas(ts, ini, fim)
     s_dia = T.perfil_dia(T.retornos(kl), ts, may)
-    res = {"real": medir(kl, ts, may, wk, s_dia)}; print("  real: ok", flush=True); params = {}
+    res = {"real": medir(kl, ts, may, wk, s_dia, lags)}; print("  real: ok", flush=True); params = {}
     for s in SEEDS_E2:
-        k_, p = gerar_e2(kl, ts, i0, s); res[f"E2_{s}"] = medir(k_, ts, may, wk, s_dia); params[f"E2_{s}"] = p; print(f"  E2_{s}: ok", flush=True)
+        k_, p = gerar_e2(kl, ts, i0, s); res[f"E2_{s}"] = medir(k_, ts, may, wk, s_dia, lags); params[f"E2_{s}"] = p; print(f"  E2_{s}: ok", flush=True)
     for s in MS.SEEDS_M:
-        k_, _, _ = MS.gerar_m(kl, ts, i0, s); res[f"M_{s}"] = medir(k_, ts, may, wk, s_dia); print(f"  M_{s}: ok", flush=True)
+        k_, _, _ = MS.gerar_m(kl, ts, i0, s); res[f"M_{s}"] = medir(k_, ts, may, wk, s_dia, lags); print(f"  M_{s}: ok", flush=True)
     if a.periodo == "fumaca":
         print("fumaça: código rodou; estatísticas não impressas", flush=True); return
     e2 = [res[f"E2_{s}"] for s in SEEDS_E2]; real = res["real"]
     valid = sum(f["classe"] in ("duas exponenciais", "indistinguível") for f in e2) >= 4
     rr = np.array([v if v is not None else np.nan for v in real["rho"]]); re2 = np.array([[v if v is not None else np.nan for v in f["rho"]] for f in e2])
-    fora = [T.LAGS[i] for i in range(len(T.LAGS)) if np.isfinite(rr[i]) and (rr[i] > np.nanmax(re2[:, i]) or rr[i] < np.nanmin(re2[:, i]))]
+    LG = lags or T.LAGS; fora = [LG[i] for i in range(len(LG)) if np.isfinite(rr[i]) and (rr[i] > np.nanmax(re2[:, i]) or rr[i] < np.nanmin(re2[:, i]))]
     d = [f["delta_r2"] for f in e2 if "delta_r2" in f]
     cls_env = "acima" if real["delta_r2"] > max(d) else ("dentro" if real["delta_r2"] >= min(d) else "abaixo")
     out = {"periodo": a.periodo, "series": res, "parametros_E2": params, "validacao_E2": valid, "classe_real": real["classe"] if valid else "INCONCLUSIVO",
            "delta_r2_vs_E2": cls_env, "descola_em": fora[0] if fora else None}
-    print(f"\n== memória em lei de potência [{a.periodo}]")
+    print(f"\n== memória em lei de potência{tag} [{a.periodo}]")
     for nome, f in res.items():
         print(f"  {nome:8s} β {f.get('beta', float('nan')):.3f} θ {f.get('theta') or float('nan'):8.1f} θ1/θ2 {f.get('theta1', float('nan')):7.1f}/{f.get('theta2', float('nan')):8.1f} "
               f"AIC pot {f.get('aic_pot', float('nan')):7.1f} exp {f.get('aic_exp', float('nan')):7.1f} 2exp {f.get('aic_2exp', float('nan')):7.1f} ΔR² {f.get('delta_r2', float('nan')):+.3f} → {f['classe']}", flush=True)
     pr = params[f"E2_{SEEDS_E2[0]}"]; print("  E2 por semana (φ_ℓ, τ_ℓ min, Var η):", [(round(x["phi_l"], 4), round(x["tau_l"] or 0, 0), round(x["var_eta"], 5)) for x in pr])
+    if lags: print("  ρ real nos atrasos longos:", [(L, round(v, 3)) for L, v in zip(LG[21:], real["rho"][21:]) if v is not None], "| ΔAIC por corte:", real.get("d_aic_por_corte"))
     print(f"  validação E2: {valid}; classe real: {out['classe_real']}; ΔR² real vs E2: {cls_env}; descola em: {out['descola_em']} min")
     (ROOT / "resultados").mkdir(exist_ok=True)
-    (ROOT / "resultados" / f"memoria_potencia_{a.periodo}.json").write_text(json.dumps(out, ensure_ascii=False, default=float))
+    (ROOT / "resultados" / f"memoria_potencia{tag}_{a.periodo}.json").write_text(json.dumps(out, ensure_ascii=False, default=float))
 
 
 if __name__ == "__main__":
