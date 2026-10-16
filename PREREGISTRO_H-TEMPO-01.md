@@ -77,3 +77,31 @@ Jun–jul localmente e ago–set no Actions, com `--periodo`. Servem para rever 
 - **b confirmada:** a borda agitada é feita de impacto transitório: minutos grandes seguidos de reversão parcial. Explica por que ela some ao agregar e liga o cubo à microestrutura.
 - **b não confirmada:** a borda some ao agregar só por suavização estatística; não há reversão própria.
 - **Em nenhum caso há direção, previsão ou lucro.** A reversão da borda, se existir, é de frações de ponto base por minuto e já é conhecida da literatura; não é sinal operável, e a fila de 2/09 já mostrou isso.
+
+## Emenda 1 (16/10/2026, depois dos meses abertos, antes de outubro)
+
+Jun–jul local (`resultados/H-TEMPO-01_exploracao_junjul.json`), ago–set no Actions (run 38926616887). **Nenhum critério muda.**
+
+| | jun–jul | ago–set |
+|---|---|---|
+| a: ΔR² real / M (mín–máx) | +0,547 / +0,503 a +0,539 → **acima** | +0,498 / +0,488 a +0,532 → dentro |
+| a: β real / M | 0,13 / 0,15–0,16 | 0,18 / 0,24–0,26 |
+| a: veredito pela regra | CONFIRMADA (por 0,008) | NÃO CONFIRMADA |
+| b: Δφ real / M | −0,042 / −0,006 a +0,061 → **abaixo** | +0,001 / −0,067 a +0,021 → dentro |
+| b: φ_borda / φ_núcleo real | −0,023 / +0,019 | +0,025 / +0,025 |
+| b: veredito pela regra | CONFIRMADA | NÃO CONFIRMADA |
+
+**Erro de desenho no (a), reconhecido:** o pré-registro diz que a memória do M é "soma de duas exponenciais por construção". Está errado. A escala lenta do M é o **caminho real de volatilidade suavizado em 61 min**, então o M herda do real toda a memória de horas e dias. Por isso o M também parece lei de potência (ΔR² 0,49–0,54, β 0,15–0,26) e o real só se distingue dele pela escala rápida e pela distribuição dos choques. O teste (a), como registrado, não compara lei de potência com exponencial; compara o real com um processo que já tem a memória longa do real. Ele fica, porque a regra da casa não permite trocar o critério depois de ver os dados, mas a leitura em outubro precisa dizer que "CONFIRMADA" ou "NÃO CONFIRMADA" aqui fala da escala rápida, não da forma da memória longa. O teste certo, para outra rodada: comparar o real com um sintético cuja escala lenta seja um AR(1) **ajustado**, não o caminho real; ou ajustar diretamente a ρ(τ) do real às três formas e comparar por critério de informação.
+
+**Descritivo que vale guardar:** ρ(τ) do real cai de 0,27–0,31 em τ = 1 para 0,08–0,09 em τ = 1.024 min, com β 0,13–0,18 (abaixo dos 0,2–0,4 da literatura para ações, mas na faixa dos registros para cripto em 1 min), e sobe para 0,16 em τ = 1.440: o perfil s(h) de maio não remove toda a sazonalidade diária dos períodos seguintes. O `har` dá β 0,12 e ΔR² de +0,14 a −0,05: em log σ̂ a diferença entre as formas é pequena.
+
+**Leitura do (b) antes de outubro:** em jun–jul a borda reverte de verdade (−0,023 contra +0,019 do núcleo, e −0,070 em 5 min), e o M não. Em ago–set a reversão sumiu (φ_borda = φ_núcleo = +0,025). Ou a reversão da borda é de regime (jun–jul teve microestrutura diferente), ou o jun–jul foi acaso. Outubro decide com uma só chance e critério fraco. Se não confirmar, "a borda some ao agregar só por suavização" é a leitura, e a hipótese do bounce fica sem apoio.
+
+**Apostas revistas (outubro):**
+
+| Aposta | Antes | Agora |
+|---|---|---|
+| a: CONFIRMADA | ~50 % | ~20 % |
+| a: β real entre 0,1 e 0,6 | ~65 % | ~85 % |
+| b: Δφ real < 0 | ~75 % | ~55 % |
+| b: CONFIRMADA | ~55 % | ~30 % |
