@@ -1,0 +1,54 @@
+name: SGV-AMB01 - Preflight e freeze (sem holdout)
+on:
+  push:
+    branches: [research/sgv-amb01-memoria-ambiental-20261015]
+    paths: [".github/workflows/amb01-freeze.yml"]
+permissions:
+  contents: write
+concurrency:
+  group: amb01-freeze
+  cancel-in-progress: false
+jobs:
+  train:
+    runs-on: ubuntu-latest
+    timeout-minutes: 40
+    env:
+      PYTHONPATH: "."
+      OPENBLAS_NUM_THREADS: "1"
+      MKL_NUM_THREADS: "1"
+      OMP_NUM_THREADS: "1"
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Instalar dependencias congeladas pelo ambiente da run
+        run: python -m pip install -r requirements.txt pytest
+      - name: Preflight (IDs sintéticos de desenvolvimento apenas)
+        run: python -m pytest -q tests/test_sgv_amb01_memoria_ambiental.py
+      - name: Treinar modelos sintéticos 0-7 e BTC jun-jul com maio como ancora
+        run: |
+          set -euo pipefail
+          test ! -f resultados/amb01_TEST_RELEASE.txt
+          test ! -f resultados/amb01_synthetic_final.json
+          python pipeline/sgv_amb01_memoria_ambiental.py --stage train \
+            --freeze resultados/amb01_modelos_congelados.json \
+            --out resultados/amb01_nunca_usado.json | tee resultados/amb01_train.log
+          sha256sum resultados/amb01_modelos_congelados.json
+      - name: Commitar freeze antes de qualquer test final
+        run: |
+          set -euo pipefail
+          git config user.name "github-actions[bot]"
+          git config user.email "41898+github-actions[bot]@users.noreply.github.com"
+          git add -f resultados/amb01_modelos_congelados.json resultados/amb01_train.log
+          git commit -m "freeze(AMB01): controles e BTC jun-jul somente [skip ci]"
+          git pull --rebase
+          git push
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: AMB01-freeze-modelos
+          path: |
+            resultados/amb01_modelos_congelados.json
+            resultados/amb01_train.log
+          if-no-files-found: warn
