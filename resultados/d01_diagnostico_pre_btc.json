@@ -1,0 +1,146 @@
+{
+  "n_orig": 85760,
+  "n_full": 85760,
+  "same_training_indices": true,
+  "same_training_labels": true,
+  "columns": [
+    {
+      "name": "sign0",
+      "n_bitdiff": 0,
+      "max_abs_diff": 0.0,
+      "n_gt_1e-10": 0,
+      "first_different": null
+    },
+    {
+      "name": "sign1",
+      "n_bitdiff": 0,
+      "max_abs_diff": 0.0,
+      "n_gt_1e-10": 0,
+      "first_different": null
+    },
+    {
+      "name": "sign2",
+      "n_bitdiff": 0,
+      "max_abs_diff": 0.0,
+      "n_gt_1e-10": 0,
+      "first_different": null
+    },
+    {
+      "name": "sign3",
+      "n_bitdiff": 0,
+      "max_abs_diff": 0.0,
+      "n_gt_1e-10": 0,
+      "first_different": null
+    },
+    {
+      "name": "stdret0",
+      "n_bitdiff": 0,
+      "max_abs_diff": 0.0,
+      "n_gt_1e-10": 0,
+      "first_different": null
+    },
+    {
+      "name": "stdret1",
+      "n_bitdiff": 0,
+      "max_abs_diff": 0.0,
+      "n_gt_1e-10": 0,
+      "first_different": null
+    },
+    {
+      "name": "stdret2",
+      "n_bitdiff": 0,
+      "max_abs_diff": 0.0,
+      "n_gt_1e-10": 0,
+      "first_different": null
+    },
+    {
+      "name": "stdret3",
+      "n_bitdiff": 0,
+      "max_abs_diff": 0.0,
+      "n_gt_1e-10": 0,
+      "first_different": null
+    },
+    {
+      "name": "log_ew10",
+      "n_bitdiff": 0,
+      "max_abs_diff": 0.0,
+      "n_gt_1e-10": 0,
+      "first_different": null
+    },
+    {
+      "name": "log_ew60",
+      "n_bitdiff": 0,
+      "max_abs_diff": 0.0,
+      "n_gt_1e-10": 0,
+      "first_different": null
+    },
+    {
+      "name": "log_ew240",
+      "n_bitdiff": 0,
+      "max_abs_diff": 0.0,
+      "n_gt_1e-10": 0,
+      "first_different": null
+    },
+    {
+      "name": "E_norm",
+      "n_bitdiff": 0,
+      "max_abs_diff": 0.0,
+      "n_gt_1e-10": 0,
+      "first_different": null
+    },
+    {
+      "name": "jerk",
+      "n_bitdiff": 0,
+      "max_abs_diff": 0.0,
+      "n_gt_1e-10": 0,
+      "first_different": null
+    },
+    {
+      "name": "memory_flux",
+      "n_bitdiff": 0,
+      "max_abs_diff": 0.0,
+      "n_gt_1e-10": 0,
+      "first_different": null
+    },
+    {
+      "name": "sign5",
+      "n_bitdiff": 0,
+      "max_abs_diff": 0.0,
+      "n_gt_1e-10": 0,
+      "first_different": null
+    },
+    {
+      "name": "sign10",
+      "n_bitdiff": 0,
+      "max_abs_diff": 0.0,
+      "n_gt_1e-10": 0,
+      "first_different": null
+    },
+    {
+      "name": "sign20",
+      "n_bitdiff": 0,
+      "max_abs_diff": 0.0,
+      "n_gt_1e-10": 0,
+      "first_different": null
+    },
+    {
+      "name": "sign40",
+      "n_bitdiff": 0,
+      "max_abs_diff": 0.0,
+      "n_gt_1e-10": 0,
+      "first_different": null
+    },
+    {
+      "name": "sign60",
+      "n_bitdiff": 0,
+      "max_abs_diff": 0.0,
+      "n_gt_1e-10": 0,
+      "first_different": null
+    }
+  ],
+  "train_sha256_frozen": "3992d0cc21ce5a292a55312a0cc77cfd9f70767fe9c1e7c29f84df307a60d238",
+  "train_sha256_current_short": "f010821974fd4753c45cef721e0622e21d54f18ba543a49cae9c11018e0b15cb",
+  "train_sha256_current_full": "f010821974fd4753c45cef721e0622e21d54f18ba543a49cae9c11018e0b15cb",
+  "train_digest_matches_frozen": false,
+  "diagnosis": "PREFIX_PARITY"
+}
