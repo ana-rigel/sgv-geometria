@@ -6,13 +6,13 @@
 <title>SGV · painel de replay 4D</title>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap">
 <style>
-:root{--bg:#f3f2ee;--panel:#fff;--fg:#1d1f1a;--muted:#5f655c;--line:#d8d9cf;--accent:#2f6f5e;--accent-soft:#dfeae4;--w:#8a4fb5;--hot:#c84b2d;--warm:#d9a441;--cold:#3a6fb0;--no:#9a3b2a;
+:root{--bg:#f3f2ee;--panel:#fff;--fg:#1d1f1a;--muted:#5f655c;--line:#d8d9cf;--accent:#2f6f5e;--accent-soft:#dfeae4;--w:#8a4fb5;--hot:#c84b2d;--warm:#d9a441;--cold:#3a6fb0;--no:#9a3b2a;--m:#b8b3a6;
   --sans:"IBM Plex Sans",system-ui,sans-serif;--mono:"IBM Plex Mono",ui-monospace,monospace;--canvas:#faf9f5}
-@media (prefers-color-scheme:dark){:root{--bg:#15171a;--panel:#1d2024;--fg:#e8e6df;--muted:#a3a79d;--line:#33373c;--accent:#7fc2ab;--accent-soft:#23332d;--w:#c39ae6;--hot:#f0785a;--warm:#e6b85c;--cold:#6fa1e0;--no:#e0806b;--canvas:#121417}}
+@media (prefers-color-scheme:dark){:root{--bg:#15171a;--panel:#1d2024;--fg:#e8e6df;--muted:#a3a79d;--line:#33373c;--accent:#7fc2ab;--accent-soft:#23332d;--w:#c39ae6;--hot:#f0785a;--warm:#e6b85c;--cold:#6fa1e0;--no:#e0806b;--m:#5a5f66;--canvas:#121417}}
 body{margin:0;background:var(--bg);color:var(--fg);font-family:var(--sans);font-size:14px;line-height:1.5;padding:16px}
 h1{font-size:1.3rem;margin:0;font-weight:600}
 .eyebrow{font-family:var(--mono);font-size:.7rem;letter-spacing:.08em;text-transform:uppercase;color:var(--muted)}
-.wrap{max-width:1240px;margin:0 auto;display:grid;grid-template-columns:minmax(0,1.3fr) minmax(0,1fr);gap:14px}
+.wrap{max-width:1280px;margin:0 auto;display:grid;grid-template-columns:minmax(0,1.3fr) minmax(0,1fr);gap:14px}
 @media (max-width:900px){.wrap{grid-template-columns:1fr}}
 .card{background:var(--panel);border:1px solid var(--line);border-radius:10px;overflow:hidden;min-width:0}
 .card .in{padding:10px 12px}
@@ -23,20 +23,27 @@ input[type=range]{accent-color:var(--w)} #t{width:100%}
 input[type=checkbox]{accent-color:var(--accent)}
 button{font:inherit;font-size:.8rem;padding:3px 9px;border:1px solid var(--line);background:transparent;color:var(--fg);border-radius:6px;cursor:pointer}
 button[aria-pressed="true"]{background:var(--accent-soft);border-color:var(--accent)}
+select{font:inherit;font-size:.82rem}
 .mono{font-family:var(--mono);font-size:.75rem;color:var(--muted)}
 .badge{display:inline-block;font-family:var(--mono);font-size:.7rem;padding:2px 8px;border-radius:999px;border:1px solid var(--no);color:var(--no)}
 .sw{display:inline-block;width:10px;height:10px;border-radius:50%;vertical-align:-1px;margin-right:4px}
 .strip{display:block;width:100%;height:40px;border:1px solid var(--line);border-radius:6px}
+.spark{display:block;width:100%;height:64px;border:1px solid var(--line);border-radius:6px}
 dl{display:grid;grid-template-columns:auto 1fr;gap:3px 10px;font-size:.85rem;margin:0}
 dt{color:var(--muted);font-family:var(--mono);font-size:.72rem;padding-top:2px}dd{margin:0}
 .kpi{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}
-.kpi div{border:1px solid var(--line);border-radius:8px;padding:8px 10px}
-.kpi b{font-family:var(--mono);font-size:1.1rem;font-weight:500;display:block}
-.kpi span{font-size:.75rem;color:var(--muted)}
+.kpi div{border:1px solid var(--line);border-radius:8px;padding:8px 10px;min-width:0}
+.kpi b{font-family:var(--mono);font-size:1.05rem;font-weight:500;display:block}
+.kpi span{font-size:.72rem;color:var(--muted);display:block}
+.kpi i{font-style:normal;font-family:var(--mono);font-size:.7rem;color:var(--accent)}
+table{border-collapse:collapse;width:100%;font-size:.8rem}
+th,td{text-align:left;padding:4px 6px;border-top:1px solid var(--line)}th{border-top:0;color:var(--muted);font-weight:500;font-family:var(--mono);font-size:.7rem}
+td.num{font-family:var(--mono)}
+tr.sel td{background:var(--accent-soft)}
 </style>
 </head>
 <body>
-<header style="max-width:1240px;margin:0 auto 12px">
+<header style="max-width:1280px;margin:0 auto 12px">
   <div class="eyebrow">SGV · painel de replay · instrumento de 1 minuto, quarta dimensão por cortes</div>
   <div class="row" style="justify-content:space-between"><h1>Replay 4D sobre os meses abertos</h1><span class="badge" id="vivo">ao vivo: desligado</span></div>
 </header>
@@ -47,22 +54,41 @@ dt{color:var(--muted);font-family:var(--mono);font-size:.72rem;padding-top:2px}d
       <div class="row"><label for="t">tempo</label><span class="mono" id="quando">—</span></div>
       <input type="range" id="t" min="0" max="100" value="100" step="1">
       <div class="row">
+        <label>resolução <select id="res"><option value="1" selected>1 min</option><option value="5">5 min</option><option value="15">15 min</option></select></label>
         <label>janela <select id="jan"><option value="1440">1 dia</option><option value="4320">3 dias</option><option value="10080" selected>1 semana</option><option value="20160">2 semanas</option></select></label>
-        <span role="group" aria-label="fatia"><button data-f="-1" aria-pressed="true">todas</button><button data-f="0" aria-pressed="false">calma</button><button data-f="1" aria-pressed="false">média</button><button data-f="2" aria-pressed="false">quente</button></span>
-        <label><input type="checkbox" id="std"> unidades de σ̂</label>
-        <label><input type="checkbox" id="traj" checked> trajetória (240 min)</label>
-        <label><input type="checkbox" id="shell" checked> casca HDR50 da fatia</label>
-        <label><input type="checkbox" id="auto"> andar</label>
-        <label><input type="checkbox" id="rings" checked> anéis ×1 · ×3 · ×5 (extremidade)</label>
+        <label>cor <select id="cor"><option value="temp" selected>temperatura σ̂</option><option value="campo">campo D(x)</option></select></label>
         <label>zoom <select id="zoom"><option value="1" selected>régua inteira (±5)</option><option value="2.5">núcleo ×2,5 (±2)</option><option value="5">núcleo ×5 (±1)</option></select></label>
       </div>
-      <canvas class="strip" id="strip" width="900" height="40" aria-label="distribuição de temperatura na janela"></canvas>
-      <div class="row mono"><span><i class="sw" style="background:var(--cold)"></i>calma</span><span><i class="sw" style="background:var(--warm)"></i>média</span><span><i class="sw" style="background:var(--hot)"></i>quente</span><span>arraste para girar · roda para aproximar · sem camada de direção, por decisão · a nuvem real é muito mais concentrada que a das páginas simuladas: 99,5 % dos minutos de maio cabem em |x| &lt; 3 por construção da régua</span></div>
+      <div class="row">
+        <span role="group" aria-label="fatia"><button data-f="-1" aria-pressed="true">todas</button><button data-f="0" aria-pressed="false">calma</button><button data-f="1" aria-pressed="false">média</button><button data-f="2" aria-pressed="false">quente</button></span>
+        <label><input type="checkbox" id="std"> unidades de σ̂</label>
+        <label><input type="checkbox" id="traj" checked> trajetória (240 barras)</label>
+        <label><input type="checkbox" id="shell" checked> casca HDR50 da fatia</label>
+        <label><input type="checkbox" id="rings" checked> anéis ×1 · ×3 · ×5</label>
+        <label><input type="checkbox" id="auto"> andar</label>
+      </div>
+      <div class="row mono" style="justify-content:space-between"><span>temperatura ao longo da janela (a trajetória entrando e saindo das fatias)</span><span id="tempo-fatia"></span></div>
+      <canvas class="spark" id="spark" width="900" height="64"></canvas>
+      <div class="row mono"><span>distribuição da temperatura na janela</span></div>
+      <canvas class="strip" id="strip" width="900" height="40"></canvas>
+      <div class="row mono"><span><i class="sw" style="background:var(--cold)"></i>calma</span><span><i class="sw" style="background:var(--warm)"></i>média</span><span><i class="sw" style="background:var(--hot)"></i>quente</span><span>arraste para girar · roda para aproximar · sem camada de direção, por decisão · a nuvem real é concentrada: 99,5 % dos minutos de maio cabem em |x| &lt; 3 por construção da régua</span></div>
     </div>
   </section>
-  <aside style="display:grid;gap:14px">
+  <aside style="display:grid;gap:14px;align-content:start">
     <div class="card"><div class="in">
-      <div class="kpi"><div><b id="k-ext">—</b><span>extremidade do minuto</span></div><div><b id="k-w">—</b><span>σ̂ na régua (log)</span></div><div><b id="k-n">—</b><span>minutos na janela</span></div></div>
+      <div class="kpi">
+        <div><b id="k-ext">—</b><span>extremidade do minuto</span></div>
+        <div><b id="k-w">—</b><span>σ̂ na régua (log)</span></div>
+        <div><b id="k-n">—</b><span>barras na janela</span></div>
+        <div><b id="k-R">—</b><span>borda/núcleo R da janela</span><i id="k-R-ref">medido: —</i></div>
+        <div><b id="k-C">—</b><span>colapso C das cascas (versão de painel)</span><i id="k-C-ref">medido: —</i></div>
+        <div><b id="k-s13">—</b><span>alongamento log(λ₁/λ₃) da casca</span><i id="k-s13-ref">H-4D-01a: julgamento 3/11</i></div>
+      </div>
+    </div></div>
+    <div class="card"><div class="in">
+      <div class="mono" style="margin-bottom:6px">medido nas rodadas (BTC, jun–jul / ago–set) · a linha da resolução atual fica marcada</div>
+      <table id="tab"><thead><tr><th>res.</th><th>k</th><th>R borda real</th><th>envelope M</th><th>C colapso</th></tr></thead><tbody></tbody></table>
+      <div class="mono" style="margin-top:6px">leitura registrada: colapso auto-similar; borda muda de escala (objeto de 1 minuto). Fonte: exploracao/autosimilaridade-temporal.</div>
     </div></div>
     <div class="card"><div class="in">
       <dl>
@@ -70,13 +96,9 @@ dt{color:var(--muted);font-family:var(--mono);font-size:.72rem;padding-top:2px}d
         <dt>âncora</dt><dd id="m-anc">—</dd>
         <dt>período</dt><dd id="m-per">—</dd>
         <dt>ao vivo</dt><dd id="m-vivo">—</dd>
-        <dt>de onde vem</dt><dd>Coordenadas pelo pipeline do repositório (<code>coords_orig</code>, <code>estimativas</code> har, <code>regua</code>); mesmas definições dos pré-registros. Dados: Binance BTCUSDT 1 min, SHA-256 conferido.</dd>
+        <dt>de onde vem</dt><dd>Pipeline do repositório (<code>coords_orig</code>, <code>estimativas</code> har, <code>regua</code>, <code>campo_ll</code>); mesmas definições dos pré-registros. Dados: Binance BTCUSDT 1 min, SHA-256 conferido.</dd>
+        <dt>versão de painel</dt><dd>R da janela = mediana de D com 3 ≤ ext &lt; 10 sobre mediana com ext &lt; 1, nas barras da janela (as rodadas usam semanas inteiras e amostra fixa). C das cascas = 1 − amplitude entre fatias de ½·log det (em σ̂) / amplitude bruta; as rodadas medem por bandas de D. São indicadores, não os vereditos.</dd>
         <dt>o que não está aqui</dt><dd>Direção (ausente em 8 testes). Vereditos de outubro (3/11). Qualquer número não medido.</dd>
-      </dl>
-    </div></div>
-    <div class="card"><div class="in">
-      <dl>
-        <dt>medido, meses abertos</dt><dd>Borda do campo ×6,8 / ×6,5 (jun–jul / ago–set); colapso C 0,88 / 0,92; em 15 min a borda vira ×4,6 / ×2,4 e C fica 0,80 / 0,70. Memória de |r|: duas escalas, 10–50 min e 1–3 dias (v3). Fonte: <code>exploracao/autosimilaridade-temporal</code>, <code>exploracao/memoria-potencia</code>.</dd>
       </dl>
     </div></div>
   </aside>
@@ -84,13 +106,20 @@ dt{color:var(--muted);font-family:var(--mono);font-size:.72rem;padding-top:2px}d
 <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
 <script>
 (async function(){
-  const css=getComputedStyle(document.documentElement); const col=n=>new THREE.Color(css.getPropertyValue(n).trim());
-  const meta=await (await fetch('/meta')).json();
-  document.getElementById('m-inst').textContent=meta.instrumento; document.getElementById('m-anc').textContent=meta.ancora+' (régua: mediana e q99,5 ÷ 3)';
+  const css=getComputedStyle(document.documentElement); const col=n=>new THREE.Color(css.getPropertyValue(n).trim()); const cssv=n=>css.getPropertyValue(n).trim();
+  const meta=await (await fetch('/meta')).json(); const RES=meta.resolucoes||{"1":{k:200,n:meta.n,regua:meta.regua,tercis_limites:meta.tercis_limites}};
+  document.getElementById('m-inst').textContent=meta.instrumento; document.getElementById('m-anc').textContent=meta.ancora+' (régua: mediana e q99,5 ÷ 3, por resolução)';
   document.getElementById('m-per').textContent=meta.primeiro.slice(0,10)+' a '+meta.ultimo.slice(0,10)+' · '+meta.n.toLocaleString('pt-BR')+' minutos';
   document.getElementById('m-vivo').textContent='desligado: '+meta.ao_vivo.motivo; document.getElementById('vivo').textContent='ao vivo: desligado até 3/11';
-  const N=meta.n; const T=document.getElementById('t'); T.max=N-1; T.value=N-1;
-  const state={fim:N-1,jan:10080,fatia:-1,std:false,auto:false}; let dados=null;
+  const state={res:1,fim:0,jan:10080,fatia:-1,std:false,auto:false,zoom:1,cor:'temp'}; let dados=null;
+  const T=document.getElementById('t');
+  function setRes(r){state.res=r; const N=RES[String(r)].n; T.max=N-1; state.fim=N-1; T.value=N-1; state.jan=Math.max(60,Math.round(+document.getElementById('jan').value/r)); tabela();}
+  function tabela(){const tb=document.querySelector('#tab tbody'); tb.innerHTML=''; const M=meta.medido; if(!M)return;
+    for(const r of ['1','5','15']){const tr=document.createElement('tr'); if(+r===state.res)tr.className='sel';
+      tr.innerHTML=`<td>${r} min</td><td class="num">${RES[r].k}</td><td class="num">${M.R_borda[r][0].toFixed(2)} / ${M.R_borda[r][1].toFixed(2)}</td><td class="num">${M.R_M[r][0].map(v=>v.toFixed(1)).join('–')} / ${M.R_M[r][1].map(v=>v.toFixed(1)).join('–')}</td><td class="num">${M.C_colapso[r][0].toFixed(2)} / ${M.C_colapso[r][1].toFixed(2)}</td>`; tb.appendChild(tr);}
+    document.getElementById('k-R-ref').textContent='medido: '+M.R_borda[String(state.res)].map(v=>v.toFixed(1)).join(' / ');
+    document.getElementById('k-C-ref').textContent='medido (por bandas de D): '+M.C_colapso[String(state.res)].map(v=>v.toFixed(2)).join(' / ');}
+  setRes(1);
 
   const canvas=document.getElementById('c'); const renderer=new THREE.WebGLRenderer({canvas,antialias:true,alpha:true}); renderer.setPixelRatio(Math.min(devicePixelRatio||1,2));
   const scene=new THREE.Scene(); const camera=new THREE.PerspectiveCamera(36,1.5,0.1,100); camera.position.set(0,0,15);
@@ -99,9 +128,8 @@ dt{color:var(--muted);font-family:var(--mono);font-size:.72rem;padding-top:2px}d
   const colors=[col('--cold'),col('--warm'),col('--hot')]; const MAXP=20160;
   const rings=new THREE.Group(); root.add(rings);
   [[1,'×1 núcleo'],[3,'×3'],[5,'×5 borda']].forEach(([r,l],i)=>{rings.add(new THREE.Mesh(new THREE.SphereGeometry(r*U*0.98,28,20),new THREE.MeshBasicMaterial({color:col('--accent'),wireframe:true,transparent:true,opacity:0.09+0.04*i})));
-    const cv=document.createElement('canvas');cv.width=256;cv.height=64;const gg=cv.getContext('2d');gg.font='500 26px IBM Plex Mono, monospace';gg.fillStyle=css.getPropertyValue('--accent').trim();gg.textAlign='center';gg.fillText(l,128,42);
+    const cv=document.createElement('canvas');cv.width=256;cv.height=64;const gg=cv.getContext('2d');gg.font='500 26px IBM Plex Mono, monospace';gg.fillStyle=cssv('--accent');gg.textAlign='center';gg.fillText(l,128,42);
     const sp=new THREE.Sprite(new THREE.SpriteMaterial({map:new THREE.CanvasTexture(cv),transparent:true,depthTest:false}));sp.scale.set(2.2,0.55,1);sp.position.set(r*U*0.98,0.3,0);rings.add(sp);});
-  state.zoom=1;
   const g=new THREE.BufferGeometry(); const pos=new Float32Array(MAXP*3), c=new Float32Array(MAXP*3);
   g.setAttribute('position',new THREE.BufferAttribute(pos,3)); g.setAttribute('color',new THREE.BufferAttribute(c,3));
   const pts=new THREE.Points(g,new THREE.PointsMaterial({size:0.075,vertexColors:true,transparent:true,opacity:0.8})); root.add(pts);
@@ -112,61 +140,83 @@ dt{color:var(--muted);font-family:var(--mono);font-size:.72rem;padding-top:2px}d
   const shellE=new THREE.Mesh(new THREE.SphereGeometry(1,16,12),new THREE.MeshBasicMaterial({color:col('--accent'),wireframe:true,transparent:true,opacity:0.35}));
   root.add(shell);root.add(shellE);shell.matrixAutoUpdate=false;shellE.matrixAutoUpdate=false;
   for(const [t,p] of [['E_norm',[SIDE*1.15,-SIDE,-SIDE]],['jerk',[-SIDE,SIDE*1.15,-SIDE]],['memory_flux',[-SIDE,-SIDE,SIDE*1.2]]]){
-    const cv=document.createElement('canvas');cv.width=320;cv.height=64;const gg=cv.getContext('2d');gg.font='500 30px IBM Plex Mono, monospace';gg.fillStyle=css.getPropertyValue('--muted').trim();gg.textAlign='center';gg.fillText(t,160,42);
+    const cv=document.createElement('canvas');cv.width=320;cv.height=64;const gg=cv.getContext('2d');gg.font='500 30px IBM Plex Mono, monospace';gg.fillStyle=cssv('--muted');gg.textAlign='center';gg.fillText(t,160,42);
     const sp=new THREE.Sprite(new THREE.SpriteMaterial({map:new THREE.CanvasTexture(cv),transparent:true,depthTest:false}));sp.scale.set(3,0.6,1);sp.position.set(...p);root.add(sp);}
 
-  async function carregar(){
-    const r=await fetch(`/janela?fim=${state.fim+1}&n=${state.jan}`); dados=await r.json(); desenhar();
-  }
-  function coord(k,i){const v=dados.x[i][k]; if(v===null) return null; const f=state.std&&dados.w[i]!==null?Math.exp(-dados.w[i]*meta.regua.w_escala):1; return Math.max(-SIDE,Math.min(SIDE,v*f*U*state.zoom));}
+  async function carregar(){ const r=await fetch(`/janela?fim=${state.fim+1}&n=${state.jan}&res=${state.res}`); dados=await r.json(); if(dados.erro){alert(dados.erro);return;} desenhar(); }
+  const wesc=()=>RES[String(state.res)].regua.w_escala;
+  function fator(i){return state.std&&dados.w[i]!==null?Math.exp(-dados.w[i]*wesc()):1;}
+  function coord(k,i){const v=dados.x[i][k]; if(v===null) return null; return Math.max(-SIDE,Math.min(SIDE,v*fator(i)*U*state.zoom));}
+  function covEig(idx,getp){const mu=[0,0,0];for(const i of idx){const p=getp(i);for(let k=0;k<3;k++)mu[k]+=p[k];}for(let k=0;k<3;k++)mu[k]/=idx.length;
+    const C=[[0,0,0],[0,0,0],[0,0,0]];for(const i of idx){const p=getp(i);const d=[p[0]-mu[0],p[1]-mu[1],p[2]-mu[2]];for(let a=0;a<3;a++)for(let b=0;b<3;b++)C[a][b]+=d[a]*d[b]/idx.length;}
+    let A=C.map(r=>r.slice()),V=[[1,0,0],[0,1,0],[0,0,1]];
+    for(let it=0;it<40;it++){let p=0,q=1,mx=0;for(let a=0;a<3;a++)for(let b=a+1;b<3;b++)if(Math.abs(A[a][b])>mx){mx=Math.abs(A[a][b]);p=a;q=b;} if(mx<1e-10)break;
+      const th=0.5*Math.atan2(2*A[p][q],A[q][q]-A[p][p]);const cs=Math.cos(th),sn=Math.sin(th);const R=[[1,0,0],[0,1,0],[0,0,1]];R[p][p]=cs;R[q][q]=cs;R[p][q]=sn;R[q][p]=-sn;
+      const mul=(M1,M2)=>M1.map((r,i)=>M2[0].map((_,jj)=>r.reduce((acc,_,k)=>acc+M1[i][k]*M2[k][jj],0)));const RT=R[0].map((_,jj)=>R.map(r=>r[jj]));A=mul(mul(RT,A),R);V=mul(V,R);}
+    const lam=[A[0][0],A[1][1],A[2][2]].map(v=>Math.max(v,1e-9)); return {mu,V,lam};}
+  const median=a=>{if(!a.length)return null;const s=[...a].sort((x,y)=>x-y);return s[s.length>>1];};
   function desenhar(){
     const n=dados.n; let shown=0; const idx=[];
+    // cor por campo: escala log D entre os quantis 5–95 da janela
+    let lo=0,hi=1; if(state.cor==='campo'&&dados.D){const v=dados.D.filter(x=>x!==null&&x>0).map(Math.log).sort((a,b)=>a-b); if(v.length){lo=v[Math.floor(v.length*0.05)];hi=v[Math.floor(v.length*0.95)];}}
+    const cCold=col('--cold'),cHot=col('--hot');
     for(let i=0;i<MAXP;i++){
       if(i>=n||dados.x[i][0]===null||(state.fatia>=0&&dados.fatia[i]!==state.fatia)){pos[i*3]=pos[i*3+1]=pos[i*3+2]=1e3;continue;}
-      for(let k=0;k<3;k++)pos[i*3+k]=coord(k,i); const cc=colors[Math.max(0,dados.fatia[i])]; c[i*3]=cc.r;c[i*3+1]=cc.g;c[i*3+2]=cc.b; shown++; idx.push(i);}
+      for(let k=0;k<3;k++)pos[i*3+k]=coord(k,i);
+      let cc; if(state.cor==='campo'){const d=dados.D&&dados.D[i]!==null&&dados.D[i]>0?Math.min(1,Math.max(0,(Math.log(dados.D[i])-lo)/(hi-lo||1))):null; cc=d===null?col('--m'):cCold.clone().lerp(cHot,d);} else cc=colors[Math.max(0,dados.fatia[i])];
+      c[i*3]=cc.r;c[i*3+1]=cc.g;c[i*3+2]=cc.b; shown++; idx.push(i);}
     g.attributes.position.needsUpdate=true; g.attributes.color.needsUpdate=true; rings.scale.setScalar(state.zoom); rings.visible=document.getElementById('rings').checked;
-    // trajetória: últimos 240 minutos da janela
-    let j=0; for(let i=Math.max(0,n-240);i<n;i++,j++){for(let k=0;k<3;k++){const v=dados.x[i][k]===null?1e3:coord(k,i);trP[j*3+k]=v;}} for(;j<240;j++)trP[j*3]=trP[j*3+1]=trP[j*3+2]=1e3;
+    let j=0; for(let i=Math.max(0,n-240);i<n;i++,j++){for(let k=0;k<3;k++){trP[j*3+k]=dados.x[i][k]===null?1e3:coord(k,i);}} for(;j<240;j++)trP[j*3]=trP[j*3+1]=trP[j*3+2]=1e3;
     trG.attributes.position.needsUpdate=true; traj.visible=document.getElementById('traj').checked; head.visible=traj.visible;
     const last=n-1; if(dados.x[last][0]!==null)head.position.set(coord(0,last),coord(1,last),coord(2,last));
-    // casca HDR50 da seleção (covariância, elipsoide a 1,538 σ)
-    const sh=document.getElementById('shell').checked&&idx.length>=40; shell.visible=shellE.visible=sh;
-    if(sh){const mu=[0,0,0];for(const i of idx)for(let k=0;k<3;k++)mu[k]+=pos[i*3+k]; for(let k=0;k<3;k++)mu[k]/=idx.length;
-      const C=[[0,0,0],[0,0,0],[0,0,0]];for(const i of idx){const d=[pos[i*3]-mu[0],pos[i*3+1]-mu[1],pos[i*3+2]-mu[2]];for(let a=0;a<3;a++)for(let b=0;b<3;b++)C[a][b]+=d[a]*d[b]/idx.length;}
-      let A=C.map(r=>r.slice()),V=[[1,0,0],[0,1,0],[0,0,1]];
-      for(let it=0;it<30;it++){let p=0,q=1,mx=0;for(let a=0;a<3;a++)for(let b=a+1;b<3;b++)if(Math.abs(A[a][b])>mx){mx=Math.abs(A[a][b]);p=a;q=b;} if(mx<1e-9)break;
-        const th=0.5*Math.atan2(2*A[p][q],A[q][q]-A[p][p]);const cs=Math.cos(th),sn=Math.sin(th);const R=[[1,0,0],[0,1,0],[0,0,1]];R[p][p]=cs;R[q][q]=cs;R[p][q]=sn;R[q][p]=-sn;
-        const mul=(M1,M2)=>M1.map((r,i)=>M2[0].map((_,jj)=>r.reduce((acc,_,k)=>acc+M1[i][k]*M2[k][jj],0)));const RT=R[0].map((_,jj)=>R.map(r=>r[jj]));A=mul(mul(RT,A),R);V=mul(V,R);}
-      const k=1.538;const e=[0,1,2].map(i=>Math.sqrt(Math.max(A[i][i],1e-4)));const m=new THREE.Matrix4();
-      m.set(V[0][0]*e[0]*k,V[0][1]*e[1]*k,V[0][2]*e[2]*k,mu[0],V[1][0]*e[0]*k,V[1][1]*e[1]*k,V[1][2]*e[2]*k,mu[1],V[2][0]*e[0]*k,V[2][1]*e[1]*k,V[2][2]*e[2]*k,mu[2],0,0,0,1);
-      shell.matrix.copy(m);shellE.matrix.copy(m);}
-    // KPIs e faixa
-    const d=new Date(dados.timestamp[last]); document.getElementById('quando').textContent=d.toISOString().replace('T',' ').slice(0,16)+' UTC · fechamento '+dados.close[last];
+    // casca da seleção + alongamento
+    const sh=document.getElementById('shell').checked&&idx.length>=40; shell.visible=shellE.visible=sh; let s13=null;
+    if(idx.length>=40){const e=covEig(idx,i=>[pos[i*3],pos[i*3+1],pos[i*3+2]]); const lam=[...e.lam].sort((a,b)=>b-a); s13=Math.log(lam[0]/lam[2]);
+      if(sh){const k=1.538;const ev=[0,1,2].map(i=>Math.sqrt(e.lam[i]));const m=new THREE.Matrix4();const V=e.V,mu=e.mu;
+        m.set(V[0][0]*ev[0]*k,V[0][1]*ev[1]*k,V[0][2]*ev[2]*k,mu[0],V[1][0]*ev[0]*k,V[1][1]*ev[1]*k,V[1][2]*ev[2]*k,mu[1],V[2][0]*ev[0]*k,V[2][1]*ev[1]*k,V[2][2]*ev[2]*k,mu[2],0,0,0,1);shell.matrix.copy(m);shellE.matrix.copy(m);}}
+    // R da janela (campo): mediana D ext 3–10 / mediana D ext<1, sobre TODAS as barras válidas da janela (independe da fatia)
+    let R=null,nExt=0; if(dados.D){const nuc=[],ext=[];for(let i=0;i<n;i++){const d=dados.D[i],e=dados.ext[i];if(d===null||e===null)continue;if(e<1)nuc.push(d);else if(e>=3&&e<10)ext.push(d);} nExt=ext.length; if(ext.length>=30&&nuc.length>=30)R=median(ext)/median(nuc);}
+    // C das cascas: amplitude entre fatias de ½ log det, bruta e em σ̂
+    let Cc=null; {const grp=[[],[],[]];for(let i=0;i<n;i++){if(dados.x[i][0]===null||dados.fatia[i]<0)continue;grp[dados.fatia[i]].push(i);}
+      if(grp.every(gq=>gq.length>=40)){const ld=(gq,std)=>{const e=covEig(gq,i=>{const f=std&&dados.w[i]!==null?Math.exp(-dados.w[i]*wesc()):1;return [dados.x[i][0]*f,dados.x[i][1]*f,dados.x[i][2]*f];});return 0.5*Math.log(e.lam[0]*e.lam[1]*e.lam[2]);};
+        const b=grp.map(gq=>ld(gq,false)),p=grp.map(gq=>ld(gq,true));const ptp=a=>Math.max(...a)-Math.min(...a);const db=ptp(b);if(db>1e-6)Cc=1-ptp(p)/db;}}
+    // tempo na fatia (últimas 240 barras)
+    let tf='';if(state.fatia>=0){let cnt=0;for(let i=Math.max(0,n-240);i<n;i++)if(dados.fatia[i]===state.fatia)cnt++;tf=`últimas 240 barras: ${cnt} na fatia ${['calma','média','quente'][state.fatia]}`;} document.getElementById('tempo-fatia').textContent=tf;
+    const d=new Date(dados.timestamp[last]); document.getElementById('quando').textContent=d.toISOString().replace('T',' ').slice(0,16)+' UTC · fechamento '+dados.close[last]+' · '+state.res+' min';
     document.getElementById('k-ext').textContent=dados.ext[last]===null?'—':dados.ext[last].toFixed(2); document.getElementById('k-w').textContent=dados.w[last]===null?'—':dados.w[last].toFixed(2);
-    document.getElementById('k-n').textContent=shown.toLocaleString('pt-BR');
+    document.getElementById('k-n').textContent=shown.toLocaleString('pt-BR'); document.getElementById('k-R').textContent=R===null?(dados.D?`— (${nExt} extremos)`:'— (sem campo)'):R.toFixed(2);
+    document.getElementById('k-C').textContent=Cc===null?'—':Cc.toFixed(2); document.getElementById('k-s13').textContent=s13===null?'—':s13.toFixed(2);
+    faixas(n,last);
+  }
+  function faixas(n,last){
+    const cols=[cssv('--cold'),cssv('--warm'),cssv('--hot')];const [q1,q2]=RES[String(state.res)].tercis_limites;
     const s=document.getElementById('strip'),sg=s.getContext('2d');const W=s.width=s.clientWidth||900,H=s.height;sg.clearRect(0,0,W,H);const h=new Float32Array(60);let mx=1;
     for(let i=0;i<n;i++){const w=dados.w[i];if(w===null)continue;const b=Math.floor((w+5)/10*60);if(b>=0&&b<60)h[b]++;} for(const v of h)mx=Math.max(mx,v);
-    const cols=[css.getPropertyValue('--cold').trim(),css.getPropertyValue('--warm').trim(),css.getPropertyValue('--hot').trim()];const [q1,q2]=meta.tercis_limites;
     for(let i=0;i<60;i++){const v=-5+i/6;sg.fillStyle=v<q1?cols[0]:v>q2?cols[2]:cols[1];sg.globalAlpha=0.3+0.7*h[i]/mx;sg.fillRect(i/60*W,H-h[i]/mx*(H-4)-2,W/60-1,h[i]/mx*(H-4));}
-    sg.globalAlpha=1;if(dados.w[last]!==null){sg.fillStyle=css.getPropertyValue('--w').trim();sg.fillRect((dados.w[last]+5)/10*W-1,0,2,H);}
+    sg.globalAlpha=1;if(dados.w[last]!==null){sg.fillStyle=cssv('--w');sg.fillRect((dados.w[last]+5)/10*W-1,0,2,H);}
+    const k=document.getElementById('spark'),kg=k.getContext('2d');const KW=k.width=k.clientWidth||900,KH=k.height;kg.clearRect(0,0,KW,KH);
+    const y=v=>KH-((v+4)/8)*KH; kg.fillStyle=cols[0];kg.globalAlpha=0.12;kg.fillRect(0,y(q1),KW,KH-y(q1));kg.fillStyle=cols[2];kg.fillRect(0,0,KW,y(q2));kg.globalAlpha=1;
+    kg.strokeStyle=cssv('--w');kg.lineWidth=1.2;kg.beginPath();let started=false;for(let i=0;i<n;i++){const w=dados.w[i];if(w===null){started=false;continue;}const X=i/(n-1)*KW,Y=y(Math.max(-4,Math.min(4,w)));if(!started){kg.moveTo(X,Y);started=true;}else kg.lineTo(X,Y);}kg.stroke();
+    kg.strokeStyle=cssv('--line');kg.beginPath();kg.moveTo(0,y(q1));kg.lineTo(KW,y(q1));kg.moveTo(0,y(q2));kg.lineTo(KW,y(q2));kg.stroke();
+    if(state.fatia>=0){kg.fillStyle=cols[state.fatia];kg.globalAlpha=0.9;for(let i=Math.max(0,n-240);i<n;i++)if(dados.fatia[i]===state.fatia)kg.fillRect(i/(n-1)*KW,KH-3,Math.max(1,KW/n),3);kg.globalAlpha=1;}
   }
   let timer=null; T.addEventListener('input',()=>{state.fim=+T.value;clearTimeout(timer);timer=setTimeout(carregar,120);});
-  document.getElementById('jan').addEventListener('change',e=>{state.jan=+e.target.value;carregar();});
-  document.querySelectorAll('button[data-f]').forEach(b=>b.addEventListener('click',()=>{state.fatia=+b.dataset.f;document.querySelectorAll('button[data-f]').forEach(o=>o.setAttribute('aria-pressed',String(o===b)));if(dados)desenhar();}));
-  document.getElementById('std').addEventListener('change',e=>{state.std=e.target.checked;if(dados)desenhar();});
-  document.getElementById('traj').addEventListener('change',()=>{if(dados)desenhar();}); document.getElementById('shell').addEventListener('change',()=>{if(dados)desenhar();});
-  document.getElementById('auto').addEventListener('change',e=>state.auto=e.target.checked);
-  document.getElementById('rings').addEventListener('change',()=>{if(dados)desenhar();});
+  document.getElementById('jan').addEventListener('change',e=>{state.jan=Math.max(60,Math.round(+e.target.value/state.res));carregar();});
+  document.getElementById('res').addEventListener('change',e=>{setRes(+e.target.value);carregar();});
+  document.getElementById('cor').addEventListener('change',e=>{state.cor=e.target.value;if(dados)desenhar();});
   document.getElementById('zoom').addEventListener('change',e=>{state.zoom=+e.target.value;if(dados)desenhar();});
-  let drag=false,lx=0,ly=0,zoom=15;
+  document.querySelectorAll('button[data-f]').forEach(b=>b.addEventListener('click',()=>{state.fatia=+b.dataset.f;document.querySelectorAll('button[data-f]').forEach(o=>o.setAttribute('aria-pressed',String(o===b)));if(dados)desenhar();}));
+  for(const id of ['std','traj','shell','rings'])document.getElementById(id).addEventListener('change',e=>{if(id==='std')state.std=e.target.checked;if(dados)desenhar();});
+  document.getElementById('auto').addEventListener('change',e=>state.auto=e.target.checked);
+  let drag=false,lx=0,ly=0,zoomCam=15;
   canvas.addEventListener('pointerdown',e=>{drag=true;lx=e.clientX;ly=e.clientY;canvas.setPointerCapture(e.pointerId);});
   canvas.addEventListener('pointerup',()=>drag=false);canvas.addEventListener('pointercancel',()=>drag=false);
   canvas.addEventListener('pointermove',e=>{if(!drag)return;root.rotation.y+=(e.clientX-lx)*0.008;root.rotation.x+=(e.clientY-ly)*0.008;lx=e.clientX;ly=e.clientY;});
-  canvas.addEventListener('wheel',e=>{e.preventDefault();zoom=Math.max(7,Math.min(28,zoom+e.deltaY*0.01));},{passive:false});
+  canvas.addEventListener('wheel',e=>{e.preventDefault();zoomCam=Math.max(7,Math.min(28,zoomCam+e.deltaY*0.01));},{passive:false});
   let tick=0;
   function loop(){const w=canvas.clientWidth||900,h=Math.round(w*0.667);if(canvas.width!==w||canvas.height!==h){renderer.setSize(w,h,false);camera.aspect=w/h;camera.updateProjectionMatrix();}
-    if(state.auto&&++tick%30===0){state.fim=Math.min(N-1,state.fim+60);T.value=state.fim;carregar();if(state.fim>=N-1)state.auto=document.getElementById('auto').checked=false;}
-    if(!drag)root.rotation.y+=0.001;camera.position.z=zoom;renderer.render(scene,camera);requestAnimationFrame(loop);}
+    if(state.auto&&++tick%30===0){const N=RES[String(state.res)].n;state.fim=Math.min(N-1,state.fim+Math.max(1,Math.round(60/state.res)));T.value=state.fim;carregar();if(state.fim>=N-1)state.auto=document.getElementById('auto').checked=false;}
+    if(!drag)root.rotation.y+=0.001;camera.position.z=zoomCam;renderer.render(scene,camera);requestAnimationFrame(loop);}
   await carregar(); loop();
 })();
 </script>

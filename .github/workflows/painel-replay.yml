@@ -40,3 +40,4 @@ jobs:
           git add -f painel/dados/replay_2026-05_2026-09.* || true
           git commit -m "Painel de replay: dados maio–setembro (run ${{ github.run_id }})" || echo "nada para gravar"
           git push || true
+# retrigger 1792176181
