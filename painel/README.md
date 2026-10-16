@@ -25,3 +25,11 @@ O exportador usa o pipeline do repositório sem modificação (`coords_orig`, `e
 ## O que não mostra, por decisão
 
 Direção μ(x). Vereditos de outubro antes de 3/11. Qualquer número que não tenha sido medido e registrado.
+
+## Serviço ao vivo (`painel/vivo.py`): escrito, desligado
+
+- Obedece `painel/LIBERACAO.json`. Com `ligado: false` (o estado atual) ele recusa partir e não busca nada.
+- Quando a Ana liberar (depois de 3/11, o exemplo está no próprio arquivo), ele busca klines 1 min da Binance por REST **só dentro das janelas liberadas** e liga o fluxo corrente **só a partir de `ao_vivo_desde`**. Qualquer candle fora disso é descartado antes de entrar no buffer.
+- A âncora de maio (régua, quantis) vem do `.json` do replay; nunca é recalculada.
+- Buffer rolante de 2 semanas + 1 dia de aquecimento; coordenadas pelo mesmo pipeline; mesmas rotas do replay, mais `/vivo` com o estado da liberação.
+- `--simular <npz>` alimenta o laço com os meses abertos, para ensaio local. O caminho de cálculo foi testado assim em 16/10; o caminho de rede (Binance) não foi testado nesta sessão, porque o ambiente não alcança a API.

@@ -1,0 +1,7 @@
+{
+  "ligado": false,
+  "janelas_liberadas": [],
+  "ao_vivo_desde": null,
+  "regra": "Só a Ana edita este arquivo, depois dos julgamentos. Outubro/2026 reservado até 3/11; novembro até 1/12. O serviço recusa qualquer candle fora das janelas liberadas e só liga o fluxo corrente a partir de ao_vivo_desde.",
+  "exemplo_depois_de_3_11": {"ligado": true, "janelas_liberadas": [["2026-10-01", "2026-11-01"]], "ao_vivo_desde": "2026-12-01"}
+}
