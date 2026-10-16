@@ -1,0 +1,43 @@
+BTCUSDT-1m-2026-05.zip: SHA-256 conferido
+BTCUSDT-1m-2026-06.zip: SHA-256 conferido
+BTCUSDT-1m-2026-07.zip: SHA-256 conferido
+BTCUSDT-1m-2026-08.zip: SHA-256 conferido
+BTCUSDT-1m-2026-09.zip: SHA-256 conferido
+  real: ok
+  E2_6026: ok
+  E2_6027: ok
+  E2_6028: ok
+  E2_6029: ok
+  E2_6030: ok
+  E2_6031: ok
+  E2_6032: ok
+  E2_6033: ok
+  E2_6034: ok
+  E2_6035: ok
+  M_4026: ok
+  M_4027: ok
+  M_4028: ok
+  M_4029: ok
+  M_4030: ok
+
+== memória em lei de potência v3 [junset]
+  real     β 0.231 θ   2870.9 θ1/θ2    43.9/  3745.8 AIC pot   -71.6 2exp  -129.2 ΔR² +0.029 → duas exponenciais
+  E2_6026  β 0.552 θ   1274.4 θ1/θ2   131.1/  3264.4 AIC pot   -34.8 2exp   -52.7 ΔR² +0.259 → duas exponenciais
+  E2_6027  β 0.538 θ    519.5 θ1/θ2   140.7/  2228.7 AIC pot   -27.8 2exp   -52.3 ΔR² +0.102 → duas exponenciais
+  E2_6028  β 0.504 θ   1055.9 θ1/θ2    62.2/  1598.1 AIC pot   -33.7 2exp   -79.5 ΔR² +0.077 → duas exponenciais
+  E2_6029  β 0.496 θ   1149.7 θ1/θ2   140.8/  2812.6 AIC pot   -40.0 2exp   -64.0 ΔR² +0.186 → duas exponenciais
+  E2_6030  β 0.536 θ   1152.1 θ1/θ2   212.2/ 10000.0 AIC pot   -32.1 2exp   -41.2 ΔR² +0.286 → duas exponenciais
+  E2_6031  β 0.640 θ   1067.0 θ1/θ2   317.6/  4760.2 AIC pot   -14.5 2exp   -42.4 ΔR² +0.074 → duas exponenciais
+  E2_6032  β 0.457 θ   1659.7 θ1/θ2   145.3/  3221.3 AIC pot   -32.0 2exp   -47.3 ΔR² +0.168 → duas exponenciais
+  E2_6033  β 0.489 θ    837.7 θ1/θ2    62.9/  1479.4 AIC pot   -43.6 2exp   -75.5 ΔR² +0.158 → duas exponenciais
+  E2_6034  β 0.405 θ    339.8 θ1/θ2    37.2/   555.6 AIC pot   -45.5 2exp   -86.4 ΔR² +0.037 → duas exponenciais
+  E2_6035  β 0.570 θ   1112.6 θ1/θ2   127.7/  1927.8 AIC pot   -21.0 2exp   -64.3 ΔR² +0.124 → duas exponenciais
+  M_4026   β 0.243 θ   3230.6 θ1/θ2    38.9/  5328.6 AIC pot  -104.5 2exp  -136.9 ΔR² +0.296 → duas exponenciais
+  M_4027   β 0.228 θ   3434.2 θ1/θ2    44.9/  5802.0 AIC pot  -105.7 2exp  -145.2 ΔR² +0.292 → duas exponenciais
+  M_4028   β 0.235 θ   3295.2 θ1/θ2    41.3/  5405.4 AIC pot  -103.0 2exp  -148.8 ΔR² +0.280 → duas exponenciais
+  M_4029   β 0.237 θ   3260.6 θ1/θ2    43.9/  5357.9 AIC pot  -101.5 2exp  -143.5 ΔR² +0.274 → duas exponenciais
+  M_4030   β 0.238 θ   3211.2 θ1/θ2    46.0/  5222.2 AIC pot   -98.7 2exp  -145.8 ΔR² +0.257 → duas exponenciais
+  ρ real longos: [(1800, 0.082), (2160, 0.073), (3600, 0.051), (5040, 0.035), (6480, 0.026)] | E2_6026: [(1800, 0.015), (2160, 0.006), (3600, 0.013), (5040, -0.005), (6480, 0.005)]
+  ΔAIC real por corte: {'2160': -6.647659029442451, '3600': 18.76053727622346, '5040': 41.5612726096204, '6480': 57.60868180249855}
+  E2 parâmetros (6026): {'a': 0.0, 'phi': 0.00618, 'c': -0.01272, 'phi_l': 0.99838, 'tau_l_min': 616.39697, 'var_eta': 0.00119, 'phi_h': 0.96983, 'var_h': 0.43664}
+  E2 'duas exponenciais': 10/10; validação: True; classe real: duas exponenciais; ΔR² vs E2: abaixo; descola em: 1 min
