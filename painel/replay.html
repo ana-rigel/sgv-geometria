@@ -1,0 +1,165 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>SGV · painel de replay 4D</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<style>
+:root{--bg:#f3f2ee;--panel:#fff;--fg:#1d1f1a;--muted:#5f655c;--line:#d8d9cf;--accent:#2f6f5e;--accent-soft:#dfeae4;--w:#8a4fb5;--hot:#c84b2d;--warm:#d9a441;--cold:#3a6fb0;--no:#9a3b2a;
+  --sans:"IBM Plex Sans",system-ui,sans-serif;--mono:"IBM Plex Mono",ui-monospace,monospace;--canvas:#faf9f5}
+@media (prefers-color-scheme:dark){:root{--bg:#15171a;--panel:#1d2024;--fg:#e8e6df;--muted:#a3a79d;--line:#33373c;--accent:#7fc2ab;--accent-soft:#23332d;--w:#c39ae6;--hot:#f0785a;--warm:#e6b85c;--cold:#6fa1e0;--no:#e0806b;--canvas:#121417}}
+body{margin:0;background:var(--bg);color:var(--fg);font-family:var(--sans);font-size:14px;line-height:1.5;padding:16px}
+h1{font-size:1.3rem;margin:0;font-weight:600}
+.eyebrow{font-family:var(--mono);font-size:.7rem;letter-spacing:.08em;text-transform:uppercase;color:var(--muted)}
+.wrap{max-width:1240px;margin:0 auto;display:grid;grid-template-columns:minmax(0,1.3fr) minmax(0,1fr);gap:14px}
+@media (max-width:900px){.wrap{grid-template-columns:1fr}}
+.card{background:var(--panel);border:1px solid var(--line);border-radius:10px;overflow:hidden;min-width:0}
+.card .in{padding:10px 12px}
+canvas#c{display:block;width:100%;height:auto;background:var(--canvas);touch-action:none;cursor:grab}
+.row{display:flex;flex-wrap:wrap;gap:8px 14px;align-items:center;margin:6px 0}
+label{display:inline-flex;align-items:center;gap:6px;font-size:.85rem}
+input[type=range]{accent-color:var(--w)} #t{width:100%}
+input[type=checkbox]{accent-color:var(--accent)}
+button{font:inherit;font-size:.8rem;padding:3px 9px;border:1px solid var(--line);background:transparent;color:var(--fg);border-radius:6px;cursor:pointer}
+button[aria-pressed="true"]{background:var(--accent-soft);border-color:var(--accent)}
+.mono{font-family:var(--mono);font-size:.75rem;color:var(--muted)}
+.badge{display:inline-block;font-family:var(--mono);font-size:.7rem;padding:2px 8px;border-radius:999px;border:1px solid var(--no);color:var(--no)}
+.sw{display:inline-block;width:10px;height:10px;border-radius:50%;vertical-align:-1px;margin-right:4px}
+.strip{display:block;width:100%;height:40px;border:1px solid var(--line);border-radius:6px}
+dl{display:grid;grid-template-columns:auto 1fr;gap:3px 10px;font-size:.85rem;margin:0}
+dt{color:var(--muted);font-family:var(--mono);font-size:.72rem;padding-top:2px}dd{margin:0}
+.kpi{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}
+.kpi div{border:1px solid var(--line);border-radius:8px;padding:8px 10px}
+.kpi b{font-family:var(--mono);font-size:1.1rem;font-weight:500;display:block}
+.kpi span{font-size:.75rem;color:var(--muted)}
+</style>
+</head>
+<body>
+<header style="max-width:1240px;margin:0 auto 12px">
+  <div class="eyebrow">SGV · painel de replay · instrumento de 1 minuto, quarta dimensão por cortes</div>
+  <div class="row" style="justify-content:space-between"><h1>Replay 4D sobre os meses abertos</h1><span class="badge" id="vivo">ao vivo: desligado</span></div>
+</header>
+<div class="wrap">
+  <section class="card">
+    <canvas id="c" width="900" height="600"></canvas>
+    <div class="in">
+      <div class="row"><label for="t">tempo</label><span class="mono" id="quando">—</span></div>
+      <input type="range" id="t" min="0" max="100" value="100" step="1">
+      <div class="row">
+        <label>janela <select id="jan"><option value="1440">1 dia</option><option value="4320">3 dias</option><option value="10080" selected>1 semana</option><option value="20160">2 semanas</option></select></label>
+        <span role="group" aria-label="fatia"><button data-f="-1" aria-pressed="true">todas</button><button data-f="0" aria-pressed="false">calma</button><button data-f="1" aria-pressed="false">média</button><button data-f="2" aria-pressed="false">quente</button></span>
+        <label><input type="checkbox" id="std"> unidades de σ̂</label>
+        <label><input type="checkbox" id="traj" checked> trajetória (240 min)</label>
+        <label><input type="checkbox" id="shell" checked> casca HDR50 da fatia</label>
+        <label><input type="checkbox" id="auto"> andar</label>
+      </div>
+      <canvas class="strip" id="strip" width="900" height="40" aria-label="distribuição de temperatura na janela"></canvas>
+      <div class="row mono"><span><i class="sw" style="background:var(--cold)"></i>calma</span><span><i class="sw" style="background:var(--warm)"></i>média</span><span><i class="sw" style="background:var(--hot)"></i>quente</span><span>arraste para girar · roda para aproximar · sem camada de direção, por decisão</span></div>
+    </div>
+  </section>
+  <aside style="display:grid;gap:14px">
+    <div class="card"><div class="in">
+      <div class="kpi"><div><b id="k-ext">—</b><span>extremidade do minuto</span></div><div><b id="k-w">—</b><span>σ̂ na régua (log)</span></div><div><b id="k-n">—</b><span>minutos na janela</span></div></div>
+    </div></div>
+    <div class="card"><div class="in">
+      <dl>
+        <dt>instrumento</dt><dd id="m-inst">—</dd>
+        <dt>âncora</dt><dd id="m-anc">—</dd>
+        <dt>período</dt><dd id="m-per">—</dd>
+        <dt>ao vivo</dt><dd id="m-vivo">—</dd>
+        <dt>de onde vem</dt><dd>Coordenadas pelo pipeline do repositório (<code>coords_orig</code>, <code>estimativas</code> har, <code>regua</code>); mesmas definições dos pré-registros. Dados: Binance BTCUSDT 1 min, SHA-256 conferido.</dd>
+        <dt>o que não está aqui</dt><dd>Direção (ausente em 8 testes). Vereditos de outubro (3/11). Qualquer número não medido.</dd>
+      </dl>
+    </div></div>
+    <div class="card"><div class="in">
+      <dl>
+        <dt>medido, meses abertos</dt><dd>Borda do campo ×6,8 / ×6,5 (jun–jul / ago–set); colapso C 0,88 / 0,92; em 15 min a borda vira ×4,6 / ×2,4 e C fica 0,80 / 0,70. Memória de |r|: duas escalas, 10–50 min e 1–3 dias (v3). Fonte: <code>exploracao/autosimilaridade-temporal</code>, <code>exploracao/memoria-potencia</code>.</dd>
+      </dl>
+    </div></div>
+  </aside>
+</div>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+<script>
+(async function(){
+  const css=getComputedStyle(document.documentElement); const col=n=>new THREE.Color(css.getPropertyValue(n).trim());
+  const meta=await (await fetch('/meta')).json();
+  document.getElementById('m-inst').textContent=meta.instrumento; document.getElementById('m-anc').textContent=meta.ancora+' (régua: mediana e q99,5 ÷ 3)';
+  document.getElementById('m-per').textContent=meta.primeiro.slice(0,10)+' a '+meta.ultimo.slice(0,10)+' · '+meta.n.toLocaleString('pt-BR')+' minutos';
+  document.getElementById('m-vivo').textContent='desligado: '+meta.ao_vivo.motivo; document.getElementById('vivo').textContent='ao vivo: desligado até 3/11';
+  const N=meta.n; const T=document.getElementById('t'); T.max=N-1; T.value=N-1;
+  const state={fim:N-1,jan:10080,fatia:-1,std:false,auto:false}; let dados=null;
+
+  const canvas=document.getElementById('c'); const renderer=new THREE.WebGLRenderer({canvas,antialias:true,alpha:true}); renderer.setPixelRatio(Math.min(devicePixelRatio||1,2));
+  const scene=new THREE.Scene(); const camera=new THREE.PerspectiveCamera(36,1.5,0.1,100); camera.position.set(0,0,15);
+  const root=new THREE.Group(); scene.add(root); root.rotation.set(0.35,-0.55,0); const SIDE=4.2,U=SIDE/5;
+  root.add(new THREE.LineSegments(new THREE.EdgesGeometry(new THREE.BoxGeometry(2*SIDE,2*SIDE,2*SIDE)),new THREE.LineBasicMaterial({color:col('--line')})));
+  const colors=[col('--cold'),col('--warm'),col('--hot')]; const MAXP=20160;
+  const g=new THREE.BufferGeometry(); const pos=new Float32Array(MAXP*3), c=new Float32Array(MAXP*3);
+  g.setAttribute('position',new THREE.BufferAttribute(pos,3)); g.setAttribute('color',new THREE.BufferAttribute(c,3));
+  const pts=new THREE.Points(g,new THREE.PointsMaterial({size:0.06,vertexColors:true,transparent:true,opacity:0.8})); root.add(pts);
+  const trG=new THREE.BufferGeometry(); const trP=new Float32Array(240*3); trG.setAttribute('position',new THREE.BufferAttribute(trP,3));
+  const traj=new THREE.Line(trG,new THREE.LineBasicMaterial({color:col('--fg'),transparent:true,opacity:0.85})); root.add(traj);
+  const head=new THREE.Mesh(new THREE.SphereGeometry(0.13,12,10),new THREE.MeshBasicMaterial({color:col('--fg')})); root.add(head);
+  const shell=new THREE.Mesh(new THREE.SphereGeometry(1,32,24),new THREE.MeshBasicMaterial({color:col('--accent'),transparent:true,opacity:0.2,side:THREE.DoubleSide}));
+  const shellE=new THREE.Mesh(new THREE.SphereGeometry(1,16,12),new THREE.MeshBasicMaterial({color:col('--accent'),wireframe:true,transparent:true,opacity:0.35}));
+  root.add(shell);root.add(shellE);shell.matrixAutoUpdate=false;shellE.matrixAutoUpdate=false;
+  for(const [t,p] of [['E_norm',[SIDE*1.15,-SIDE,-SIDE]],['jerk',[-SIDE,SIDE*1.15,-SIDE]],['memory_flux',[-SIDE,-SIDE,SIDE*1.2]]]){
+    const cv=document.createElement('canvas');cv.width=320;cv.height=64;const gg=cv.getContext('2d');gg.font='500 30px IBM Plex Mono, monospace';gg.fillStyle=css.getPropertyValue('--muted').trim();gg.textAlign='center';gg.fillText(t,160,42);
+    const sp=new THREE.Sprite(new THREE.SpriteMaterial({map:new THREE.CanvasTexture(cv),transparent:true,depthTest:false}));sp.scale.set(3,0.6,1);sp.position.set(...p);root.add(sp);}
+
+  async function carregar(){
+    const r=await fetch(`/janela?fim=${state.fim+1}&n=${state.jan}`); dados=await r.json(); desenhar();
+  }
+  function coord(k,i){const v=dados.x[i][k]; if(v===null) return null; const f=state.std&&dados.w[i]!==null?Math.exp(-dados.w[i]*meta.regua.w_escala):1; return Math.max(-SIDE,Math.min(SIDE,v*f*U));}
+  function desenhar(){
+    const n=dados.n; let shown=0; const idx=[];
+    for(let i=0;i<MAXP;i++){
+      if(i>=n||dados.x[i][0]===null||(state.fatia>=0&&dados.fatia[i]!==state.fatia)){pos[i*3]=pos[i*3+1]=pos[i*3+2]=1e3;continue;}
+      for(let k=0;k<3;k++)pos[i*3+k]=coord(k,i); const cc=colors[Math.max(0,dados.fatia[i])]; c[i*3]=cc.r;c[i*3+1]=cc.g;c[i*3+2]=cc.b; shown++; idx.push(i);}
+    g.attributes.position.needsUpdate=true; g.attributes.color.needsUpdate=true;
+    // trajetória: últimos 240 minutos da janela
+    let j=0; for(let i=Math.max(0,n-240);i<n;i++,j++){for(let k=0;k<3;k++){const v=dados.x[i][k]===null?1e3:coord(k,i);trP[j*3+k]=v;}} for(;j<240;j++)trP[j*3]=trP[j*3+1]=trP[j*3+2]=1e3;
+    trG.attributes.position.needsUpdate=true; traj.visible=document.getElementById('traj').checked; head.visible=traj.visible;
+    const last=n-1; if(dados.x[last][0]!==null)head.position.set(coord(0,last),coord(1,last),coord(2,last));
+    // casca HDR50 da seleção (covariância, elipsoide a 1,538 σ)
+    const sh=document.getElementById('shell').checked&&idx.length>=40; shell.visible=shellE.visible=sh;
+    if(sh){const mu=[0,0,0];for(const i of idx)for(let k=0;k<3;k++)mu[k]+=pos[i*3+k]; for(let k=0;k<3;k++)mu[k]/=idx.length;
+      const C=[[0,0,0],[0,0,0],[0,0,0]];for(const i of idx){const d=[pos[i*3]-mu[0],pos[i*3+1]-mu[1],pos[i*3+2]-mu[2]];for(let a=0;a<3;a++)for(let b=0;b<3;b++)C[a][b]+=d[a]*d[b]/idx.length;}
+      let A=C.map(r=>r.slice()),V=[[1,0,0],[0,1,0],[0,0,1]];
+      for(let it=0;it<30;it++){let p=0,q=1,mx=0;for(let a=0;a<3;a++)for(let b=a+1;b<3;b++)if(Math.abs(A[a][b])>mx){mx=Math.abs(A[a][b]);p=a;q=b;} if(mx<1e-9)break;
+        const th=0.5*Math.atan2(2*A[p][q],A[q][q]-A[p][p]);const cs=Math.cos(th),sn=Math.sin(th);const R=[[1,0,0],[0,1,0],[0,0,1]];R[p][p]=cs;R[q][q]=cs;R[p][q]=sn;R[q][p]=-sn;
+        const mul=(M1,M2)=>M1.map((r,i)=>M2[0].map((_,jj)=>r.reduce((acc,_,k)=>acc+M1[i][k]*M2[k][jj],0)));const RT=R[0].map((_,jj)=>R.map(r=>r[jj]));A=mul(mul(RT,A),R);V=mul(V,R);}
+      const k=1.538;const e=[0,1,2].map(i=>Math.sqrt(Math.max(A[i][i],1e-4)));const m=new THREE.Matrix4();
+      m.set(V[0][0]*e[0]*k,V[0][1]*e[1]*k,V[0][2]*e[2]*k,mu[0],V[1][0]*e[0]*k,V[1][1]*e[1]*k,V[1][2]*e[2]*k,mu[1],V[2][0]*e[0]*k,V[2][1]*e[1]*k,V[2][2]*e[2]*k,mu[2],0,0,0,1);
+      shell.matrix.copy(m);shellE.matrix.copy(m);}
+    // KPIs e faixa
+    const d=new Date(dados.timestamp[last]); document.getElementById('quando').textContent=d.toISOString().replace('T',' ').slice(0,16)+' UTC · fechamento '+dados.close[last];
+    document.getElementById('k-ext').textContent=dados.ext[last]===null?'—':dados.ext[last].toFixed(2); document.getElementById('k-w').textContent=dados.w[last]===null?'—':dados.w[last].toFixed(2);
+    document.getElementById('k-n').textContent=shown.toLocaleString('pt-BR');
+    const s=document.getElementById('strip'),sg=s.getContext('2d');const W=s.width=s.clientWidth||900,H=s.height;sg.clearRect(0,0,W,H);const h=new Float32Array(60);let mx=1;
+    for(let i=0;i<n;i++){const w=dados.w[i];if(w===null)continue;const b=Math.floor((w+5)/10*60);if(b>=0&&b<60)h[b]++;} for(const v of h)mx=Math.max(mx,v);
+    const cols=[css.getPropertyValue('--cold').trim(),css.getPropertyValue('--warm').trim(),css.getPropertyValue('--hot').trim()];const [q1,q2]=meta.tercis_limites;
+    for(let i=0;i<60;i++){const v=-5+i/6;sg.fillStyle=v<q1?cols[0]:v>q2?cols[2]:cols[1];sg.globalAlpha=0.3+0.7*h[i]/mx;sg.fillRect(i/60*W,H-h[i]/mx*(H-4)-2,W/60-1,h[i]/mx*(H-4));}
+    sg.globalAlpha=1;if(dados.w[last]!==null){sg.fillStyle=css.getPropertyValue('--w').trim();sg.fillRect((dados.w[last]+5)/10*W-1,0,2,H);}
+  }
+  let timer=null; T.addEventListener('input',()=>{state.fim=+T.value;clearTimeout(timer);timer=setTimeout(carregar,120);});
+  document.getElementById('jan').addEventListener('change',e=>{state.jan=+e.target.value;carregar();});
+  document.querySelectorAll('button[data-f]').forEach(b=>b.addEventListener('click',()=>{state.fatia=+b.dataset.f;document.querySelectorAll('button[data-f]').forEach(o=>o.setAttribute('aria-pressed',String(o===b)));if(dados)desenhar();}));
+  document.getElementById('std').addEventListener('change',e=>{state.std=e.target.checked;if(dados)desenhar();});
+  document.getElementById('traj').addEventListener('change',()=>{if(dados)desenhar();}); document.getElementById('shell').addEventListener('change',()=>{if(dados)desenhar();});
+  document.getElementById('auto').addEventListener('change',e=>state.auto=e.target.checked);
+  let drag=false,lx=0,ly=0,zoom=15;
+  canvas.addEventListener('pointerdown',e=>{drag=true;lx=e.clientX;ly=e.clientY;canvas.setPointerCapture(e.pointerId);});
+  canvas.addEventListener('pointerup',()=>drag=false);canvas.addEventListener('pointercancel',()=>drag=false);
+  canvas.addEventListener('pointermove',e=>{if(!drag)return;root.rotation.y+=(e.clientX-lx)*0.008;root.rotation.x+=(e.clientY-ly)*0.008;lx=e.clientX;ly=e.clientY;});
+  canvas.addEventListener('wheel',e=>{e.preventDefault();zoom=Math.max(7,Math.min(28,zoom+e.deltaY*0.01));},{passive:false});
+  let tick=0;
+  function loop(){const w=canvas.clientWidth||900,h=Math.round(w*0.667);if(canvas.width!==w||canvas.height!==h){renderer.setSize(w,h,false);camera.aspect=w/h;camera.updateProjectionMatrix();}
+    if(state.auto&&++tick%30===0){state.fim=Math.min(N-1,state.fim+60);T.value=state.fim;carregar();if(state.fim>=N-1)state.auto=document.getElementById('auto').checked=false;}
+    if(!drag)root.rotation.y+=0.001;camera.position.z=zoom;renderer.render(scene,camera);requestAnimationFrame(loop);}
+  await carregar(); loop();
+})();
+</script>
+</body>
+</html>
