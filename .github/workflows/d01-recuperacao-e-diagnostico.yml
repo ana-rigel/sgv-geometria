@@ -1,0 +1,61 @@
+name: SGV-D01 - Recuperar sintético e auditar paridade de prefixo
+on:
+  push:
+    branches: [research/sgv-d01-direcao-ago-set-20261015]
+    paths: [".github/workflows/d01-recuperacao-e-diagnostico.yml"]
+permissions:
+  contents: write
+  actions: read
+jobs:
+  recover_and_audit:
+    runs-on: ubuntu-latest
+    timeout-minutes: 25
+    env:
+      PYTHONPATH: "."
+      OPENBLAS_NUM_THREADS: "1"
+      OMP_NUM_THREADS: "1"
+      MKL_NUM_THREADS: "1"
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - run: python -m pip install -r requirements.txt
+      - name: Recuperar SEM gerar outra vez oito pares consumidos do artifact GitHub
+        uses: actions/download-artifact@v4
+        with:
+          name: D01-avaliacao-sinteticos-e-mercado
+          run-id: 38829840815
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          path: recuperado
+      - name: Conferir origem e preservar resultado sintético exato
+        run: |
+          test -f resultados/d01_TEST_RELEASE.txt
+          test ! -f resultados/d01_sinteticos_teste_final.json
+          arquivo=$(find recuperado -type f -name d01_sinteticos_teste_final.json | head -1)
+          test -n "$arquivo"
+          cp "$arquivo" resultados/d01_sinteticos_teste_final.json
+          sha256sum resultados/d01_sinteticos_teste_final.json
+          python -c 'import json; x=json.load(open("resultados/d01_sinteticos_teste_final.json")); assert x["status"]=="PASS_SYNTHETIC_INSTRUMENT" and all(x["results"]["gates"].values()); print(x["status"],x["results"]["gates"])'
+      - name: Baixar AGO e SET de BTC (periodos gastos), sem outubro novembro
+        run: |
+          base=https://data.binance.vision/data/spot/monthly/klines/BTCUSDT/1m
+          for m in 2026-08 2026-09; do
+            file=BTCUSDT-1m-$m.zip
+            curl -fsSL --retry 3 -o dados/$file "$base/$file"
+            curl -fsSL --retry 3 -o dados/$file.CHECKSUM "$base/$file.CHECKSUM"
+            (cd dados && sha256sum -c $file.CHECKSUM)
+          done
+      - name: Diagnosticar por coluna a divergencia do prefixo TREINO
+        run: python scripts/d01_diagnostico_paridade_prefixo.py --out resultados/d01_diagnostico_paridade.json
+      - name: Preservar resultado sintético e diagnóstico (sem reabrir)
+        if: always()
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898+github-actions[bot]@users.noreply.github.com"
+          for p in resultados/d01_sinteticos_teste_final.json resultados/d01_diagnostico_paridade.json; do
+            if [ -f "$p" ]; then git add -f "$p"; fi
+          done
+          git commit -m "audit(D01): recuperar teste sintético único e diagnosticar prefixo [skip ci]" || true
+          git pull --rebase
+          git push
