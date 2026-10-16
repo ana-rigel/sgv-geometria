@@ -33,3 +33,7 @@ Direção μ(x). Vereditos de outubro antes de 3/11. Qualquer número que não t
 - A âncora de maio (régua, quantis) vem do `.json` do replay; nunca é recalculada.
 - Buffer rolante de 2 semanas + 1 dia de aquecimento; coordenadas pelo mesmo pipeline; mesmas rotas do replay, mais `/vivo` com o estado da liberação.
 - `--simular <npz>` alimenta o laço com os meses abertos, para ensaio local. O caminho de cálculo foi testado assim em 16/10; o caminho de rede (Binance) não foi testado nesta sessão, porque o ambiente não alcança a API.
+
+## Manual de leitura
+
+As quatro métricas principais (ext, w, R, C), cenários combinados e o que o painel não diz: [MANUAL.md](MANUAL.md).
