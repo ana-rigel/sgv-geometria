@@ -89,6 +89,11 @@ tr.sel td{background:var(--accent-soft)}
       <div class="mono" style="margin-bottom:6px">medido nas rodadas (BTC, jun–jul / ago–set) · a linha da resolução atual fica marcada</div>
       <table id="tab"><thead><tr><th>res.</th><th>k</th><th>R borda real</th><th>envelope M</th><th>C colapso</th></tr></thead><tbody></tbody></table>
       <div class="mono" style="margin-top:6px">leitura registrada: colapso auto-similar; borda muda de escala (objeto de 1 minuto). Fonte: exploracao/autosimilaridade-temporal.</div>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:10px">
+        <div><div class="mono" style="margin-bottom:4px">borda do campo, R, por resolução</div><canvas class="graf" id="g-R" width="420" height="230" style="display:block;width:100%;height:auto"></canvas></div>
+        <div><div class="mono" style="margin-bottom:4px">colapso de escala, C, por resolução</div><canvas class="graf" id="g-C" width="420" height="230" style="display:block;width:100%;height:auto"></canvas></div>
+      </div>
+      <div class="mono" style="margin-top:4px"><i class="sw" style="background:var(--accent)"></i>real jun–jul &nbsp;<i class="sw" style="background:var(--w)"></i>real ago–set &nbsp;<i class="sw" style="background:var(--m);border-radius:2px"></i>envelope das 5 réplicas M &nbsp;<i class="sw" style="background:var(--fg)"></i>a janela atual (losango)</div>
     </div></div>
     <div class="card"><div class="in">
       <dl>
@@ -187,6 +192,23 @@ tr.sel td{background:var(--accent-soft)}
     document.getElementById('k-n').textContent=shown.toLocaleString('pt-BR'); document.getElementById('k-R').textContent=R===null?(dados.D?`— (${nExt} extremos)`:'— (sem campo)'):R.toFixed(2);
     document.getElementById('k-C').textContent=Cc===null?'—':Cc.toFixed(2); document.getElementById('k-s13').textContent=s13===null?'—':s13.toFixed(2);
     faixas(n,last);
+    if(meta.medido){grafico('g-R',{real:meta.medido.R_borda,M:meta.medido.R_M},16,null,R);grafico('g-C',{real:meta.medido.C_colapso},1,0.7,Cc);}
+  }
+  function grafico(id,ser,ymax,limiar,atual){
+    const k=document.getElementById(id),g2=k.getContext('2d');const W=k.width=k.clientWidth*2||840,H=k.height=Math.round(W*0.55);k.style.height='auto';g2.clearRect(0,0,W,H);
+    const L=46*2,R_=10*2,Tp=14*2,B=30*2;const xs={1:L+(W-L-R_)*0.17,5:L+(W-L-R_)*0.5,15:L+(W-L-R_)*0.83};const y=v=>Tp+(H-Tp-B)*(1-v/ymax);
+    g2.font=`${11*2}px IBM Plex Mono, monospace`;g2.fillStyle=cssv('--muted');g2.strokeStyle=cssv('--line');g2.lineWidth=2;
+    g2.beginPath();g2.moveTo(L,Tp);g2.lineTo(L,H-B);g2.lineTo(W-R_,H-B);g2.stroke();
+    for(const v of (ymax>2?[0,5,10,15]:[0,0.5,1])){g2.fillText(String(v).replace('.',','),4*2,y(v)+4*2);g2.globalAlpha=0.4;g2.beginPath();g2.moveTo(L,y(v));g2.lineTo(W-R_,y(v));g2.stroke();g2.globalAlpha=1;}
+    for(const r of [1,5,15]){g2.textAlign='center';g2.fillText(r+' min',xs[r],H-8*2);}
+    if(limiar!=null){g2.strokeStyle=cssv('--no');g2.setLineDash([6,5]);g2.beginPath();g2.moveTo(L,y(limiar));g2.lineTo(W-R_,y(limiar));g2.stroke();g2.setLineDash([]);g2.fillStyle=cssv('--no');g2.textAlign='left';g2.fillText('limiar "colapsa" 0,7',L+6,y(limiar)-6);}
+    // envelopes M (dois por resolução), depois as linhas
+    const off=[-24,24];const M=meta.medido;
+    for(const r of [1,5,15])for(let p=0;p<2;p++){const e=ser.M?ser.M[String(r)][p]:null;if(!e)continue;g2.fillStyle=cssv('--m');g2.globalAlpha=0.55;const lo=Math.min(e[0],ymax),hi=Math.min(e[1],ymax);g2.fillRect(xs[r]+off[p]-8,y(hi),16,Math.max(2,y(lo)-y(hi)));g2.globalAlpha=1;}
+    const cores=[cssv('--accent'),cssv('--w')];
+    for(let p=0;p<2;p++){g2.strokeStyle=cores[p];g2.fillStyle=cores[p];g2.lineWidth=3;if(p===1)g2.setLineDash([8,5]);g2.beginPath();[1,5,15].forEach((r,i)=>{const v=ser.real[String(r)][p];const X=xs[r]+off[p],Y=y(Math.min(v,ymax));i?g2.lineTo(X,Y):g2.moveTo(X,Y);});g2.stroke();g2.setLineDash([]);
+      [1,5,15].forEach(r=>{const v=ser.real[String(r)][p];const X=xs[r]+off[p],Y=y(Math.min(v,ymax));g2.beginPath();g2.arc(X,Y,7,0,Math.PI*2);g2.fill();g2.textAlign='center';g2.fillText(v.toFixed(2).replace('.',','),X,Y+(p?26:-14));});}
+    if(atual!=null&&isFinite(atual)){const X=xs[state.res],Y=y(Math.min(atual,ymax));g2.fillStyle=cssv('--fg');g2.beginPath();g2.moveTo(X,Y-11);g2.lineTo(X+11,Y);g2.lineTo(X,Y+11);g2.lineTo(X-11,Y);g2.closePath();g2.fill();g2.textAlign='left';g2.fillText('janela '+atual.toFixed(2).replace('.',','),X+16,Y+5);}
   }
   function faixas(n,last){
     const cols=[cssv('--cold'),cssv('--warm'),cssv('--hot')];const [q1,q2]=RES[String(state.res)].tercis_limites;
