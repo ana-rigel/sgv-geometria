@@ -1,0 +1,16 @@
+BTCUSDT-1m-2026-05.zip: SHA-256 conferido
+BTCUSDT-1m-2026-06.zip: SHA-256 conferido
+BTCUSDT-1m-2026-07.zip: SHA-256 conferido
+BTCUSDT-1m-2026-05.zip: SHA-256 conferido
+BTCUSDT-1m-2026-06.zip: SHA-256 conferido
+BTCUSDT-1m-2026-07.zip: SHA-256 conferido
+BTCUSDT-1m-2026-08.zip: SHA-256 conferido
+BTCUSDT-1m-2026-09.zip: SHA-256 conferido
+GUARDS_PASSED {"original_sha256": "3992d0cc21ce5a292a55312a0cc77cfd9f70767fe9c1e7c29f84df307a60d238", "in_run_sha256": "3992d0cc21ce5a292a55312a0cc77cfd9f70767fe9c1e7c29f84df307a60d238", "full_prefix_sha256": "3992d0cc21ce5a292a55312a0cc77cfd9f70767fe9c1e7c29f84df307a60d238", "strict_same_run_prefix_identical": true, "n": 85760, "model_scaler_checks": {"B0": {"max_abs_diff_mean": 0.0, "max_abs_diff_scale": 0.0, "feature_count": 11}, "B1": {"max_abs_diff_mean": 0.0, "max_abs_diff_scale": 0.0, "feature_count": 14}, "B2": {"max_abs_diff_mean": 0.0, "max_abs_diff_scale": 0.0, "feature_count": 19}}, "tolerance_atol_rtol": 1e-08, "original_frozen_file_unmodified": true}
+BTCUSDT-1m-2026-05.zip: SHA-256 conferido
+BTCUSDT-1m-2026-06.zip: SHA-256 conferido
+BTCUSDT-1m-2026-07.zip: SHA-256 conferido
+BTCUSDT-1m-2026-08.zip: SHA-256 conferido
+BTCUSDT-1m-2026-09.zip: SHA-256 conferido
+{"stage": "MARKET_EXPLORATORY", "status": "EXPLORATORY_ALREADY_EXAMINED_MONTHS", "n": 82683, "weeks": 9, "D_hist": {"mean": 2.811304154823121e-06, "ci95": [-5.6382493896482655e-05, 6.534921603152518e-05], "positive_descriptive": false}, "D_geom": {"mean": 0.0001619817462027323, "ci95": [-6.874351226591896e-05, 0.00035144805214837695], "positive_descriptive": false}, "loss": {"B0": 0.6937091945147569, "B1": 0.6935472127685541, "B2": 0.6935444014643993}}
+DONE_MARKET_NO_RETUNING {'mean': 0.0001619817462027323, 'ci95': [-6.874351226591896e-05, 0.00035144805214837695], 'positive_descriptive': False} {'mean': 2.811304154823121e-06, 'ci95': [-5.6382493896482655e-05, 6.534921603152518e-05], 'positive_descriptive': False}
