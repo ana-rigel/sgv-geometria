@@ -1,0 +1,193 @@
+<title>Teste B do SGV</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:wght@400;500;600&display=swap">
+<style>
+/* Layout: um palco quadrado à esquerda (o plano da mente), coluna de controles e leituras à direita; empilha no celular. */
+:root{
+  --bg:#f3f1ea; --paper:#faf8f2; --fg:#1d1b16; --muted:#6b665a; --line:#d8d3c6;
+  --campo:#1f7a4d; --memoria:#2a5db0; --org:#b8432a;
+  --estavel:#1f7a4d; --transicao:#c98a17; --ruptura:#b8432a;
+  --heat-lo:rgba(42,93,176,.00); --heat-hi:rgba(184,67,42,.55);
+  --mono:"IBM Plex Mono",ui-monospace,SFMono-Regular,Menlo,monospace;
+  --sans:"IBM Plex Sans",system-ui,-apple-system,"Segoe UI",sans-serif;
+}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){
+  --bg:#15140f; --paper:#1d1b15; --fg:#ebe6d8; --muted:#a39d8c; --line:#3a372c;
+  --campo:#5fcf93; --memoria:#7fa6ee; --org:#f08a6e; --estavel:#5fcf93; --transicao:#e6b04a; --ruptura:#f08a6e;
+  --heat-lo:rgba(127,166,238,.00); --heat-hi:rgba(240,138,110,.5); color-scheme:dark}}
+:root[data-theme="dark"]{
+  --bg:#15140f; --paper:#1d1b15; --fg:#ebe6d8; --muted:#a39d8c; --line:#3a372c;
+  --campo:#5fcf93; --memoria:#7fa6ee; --org:#f08a6e; --estavel:#5fcf93; --transicao:#e6b04a; --ruptura:#f08a6e;
+  --heat-lo:rgba(127,166,238,.00); --heat-hi:rgba(240,138,110,.5); color-scheme:dark}
+body{background:var(--bg);color:var(--fg);font-family:var(--sans);line-height:1.45;
+  padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));padding-block:18px 32px}
+header{max-width:1100px;margin:0 auto 14px}
+h1{font-size:1.35rem;font-weight:600;margin:0 0 4px;text-wrap:balance}
+.eyebrow{font-family:var(--mono);font-size:.7rem;letter-spacing:.08em;text-transform:uppercase;color:var(--muted)}
+.lead{color:var(--muted);max-width:68ch;margin:0}
+.wrap{max-width:1100px;margin:0 auto;display:grid;grid-template-columns:minmax(0,1fr) 300px;gap:16px}
+@media (max-width:820px){.wrap{grid-template-columns:minmax(0,1fr)}}
+.stage{background:var(--paper);border:1px solid var(--line);border-radius:10px;padding:10px;min-width:0}
+canvas{display:block;width:100%;max-width:100%;border-radius:6px}
+#plano{aspect-ratio:1/1}
+#tira{height:72px;margin-top:8px}
+.side{display:grid;gap:12px;align-content:start;min-width:0}
+.card{background:var(--paper);border:1px solid var(--line);border-radius:10px;padding:12px}
+.kpi{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.kpi div{border:1px solid var(--line);border-radius:8px;padding:8px 10px;min-width:0}
+.kpi b{font-family:var(--mono);font-size:1.05rem;font-weight:500;display:block;font-variant-numeric:tabular-nums}
+.kpi span{font-size:.72rem;color:var(--muted);display:block}
+.regime{grid-column:1/-1;display:flex;align-items:center;gap:8px}
+.regime i{width:12px;height:12px;border-radius:50%;background:var(--estavel);flex:none}
+label.ctl{display:grid;grid-template-columns:1fr auto;gap:4px 8px;font-size:.8rem;color:var(--muted);margin-top:8px}
+label.ctl b{font-family:var(--mono);font-weight:500;color:var(--fg);font-variant-numeric:tabular-nums}
+label.ctl input[type=range]{grid-column:1/-1;width:100%;accent-color:var(--org)}
+.row{display:flex;flex-wrap:wrap;gap:6px;margin-top:10px}
+button{font:inherit;font-size:.8rem;padding:6px 10px;border:1px solid var(--line);border-radius:7px;background:var(--bg);color:var(--fg);cursor:pointer}
+button:hover{border-color:var(--fg)}button:focus-visible{outline:2px solid var(--org);outline-offset:2px}
+button[aria-pressed="true"]{background:var(--fg);color:var(--bg);border-color:var(--fg)}
+.leg{display:flex;flex-wrap:wrap;gap:10px 14px;font-size:.78rem;color:var(--muted);margin-top:8px}
+.leg i{display:inline-block;width:10px;height:10px;margin-right:5px;vertical-align:-1px}
+.leg .c{border:2px solid var(--campo);border-radius:50%}.leg .m{background:var(--memoria)}.leg .o{background:var(--org);transform:rotate(45deg)}
+.note{font-size:.8rem;color:var(--muted)}
+.note code{font-family:var(--mono);font-size:.75rem}
+@media (prefers-reduced-motion:reduce){*{transition:none!important}}
+</style>
+
+<header>
+  <div class="eyebrow">sgv_runtime · scripts/testes_sgv/visualizar_ia_novo.py · 4 de março de 2026 · reconstruído em 17/10</div>
+  <h1>Teste B: a mente geométrica</h1>
+  <p class="lead">Três corpos num plano. O <b>campo</b> é o mundo e teleporta sem aviso. A <b>memória</b> corre atrás dele com rigidez. A <b>organização</b> segue a memória, bem mais devagar. A tensão é a distância entre o que se vê e o que se lembra; o regime é a tensão comparada ao seu próprio passado.</p>
+</header>
+
+<div class="wrap">
+  <div class="stage">
+    <canvas id="plano" width="900" height="900" aria-label="plano da mente: campo, memória e organização"></canvas>
+    <canvas id="tira" width="900" height="72" aria-label="tensão nos últimos passos, colorida por regime"></canvas>
+    <div class="leg"><span><i class="c"></i>campo ∘ (o mundo)</span><span><i class="m"></i>memória □</span><span><i class="o"></i>organização ⋄</span><span>fundo: calor = tensão que cada ponto do plano sentiria · setas: campo − ponto</span></div>
+  </div>
+
+  <div class="side">
+    <div class="card">
+      <div class="eyebrow" style="margin-bottom:8px">leitura do passo</div>
+      <div class="kpi">
+        <div><b id="k-passo">0</b><span>passo</span></div>
+        <div><b id="k-T">—</b><span>tensão ‖F − M‖</span></div>
+        <div><b id="k-ema">—</b><span>EMA da tensão (α 0,08)</span></div>
+        <div><b id="k-E">—</b><span>E_norm = (T − EMA)/EMA</span></div>
+        <div class="regime"><i id="r-dot"></i><b id="k-reg" style="font-family:var(--mono);font-weight:500">STABLE</b><span id="k-reg-n" style="color:var(--muted);font-size:.72rem"></span></div>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="eyebrow">a mente</div>
+      <label class="ctl">rigidez (memória) <b id="v-rig">0,85</b><input id="rig" type="range" min="0.50" max="0.99" step="0.01" value="0.85"></label>
+      <label class="ctl">org_pull (organização) <b id="v-pull">0,05</b><input id="pull" type="range" min="0.005" max="0.30" step="0.005" value="0.05"></label>
+      <div class="eyebrow" style="margin-top:12px">o mundo</div>
+      <label class="ctl">teleporte a cada <b id="v-int">20 passos</b><input id="int" type="range" min="5" max="80" step="1" value="20"></label>
+      <label class="ctl">deriva entre teleportes <b id="v-der">0,00</b><input id="der" type="range" min="0" max="0.60" step="0.02" value="0"></label>
+      <label class="ctl">velocidade <b id="v-vel">10 passos/s</b><input id="vel" type="range" min="1" max="60" step="1" value="10"></label>
+      <div class="row">
+        <button id="b-pause" aria-pressed="false">pausar</button>
+        <button id="b-tele">teleportar agora</button>
+        <button id="b-reset">reiniciar</button>
+      </div>
+      <div class="row">
+        <button id="b-heat" aria-pressed="true">calor</button>
+        <button id="b-set" aria-pressed="true">setas</button>
+        <button id="b-tril" aria-pressed="true">trilhas</button>
+      </div>
+    </div>
+
+    <div class="card note">
+      <div class="eyebrow" style="margin-bottom:6px">as equações, como estavam no código</div>
+      <code>lr = 1 − rigidez</code><br>
+      <code>M ← M + lr · (F − M)</code><br>
+      <code>O ← O + org_pull · (M − O)</code><br>
+      <code>T = ‖F − M‖ · EMA_T ← 0,92·EMA_T + 0,08·T</code><br>
+      <code>E_norm = (T − EMA_T) / EMA_T</code><br>
+      <code>RUPTURE se E_norm &gt; 0,15 · STABLE se E_norm &lt; −0,12 · senão TRANSITION</code> (histerese de 3 passos)<br><br>
+      Com rigidez alta a memória demora a aceitar o mundo novo e a organização quase não sai do lugar: a mente fica teimosa. Com rigidez baixa ela acompanha cada salto e a tensão nunca sobe: a mente fica volúvel e sem memória. O trading foi o primeiro corpo onde a ideia encostou; o cubo do SGV é este desenho com dados reais, e o <code>memory_flux</code> de hoje é a memória correndo.
+    </div>
+  </div>
+</div>
+
+<script>
+(function(){
+  const $=id=>document.getElementById(id);
+  const plano=$('plano'), tira=$('tira'); const g=plano.getContext('2d'), gt=tira.getContext('2d');
+  const css=v=>getComputedStyle(document.documentElement).getPropertyValue(v).trim();
+  const L=10; // plano de −10 a 10, como no script original
+  let rng=mulberry32(4026);
+  function mulberry32(a){return function(){a|=0;a=a+0x6D2B79F5|0;let t=Math.imul(a^a>>>15,1|a);t=t+Math.imul(t^t>>>7,61|t)^t;return((t^t>>>14)>>>0)/4294967296}}
+  const st={passo:0,F:[0,0],M:[0,0],O:[0,0],T:0,ema:0,E:0,reg:'STABLE',cand:'STABLE',candN:0,hist:[],trM:[],trO:[],pause:false,acc:0,last:0};
+  const p={rig:.85,pull:.05,int:20,der:0,vel:10,heat:true,set:true,tril:true};
+  function tele(){st.F=[-8+16*rng(),-8+16*rng()]}
+  function reset(){rng=mulberry32(4026);Object.assign(st,{passo:0,M:[0,0],O:[0,0],T:0,ema:0,E:0,reg:'STABLE',cand:'STABLE',candN:0,hist:[],trM:[],trO:[]});tele();passo0();desenhar()}
+  function passo0(){st.T=Math.hypot(st.F[0]-st.M[0],st.F[1]-st.M[1]);st.ema=st.T}
+  function passo(){
+    st.passo++;
+    if(st.passo%p.int===0)tele();
+    else if(p.der>0){st.F[0]=Math.max(-9,Math.min(9,st.F[0]+(rng()-.5)*2*p.der));st.F[1]=Math.max(-9,Math.min(9,st.F[1]+(rng()-.5)*2*p.der))}
+    const lr=1-p.rig;
+    st.M=[st.M[0]+lr*(st.F[0]-st.M[0]),st.M[1]+lr*(st.F[1]-st.M[1])];
+    st.O=[st.O[0]+p.pull*(st.M[0]-st.O[0]),st.O[1]+p.pull*(st.M[1]-st.O[1])];
+    st.T=Math.hypot(st.F[0]-st.M[0],st.F[1]-st.M[1]);
+    st.ema=.92*st.ema+.08*st.T; st.E=st.ema>1e-9?(st.T-st.ema)/st.ema:0;
+    const alvo=st.E>.15?'RUPTURE':(st.E<-.12?'STABLE':'TRANSITION');
+    if(alvo===st.cand)st.candN++;else{st.cand=alvo;st.candN=1}
+    if(st.candN>=3)st.reg=st.cand;
+    st.hist.push({T:st.T,reg:st.reg});if(st.hist.length>240)st.hist.shift();
+    st.trM.push([...st.M]);st.trO.push([...st.O]);if(st.trM.length>80){st.trM.shift();st.trO.shift()}
+  }
+  const X=x=>(x+L)/(2*L)*plano.width, Y=y=>(L-y)/(2*L)*plano.height;
+  let heatImg=null, heatFor=null;
+  function calor(){
+    const n=60; if(heatFor&&heatFor[0]===st.F[0]&&heatFor[1]===st.F[1])return heatImg;
+    const c=document.createElement('canvas');c.width=n;c.height=n;const cg=c.getContext('2d');const im=cg.createImageData(n,n);
+    const hi=css('--heat-hi').match(/[\d.]+/g).map(Number);
+    for(let j=0;j<n;j++)for(let i=0;i<n;i++){const x=-L+(i+.5)/n*2*L,y=L-(j+.5)/n*2*L;const d=Math.hypot(x-st.F[0],y-st.F[1]);const a=Math.min(1,d/22);const k=4*(j*n+i);im.data[k]=hi[0];im.data[k+1]=hi[1];im.data[k+2]=hi[2];im.data[k+3]=Math.round(255*hi[3]*a)}
+    cg.putImageData(im,0,0);heatImg=c;heatFor=[...st.F];return c;
+  }
+  function desenhar(){
+    const W=plano.width,H=plano.height;g.clearRect(0,0,W,H);
+    g.fillStyle=css('--paper');g.fillRect(0,0,W,H);
+    if(p.heat){g.imageSmoothingEnabled=true;g.drawImage(calor(),0,0,W,H)}
+    g.strokeStyle=css('--line');g.lineWidth=1;g.setLineDash([4,6]);
+    for(let v=-10;v<=10;v+=2){g.beginPath();g.moveTo(X(v),0);g.lineTo(X(v),H);g.stroke();g.beginPath();g.moveTo(0,Y(v));g.lineTo(W,Y(v));g.stroke()}
+    g.setLineDash([]);
+    if(p.set){g.strokeStyle=css('--muted');g.globalAlpha=.35;g.lineWidth=1.2;
+      for(let x=-9;x<=9;x+=2)for(let y=-9;y<=9;y+=2){const ux=st.F[0]-x,uy=st.F[1]-y;const n=Math.hypot(ux,uy)||1;const s=Math.min(.8,n/8);const dx=ux/n*s,dy=uy/n*s;
+        g.beginPath();g.moveTo(X(x),Y(y));g.lineTo(X(x+dx),Y(y+dy));g.stroke();
+        const ang=Math.atan2(-dy,dx);g.beginPath();g.moveTo(X(x+dx),Y(y+dy));g.lineTo(X(x+dx)-6*Math.cos(ang-.5),Y(y+dy)+6*Math.sin(ang-.5));g.moveTo(X(x+dx),Y(y+dy));g.lineTo(X(x+dx)-6*Math.cos(ang+.5),Y(y+dy)+6*Math.sin(ang+.5));g.stroke()}
+      g.globalAlpha=1}
+    if(p.tril){const tr=(arr,col)=>{if(arr.length<2)return;g.strokeStyle=col;g.lineWidth=2;g.beginPath();arr.forEach((q,i)=>{i?g.lineTo(X(q[0]),Y(q[1])):g.moveTo(X(q[0]),Y(q[1]))});g.globalAlpha=.45;g.stroke();g.globalAlpha=1};tr(st.trM,css('--memoria'));tr(st.trO,css('--org'))}
+    // campo: círculo colorido pelo regime
+    const rc=css(st.reg==='RUPTURE'?'--ruptura':st.reg==='TRANSITION'?'--transicao':'--estavel');
+    g.strokeStyle=rc;g.lineWidth=3;g.beginPath();g.arc(X(st.F[0]),Y(st.F[1]),1.5/(2*L)*W,0,Math.PI*2);g.stroke();
+    g.fillStyle=css('--campo');g.beginPath();g.arc(X(st.F[0]),Y(st.F[1]),7,0,Math.PI*2);g.fill();
+    // segmento F–M (a tensão)
+    g.strokeStyle=css('--fg');g.globalAlpha=.5;g.lineWidth=1.5;g.setLineDash([3,4]);g.beginPath();g.moveTo(X(st.F[0]),Y(st.F[1]));g.lineTo(X(st.M[0]),Y(st.M[1]));g.stroke();g.setLineDash([]);g.globalAlpha=1;
+    // memória: quadrado
+    g.fillStyle=css('--memoria');g.fillRect(X(st.M[0])-8,Y(st.M[1])-8,16,16);
+    // organização: losango
+    g.fillStyle=css('--org');g.save();g.translate(X(st.O[0]),Y(st.O[1]));g.rotate(Math.PI/4);g.fillRect(-8,-8,16,16);g.restore();
+    // tira
+    const TW=tira.width,TH=tira.height;gt.clearRect(0,0,TW,TH);gt.fillStyle=css('--paper');gt.fillRect(0,0,TW,TH);
+    const mx=Math.max(1,...st.hist.map(h=>h.T));const n=st.hist.length;const bw=TW/240;
+    st.hist.forEach((h,i)=>{gt.fillStyle=css(h.reg==='RUPTURE'?'--ruptura':h.reg==='TRANSITION'?'--transicao':'--estavel');const hh=h.T/mx*(TH-10);gt.fillRect((240-n+i)*bw,TH-hh,Math.max(1,bw-1),hh)});
+    gt.fillStyle=css('--muted');gt.font='11px '+css('--mono');gt.fillText('tensão · últimos 240 passos · cor = regime',6,12);
+    // KPIs
+    $('k-passo').textContent=st.passo;$('k-T').textContent=st.T.toFixed(2);$('k-ema').textContent=st.ema.toFixed(2);$('k-E').textContent=(st.E>=0?'+':'')+st.E.toFixed(2);
+    $('k-reg').textContent=st.reg;$('r-dot').style.background=rc;$('k-reg-n').textContent=st.cand!==st.reg?`→ ${st.cand} (${st.candN}/3)`:'';
+  }
+  function laco(ts){if(!st.last)st.last=ts;const dt=(ts-st.last)/1000;st.last=ts;if(!st.pause){st.acc+=dt*p.vel;while(st.acc>=1){passo();st.acc-=1}}desenhar();requestAnimationFrame(laco)}
+  const fmt={rig:v=>v.toFixed(2).replace('.',','),pull:v=>v.toFixed(3).replace('.',','),int:v=>v+' passos',der:v=>v.toFixed(2).replace('.',','),vel:v=>v+' passos/s'};
+  for(const k of ['rig','pull','int','der','vel']){$(k).addEventListener('input',e=>{p[k]=+e.target.value;$('v-'+k).textContent=fmt[k](p[k])})}
+  for(const k of ['heat','set','tril']){const b=$('b-'+k);b.addEventListener('click',()=>{p[k]=!p[k];b.setAttribute('aria-pressed',String(p[k]))})}
+  $('b-pause').addEventListener('click',e=>{st.pause=!st.pause;e.target.setAttribute('aria-pressed',String(st.pause));e.target.textContent=st.pause?'continuar':'pausar'});
+  $('b-tele').addEventListener('click',()=>{tele();heatFor=null});
+  $('b-reset').addEventListener('click',reset);
+  reset();requestAnimationFrame(laco);
+})();
+</script>
