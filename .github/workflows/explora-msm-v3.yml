@@ -51,4 +51,5 @@ jobs:
           git config user.email "41898+github-actions[bot]@users.noreply.github.com"
           git add -f resultados/msm_v3_agoset.json resultados/msm_v3_agoset.log || true
           git commit -m "Exploração MSM v3: resultado ago–set (run ${{ github.run_id }})" || echo "nada para gravar"
+          git pull --rebase origin exploracao/msm || true
           git push || true
