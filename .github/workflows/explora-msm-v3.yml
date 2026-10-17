@@ -42,6 +42,7 @@ jobs:
       - name: Rodar
         run: |
           mkdir -p resultados
+          set -o pipefail
           python -W ignore pipeline/explora_msm_v3.py --periodo ${{ matrix.periodo }} | tee resultados/msm_v3_${{ matrix.periodo }}.log
       - name: Gravar o resultado no ramo
         if: always()

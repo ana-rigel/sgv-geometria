@@ -50,7 +50,7 @@ def ajustar(r, k):
     sig = float(np.std(r)); best = None; LIM = [(1.01, 1.95), (1.01, 50), (1e-3, 0.999), (2.3, 50)]
     for x0 in ([1.4, 3.0, 0.5, 4.0], [1.6, 5.0, 0.2, 3.0], [1.25, 2.0, 0.8, 6.0]):
         res = minimize(loglik, x0, args=(r, k, sig), method="Nelder-Mead", options={"maxfev": 300, "xatol": 1e-3, "fatol": 0.5})
-        degen = any(abs(v - lo) < 0.005 * (hi - lo) or abs(v - hi) < 0.005 * (hi - lo) for v, (lo, hi) in zip(res.x, LIM))
+        degen = (res.x[0] > 1.95 - 0.005 * 0.94) or (res.x[3] < 2.3 + 0.005 * 47.7)   # Emenda 2: só m0 no teto ou ν no piso
         if degen: print(f"    (k={k}: solução degenerada descartada: {np.round(res.x, 3)})", flush=True); continue
         if best is None or res.fun < best.fun: best = res
     if best is None: raise RuntimeError(f"k={k}: só soluções degeneradas")
