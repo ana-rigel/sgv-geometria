@@ -1,10 +1,5 @@
 BTCUSDT-1m-2026-05.zip: SHA-256 conferido
 BTCUSDT-1m-2026-06.zip: SHA-256 conferido
 BTCUSDT-1m-2026-07.zip: SHA-256 conferido
-    (k=1: solução degenerada descartada: [1.434 1.01  0.035 3.801])
-    (k=1: solução degenerada descartada: [1.42  1.086 0.034 3.601])
-    (k=3: solução degenerada descartada: [ 1.365 16.526  0.997  4.179])
-    (k=4: solução degenerada descartada: [1.322 7.373 0.999 4.232])
-    (k=5: solução degenerada descartada: [1.29  4.563 0.999 4.247])
-    (k=5: solução degenerada descartada: [ 1.331 18.977  0.997  4.258])
-    (k=5: solução degenerada descartada: [1.29  4.579 0.999 4.233])
+  validação S2 (k gerador 2): k* = 2 | BIC k1 298992 k2 298897 k3 298899 k4 298926 k5 298950
+  validação S3 (k gerador 3): k* = 3 | BIC k1 301881 k2 300903 k3 300885 k4 300944 k5 301001
