@@ -50,3 +50,13 @@ A dúvida do experimento 2 é a sigmoide escolhida à mão: um lr fixo bem escol
 ## O que isto não é
 
 Não é mercado, não é previsão, não é lucro. É a pergunta da Fase 0: o que separa uma mente geométrica de um filtro com três botões. Duas respostas registradas antes: aprender o ritmo do mundo (exp. 1) e modular a própria rigidez pela surpresa melhor do que qualquer rigidez constante (exp. 2).
+
+## Emenda 1 (registrada depois da primeira rodada, antes de rodar de novo)
+
+**Primeira rodada (4060037; resultados_mente_v1_REPROVADO.json):** os dois critérios reprovaram. Exp. 1: M1 reduziu J_salto só 2,1 % em W1 e 1,0 % em W0. Exp. 2: o melhor lr fixo foi 0,95 (quase copiar o campo), com J 4,2 contra 10,6 de M2.
+
+**Dois defeitos, nenhum de hipótese:**
+1. *Instrumento (M1):* o detector de salto "T > 3·EMA_T" perde metade dos saltos porque a EMA ainda está alta quando o salto seguinte chega; P̂ convergiu para ~40 em vez de 20 e as janelas abriram na hora errada (verificado numa semente: detectados 20, 40, 80, 100, 140…). **Correção:** salto detectado quando T_t − T_{t−1} > 2 (o ruído σ_n produz variações de ~0,4). Nada mais muda em M1.
+2. *Mundo (exp. 2):* com σ_n = 0,3 contra saltos de ~6, não há dilema estabilidade–plasticidade: copiar o campo é quase ótimo, e qualquer mente com memória perde. O mundo não testava a pergunta. **Correção:** σ_n = 2,0 em W1 e W0 (ruído da ordem de um terço do salto típico), para que lembrar valha alguma coisa. O limiar do detector (2) foi escolhido com σ_n = 2,0 em mente: ΔT de ruído ≈ 2,8·σ_n·… não; com σ_n = 2,0 a variação de T por ruído chega perto de 2, então o limiar passa a **3** em vez de 2, fixado agora.
+
+Critérios, apostas e tudo o mais permanecem. Última emenda: se reprovar de novo, fica reprovado.

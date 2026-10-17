@@ -4,7 +4,7 @@ from pathlib import Path
 import numpy as np
 
 ROOT = Path(__file__).resolve().parent
-N, P, SIG_N, SEEDS = 4000, 20, 0.3, range(1000, 1100)
+N, P, SIG_N, SEEDS = 4000, 20, 2.0, range(1000, 1100)   # Emenda 1: σ_n 0,3 → 2,0
 LR_GRID = np.arange(0.05, 1.0, 0.05)
 
 
@@ -21,19 +21,19 @@ def mundo(seed, ritmo):
 def rodar(F, tipo, lr_fixo=0.15, pull=0.05):
     M = np.zeros(2); O = np.zeros(2); ema = None; T_hist = np.zeros(N); M_hist = np.zeros((N, 2))
     # relógio da organização (M1)
-    P_hat = None; ultimo_salto = None; fase_ok = False
+    P_hat = None; ultimo_salto = None; T_prev = 0.0
     for t in range(N):
         T = np.hypot(*(F[t] - M)); ema = T if ema is None else 0.92 * ema + 0.08 * T; E = (T - ema) / ema if ema > 1e-9 else 0.0
         if tipo == "M0": lr = lr_fixo
         elif tipo == "M2": lr = 0.05 + (0.8 - 0.05) / (1 + np.exp(-(E - 0.3) / 0.15))
         else:  # M1: detecta saltos, estima período, abre plasticidade na janela prevista
-            if T > 3 * ema and (ultimo_salto is None or t - ultimo_salto > 3):
+            if T - T_prev > 3 and (ultimo_salto is None or t - ultimo_salto > 3):   # Emenda 1: salto = degrau na tensão
                 if ultimo_salto is not None:
                     d = t - ultimo_salto; P_hat = d if P_hat is None else 0.7 * P_hat + 0.3 * d
                 ultimo_salto = t
             janela = P_hat is not None and ultimo_salto is not None and abs(((t - ultimo_salto) % round(P_hat)) - 0) <= 1 and (t - ultimo_salto) >= round(P_hat) - 1
             lr = 0.8 if janela else 0.15
-        M = M + lr * (F[t] - M); O = O + pull * (M - O); T_hist[t] = np.hypot(*(F[t] - M)); M_hist[t] = M
+        T_prev = T; M = M + lr * (F[t] - M); O = O + pull * (M - O); T_hist[t] = np.hypot(*(F[t] - M)); M_hist[t] = M
     return T_hist, M_hist
 
 
