@@ -1,0 +1,21 @@
+BTCUSDT-1m-2026-05.zip: SHA-256 conferido
+BTCUSDT-1m-2026-06.zip: SHA-256 conferido
+BTCUSDT-1m-2026-07.zip: SHA-256 conferido
+BTCUSDT-1m-2026-08.zip: SHA-256 conferido
+BTCUSDT-1m-2026-09.zip: SHA-256 conferido
+  validação S2 (k gerador 2, δ 0,5): k* = 2 | BIC k1 -1191114 k2 -1191210 k3 -1191207 k4 -1191179 | δ 0.50 0.50 0.50 0.50
+  validação S3 (k gerador 3, δ 0,5): k* = 3 | BIC k1 -1188230 k2 -1189204 k3 -1189222 k4 -1189164 | δ 0.49 0.50 0.50 0.50
+    (k=1: solução degenerada: [1.95  1.079 0.021 3.237 0.668])
+    (k=1: solução degenerada: [1.95  3.116 0.022 2.915 0.745])
+    (k=1: solução degenerada: [1.95  3.628 0.023 2.9   0.754])
+    (k=1: só soluções degeneradas; guardada com marca)
+    (k=2: solução degenerada: [ 1.95  12.242  0.043  2.312  0.849])
+    (k=2: solução degenerada: [1.95  4.226 0.025 2.333 0.78 ])
+    (k=2: solução degenerada: [1.95  4.382 0.03  2.325 0.816])
+    (k=2: só soluções degeneradas; guardada com marca)
+    (k=3: solução degenerada: [1.95  5.813 0.06  2.3   0.629])
+  real: k* = 2 | BIC k1 -1186699 k2 -1190931 k3 -1189353 k4 -1190910 | δ 0.75 0.78 0.73 0.72
+
+== MSM [agoset] validação False; real k* = 2 → INCONCLUSIVO
+  real k*: m0 1.950 b 4.23 γ_k 0.025 ν 2.33 δ 0.780 · escalas (min): [164.9, 39.4]
+  ΔBIC real (k→k+1): [4232.1, -1578.4, 1557.8] | δ̂ validação: [0.501, 0.498]
