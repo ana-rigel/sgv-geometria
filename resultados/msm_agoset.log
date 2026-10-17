@@ -1,0 +1,13 @@
+BTCUSDT-1m-2026-05.zip: SHA-256 conferido
+BTCUSDT-1m-2026-06.zip: SHA-256 conferido
+BTCUSDT-1m-2026-07.zip: SHA-256 conferido
+BTCUSDT-1m-2026-08.zip: SHA-256 conferido
+BTCUSDT-1m-2026-09.zip: SHA-256 conferido
+  validação S2 (k gerador 2): k* = 2 | BIC k1 -1112537 k2 -1112632 k3 -1112629 k4 -1112599
+  validação S3 (k gerador 3): k* = 3 | BIC k1 -1109648 k2 -1110627 k3 -1110644 k4 -1110587
+  real: k* = 4 | BIC k1 -1148554 k2 -1156523 k3 -1160764 k4 -1163220
+  M_4026: k* = 4 | BIC k1 -1169846 k2 -1180256 k3 -1184171 k4 -1186600
+
+== MSM [agoset] validação True; real k* = 4 → muitas escalas (≥ 4)
+  real k*: m0 1.859 b 9.48 γ_k 0.142 ν 2.75 · escalas (min): [5573.0, 588.5, 62.5, 7.1]
+  ΔBIC real (k→k+1): [7968.9, 4240.8, 2456.0] | M_4026 k*: 4
