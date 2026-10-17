@@ -2,8 +2,8 @@ BTCUSDT-1m-2026-05.zip: SHA-256 conferido
 BTCUSDT-1m-2026-06.zip: SHA-256 conferido
 BTCUSDT-1m-2026-07.zip: SHA-256 conferido
   barras de volume: 25658 (V* = 25.7; duração média 3.42 min; fração de 1 min 0.24)
-  validação S2 (k gerador 2): k* = 2 | BIC k1 -282130 k2 -282169 k3 -282167 k4 -282156 k5 -282149
-  validação S3 (k gerador 3): k* = 2 | BIC k1 -280236 k2 -280541 k3 -280534 k4 -280504 k5 -280502
+  validação S2 (k gerador 2): k* = 2 | BIC k1 -281775 k2 -281800 k3 -281797 k4 -281795 k5 -281793
+  validação S3 (k gerador 3): k* = 4 | BIC k1 -282316 k2 -282429 k3 -282439 k4 -282442 k5 -282442
   real: k* = 5 | BIC k1 -279722 k2 -280242 k3 -280469 k4 -280507 k5 -280540
 
 == MSM [junjul] validação False; real k* = 5 → INCONCLUSIVO
