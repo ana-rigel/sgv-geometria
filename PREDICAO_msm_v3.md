@@ -39,3 +39,9 @@ Descritivos: posição do degrau intermediário (está ou não em 8–16 h?), ga
 ## O que isto não decide
 
 Se a escada é discreta ou uma rampa (um contínuo de escalas discretizado pelo modelo): o MSM impõe b único e não distingue as duas. Um ganho de BIC que decai geometricamente com k e não zera é compatível com rampa. Fica anotado como leitura, não como teste.
+
+## Emenda 1 (registrada depois de ago–set produzir ajuste degenerado, antes de rodar de novo)
+
+Ago–set (Actions run 39001860521; log em resultados/msm_v3_agoset_INVALIDO_emenda1.log): validação passou, mas o ajuste do real com k = 2 terminou em m₀ = 2,000 e ν = 2,16 (fronteiras), com BIC não monótono (k1 169248, k2 148246, k3 218060). Com m₀ → 2 um estado tem volatilidade → 0 e a densidade explode nos retornos exatamente nulos, que a dessazonalização por divisão conserva. Falha numérica do instrumento; a classe "menos que três" **não é lida**. Jun–jul (k* = 5, m₀ 1,52, ν 6,8, BIC monótono) foi um ajuste regular, mas será rodado de novo com o instrumento emendado para manter os dois períodos comparáveis.
+
+**Mudanças (únicas):** limites internos m₀ ∈ (1,01, 1,95) e ν ∈ (2,3, 50); três pontos iniciais (volta ao desenho original da v1) e, por k, descarte de qualquer solução em que algum parâmetro fique a menos de 0,5 % do limite (marcada como degenerada e substituída pelo melhor ponto regular). Resto inalterado, inclusive as apostas. Última emenda da v3.

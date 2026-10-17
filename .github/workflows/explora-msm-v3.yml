@@ -1,4 +1,4 @@
-name: Exploração MSM v3 (ago–set/2026)
+name: Exploração MSM v3, ciclo diário removido (jun–jul e ago–set/2026)
 
 on:
   push:
@@ -16,20 +16,21 @@ concurrency:
 jobs:
   rodar:
     runs-on: ubuntu-latest
-    timeout-minutes: 320
+    timeout-minutes: 330
+    strategy:
+      matrix:
+        periodo: [junjul, agoset]
     steps:
       - uses: actions/checkout@v4
-
       - uses: actions/setup-python@v5
         with:
           python-version: "3.12"
-
       - name: Instalar dependências
         run: |
           python -m pip install --upgrade pip
           pip install -r requirements.txt
-
       - name: "Baixar e conferir agosto e setembro/2026 (outubro não é lido)"
+        if: matrix.periodo == 'agoset'
         run: |
           base=https://data.binance.vision/data/spot/monthly/klines/BTCUSDT/1m
           for m in 2026-08 2026-09; do
@@ -38,18 +39,16 @@ jobs:
             curl -fsSL --retry 3 -o dados/$f.CHECKSUM "$base/$f.CHECKSUM"
             (cd dados && sha256sum -c $f.CHECKSUM)
           done
-
-      - name: Rodar (agosto–setembro)
+      - name: Rodar
         run: |
           mkdir -p resultados
-          python -W ignore pipeline/explora_msm_v3.py --periodo agoset | tee resultados/msm_v3_agoset.log
-
+          python -W ignore pipeline/explora_msm_v3.py --periodo ${{ matrix.periodo }} | tee resultados/msm_v3_${{ matrix.periodo }}.log
       - name: Gravar o resultado no ramo
         if: always()
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "41898+github-actions[bot]@users.noreply.github.com"
-          git add -f resultados/msm_v3_agoset.json resultados/msm_v3_agoset.log || true
-          git commit -m "Exploração MSM v3: resultado ago–set (run ${{ github.run_id }})" || echo "nada para gravar"
+          git add -f resultados/msm_v3_${{ matrix.periodo }}.json resultados/msm_v3_${{ matrix.periodo }}.log || true
+          git commit -m "Exploração MSM v3: resultado ${{ matrix.periodo }} (run ${{ github.run_id }})" || echo "nada para gravar"
           git pull --rebase origin exploracao/msm || true
           git push || true

@@ -35,7 +35,7 @@ def estrutura(k, m0, b, gk):
 
 def loglik(theta, r, k, sig):
     m0, b, gk, nu = theta
-    if not (1 < m0 < 2 and 1.01 < b < 50 and 1e-3 < gk < 0.999 and 2.1 < nu < 50): return 1e18
+    if not (1.01 < m0 < 1.95 and 1.01 < b < 50 and 1e-3 < gk < 0.999 and 2.3 < nu < 50): return 1e18   # v3 Emenda 1
     gam, fator, P = estrutura(k, m0, b, gk); vol = sig * fator * np.sqrt((nu - 2) / nu)   # v2: t padronizada (variância 1)
     dens = student.pdf(r[:, None] / vol[None, :], nu) / vol[None, :]
     p = np.full(len(vol), 1 / len(vol)); ll = 0.0
@@ -47,10 +47,13 @@ def loglik(theta, r, k, sig):
 
 
 def ajustar(r, k):
-    sig = float(np.std(r)); best = None
-    for x0 in ([1.4, 3.0, 0.5, 4.0], [1.6, 5.0, 0.2, 3.0]):
+    sig = float(np.std(r)); best = None; LIM = [(1.01, 1.95), (1.01, 50), (1e-3, 0.999), (2.3, 50)]
+    for x0 in ([1.4, 3.0, 0.5, 4.0], [1.6, 5.0, 0.2, 3.0], [1.25, 2.0, 0.8, 6.0]):
         res = minimize(loglik, x0, args=(r, k, sig), method="Nelder-Mead", options={"maxfev": 300, "xatol": 1e-3, "fatol": 0.5})
+        degen = any(abs(v - lo) < 0.005 * (hi - lo) or abs(v - hi) < 0.005 * (hi - lo) for v, (lo, hi) in zip(res.x, LIM))
+        if degen: print(f"    (k={k}: solução degenerada descartada: {np.round(res.x, 3)})", flush=True); continue
         if best is None or res.fun < best.fun: best = res
+    if best is None: raise RuntimeError(f"k={k}: só soluções degeneradas")
     m0, b, gk, nu = best.x; gam = estrutura(k, m0, b, gk)[0]; n = len(r); npar = 4
     return {"k": k, "nll": float(best.fun), "bic": float(2 * best.fun + npar * np.log(n)), "m0": float(m0), "b": float(b), "gamma_k": float(gk), "nu": float(nu),
             "escalas_min": [float(1 / g) for g in gam], "sigma": sig}
