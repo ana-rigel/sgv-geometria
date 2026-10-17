@@ -16,7 +16,7 @@ concurrency:
 jobs:
   rodar:
     runs-on: ubuntu-latest
-    timeout-minutes: 320
+    timeout-minutes: 330
     strategy:
       matrix:
         periodo: [junjul, agoset]

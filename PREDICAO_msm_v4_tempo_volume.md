@@ -46,3 +46,9 @@ Os 50 % em "intacta" vêm do piso de 1 minuto e de que a escada lenta (meio dia,
 - **Encolhe:** o tempo de negociação do BTC é, em boa parte, tempo de volume; a escada rápida é ritmo de negociação, não dinâmica própria. Leitura à la Clark.
 - **Intacta:** o volume de 1 min não é o relógio certo (ou o piso o estraga); a hierarquia lenta sobrevive a qualquer relógio intradiário.
 - Em nenhum caso há direção, previsão ou lucro.
+
+## Emenda 1 (registrada depois da primeira rodada reprovar na validação, antes de rodar de novo)
+
+Primeira rodada (Actions run 38997729029; logs em resultados/msm_v4_{junjul,agoset}_INCONCLUSIVO_emenda1.log): validação reprovou nos dois períodos (sintético k = 3 → k\* = 2). Causa: as escalas do sintético de validação ficaram as da v2/v3 (2, 50 e 1250 **barras**), e com ~26 mil barras a escala de 1250 troca de estado ~20 vezes, insuficiente para o BIC a distinguir. Erro de desenho (escalas pensadas em minutos num relógio de barras), não de hipótese.
+
+**Mudança (única):** parâmetros do sintético de validação passam a **b = 8,5, γ_k = 0,5** → escalas de ~2, ~17 e ~145 barras (≈ 7 min, 1 h e 8 h ao ritmo médio de 3,4 min por barra), separadas por ~8,5× e todas com dezenas a milhares de trocas na amostra. Nada mais muda. Os descritivos da rodada reprovada (ν 10,9 e 12,9; k\* = 5 com ganhos finais de 27–117 de BIC) ficam registrados como observação, não como veredito. Última emenda: se reprovar de novo, a v4 encerra INCONCLUSIVA.
