@@ -49,16 +49,20 @@ def loglik(theta, r, k, lv):
 
 
 def ajustar(r, k, lv):
-    best = None
+    best = None; best_deg = None
     for x0 in ([1.4, 3.0, 0.5, 4.0, 0.5], [1.6, 5.0, 0.2, 3.0, 0.3], [1.25, 2.0, 0.8, 6.0, 0.7]):
         res = minimize(loglik, x0, args=(r, k, lv), method="Nelder-Mead", options={"maxfev": 400, "xatol": 1e-3, "fatol": 0.5})
-        degen = (res.x[0] > 1.95 - 0.005 * 0.94) or (res.x[3] < 2.3 + 0.005 * 47.7)   # Emenda 2: só m0 no teto ou ν no piso
-        if degen: print(f"    (k={k}: solução degenerada descartada: {np.round(res.x, 3)})", flush=True); continue
+        degen = (res.x[0] > 1.95 - 0.005 * 0.94) or (res.x[3] < 2.3 + 0.005 * 47.7)
+        if degen:
+            print(f"    (k={k}: solução degenerada: {np.round(res.x, 3)})", flush=True)
+            if best_deg is None or res.fun < best_deg.fun: best_deg = res
+            continue
         if best is None or res.fun < best.fun: best = res
-    if best is None: raise RuntimeError(f"k={k}: só soluções degeneradas")
+    degenerado = best is None
+    if degenerado: best = best_deg; print(f"    (k={k}: só soluções degeneradas; guardada com marca)", flush=True)
     m0, b, gk, nu, delta = best.x; gam = estrutura(k, m0, b, gk)[0]; n = len(r); npar = 5
     return {"k": k, "nll": float(best.fun), "bic": float(2 * best.fun + npar * np.log(n)), "m0": float(m0), "b": float(b), "gamma_k": float(gk), "nu": float(nu), "delta": float(delta),
-            "escalas_min": [float(1 / g) for g in gam]}
+            "escalas_min": [float(1 / g) for g in gam], "degenerado": bool(degenerado)}
 
 
 def gerar(k, seed, n, sig, m0, b, gk, nu, lv=None, delta=0.5):
@@ -94,6 +98,7 @@ def main():
         print("fumaça: código rodou; estatísticas não impressas", flush=True); return
     def dhat(n_): return out[n_]["ajustes"][out[n_]["k_star"] - 1]["delta"]
     valido = all(out[n]["k_star"] == out[n]["k_gerador"] and abs(dhat(n) - 0.5) <= 0.1 for n in VALID); ks = out["real"]["k_star"]; dr = dhat("real")
+    if out["real"]["ajustes"][ks - 1]["degenerado"]: valido = False   # Emenda 1: k* degenerado → INCONCLUSIVO
     cls = "INCONCLUSIVO" if not valido else ("volume irrelevante" if dr <= 0.2 else ("volume absorve a escada rápida" if ks <= 2 else ("absorve em parte" if ks == 3 else "hierarquia própria")))
     out.update(validacao=valido, classe=cls)
     best = out["real"]["ajustes"][ks - 1]

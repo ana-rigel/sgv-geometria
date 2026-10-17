@@ -51,3 +51,9 @@ Descritivos: δ̂; ν̂ contra o da v2 (6,3 e 2,75); escalas 1/γ_i; ΔBIC por d
 - **Hierarquia própria com δ̂ ≈ ½ e ν̂ alto:** o volume explica a cauda (mistura de distribuições) mas não a escada; a hierarquia de escalas é dinâmica própria da volatilidade, não ritmo de negociação.
 - **Absorve (total ou em parte):** a escada rápida era ritmo de volume; o que resta é regime lento.
 - Em nenhum caso há direção, previsão ou lucro.
+
+## Emenda 1 (registrada depois de ago–set falhar na primeira rodada, antes de rodar de novo)
+
+Rodada 39031639278: jun–jul concluiu (validado; k* = 4, δ̂ 0,467, ν̂ 33,6 → "hierarquia própria"); ago–set falhou e o log não foi gravado no ramo (o programa aborta quando todos os pontos iniciais caem em solução degenerada, e o passo de gravação não subiu o arquivo). O real de ago–set **não foi lido**.
+
+**Mudanças (únicas, de instrumento):** (a) quando todos os pontos iniciais de um k forem degenerados, o ajuste guarda o melhor deles com a marca `degenerado = True` em vez de abortar; se o k* do real cair numa solução marcada, o período é **INCONCLUSIVO** (a validação não muda); (b) o passo de gravação adiciona log e json separadamente. Jun–jul não é rodado de novo (seu ajuste foi regular e está gravado em 78f70c9). Resto inalterado.

@@ -20,7 +20,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        periodo: [junjul, agoset]
+        periodo: [agoset]
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-python@v5
@@ -50,7 +50,8 @@ jobs:
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "41898+github-actions[bot]@users.noreply.github.com"
-          git add -f resultados/msm_v5_${{ matrix.periodo }}.json resultados/msm_v5_${{ matrix.periodo }}.log || true
+          git add -f resultados/msm_v5_${{ matrix.periodo }}.log || true
+          git add -f resultados/msm_v5_${{ matrix.periodo }}.json || true
           git commit -m "Exploração MSM v5: resultado ${{ matrix.periodo }} (run ${{ github.run_id }})" || echo "nada para gravar"
           git pull --rebase origin exploracao/msm || true
           git push || true
