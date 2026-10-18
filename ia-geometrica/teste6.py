@@ -51,36 +51,36 @@ def erro(x, H, w, ini, fim):
 
 
 def main():
-    # ---- observação de todos os mundos
-    obs = {m: {} for m in MUNDOS}
-    for m, gen in MUNDOS.items():
-        for s in SEEDS:
+    # memória: por semente, gera os quatro mundos, calcula tudo e descarta (séries de 130 mil passos)
+    decl = {m: [] for m in MUNDOS}; beta = {m: [] for m in MUNDOS}; Bs = {d: {"U": [], "e_sem": [], "e_com": [], "e_teto": []} for d in DESTINOS}
+    for s in SEEDS:
+        o = {}
+        for m, gen in MUNDOS.items():
             x = gen(s); R, H, T = observar(x)
-            obs[m][s] = {"x": x, "R": R, "H": H, "T": T, "d_cal": declarada(T, 0, CAL, x, R), "d_med": declarada(T, CAL, N, x, R), "beta": real(x, R, CAL, N)}
-        print(f"  {m}: δ̂ médio (medida) {np.round(np.mean([obs[m][s]['d_med'] for s in SEEDS], 0), 3)} | β médio {np.round(np.mean([obs[m][s]['beta'] for s in SEEDS], 0), 3)}", flush=True)
-    # ---- A: verdadeira?
+            o[m] = {"x": x, "H": H, "d_cal": declarada(T, 0, CAL, x, R), "d_med": declarada(T, CAL, N, x, R), "beta": real(x, R, CAL, N)}
+            decl[m].append(o[m]["d_med"]); beta[m].append(o[m]["beta"])
+        tr = o[TREINO]; w = pesos(tr["x"], tr["H"], 0, CAL)
+        for dest in DESTINOS:
+            de = o[dest]; vis = (1 - de["d_cal"]) / np.maximum(1 - tr["d_cal"], 1e-9); w2 = w * vis   # sem renormalização (defeito 13)
+            es, ec = erro(de["x"], de["H"], w, CAL, N), erro(de["x"], de["H"], w2, CAL, N); et = erro(de["x"], de["H"], pesos(de["x"], de["H"], 0, CAL), CAL, N)
+            Bs[dest]["U"].append(1 - ec / es); Bs[dest]["e_sem"].append(es); Bs[dest]["e_com"].append(ec); Bs[dest]["e_teto"].append(et)
+        if (s - 1000) % 10 == 0: print(f"  s{s} ok", flush=True)
+    for m in MUNDOS: print(f"  {m}: δ̂ médio (medida) {np.round(np.mean(decl[m], 0), 3)} | β médio {np.round(np.mean(beta[m], 0), 3)}", flush=True)
     d_nom = 1 - 2 * FC; A = {}
     for j in range(K):
-        dj = np.array([obs[m][s]["d_med"][j] for m in MUNDOS for s in SEEDS]); bj = np.array([obs[m][s]["beta"][j] for m in MUNDOS for s in SEEDS])
+        dj = np.array([v[j] for m in MUNDOS for v in decl[m]]); bj = np.array([v[j] for m in MUNDOS for v in beta[m]])
         rho = float(spearmanr(dj, bj).correlation); perm = np.array([spearmanr(rng.permutation(dj), bj).correlation for _ in range(1000)])
         A[f"andar{j+1}"] = {"rho": rho, "perm_env": [float(perm.min()), float(perm.max())], "erro_abs_mediano": float(np.median(np.abs(dj - bj))), "delta_nominal": float(d_nom[j]),
                             "passa": bool(rho >= 0.7 and rho > perm.max())}
         print(f"  A andar {j+1}: ρ {rho:+.3f} (perm env {perm.min():+.3f}; {perm.max():+.3f}) | |δ̂−β| mediano {A[f'andar{j+1}']['erro_abs_mediano']:.3f} | δ_nom {d_nom[j]:.3f} → {A[f'andar{j+1}']['passa']}", flush=True)
     A["passa"] = all(A[f"andar{j+1}"]["passa"] for j in range(K))
-    # ---- B: útil?
     B = {}
     for dest in DESTINOS:
-        U, e_sem, e_com, e_teto = [], [], [], []
-        for s in SEEDS:
-            tr, de = obs[TREINO][s], obs[dest][s]; w = pesos(tr["x"], tr["H"], 0, CAL)
-            vis = (1 - de["d_cal"]) / np.maximum(1 - tr["d_cal"], 1e-9); w2 = w * vis   # sem renormalização (defeito 13)
-            es, ec = erro(de["x"], de["H"], w, CAL, N), erro(de["x"], de["H"], w2, CAL, N); et = erro(de["x"], de["H"], pesos(de["x"], de["H"], 0, CAL), CAL, N)
-            e_sem.append(es); e_com.append(ec); e_teto.append(et); U.append(1 - ec / es)
-        U = np.array(U); B[dest] = {"U_media": float(U.mean()), "U_env": [float(U.min()), float(U.max())], "U_pos": int((U > 0).sum()),
-                                    "e_sem": float(np.mean(e_sem)), "e_com": float(np.mean(e_com)), "e_teto": float(np.mean(e_teto)), "passa": bool((U > 0).sum() >= 80)}
-        print(f"  B → {dest}: U média {100*U.mean():+.1f} % (env {100*U.min():+.1f}; {100*U.max():+.1f}) | U>0 em {(U>0).sum()} | e sem {np.mean(e_sem):.3f} com {np.mean(e_com):.3f} teto {np.mean(e_teto):.3f} → {B[dest]['passa']}", flush=True)
+        U = np.array(Bs[dest]["U"]); B[dest] = {"U_media": float(U.mean()), "U_env": [float(U.min()), float(U.max())], "U_pos": int((U > 0).sum()),
+            "e_sem": float(np.mean(Bs[dest]["e_sem"])), "e_com": float(np.mean(Bs[dest]["e_com"])), "e_teto": float(np.mean(Bs[dest]["e_teto"])), "passa": bool((U > 0).sum() >= 80)}
+        print(f"  B → {dest}: U média {100*U.mean():+.1f} % (env {100*U.min():+.1f}; {100*U.max():+.1f}) | U>0 em {(U>0).sum()} | e sem {B[dest]['e_sem']:.3f} com {B[dest]['e_com']:.3f} teto {B[dest]['e_teto']:.3f} → {B[dest]['passa']}", flush=True)
     B["passa"] = all(B[d]["passa"] for d in DESTINOS)
-    out = {"A": A, "B": B, "medias": {m: {"d_med": np.mean([obs[m][s]["d_med"] for s in SEEDS], 0).tolist(), "beta": np.mean([obs[m][s]["beta"] for s in SEEDS], 0).tolist()} for m in MUNDOS}}
+    out = {"A": A, "B": B, "medias": {m: {"d_med": np.mean(decl[m], 0).tolist(), "beta": np.mean(beta[m], 0).tolist()} for m in MUNDOS}}
     print(f"\n== teste 6: A (verdadeira) {'PASSA' if A['passa'] else 'REPROVA'} | B (útil) {'PASSA' if B['passa'] else 'REPROVA'}")
     (ROOT / "resultados_teste6.json").write_text(json.dumps(out, ensure_ascii=False))
 
