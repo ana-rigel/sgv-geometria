@@ -49,3 +49,15 @@ A regra 5 do projeto fica: nada de mercado até os testes serem julgados; foram 
 ## Adendo de 18/10, depois do teste 5
 
 A primeira candidata ("a régua de cegueira") foi desenhada, rodada e reprovada nas duas hipóteses (LEITURA_teste5.md): a declaração de cegueira da v0 é calculada sobre o resíduo do próprio andar e por isso declara escuridão em toda parte (ρ com a cegueira real: 0,16 / 0,34 / 0,75 / indefinido); e a reescala do leitor explode onde os pesos têm sinais mistos. Dois requisitos nasceram com número e valem para qualquer observador, inclusive o do OBS-01: a cegueira se mede sobre a **entrada** do registro, não sobre o seu erro, e em prazo maior que a constante de tempo do registro medido. Cinco testes, cinco reprovações, treze defeitos nomeados. Candidatas restantes: a declaração linear (sobre R_{j−1}), a política de expectativa, a escada pela tensão. Cada uma com predição própria, quando a Ana pedir.
+
+## Adendo de 18/10, depois dos testes 6, 7 e 8
+
+As três candidatas rodaram, uma por vez, cada uma com predição antes. Nenhuma passou no critério; duas mudaram o que se sabe.
+
+- **6, declaração linear** (LEITURA_teste6.md): medir a cegueira sobre a entrada do andar levou ρ de 0,16 para **0,99** no andar 1 e para 0,87 no andar 3. Os andares 2 e 4 reprovaram por causas nomeadas antes: corte abrupto onde o filtro é suave (declara 0,999 onde a verdade é 0,77), e um mundo sem nada mais lento que a identidade (nada a correlacionar).
+- **7, política de expectativa** (LEITURA_teste7.md): empate (+0,13 %). Num AR(1) a última tensão deixa de informar em cinco passos e a política vira periódica com outro nome. O mundo não tem momento certo de olhar; a política só pode valer num mundo com regimes.
+- **8, escada pela tensão** (LEITURA_teste8.md): pela primeira vez os andares caíram nas constantes de tempo do mundo (λ·τ de 0,7 a 2,9, contra 7 e 0,0004 no teste 4), e no mundo sem escada a v0 soube e ganhou da fixa. Mas a razão lida é ≈ 5 para um mundo 10: as fatias de primeira ordem vazam para as vizinhas e os cortes se aproximam.
+
+**O que os oito dizem juntos.** A v0 como filtro perde de qualquer filtro bem escolhido (1–4). A v0 como **instrumento** tem duas propriedades que já se sustentam com número e uma que não: ela lê a cegueira real quando declara sobre a entrada (6), e lê a escala do mundo quando ajusta pela tensão (8); não tem política de olhar que valha num mundo sem regimes (2, 7). Os dois defeitos que restam nas propriedades boas (14 e 18) têm a mesma raiz, o corte suave do filtro de primeira ordem, e um conserto só: declarar e pesar com o **ganho real** do andar, |H_j(f)|², em vez de um corte. Esse é o próximo teste, com predição própria, quando a Ana pedir; depois dele, um mundo com regimes para a política (7b) e um mundo com algo mais lento que a identidade para o andar 4 (6b).
+
+Oito testes, oito reprovações, dezoito defeitos nomeados. Nenhuma emenda. Nada de mercado.
