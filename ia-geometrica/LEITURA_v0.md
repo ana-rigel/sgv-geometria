@@ -61,3 +61,10 @@ As três candidatas rodaram, uma por vez, cada uma com predição antes. Nenhuma
 **O que os oito dizem juntos.** A v0 como filtro perde de qualquer filtro bem escolhido (1–4). A v0 como **instrumento** tem duas propriedades que já se sustentam com número e uma que não: ela lê a cegueira real quando declara sobre a entrada (6), e lê a escala do mundo quando ajusta pela tensão (8); não tem política de olhar que valha num mundo sem regimes (2, 7). Os dois defeitos que restam nas propriedades boas (14 e 18) têm a mesma raiz, o corte suave do filtro de primeira ordem, e um conserto só: declarar e pesar com o **ganho real** do andar, |H_j(f)|², em vez de um corte. Esse é o próximo teste, com predição própria, quando a Ana pedir; depois dele, um mundo com regimes para a política (7b) e um mundo com algo mais lento que a identidade para o andar 4 (6b).
 
 Oito testes, oito reprovações, dezoito defeitos nomeados. Nenhuma emenda. Nada de mercado.
+
+## Adendo de 18/10, depois dos testes 9 e 10
+
+- **9, declaração com ganho real** (LEITURA_teste9.md): andares 1–3 passam com ρ 0,997 · 0,986 · 0,923 em cinco mundos; o andar 4 declara certo no único mundo mais lento que ele (0,51 contra 0,60) e o Spearman dilui nos outros quatro. A régua de cegueira, no sintético, ficou escrita com número: espectro da entrada, pesado por (1 − ganho real), em série mais longa que o registro, composta andar a andar quando se quer a cegueira sobre o mundo.
+- **10, expectativa num mundo com regimes** (LEITURA_teste10.md): a tensão informa o regime por 16 passos (b_n ≈ 0,65) e a política de limiar perde mesmo assim, porque concentra olhadas em rajada onde um registro lento não as aproveita. A grandeza certa é o ritmo por regime, não o instante.
+
+Dez testes, dez reprovações, vinte e dois defeitos. Próximos, cada um com predição própria quando a Ana pedir: ritmo por regime (política), andar 4 com maioria de mundos lentos (declaração), declaração composta contra β no valor, e andares de corte mais abrupto para a escada pela tensão.
