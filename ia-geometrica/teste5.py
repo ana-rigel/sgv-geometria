@@ -32,7 +32,7 @@ def declarada(T, ini, fim):          # δ̂_j: potência de T_{j-1} acima de f_j
 
 
 def real(x, R, ini, fim):            # β_j: fração da variância do mundo que o registro j não representa
-    num = np.mean(np.sum((x[ini:fim] - R[ini:fim]) ** 2, axis=2), axis=0); den = np.mean(np.sum((x[ini:fim] - x[ini:fim].mean(0)) ** 2, axis=1))
+    num = np.mean(np.sum((x[ini:fim, None, :] - R[ini:fim]) ** 2, axis=2), axis=0); den = np.mean(np.sum((x[ini:fim] - x[ini:fim].mean(0)) ** 2, axis=1))
     return num / den
 
 

@@ -45,3 +45,7 @@ Uma v0.1 só faz sentido se mudar de pergunta, não só de parâmetros. Três ca
 - **Escada pela tensão:** ajustar os andares para que as tensões entre andares sejam o mais independentes possível (ou para que o colapso C_j quebre onde o mundo tem escala), e medir se isso reencontra τ_j onde o teste 4 não reencontrou.
 
 A regra 5 do projeto fica: nada de mercado até os testes serem julgados; foram julgados, e a v0 não ganhou o direito de olhar o BTC. Outubro e novembro continuam do SGV.
+
+## Adendo de 18/10, depois do teste 5
+
+A primeira candidata ("a régua de cegueira") foi desenhada, rodada e reprovada nas duas hipóteses (LEITURA_teste5.md): a declaração de cegueira da v0 é calculada sobre o resíduo do próprio andar e por isso declara escuridão em toda parte (ρ com a cegueira real: 0,16 / 0,34 / 0,75 / indefinido); e a reescala do leitor explode onde os pesos têm sinais mistos. Dois requisitos nasceram com número e valem para qualquer observador, inclusive o do OBS-01: a cegueira se mede sobre a **entrada** do registro, não sobre o seu erro, e em prazo maior que a constante de tempo do registro medido. Cinco testes, cinco reprovações, treze defeitos nomeados. Candidatas restantes: a declaração linear (sobre R_{j−1}), a política de expectativa, a escada pela tensão. Cada uma com predição própria, quando a Ana pedir.
