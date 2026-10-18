@@ -104,3 +104,7 @@ Placar: 22 testes, 19 reprovações, 3 passagens, 34 defeitos.
 | 23 | teste de amplitude | os de 22, + ruído 0,05 na saída | a diferença de Ĥ entre duas amplitudes separa linear de não linear? | linear D(3) < 0,05 em ≥ 95; tanh D(3) > 0,05 em ≥ 95 | 70 % | linear 0,006 (95 abaixo); tanh 0,75 (100 acima), 81 já a 0,3 | **passou** (Emenda 1: estimador com a entrada efetiva) | a régua, sendo o mundo, pergunta à rede se é linear |
 
 Placar: 23 testes, 19 reprovações, 4 passagens, 35 defeitos, 1 emenda. OBS-01 etapa um completa.
+
+| 24 | OBS-01 etapa dois: rede treinada | 20 RNN tanh (PyTorch) treinadas a ler a componente lenta da escada-3; 5 mundos de avaliação | sobre uma rede treinada, a régua dá corte estável e coerente com a tarefa? | cv do corte < 0,2 e corte na faixa de Wiener em ≥ 16/20 | 55 % | 9/20 estáveis, 13/20 na faixa; perdas 0,47–0,73 (ótimo 0,31); D(2×) > 0,05 em 15 | reprovado | a régua lê quanto a rede aprendeu; o treino precisa ser pré-requisito |
+
+Placar: 24 testes, 20 reprovações, 4 passagens, 36 defeitos, 1 emenda.

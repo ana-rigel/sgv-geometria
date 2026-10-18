@@ -145,3 +145,9 @@ Vinte e dois testes, dezenove reprovações, três passagens, trinta e quatro de
 - **23, o teste de amplitude** (LEITURA_teste23.md): **passou**, com a primeira emenda do projeto (defeito de instrumento denunciado pelo próprio número: D(3) = 836 ≈ 29² numa rede linear). Com o estimador certo, D fica no piso (0,006) nas redes lineares e cresce com a amplitude nas tanh (0,08 → 0,44 → 0,75), acima do limiar em 100 de 100 a amplitude 3 e em 81 já a 0,3. A sexta cláusula do OBS-01 está testada: medir em duas amplitudes antes de ler.
 
 Vinte e três testes, dezenove reprovações, quatro passagens, trinta e cinco defeitos, uma emenda. Etapa um do OBS-01 completa (rede linear medida; não linearidade detectável). Próximo: etapa dois, a rede treinada.
+
+## Adendo de 18/10, depois do teste 24
+
+- **24, a rede treinada** (LEITURA_teste24.md): reprovado (9/20 estáveis, 13/20 na faixa; critério 16), porque as redes aprenderam pouco (perda relativa 0,47–0,73 contra 0,31 do ótimo) e a régua leu exatamente isso: filtro estável e na faixa nas sete que viraram filtro, corte indefinido nas que ficaram copiadoras. 15 de 20 não lineares pelo teste de amplitude; o treino move o corte para a faixa da tarefa em 13 (sem treino, 17 fora). Defeito 36: condição de treino tem de ser pré-requisito do teste, não aposta.
+
+Vinte e quatro testes, vinte reprovações, quatro passagens, trinta e seis defeitos, uma emenda.
