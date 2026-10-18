@@ -87,3 +87,9 @@ Treze testes, treze reprovações, vinte e cinco defeitos.
 - **14, cachos densos** (LEITURA_teste14.md): o mundo saiu como a conta por janela previu e o teto não: o oráculo que sabe o cacho rende +1,2 %, a v0 +1,3 %. Um salto custa alguns passos uma vez; a deriva custa todo passo; o custo de salto é 8 % do erro e a melhor política poupa um quarto disso. Acima de tudo: com 25 % de olhadas o periódico já erra só 50 % mais que olhar sempre, e a política disputa uma fração pequena disso. **Nos mundos testados e nesse orçamento, saber quando olhar vale 1 %.** A linha de política fecha, salvo um último teste com orçamento de 5 %.
 
 Catorze testes, catorze reprovações, vinte e seis defeitos. Restam: política com orçamento de 5 % (último da linha); andar 4 com maioria de mundos lentos; declaração composta contra β no valor; escada pela tensão com andares de corte abrupto.
+
+## Adendo de 18/10, depois do teste 15: a linha de política fecha
+
+- **15, orçamento de 5 %** (LEITURA_teste15.md): o oráculo que sabe o cacho rende +1,8 % e escolhe olhar quase em ritmo fixo; a v0 empata (+1,8 %). Pela cláusula escrita na predição (oráculo < 5 %), **a linha de política está fechada**: oito testes, quatro mundos, dois orçamentos, dois registros, quatro formas; sempre 0–2 %, e o oráculo igual. Para um observador que só olha e lembra, quando olhar quase não importa; com que rigidez lembrar e o que declarar sobre o que não vê importam. A distinção entre a v0 e um filtro está na declaração, não no ato (defeito 27).
+
+Quinze testes, quinze reprovações, vinte e sete defeitos. Restam, na linha da declaração e da escada: andar 4 com maioria de mundos lentos; declaração composta contra β no valor; escada pela tensão com andares de corte abrupto.
