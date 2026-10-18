@@ -39,21 +39,20 @@ def calibrar(x, lams):
 
 
 def rodar(x, lams, regua, H, politica, pq=None, pf=None, cacho_real=None, ate=None):
-    ate = ate or len(x); obs = V.Observador(2, lams=lams); med, esc = regua; e = np.zeros(ate); olhou = np.zeros(ate, dtype=bool); prox = 0; fim_cacho = -1
+    """Laço enxuto: só o andar 1 entra na política e no erro (os andares 2–4 não são lidos aqui); mesma recursão R1 += λ₁(x − R1)."""
+    ate = ate or len(x); lam = lams[0]; R = np.zeros(2); med, esc = regua; e = np.zeros(ate); olhou = np.zeros(ate, dtype=bool); prox = 0; fim_cacho = -1
     for t in range(ate):
-        e[t] = np.linalg.norm(x[t] - obs.R[0])
+        d = x[t] - R; e[t] = (d[0] * d[0] + d[1] * d[1]) ** 0.5
         if politica == "sempre": ver = True
         elif politica == "periodico": ver = t % NULO == 0
         else: ver = t >= prox
-        olhou[t] = ver
         if ver:
-            T = np.linalg.norm(x[t] - obs.R[0])
+            olhou[t] = True
             if politica == "ritmo":
-                if (T - med) / esc >= RUPT: fim_cacho = t + H
+                if (e[t] - med) / esc >= RUPT: fim_cacho = t + H
                 prox = t + (pq if t <= fim_cacho else pf)
             elif politica == "oraculo": prox = t + (pq if cacho_real[t] else pf)
-            obs.passo(x[t])
-        else: obs.passo(None)
+            R = R + lam * d
     return e, olhou
 
 
@@ -67,21 +66,27 @@ def afinar(x, lams, regua, H, politica, cacho_real, occ):
     return (melhor[1], melhor[2]) if melhor else (NULO, NULO)
 
 
+def semente(s):
+    x, cacho, saltos = mundo_cachos(N, s, PHI); lam1 = lambda_do_mundo(x); lams = lam1 / 10.0 ** np.arange(4); regua, H = calibrar(x, lams)
+    occ = float(cacho[CAL:AFIN].mean())
+    pq, pf = afinar(x, lams, regua, H, "ritmo", cacho, max(occ, 0.02)); pqo, pfo = afinar(x, lams, regua, H, "oraculo", cacho, max(occ, 0.02))
+    e0, o0 = rodar(x, lams, regua, H, "ritmo", pq, pf); eo, oo = rodar(x, lams, regua, H, "oraculo", pqo, pfo, cacho); e1, _ = rodar(x, lams, regua, H, "periodico"); e2, _ = rodar(x, lams, regua, H, "sempre")
+    ev0, eor, ep, es = e0[AFIN:].mean(), eo[AFIN:].mean(), e1[AFIN:].mean(), e2[AFIN:].mean(); f = o0[AFIN:].mean(); valido = abs(f - ALVO) <= 0.01
+    return s, {"lambda1": lam1, "H": H, "pq": pq, "pf": pf, "pq_orac": pqo, "pf_orac": pfo, "fracao": float(f), "fracao_orac": float(oo[AFIN:].mean()), "valido": bool(valido),
+               "saltos_medida": int((saltos >= AFIN).sum()), "ocupacao_cacho_medida": float(cacho[AFIN:].mean()), "e_v0": float(ev0), "e_oraculo": float(eor), "e_periodico": float(ep), "e_sempre": float(es), "V": float(1 - ev0 / ep), "V_orac": float(1 - eor / ep)}
+
+
 def main():
-    out = {"sementes": {}}; Vs, Vo, ok, pares, Hs = [], [], [], [], []
-    for s in SEEDS:
-        x, cacho, saltos = mundo_cachos(N, s, PHI); lam1 = lambda_do_mundo(x); lams = lam1 / 10.0 ** np.arange(4); regua, H = calibrar(x, lams); Hs.append(H)
-        occ = float(cacho[CAL:AFIN].mean())
-        pq, pf = afinar(x, lams, regua, H, "ritmo", cacho, max(occ, 0.02)); pqo, pfo = afinar(x, lams, regua, H, "oraculo", cacho, max(occ, 0.02)); pares.append((pq, pf))
-        e0, o0 = rodar(x, lams, regua, H, "ritmo", pq, pf); eo, oo = rodar(x, lams, regua, H, "oraculo", pqo, pfo, cacho); e1, _ = rodar(x, lams, regua, H, "periodico"); e2, _ = rodar(x, lams, regua, H, "sempre")
-        ev0, eor, ep, es = e0[AFIN:].mean(), eo[AFIN:].mean(), e1[AFIN:].mean(), e2[AFIN:].mean(); f = o0[AFIN:].mean(); valido = abs(f - ALVO) <= 0.01
-        Vv, Vor = 1 - ev0 / ep, 1 - eor / ep; Vs.append(Vv); Vo.append(Vor); ok.append(valido)
-        out["sementes"][str(s)] = {"lambda1": lam1, "H": H, "pq": pq, "pf": pf, "pq_orac": pqo, "pf_orac": pfo, "fracao": float(f), "fracao_orac": float(oo[AFIN:].mean()), "valido": bool(valido),
-                                   "saltos_medida": int((saltos >= AFIN).sum()), "ocupacao_cacho_medida": float(cacho[AFIN:].mean()), "e_v0": float(ev0), "e_oraculo": float(eor), "e_periodico": float(ep), "e_sempre": float(es), "V": float(Vv), "V_orac": float(Vor)}
-        if (s - 1000) % 10 == 0: print(f"  s{s}: λ₁ {lam1:.2f} H {H} ritmo ({pq},{pf}) orac ({pqo},{pfo}) fração {f:.3f} | e v0 {ev0:.2f} orac {eor:.2f} per {ep:.2f} sempre {es:.2f} | V {100*Vv:+.1f} % orac {100*Vor:+.1f} %", flush=True)
-    Vs, Vo, ok = np.array(Vs), np.array(Vo), np.array(ok); Vv = Vs[ok]; a = bool(ok.sum() >= 95); b = bool(Vv.min() > 0) if len(Vv) else False; freq = max(set(pares), key=pares.count)
+    from multiprocessing import Pool
+    out = {"sementes": {}}
+    with Pool(2) as pool:
+        for s, r in pool.imap_unordered(semente, list(SEEDS)):
+            out["sementes"][str(s)] = r
+            if (s - 1000) % 10 == 0: print(f"  s{s}: λ₁ {r['lambda1']:.2f} H {r['H']} ritmo ({r['pq']},{r['pf']}) orac ({r['pq_orac']},{r['pf_orac']}) fração {r['fracao']:.3f} | e v0 {r['e_v0']:.2f} orac {r['e_oraculo']:.2f} per {r['e_periodico']:.2f} sempre {r['e_sempre']:.2f} | V {100*r['V']:+.1f} % orac {100*r['V_orac']:+.1f} %", flush=True)
+    S = [out["sementes"][str(s)] for s in SEEDS]; Vs = np.array([r["V"] for r in S]); Vo = np.array([r["V_orac"] for r in S]); ok = np.array([r["valido"] for r in S]); Hs = [r["H"] for r in S]
+    pares = [(r["pq"], r["pf"]) for r in S]; Vv = Vs[ok]; a = bool(ok.sum() >= 95); b = bool(Vv.min() > 0) if len(Vv) else False; freq = max(set(pares), key=pares.count)
     out["resumo"] = {"validas": int(ok.sum()), "V_media": float(Vv.mean()), "V_env": [float(Vv.min()), float(Vv.max())], "V_pos": int((Vv > 0).sum()), "V_orac_media": float(Vo.mean()), "V_orac_env": [float(Vo.min()), float(Vo.max())],
-                     "par_mais_frequente": list(freq), "H_mediano": float(np.median(Hs)), "e_medios": {k: float(np.mean([out["sementes"][str(s)][k] for s in SEEDS])) for k in ("e_v0", "e_oraculo", "e_periodico", "e_sempre")},
+                     "par_mais_frequente": list(freq), "H_mediano": float(np.median(Hs)), "e_medios": {k: float(np.mean([r[k] for r in S])) for k in ("e_v0", "e_oraculo", "e_periodico", "e_sempre")},
                      "criterio": {"a_fracao_ok": a, "b_envelope_acima_de_zero": b, "passa": a and b}}
     print(f"\n== teste 15: válidas {ok.sum()} | V média {100*Vv.mean():+.2f} % env ({100*Vv.min():+.1f}; {100*Vv.max():+.1f}) V>0 em {(Vv>0).sum()} | oráculo {100*Vo.mean():+.2f} % env ({100*Vo.min():+.1f}; {100*Vo.max():+.1f}) | par {freq} H mediano {np.median(Hs):.0f} → {'PASSA' if a and b else 'REPROVA'}")
     (ROOT / "resultados_teste15.json").write_text(json.dumps(out, ensure_ascii=False))
