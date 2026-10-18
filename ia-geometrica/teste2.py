@@ -41,7 +41,7 @@ def main():
         e0, o0 = rodar_politica(x, regua, "v0", th); e1, _ = rodar_politica(x, regua, "periodico"); e2, _ = rodar_politica(x, regua, "sempre")
         ev0, ep, es = e0[AFIN:].mean(), e1[AFIN:].mean(), e2[AFIN:].mean(); f = o0[AFIN:].mean(); valido = abs(f - ALVO) <= 0.03
         Vv = 1 - ev0 / ep; Vs.append(Vv); fr.append(f); ok.append(valido)
-        out["sementes"][str(s)] = {"theta": th, "fracao": f, "valido": valido, "e_v0": ev0, "e_periodico": ep, "e_sempre": es, "V": Vv}
+        out["sementes"][str(s)] = {"theta": float(th), "fracao": float(f), "valido": bool(valido), "e_v0": float(ev0), "e_periodico": float(ep), "e_sempre": float(es), "V": float(Vv)}
         if (s - 1000) % 10 == 0: print(f"  s{s}: θ {th:.2f} fração {f:.3f} | e v0 {ev0:.3f} per {ep:.3f} sempre {es:.3f} | V {100*Vv:+.1f} %", flush=True)
     Vs, fr, ok = np.array(Vs), np.array(fr), np.array(ok); Vv = Vs[ok]
     a = bool(ok.sum() >= 95); b = bool(Vv.min() > 0) if len(Vv) else False
