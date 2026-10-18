@@ -81,3 +81,9 @@ Doze testes, doze reprovações, vinte e quatro defeitos. O próximo da polític
 - **13, saltos em cachos** (LEITURA_teste13.md): reprovado e inconclusivo. O mundo tinha um cacho por janela de afinação e o oráculo (que sabe o cacho) ficou instável (envelope −31 % a +37 %); sem teto medido, o teste não responde sobre a política. Na única semente em que o oráculo foi alto e a afinação acertou, a v0 capturou um quarto do ganho com a régua como gatilho. Defeito 25: o teto tem de ser calculado por janela. Próximo: o mesmo mundo com cachos a cada ≈ 400 passos.
 
 Treze testes, treze reprovações, vinte e cinco defeitos.
+
+## Adendo de 18/10, depois do teste 14
+
+- **14, cachos densos** (LEITURA_teste14.md): o mundo saiu como a conta por janela previu e o teto não: o oráculo que sabe o cacho rende +1,2 %, a v0 +1,3 %. Um salto custa alguns passos uma vez; a deriva custa todo passo; o custo de salto é 8 % do erro e a melhor política poupa um quarto disso. Acima de tudo: com 25 % de olhadas o periódico já erra só 50 % mais que olhar sempre, e a política disputa uma fração pequena disso. **Nos mundos testados e nesse orçamento, saber quando olhar vale 1 %.** A linha de política fecha, salvo um último teste com orçamento de 5 %.
+
+Catorze testes, catorze reprovações, vinte e seis defeitos. Restam: política com orçamento de 5 % (último da linha); andar 4 com maioria de mundos lentos; declaração composta contra β no valor; escada pela tensão com andares de corte abrupto.
