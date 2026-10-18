@@ -139,3 +139,9 @@ Vinte e um testes, dezenove reprovações, duas passagens, trinta e três defeit
 - **22, rede recorrente sintética** (LEITURA_teste22.md): **passou** na rede linear de 32 unidades e várias escalas (corte 97/100, não ver a 0,003, errar a 0,013). Tanh pequena: quase (84/100, erros sistemáticos para cima). Tanh grande: a régua erra (corte +70 %, ν a 0,11) **e não declara**, porque a coerência fica em 0,91: coerência mede ruído, não deformação (defeito 34). Sexta cláusula do OBS-01: medir em duas amplitudes; se Ĥ muda, o observador não é linear.
 
 Vinte e dois testes, dezenove reprovações, três passagens, trinta e quatro defeitos.
+
+## Adendo de 18/10, depois do teste 23
+
+- **23, o teste de amplitude** (LEITURA_teste23.md): **passou**, com a primeira emenda do projeto (defeito de instrumento denunciado pelo próprio número: D(3) = 836 ≈ 29² numa rede linear). Com o estimador certo, D fica no piso (0,006) nas redes lineares e cresce com a amplitude nas tanh (0,08 → 0,44 → 0,75), acima do limiar em 100 de 100 a amplitude 3 e em 81 já a 0,3. A sexta cláusula do OBS-01 está testada: medir em duas amplitudes antes de ler.
+
+Vinte e três testes, dezenove reprovações, quatro passagens, trinta e cinco defeitos, uma emenda. Etapa um do OBS-01 completa (rede linear medida; não linearidade detectável). Próximo: etapa dois, a rede treinada.

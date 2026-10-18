@@ -100,3 +100,7 @@ Placar: 20 testes, 18 reprovações, 2 passagens, 32 defeitos.
 | 22 | OBS-01 etapa um: RNN sintética | escada-3, 1-D; rede de 32 unidades, vazamentos 0,003–0,3, lida por projeção; linear / tanh 0,1 / tanh 3 | a régua mede uma rede como mede um filtro, e declara quando sai do regime linear? | corte ±30 % em ≥ 80; ν e ε a ≤ 0,05 (rede linear) | 60 % | linear: 97/100, 0,003, 0,013; tanh 0,1: 84/100; tanh 3: 29/100, ν a 0,11, cobertura 0,91 | **passou** (linear) | coerência não detecta saturação; medir em duas amplitudes |
 
 Placar: 22 testes, 19 reprovações, 3 passagens, 34 defeitos.
+
+| 23 | teste de amplitude | os de 22, + ruído 0,05 na saída | a diferença de Ĥ entre duas amplitudes separa linear de não linear? | linear D(3) < 0,05 em ≥ 95; tanh D(3) > 0,05 em ≥ 95 | 70 % | linear 0,006 (95 abaixo); tanh 0,75 (100 acima), 81 já a 0,3 | **passou** (Emenda 1: estimador com a entrada efetiva) | a régua, sendo o mundo, pergunta à rede se é linear |
+
+Placar: 23 testes, 19 reprovações, 4 passagens, 35 defeitos, 1 emenda. OBS-01 etapa um completa.
