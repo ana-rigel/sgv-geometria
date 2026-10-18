@@ -102,3 +102,9 @@ Quinze testes, quinze reprovações, vinte e sete defeitos. Restam, na linha da 
 Estado das três linhas depois de dezessete julgamentos: **declaração de cegueira: de pé, nos quatro andares, na ordem e no valor, em cinco mundos sintéticos** (regra: espectro da entrada, pesado por 1 − ganho real, série mais longa que o registro, composta por produto). **Escala pela tensão: de pé na escala (λ·τ ≈ 1), razão comprimida (≈ 5 para 10); pendente o andar de corte abrupto.** **Política de olhar: fechada por cláusula (≤ 2 % em todo mundo de observação pura).**
 
 O próximo passo que importa é o primeiro fora do sintético puro: a v0 como régua **sobre outro observador**, cujos ganhos ela não conhece. Predição própria, quando a Ana pedir.
+
+## Adendo de 18/10, depois do teste 18
+
+- **18, a régua sobre outro observador** (LEITURA_teste18.md): vendo entrada e saída de um registro de forma desconhecida (EMA rápida, média, lenta; cascata de segunda ordem; média móvel; EMA com ruído na saída), a v0 acha o corte em 600 de 600 casos (erro < 1 % em cinco, 28 % no mais lento, por resolução). Reprovado na cegueira por definição, não por estimativa: a v0 declara o que a saída **não contém** (1 − |H|²) e o teste mediu o que a saída **não reproduz** (|1 − H|²); para todo observador que atrasa as duas diferem, e a diferença é o atraso. Quinta cláusula para o OBS-01: cegueira e erro são grandezas diferentes; declarar as duas, com nome. Correção de registro: a mensagem do commit 395eff0→seguinte afirmou uma verificação que falhou (os mundos por lfilter diferem no primeiro passo dos do laço; resultados iguais nas casas impressas).
+
+Dezoito testes, dezesseis reprovações, duas passagens, trinta defeitos.

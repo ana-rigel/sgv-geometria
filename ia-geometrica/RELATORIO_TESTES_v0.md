@@ -76,3 +76,11 @@ Um por vez, cada um com predição própria:
 3. Só depois dos dois: fluxos reais, o BTC entre eles, depois de 3/11 e 1/12, com a escada lida pela tensão e a cegueira declarada por andar.
 
 Fora do escopo, confirmado pelos testes: política de olhar (fechada), uso em trading.
+
+## 7. Adendo: teste 18 (a régua sobre outro observador)
+
+| # | nome | mundo | pergunta | critério | aposta | resultado | veredito | o que ensinou |
+|---|---|---|---|---|---|---|---|---|
+| 18 | régua sobre outro | escada-3 (julgado), deriva (relatado); seis Ω de forma desconhecida | vendo x e y, a v0 acha o corte de Ω e a sua cegueira? | corte ±30 % em ≥ 80 por Ω; erro de cegueira ≤ 0,05 por Ω | 50 % | corte **600/600**; cegueira 0,043 · 0,046 · 0,065 · 0,087 · 0,092 · 0,046 | reprovado em (b) | não ver (1 − \|H\|²) e errar (\|1 − H\|²) diferem para quem atrasa; declarar as duas |
+
+Quinta cláusula para o OBS-01: **cegueira e erro são grandezas diferentes para um observador que atrasa; a régua declara as duas, com nome.** Placar: 18 testes, 16 reprovações, 2 passagens, 30 defeitos.
