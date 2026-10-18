@@ -38,18 +38,37 @@ def regua(x, y):
     return fc, beta, cob
 
 
+def mundo_escada_rapido(n, seed, taus, d=2):
+    """O mesmo mundo_escada do v0 (soma de AR(1) de variância unitária), via lfilter; sementes e ruído iguais aos do v0."""
+    rng = np.random.default_rng(seed); x = np.zeros((n, d))
+    for tau in taus:
+        phi = 1 - 1 / tau; e = rng.normal(0, 1.0, (n, d)) * np.sqrt(1 - phi ** 2); x += lfilter([1.0], [1, -phi], e, axis=0)
+    return x
+
+
+def mundo_deriva_rapido(n, seed, phi, d=2):
+    rng = np.random.default_rng(seed); e = rng.normal(0, 1.0, (n, d)); return lfilter([1.0], [1, -phi], e, axis=0)
+
+
+MUNDOS = {"escada-3": lambda s: mundo_escada_rapido(N, s, [7, 70, 700]), "deriva": lambda s: mundo_deriva_rapido(N, s, 0.9)}
+
+
 def main():
-    out = {}; fcs = {k: fc_verdade(g2) for k, (_, g2, _) in OMEGAS.items()}
-    for mnome, gen in MUNDOS.items():
+    fcs = {k: fc_verdade(g2) for k, (_, g2, _) in OMEGAS.items()}; acc = {m: {o: {"ok": 0, "erros": [], "cobs": [], "fcs": []} for o in OMEGAS} for m in MUNDOS}
+    for s in SEEDS:
+        for mnome, gen in MUNDOS.items():
+            x = gen(s); varx = np.mean(np.sum((x - x.mean(0)) ** 2, axis=1))
+            for onome, (fun, g2, sig) in OMEGAS.items():
+                rng = np.random.default_rng(s + 99); y_limpo = fun(x); y = y_limpo + (rng.normal(0, sig, x.shape) if sig else 0)
+                fc_est, beta_est, cob = regua(x, y); beta = float(np.mean(np.sum((x - y_limpo) ** 2, axis=1)) / varx); a = acc[mnome][onome]
+                a["ok"] += bool(np.isfinite(fc_est) and abs(fc_est / fcs[onome] - 1) <= 0.3); a["erros"].append(abs(beta_est - beta)); a["cobs"].append(cob); a["fcs"].append(fc_est)
+        if (s - 1000) % 10 == 0: print(f"  s{s} ok", flush=True)
+    out = {}
+    for mnome in MUNDOS:
         out[mnome] = {}
-        for onome, (fun, g2, sig) in OMEGAS.items():
-            acerta, erros, cobs, fcs_est = 0, [], [], []
-            for s in SEEDS:
-                x = gen(s); rng = np.random.default_rng(s + 99); y_limpo = fun(x); y = y_limpo + (rng.normal(0, sig, x.shape) if sig else 0)
-                fc_est, beta_est, cob = regua(x, y); beta = float(np.mean(np.sum((x - y_limpo) ** 2, axis=1)) / np.mean(np.sum((x - x.mean(0)) ** 2, axis=1)))
-                ok = bool(np.isfinite(fc_est) and abs(fc_est / fcs[onome] - 1) <= 0.3); acerta += ok; erros.append(abs(beta_est - beta)); cobs.append(cob); fcs_est.append(fc_est)
-            out[mnome][onome] = {"fc_verdade": fcs[onome], "fc_est_mediano": float(np.nanmedian(fcs_est)), "acerta_fc": acerta, "erro_beta_mediano": float(np.median(erros)), "cobertura_mediana": float(np.median(cobs))}
-            print(f"  {mnome} / {onome}: f_c {fcs[onome]:.2e} est {np.nanmedian(fcs_est):.2e} | acerta {acerta}/100 | |β̂−β| mediano {np.median(erros):.3f} | cobertura {np.median(cobs):.2f}", flush=True)
+        for onome in OMEGAS:
+            a = acc[mnome][onome]; out[mnome][onome] = {"fc_verdade": fcs[onome], "fc_est_mediano": float(np.nanmedian(a["fcs"])), "acerta_fc": a["ok"], "erro_beta_mediano": float(np.median(a["erros"])), "cobertura_mediana": float(np.median(a["cobs"]))}
+            print(f"  {mnome} / {onome}: f_c {fcs[onome]:.2e} est {np.nanmedian(a['fcs']):.2e} | acerta {a['ok']}/100 | |β̂−β| mediano {np.median(a['erros']):.3f} | cobertura {np.median(a['cobs']):.2f}", flush=True)
     a = all(out["escada-3"][o]["acerta_fc"] >= 80 for o in OMEGAS); b = all(out["escada-3"][o]["erro_beta_mediano"] <= 0.05 for o in OMEGAS)
     out["criterio"] = {"a_corte": bool(a), "b_cegueira": bool(b), "passa": bool(a and b)}
     print(f"\n== teste 18: (a) corte {a} (b) cegueira {b} → {'PASSA' if a and b else 'REPROVA'}")
