@@ -96,3 +96,7 @@ Placar: 20 testes, 18 reprovações, 2 passagens, 32 defeitos.
 | 21 | descorrelação entre fatias | os de 8 | com outro critério de tensão, a escada lê a razão? (cláusula: reprovando, a linha fecha) | os de 8 | 30 % | andares esvaziados (λ·τ 0,01–0,09) em 100/100 nas escadas 2 e 3; razões sem sentido; cíclico perde da fixa | reprovado; **linha fechada** | a escada do mundo é legível pela tensão em escala, não em razão |
 
 **Placar final de 18/10: 21 testes, 19 reprovações, 2 passagens, 33 defeitos, nenhuma emenda.** Linhas: máquina (filtro), política (fechada), escada (fechada: escala sim, razão não), declaração de cegueira (de pé), régua sobre outro observador (de pé, vendo a entrada).
+
+| 22 | OBS-01 etapa um: RNN sintética | escada-3, 1-D; rede de 32 unidades, vazamentos 0,003–0,3, lida por projeção; linear / tanh 0,1 / tanh 3 | a régua mede uma rede como mede um filtro, e declara quando sai do regime linear? | corte ±30 % em ≥ 80; ν e ε a ≤ 0,05 (rede linear) | 60 % | linear: 97/100, 0,003, 0,013; tanh 0,1: 84/100; tanh 3: 29/100, ν a 0,11, cobertura 0,91 | **passou** (linear) | coerência não detecta saturação; medir em duas amplitudes |
+
+Placar: 22 testes, 19 reprovações, 3 passagens, 34 defeitos.

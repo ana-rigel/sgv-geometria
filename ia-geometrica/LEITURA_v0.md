@@ -133,3 +133,9 @@ Vinte testes, dezoito reprovações, duas passagens, trinta e dois defeitos.
 - Régua sobre outro observador (18, 19): **de pé** com limites: corte 600/600, "não ver" exato, "errar" ≤ 0,056; precisa ver a entrada.
 
 Vinte e um testes, dezenove reprovações, duas passagens, trinta e três defeitos, nenhuma emenda.
+
+## Adendo de 18/10, depois do teste 22: OBS-01, etapa um
+
+- **22, rede recorrente sintética** (LEITURA_teste22.md): **passou** na rede linear de 32 unidades e várias escalas (corte 97/100, não ver a 0,003, errar a 0,013). Tanh pequena: quase (84/100, erros sistemáticos para cima). Tanh grande: a régua erra (corte +70 %, ν a 0,11) **e não declara**, porque a coerência fica em 0,91: coerência mede ruído, não deformação (defeito 34). Sexta cláusula do OBS-01: medir em duas amplitudes; se Ĥ muda, o observador não é linear.
+
+Vinte e dois testes, dezenove reprovações, três passagens, trinta e quatro defeitos.
