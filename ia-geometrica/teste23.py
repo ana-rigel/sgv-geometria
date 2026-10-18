@@ -17,7 +17,7 @@ def main():
         for v, phi in VERSOES.items():
             Hs = {}
             for A in AMPS:
-                y = T.rodar_rede(A * x, a, W, u, r, phi) + rng.normal(0, SIG, len(x)); f, Sxx, H, _ = T.regua(x, y); Hs[A] = (Sxx, H)
+                xa = A * x; y = T.rodar_rede(xa, a, W, u, r, phi) + rng.normal(0, SIG, len(x)); f, Sxx, H, _ = T.regua(xa, y); Hs[A] = (Sxx / A ** 2, H)   # Emenda 1: entrada efetiva A·x; S_xx reescalado ao mundo
             Sxx, H0 = Hs[A0]; den = (Sxx * np.abs(H0) ** 2).sum()
             for A in AMPS:
                 if A == A0: continue

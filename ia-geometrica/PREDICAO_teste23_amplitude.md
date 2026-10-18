@@ -31,3 +31,7 @@ Limiar fixado antes: **D = 0,05**. Passa se (a) na rede linear D(3) < 0,05 em �
 ## O que fecha
 
 Passar: a régua tem um detector de regime que não depende da coerência, e o protocolo do OBS-01 passa a ter um passo obrigatório antes de qualquer leitura: medir em duas amplitudes e declarar D. Reprovar em (a): o índice é sensível ao ruído, e precisa de normalização pelo piso estimado (outro instrumento). Reprovar em (b): a saturação não muda Ĥ o bastante na banda em que o mundo tem potência, e aí a régua não tem como ver não linearidade por fora.
+
+## Emenda 1 (18/10/2026, antes da segunda rodada) — defeito de instrumento
+
+A primeira rodada (242b205) estimou Ĥ_A = S_yx / S_xx com x (o mundo) no denominador, quando a entrada que a rede recebeu foi A·x. Para uma rede linear isso dá Ĥ_A = A·H, e o índice mede ((A − A₀)/A₀)² em vez de não linearidade: D(3) na rede linear deu 836 ≈ 29². Resultado da primeira rodada registrado como inválido (resultados_teste23_INVALIDO.json). Conserto: Ĥ_A estimado com a entrada efetiva A·x (S_{y,Ax} / S_{Ax,Ax}). Nada mais muda: mesmo índice, mesmo limiar, mesmas apostas. Cláusula de última emenda: se reprovar de novo, fica reprovado.
