@@ -1,0 +1,100 @@
+"""Teste 9 (a declaração com ganho real). Predição: PREDICAO_teste9_ganho_real.md. Roda só porque a predição existe."""
+import json, sys
+from pathlib import Path
+import numpy as np
+from scipy.signal import lfilter
+from scipy.stats import spearmanr
+sys.path.insert(0, str(Path(__file__).resolve().parent)); import v0 as V
+
+ROOT = Path(__file__).resolve().parent
+assert (ROOT / "PREDICAO_teste9_ganho_real.md").exists(), "sem predição, sem teste"
+N, CAL, SEEDS, K = 130000, 65000, range(1000, 1100), 4
+LAMS = 0.15 / 10.0 ** np.arange(K); FC = LAMS / (2 * np.pi)
+MUNDOS = {"branco": lambda s: V.mundo_deriva(N, s, 0.0), "deriva": lambda s: V.mundo_deriva(N, s, 0.9),
+          "escada-3": lambda s: V.mundo_escada(N, s, [7, 70, 700]), "ciclico": lambda s: V.mundo_ciclico(N, s),
+          "lento": lambda s: mundo_lento(N, s)}
+TREINO = "deriva"; DESTINOS = []
+
+
+def mundo_lento(n, seed, tau=50000.0, sig_b=0.3):
+    """AR(1) com constante de tempo tau (mais lento que a identidade) mais ruído branco."""
+    rng = np.random.default_rng(seed + 7); phi = 1 - 1 / tau; e = rng.normal(0, 1.0, (n, 2)) * np.sqrt(1 - phi ** 2)
+    x = lfilter([1.0], [1, -phi], e, axis=0); return x + rng.normal(0, sig_b, (n, 2))
+rng = np.random.default_rng(5)
+
+
+def observar(x):
+    """Registros R_j (pós-atualização), H = R_{t-1}, tensões T_0..T_{k-1} como no v0."""
+    R = np.zeros((N, K, 2)); r = x
+    for j, lam in enumerate(LAMS):
+        r = lfilter([lam], [1, -(1 - lam)], r, axis=0); R[:, j] = r
+    H = np.zeros_like(R); H[1:] = R[:-1]
+    T = np.zeros((N, K)); T[:, 0] = np.linalg.norm(x - H[:, 0], axis=1)
+    for j in range(1, K): T[:, j] = np.linalg.norm(R[:, j - 1] - R[:, j], axis=1)
+    return R, H, T
+
+
+def ganho2(lam, f):
+    return lam ** 2 / (1 - 2 * (1 - lam) * np.cos(2 * np.pi * f) + (1 - lam) ** 2)
+
+
+def declarada(T, ini, fim, x=None, R=None):   # δ̂_j com ganho real: Σ S_entrada(f)·(1 − |H_j(f)|²) / Σ S_entrada(f)
+    out = []
+    for j in range(K):
+        ent = x[ini:fim] if j == 0 else R[ini:fim, j - 1]; v = ent - ent.mean(0)
+        P = (np.abs(np.fft.rfft(v, axis=0)) ** 2).sum(1); f = np.fft.rfftfreq(len(v)); tot = P[1:].sum()
+        out.append(float((P[1:] * (1 - ganho2(LAMS[j], f[1:]))).sum() / tot) if tot > 0 else 0.0)
+    return np.array(out)
+
+
+def real(x, R, ini, fim):            # β_j: fração da variância do mundo que o registro j não representa
+    num = np.mean(np.sum((x[ini:fim, None, :] - R[ini:fim]) ** 2, axis=2), axis=0); den = np.mean(np.sum((x[ini:fim] - x[ini:fim].mean(0)) ** 2, axis=1))
+    return num / den
+
+
+def pesos(x, H, ini, fim):
+    A = H[ini:fim].transpose(0, 2, 1).reshape(-1, K); y = x[ini:fim].reshape(-1); G = A.T @ A
+    return np.linalg.solve(G + 1e-6 * np.trace(G) / K * np.eye(K), A.T @ y)
+
+
+def erro(x, H, w, ini, fim):
+    return float(np.mean(np.linalg.norm(x[ini:fim] - np.einsum("tkd,k->td", H[ini:fim], w), axis=1)))
+
+
+def main():
+    # memória: por semente, gera os quatro mundos, calcula tudo e descarta (séries de 130 mil passos)
+    decl = {m: [] for m in MUNDOS}; beta = {m: [] for m in MUNDOS}; Bs = {d: {"U": [], "e_sem": [], "e_com": [], "e_teto": []} for d in DESTINOS}
+    for s in SEEDS:
+        o = {}
+        for m, gen in MUNDOS.items():
+            x = gen(s); R, H, T = observar(x)
+            o[m] = {"x": x, "H": H, "d_cal": declarada(T, 0, CAL, x, R), "d_med": declarada(T, CAL, N, x, R), "beta": real(x, R, CAL, N)}
+            decl[m].append(o[m]["d_med"]); beta[m].append(o[m]["beta"])
+        tr = o[TREINO]; w = pesos(tr["x"], tr["H"], 0, CAL)
+        for dest in DESTINOS:
+            de = o[dest]; vis = (1 - de["d_cal"]) / np.maximum(1 - tr["d_cal"], 1e-9); w2 = w * vis   # sem renormalização (defeito 13)
+            es, ec = erro(de["x"], de["H"], w, CAL, N), erro(de["x"], de["H"], w2, CAL, N); et = erro(de["x"], de["H"], pesos(de["x"], de["H"], 0, CAL), CAL, N)
+            Bs[dest]["U"].append(1 - ec / es); Bs[dest]["e_sem"].append(es); Bs[dest]["e_com"].append(ec); Bs[dest]["e_teto"].append(et)
+        if (s - 1000) % 10 == 0: print(f"  s{s} ok", flush=True)
+    for m in MUNDOS: print(f"  {m}: δ̂ médio (medida) {np.round(np.mean(decl[m], 0), 3)} | β médio {np.round(np.mean(beta[m], 0), 3)}", flush=True)
+    d_nom = 1 - 2 * FC; A = {}
+    for j in range(K):
+        dj = np.array([v[j] for m in MUNDOS for v in decl[m]]); bj = np.array([v[j] for m in MUNDOS for v in beta[m]])
+        rho = float(spearmanr(dj, bj).correlation); perm = np.array([spearmanr(rng.permutation(dj), bj).correlation for _ in range(1000)])
+        A[f"andar{j+1}"] = {"rho": rho, "perm_env": [float(perm.min()), float(perm.max())], "erro_abs_mediano": float(np.median(np.abs(dj - bj))), "delta_nominal": float(d_nom[j]),
+                            "passa": bool(rho >= 0.7 and rho > perm.max())}
+        print(f"  A andar {j+1}: ρ {rho:+.3f} (perm env {perm.min():+.3f}; {perm.max():+.3f}) | |δ̂−β| mediano {A[f'andar{j+1}']['erro_abs_mediano']:.3f} | δ_nom {d_nom[j]:.3f} → {A[f'andar{j+1}']['passa']}", flush=True)
+    A["passa"] = all(A[f"andar{j+1}"]["passa"] for j in range(K))
+    B = {}
+    for dest in DESTINOS:
+        U = np.array(Bs[dest]["U"]); B[dest] = {"U_media": float(U.mean()), "U_env": [float(U.min()), float(U.max())], "U_pos": int((U > 0).sum()),
+            "e_sem": float(np.mean(Bs[dest]["e_sem"])), "e_com": float(np.mean(Bs[dest]["e_com"])), "e_teto": float(np.mean(Bs[dest]["e_teto"])), "passa": bool((U > 0).sum() >= 80)}
+        print(f"  B → {dest}: U média {100*U.mean():+.1f} % (env {100*U.min():+.1f}; {100*U.max():+.1f}) | U>0 em {(U>0).sum()} | e sem {B[dest]['e_sem']:.3f} com {B[dest]['e_com']:.3f} teto {B[dest]['e_teto']:.3f} → {B[dest]['passa']}", flush=True)
+    B["passa"] = None
+    out = {"A": A, "B": B, "medias": {m: {"d_med": np.mean(decl[m], 0).tolist(), "beta": np.mean(beta[m], 0).tolist()} for m in MUNDOS}}
+    print(f"\n== teste 9: A (verdadeira) {'PASSA' if A['passa'] else 'REPROVA'} | B não testada")
+    (ROOT / "resultados_teste9.json").write_text(json.dumps(out, ensure_ascii=False))
+
+
+if __name__ == "__main__":
+    main()
