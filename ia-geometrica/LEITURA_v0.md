@@ -120,3 +120,16 @@ Dezenove testes, dezessete reprovações, duas passagens, trinta e um defeitos.
 - **20, andares de segunda ordem** (LEITURA_teste20.md): a razão lida subiu de 4,9 para 5,8 na escada-3 e piorou na escada-4 e na escada-2 (mínimos múltiplos); o primeiro andar continua no corte do mundo (λ₁·τ₁ 0,8–1,1). A ordem não era a causa toda: o critério de partes iguais também comprime (defeito 32). Último da linha: descorrelação entre fatias; se não ler a razão, a v0 fica com a escala e sem a razão.
 
 Vinte testes, dezoito reprovações, duas passagens, trinta e dois defeitos.
+
+## Adendo de 18/10, depois do teste 21: a linha da escada fecha
+
+- **21, descorrelação entre fatias** (LEITURA_teste21.md): o ajuste descorrelaciona esvaziando andares (λ·τ 0,01–0,09 em 100 de 100 sementes na escada-2 e na escada-3); razões sem sentido; no cíclico perde da fixa. Pela cláusula escrita antes, **a linha da escada fecha: a escada do mundo é legível pela tensão em escala (λ₁·τ₁ ≈ 1 em todos os testes de tensão), não em razão.** A razão é propriedade declarada do modelo.
+
+**Estado final das linhas depois de 21 julgamentos (17–18/10/2026):**
+- Máquina (1–4): filtro.
+- Política de olhar (2, 7, 10–15): fechada; ≤ 2 % em todo mundo de observação pura, oráculo igual.
+- Escada (4, 8, 20, 21): fechada; escala sim, razão não.
+- Declaração de cegueira (5, 6, 9, 16, 17): **de pé**, quatro andares, ordem e valor, cinco mundos.
+- Régua sobre outro observador (18, 19): **de pé** com limites: corte 600/600, "não ver" exato, "errar" ≤ 0,056; precisa ver a entrada.
+
+Vinte e um testes, dezenove reprovações, duas passagens, trinta e três defeitos, nenhuma emenda.

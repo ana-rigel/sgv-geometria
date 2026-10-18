@@ -92,3 +92,7 @@ Placar: 19 testes, 17 reprovações, 2 passagens, 31 defeitos.
 | 20 | andares de 2ª ordem | os de 8 | com andares abruptos, a escada pela tensão lê a razão do mundo? | os de 8 | 35 % | razões 5,5 · 6,1 (esc-3), 4,5 · 4,3 · 53 (esc-4), 37 (esc-2); λ₁·τ₁ 0,8–1,1; cíclico ganha 79/100 | reprovado | a compressão vem também do critério de partes iguais, que tem vários mínimos |
 
 Placar: 20 testes, 18 reprovações, 2 passagens, 32 defeitos.
+
+| 21 | descorrelação entre fatias | os de 8 | com outro critério de tensão, a escada lê a razão? (cláusula: reprovando, a linha fecha) | os de 8 | 30 % | andares esvaziados (λ·τ 0,01–0,09) em 100/100 nas escadas 2 e 3; razões sem sentido; cíclico perde da fixa | reprovado; **linha fechada** | a escada do mundo é legível pela tensão em escala, não em razão |
+
+**Placar final de 18/10: 21 testes, 19 reprovações, 2 passagens, 33 defeitos, nenhuma emenda.** Linhas: máquina (filtro), política (fechada), escada (fechada: escala sim, razão não), declaração de cegueira (de pé), régua sobre outro observador (de pé, vendo a entrada).
