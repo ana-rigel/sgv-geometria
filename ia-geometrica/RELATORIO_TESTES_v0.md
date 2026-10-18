@@ -84,3 +84,7 @@ Fora do escopo, confirmado pelos testes: política de olhar (fechada), uso em tr
 | 18 | régua sobre outro | escada-3 (julgado), deriva (relatado); seis Ω de forma desconhecida | vendo x e y, a v0 acha o corte de Ω e a sua cegueira? | corte ±30 % em ≥ 80 por Ω; erro de cegueira ≤ 0,05 por Ω | 50 % | corte **600/600**; cegueira 0,043 · 0,046 · 0,065 · 0,087 · 0,092 · 0,046 | reprovado em (b) | não ver (1 − \|H\|²) e errar (\|1 − H\|²) diferem para quem atrasa; declarar as duas |
 
 Quinta cláusula para o OBS-01: **cegueira e erro são grandezas diferentes para um observador que atrasa; a régua declara as duas, com nome.** Placar: 18 testes, 16 reprovações, 2 passagens, 30 defeitos.
+
+| 19 | não ver e errar | os de 18 | do mesmo Ĥ, a régua acerta "não ver" (1 − \|H\|²) e "errar" (\|1 − H\|²)? | ambos ≤ 0,05 por Ω em escada-3 | 65 % | não ver ≤ 0,001 nos 12; errar 0,007–0,056 (deriva ≤ 0,003) | reprovado por 0,006 | o sinal de ε − ν mede a ordem do observador |
+
+Placar: 19 testes, 17 reprovações, 2 passagens, 31 defeitos.
