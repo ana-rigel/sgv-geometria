@@ -75,3 +75,9 @@ Dez testes, dez reprovações, vinte e dois defeitos. Próximos, cada um com pre
 - **12, ritmo com λ₁ do mundo** (LEITURA_teste12.md): λ₁ → 0,94 e V +1,19 %, metade de um teto analítico de ≈ 5 % que a própria estrutura do mundo impõe: numa deriva, o erro de não olhar cresce como raiz, e saber o momento certo vale pouco por construção. Fecha a família "deriva" para a política: cinco testes (2, 7, 10, 11, 12), nunca acima de 1,2 %. O ato da v0 só pode valer em mundos onde não olhar custa de uma vez (saltos).
 
 Doze testes, doze reprovações, vinte e quatro defeitos. O próximo da política é o mundo de saltos, com a régua como gatilho; os próximos da declaração e da escada seguem como no adendo anterior.
+
+## Adendo de 18/10, depois do teste 13
+
+- **13, saltos em cachos** (LEITURA_teste13.md): reprovado e inconclusivo. O mundo tinha um cacho por janela de afinação e o oráculo (que sabe o cacho) ficou instável (envelope −31 % a +37 %); sem teto medido, o teste não responde sobre a política. Na única semente em que o oráculo foi alto e a afinação acertou, a v0 capturou um quarto do ganho com a régua como gatilho. Defeito 25: o teto tem de ser calculado por janela. Próximo: o mesmo mundo com cachos a cada ≈ 400 passos.
+
+Treze testes, treze reprovações, vinte e cinco defeitos.
