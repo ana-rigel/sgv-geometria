@@ -9,3 +9,7 @@ Um observador feito de registros empilhados, que conhece o próprio ponto cego. 
 Este diretório vive provisoriamente dentro de `sgv-geometria` (ramo `ia-geometrica/v0`) porque a sessão não pôde criar um repositório novo; a Ana cria `ana-rigel/ia-geometrica` e este diretório se muda para lá sem alteração.
 
 Nada de mercado até os quatro testes serem julgados.
+
+## Relatório consolidado
+
+[RELATORIO_TESTES_v0.md](RELATORIO_TESTES_v0.md): os dezessete testes de 17–18/10/2026, placar, defeitos, o que fica para o OBS-01 e o que vem depois.
