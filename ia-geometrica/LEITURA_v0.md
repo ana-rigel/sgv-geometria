@@ -68,3 +68,10 @@ Oito testes, oito reprovações, dezoito defeitos nomeados. Nenhuma emenda. Nada
 - **10, expectativa num mundo com regimes** (LEITURA_teste10.md): a tensão informa o regime por 16 passos (b_n ≈ 0,65) e a política de limiar perde mesmo assim, porque concentra olhadas em rajada onde um registro lento não as aproveita. A grandeza certa é o ritmo por regime, não o instante.
 
 Dez testes, dez reprovações, vinte e dois defeitos. Próximos, cada um com predição própria quando a Ana pedir: ritmo por regime (política), andar 4 com maioria de mundos lentos (declaração), declaração composta contra β no valor, e andares de corte mais abrupto para a escada pela tensão.
+
+## Adendo de 18/10, depois dos testes 11 e 12
+
+- **11, ritmo por regime** (LEITURA_teste11.md): primeira política com V > 0 na média (+0,67 %); a forma é a certa (ritmo, não instante) e o registro herdado (λ₁ = 0,15) a segura.
+- **12, ritmo com λ₁ do mundo** (LEITURA_teste12.md): λ₁ → 0,94 e V +1,19 %, metade de um teto analítico de ≈ 5 % que a própria estrutura do mundo impõe: numa deriva, o erro de não olhar cresce como raiz, e saber o momento certo vale pouco por construção. Fecha a família "deriva" para a política: cinco testes (2, 7, 10, 11, 12), nunca acima de 1,2 %. O ato da v0 só pode valer em mundos onde não olhar custa de uma vez (saltos).
+
+Doze testes, doze reprovações, vinte e quatro defeitos. O próximo da política é o mundo de saltos, com a régua como gatilho; os próximos da declaração e da escada seguem como no adendo anterior.
