@@ -88,3 +88,7 @@ Quinta cláusula para o OBS-01: **cegueira e erro são grandezas diferentes para
 | 19 | não ver e errar | os de 18 | do mesmo Ĥ, a régua acerta "não ver" (1 − \|H\|²) e "errar" (\|1 − H\|²)? | ambos ≤ 0,05 por Ω em escada-3 | 65 % | não ver ≤ 0,001 nos 12; errar 0,007–0,056 (deriva ≤ 0,003) | reprovado por 0,006 | o sinal de ε − ν mede a ordem do observador |
 
 Placar: 19 testes, 17 reprovações, 2 passagens, 31 defeitos.
+
+| 20 | andares de 2ª ordem | os de 8 | com andares abruptos, a escada pela tensão lê a razão do mundo? | os de 8 | 35 % | razões 5,5 · 6,1 (esc-3), 4,5 · 4,3 · 53 (esc-4), 37 (esc-2); λ₁·τ₁ 0,8–1,1; cíclico ganha 79/100 | reprovado | a compressão vem também do critério de partes iguais, que tem vários mínimos |
+
+Placar: 20 testes, 18 reprovações, 2 passagens, 32 defeitos.

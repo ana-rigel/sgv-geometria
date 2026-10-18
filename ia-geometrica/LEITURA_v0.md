@@ -114,3 +114,9 @@ Dezoito testes, dezesseis reprovações, duas passagens, trinta defeitos.
 - **19, não ver e errar** (LEITURA_teste19.md): do mesmo Ĥ complexo a régua declara "não ver" (exato: erro ≤ 0,001 nos doze pares) e "errar" (≤ 0,056; reprovou por 0,006 no Ω mais lento, por resolução nas bolhas mais baixas). O sinal de ε − ν diz a ordem do observador (negativo na primeira ordem, positivo em cascata e janela), observação não prevista. Cláusulas 1–5 do OBS-01 todas com número.
 
 Dezenove testes, dezessete reprovações, duas passagens, trinta e um defeitos.
+
+## Adendo de 18/10, depois do teste 20
+
+- **20, andares de segunda ordem** (LEITURA_teste20.md): a razão lida subiu de 4,9 para 5,8 na escada-3 e piorou na escada-4 e na escada-2 (mínimos múltiplos); o primeiro andar continua no corte do mundo (λ₁·τ₁ 0,8–1,1). A ordem não era a causa toda: o critério de partes iguais também comprime (defeito 32). Último da linha: descorrelação entre fatias; se não ler a razão, a v0 fica com a escala e sem a razão.
+
+Vinte testes, dezoito reprovações, duas passagens, trinta e dois defeitos.
