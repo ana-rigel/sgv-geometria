@@ -180,7 +180,7 @@ const DADOS ={"quente":{"inicio":"2026-06-01","n":10080,"t0":1780272000000,"x":[
       for(let k=0;k<3;k++)pos[i*3+k]=coord(k,dados.x[t][k]);
       const cc=state.cor==='temp'?cT[Math.max(0,fatiaTemp(t))]:cR[mente.reg[0][t]];c[i*3]=cc.r;c[i*3+1]=cc.g;c[i*3+2]=cc.b;shown++;idx.push(i)}
     g.attributes.position.needsUpdate=true;g.attributes.color.needsUpdate=true;rings.scale.setScalar(state.zoom);rings.visible=document.getElementById('rings').checked;
-    let j=0;for(let t=Math.max(0,last-239);t<=last;t++,j++){for(let k=0;k<3;k++)trP[j*3+k]=dados.ok[t]?coord(k,dados.x[t][k]):1e3}for(;j<240;j++)trP[j*3]=trP[j*3+1]=trP[j*3+2]=1e3;
+    let j=0,ult=null;for(let t=Math.max(0,last-239);t<=last;t++,j++){if(dados.ok[t])ult=t;for(let k=0;k<3;k++)trP[j*3+k]=ult===null?coord(k,dados.x[t][k]):coord(k,dados.x[ult][k])}for(;j<240;j++){trP[j*3]=trP[(j-1)*3];trP[j*3+1]=trP[(j-1)*3+1];trP[j*3+2]=trP[(j-1)*3+2]}
     trG.attributes.position.needsUpdate=true;traj.visible=document.getElementById('traj').checked;head.visible=traj.visible;
     head.position.set(coord(0,dados.x[last][0]),coord(1,dados.x[last][1]),coord(2,dados.x[last][2]));
     const ptsC=[head.position.clone()];for(let q=0;q<K;q++){const p=mente.Rh[q].subarray(last*3,last*3+3);andares[q].position.set(coord(0,p[0]),coord(1,p[1]),coord(2,p[2]));ptsC.push(andares[q].position.clone())}
