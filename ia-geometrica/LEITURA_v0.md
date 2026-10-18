@@ -93,3 +93,12 @@ Catorze testes, catorze reprovações, vinte e seis defeitos. Restam: política 
 - **15, orçamento de 5 %** (LEITURA_teste15.md): o oráculo que sabe o cacho rende +1,8 % e escolhe olhar quase em ritmo fixo; a v0 empata (+1,8 %). Pela cláusula escrita na predição (oráculo < 5 %), **a linha de política está fechada**: oito testes, quatro mundos, dois orçamentos, dois registros, quatro formas; sempre 0–2 %, e o oráculo igual. Para um observador que só olha e lembra, quando olhar quase não importa; com que rigidez lembrar e o que declarar sobre o que não vê importam. A distinção entre a v0 e um filtro está na declaração, não no ato (defeito 27).
 
 Quinze testes, quinze reprovações, vinte e sete defeitos. Restam, na linha da declaração e da escada: andar 4 com maioria de mundos lentos; declaração composta contra β no valor; escada pela tensão com andares de corte abrupto.
+
+## Adendo de 18/10, depois dos testes 16 e 17: as duas primeiras passagens
+
+- **16, o andar da identidade** (LEITURA_teste16_17.md): com três mundos em cinco mais lentos que a identidade, a declaração do andar 4 acompanha a cegueira real (ρ 0,746, critério 0,7). **Passou.**
+- **17, a declaração composta**: composta por produto andar a andar, a declaração acerta a cegueira real no valor: erro mediano 0,020 · 0,007 · 0,006 nos andares 1–3 (critério 0,05), e 0,023 no 4. **Passou.** A composição não é aproximação; é a definição exata para a cascata.
+
+Estado das três linhas depois de dezessete julgamentos: **declaração de cegueira: de pé, nos quatro andares, na ordem e no valor, em cinco mundos sintéticos** (regra: espectro da entrada, pesado por 1 − ganho real, série mais longa que o registro, composta por produto). **Escala pela tensão: de pé na escala (λ·τ ≈ 1), razão comprimida (≈ 5 para 10); pendente o andar de corte abrupto.** **Política de olhar: fechada por cláusula (≤ 2 % em todo mundo de observação pura).**
+
+O próximo passo que importa é o primeiro fora do sintético puro: a v0 como régua **sobre outro observador**, cujos ganhos ela não conhece. Predição própria, quando a Ana pedir.

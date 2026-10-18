@@ -113,7 +113,7 @@ Frase para o livro: a mente é a samambaia, o mundo é a tempestade, e o que se 
 | 0 | Este documento e o repositório `ia-geometrica` com o registro de origem | 17/10/2026 |
 | 1 | Instrumento v0 (registros, régua, cegueira, política de olhar) e os quatro mundos, com fumaça | quando a Ana pedir |
 | 2 | Testes 1 a 4, um por rodada, cada um com predição própria detalhando os parâmetros desta tabela | 17–18/10/2026: quatro reprovados; testes 5–8 (cegueira, declaração linear, expectativa, escada pela tensão) rodados em 18/10, todos reprovados no critério, dois com propriedades novas (LEITURA_v0.md) |
-| 3 | Leitura consolidada: a v0 é observador ou filtro, dentro dos mundos testados | 18/10/2026: filtro (LEITURA_v0.md) |
+| 3 | Leitura consolidada: a v0 é observador ou filtro, dentro dos mundos testados | 18/10/2026: filtro como máquina (testes 1–4); instrumento de cegueira verdadeiro na ordem e no valor (testes 16–17); política fechada (2–15); escala pela tensão parcial (8). LEITURA_v0.md |
 | 4 | Fluxos reais (BTC entre eles, depois de 3/11 e 1/12), com a escada livre do teste 4 | depois da etapa 3 |
 
 **Fora do escopo da v0:** modelo do mundo, ação sobre o mundo, aprendizado além dos ganhos, múltiplos observadores, qualquer uso em trading. Cada um desses é uma versão futura com predição própria.
