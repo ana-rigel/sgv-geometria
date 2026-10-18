@@ -1,0 +1,66 @@
+"""Teste 11 (ritmo por regime). Predição: PREDICAO_teste11_ritmo.md. Roda só porque a predição existe."""
+import json, sys
+from pathlib import Path
+import numpy as np
+sys.path.insert(0, str(Path(__file__).resolve().parent)); import v0 as V
+from teste10 import mundo_quente_frio
+
+ROOT = Path(__file__).resolve().parent
+assert (ROOT / "PREDICAO_teste11_ritmo.md").exists(), "sem predição, sem teste"
+N, CAL, AFIN, SEEDS, PHI = 8000, 2000, 4000, range(1000, 1100), 0.9
+LAMS = 0.15 / 10.0 ** np.arange(4); ALVO = 0.25; LIMIAR = 0.5; PER = range(1, 17)
+
+
+def regua_de(x):
+    obs = V.Observador(2, lams=LAMS); T0 = np.zeros(CAL)
+    for t in range(CAL): T0[t] = np.linalg.norm(x[t] - obs.R[0]); obs.passo(x[t])
+    med = np.median(T0); return med, max(np.quantile(np.abs(T0 - med), 0.995) / 3, 1e-12)
+
+
+def rodar(x, regua, politica, pq=None, pf=None, ate=None):
+    ate = ate or len(x); obs = V.Observador(2, lams=LAMS); med, esc = regua; e = np.zeros(ate); olhou = np.zeros(ate, dtype=bool); prox = 0; reg = np.zeros(ate, dtype=int)
+    for t in range(ate):
+        e[t] = np.linalg.norm(x[t] - obs.R[0])
+        if politica == "sempre": ver = True
+        elif politica == "periodico": ver = t % 4 == 0
+        else: ver = t >= prox
+        olhou[t] = ver
+        if ver:
+            T = np.linalg.norm(x[t] - obs.R[0]); quente = (T - med) / esc >= LIMIAR; reg[t] = int(quente)
+            if politica == "ritmo": prox = t + (pq if quente else pf)
+            obs.passo(x[t])
+        else: obs.passo(None)
+    return e, olhou, reg
+
+
+def afinar(x, regua):
+    melhor = None
+    for pq in PER:
+        for pf in PER:
+            if abs(0.5 / pq + 0.5 / pf - ALVO) > 0.06: continue   # pré-filtro analítico (ocupação ≈ ½ / ½); a fração que vale é a medida
+            e, o, _ = rodar(x, regua, "ritmo", pq, pf, ate=AFIN); f = o[CAL:AFIN].mean()
+            if abs(f - ALVO) <= 0.02 and (melhor is None or e[CAL:AFIN].mean() < melhor[0]): melhor = (e[CAL:AFIN].mean(), pq, pf)
+    if melhor is None:  # nenhum par na faixa: o mais próximo da fração alvo
+        cand = [(abs(rodar(x, regua, "ritmo", pq, pf, ate=AFIN)[1][CAL:AFIN].mean() - ALVO), pq, pf) for pq in PER for pf in PER]; _, pq, pf = min(cand); return pq, pf
+    return melhor[1], melhor[2]
+
+
+def main():
+    out = {"sementes": {}}; Vs, ok, pares = [], [], []
+    for s in SEEDS:
+        x = mundo_quente_frio(N, s, PHI); regua = regua_de(x); pq, pf = afinar(x, regua); pares.append((pq, pf))
+        e0, o0, _ = rodar(x, regua, "ritmo", pq, pf); e1, _, _ = rodar(x, regua, "periodico"); e2, _, _ = rodar(x, regua, "sempre")
+        ev0, ep, es = e0[AFIN:].mean(), e1[AFIN:].mean(), e2[AFIN:].mean(); f = o0[AFIN:].mean(); valido = abs(f - ALVO) <= 0.03; Vv = 1 - ev0 / ep
+        Vs.append(Vv); ok.append(valido)
+        out["sementes"][str(s)] = {"pq": pq, "pf": pf, "fracao": float(f), "valido": bool(valido), "e_v0": float(ev0), "e_periodico": float(ep), "e_sempre": float(es), "V": float(Vv)}
+        if (s - 1000) % 10 == 0: print(f"  s{s}: ritmo ({pq},{pf}) fração {f:.3f} | e v0 {ev0:.3f} per {ep:.3f} sempre {es:.3f} | V {100*Vv:+.1f} %", flush=True)
+    Vs, ok = np.array(Vs), np.array(ok); Vv = Vs[ok]; a = bool(ok.sum() >= 95); b = bool(Vv.min() > 0) if len(Vv) else False
+    freq = max(set(pares), key=pares.count)
+    out["resumo"] = {"validas": int(ok.sum()), "V_media": float(Vv.mean()), "V_env": [float(Vv.min()), float(Vv.max())], "V_pos": int((Vv > 0).sum()), "par_mais_frequente": list(freq),
+                     "e_medios": {k: float(np.mean([out["sementes"][str(s)][k] for s in SEEDS])) for k in ("e_v0", "e_periodico", "e_sempre")}, "criterio": {"a_fracao_ok": a, "b_envelope_acima_de_zero": b, "passa": a and b}}
+    print(f"\n== teste 11: válidas {ok.sum()} | V média {100*Vv.mean():+.2f} % env ({100*Vv.min():+.1f}; {100*Vv.max():+.1f}) | V>0 em {(Vv>0).sum()} | par mais frequente {freq} → {'PASSA' if a and b else 'REPROVA'}")
+    (ROOT / "resultados_teste11.json").write_text(json.dumps(out, ensure_ascii=False))
+
+
+if __name__ == "__main__":
+    main()
