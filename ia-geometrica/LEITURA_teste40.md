@@ -51,3 +51,18 @@ Apostas: J1 (80 %), certa; J2 (95 %), certa; J3 (60 %), certa; J4 (50 %), reprov
 - Para o 0,627 ser um equilíbrio, a física do disco teria de mudar: outra distribuição de frequências (outra curva de rotação), acoplamento entre vizinhos em vez de campo médio, ou anéis que não precisem travar todos. Isso confirma a frase final do colaborador: se nenhuma região intermediária pode ser estabilizada, é a dinâmica dos anéis que tem de mudar, e não a equação de g.
 
 Placar: 40 testes numerados (o 25 sem resultado), mais o teste do ato A. 40: J1, J2, J3 passaram, J4 reprovou. 58 defeitos nesta numeração (nenhum novo), 1 emenda.
+
+## Correção (20/10/2026, depois da leitura; apontada pelo colaborador)
+
+O item 1 acima diz que "todo equilíbrio tem C ≥ 0,79". Isso está **errado** como foi escrito. O limite de 0,791 vale para os estados travados com todos os cossenos positivos (o ramo principal). A autoconsistência geral admite sᵢ = ±1 em cada anel, e esses ramos são outros equilíbrios. O J1, como foi definido (C_L do ramo principal ≥ 0,70), continua aprovado; a frase interpretativa é que passou do que o teste mediu.
+
+Enumeração completa dos 4.096 padrões de sinais (enumeracao_ramos_teste40.py, rodada depois da correção, não julgada):
+
+| K/K_c | equilíbrios estáveis (C, nº de sinais −) | instáveis: quantos, faixa de C | instáveis com C a ±0,02 de 0,627 |
+|---|---|---|---|
+| 1,2 | (0,875; 0) | 1, 0,779 | 0 |
+| 1,6 | (0,944; 0) | 29, 0,556–0,801 | 9 (todos com 2 sinais −) |
+| 3,0 | (0,986; 0) | 475, 0,297–0,825 | 46 (todos com 2 sinais −) |
+| 10 | (0,999; 0) | 1.831, 0,089–0,833 | 0 (com 2 sinais −, C → 10/12 − 2/12 ≈ 0,667; com 3, ≈ 0,50) |
+
+A frase correta é: **em todo K testado, há um único equilíbrio estável, o do ramo principal, com C ≥ 0,79. Existem equilíbrios com C ≈ 0,627, mas são selas instáveis (dois anéis em oposição à fase comum), e só de ≈ 1,6 K_c para cima.** As consequências dos itens 2 a 4 e da seção seguinte não mudam: não há equilíbrio intermediário **estável** a estabilizar no ramo principal. Uma sela com C ≈ 0,627, porém, é um objeto que um controlador poderia, em princípio, tentar estabilizar; isso fica para a análise que vier.
