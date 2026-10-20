@@ -76,6 +76,31 @@ def oraculo(ev, L, P):
     return np.array(out, dtype=int)
 
 
+def pluviometro(r, resol=0.2):
+    """Leitura do pluviômetro de báscula: chuva da hora arredondada a 0,2 mm (sem sorteio, para não mudar o mundo do teste 26)."""
+    return np.round(r / resol) * resol
+
+
+def episodios(r, seco=12):
+    """Episódios de chuva: horas com chuva separadas por menos de `seco` horas secas. Devolve lista de (início, fim)."""
+    idx = np.flatnonzero(r > 0); out = []
+    if len(idx) == 0: return out
+    ini = ant = int(idx[0])
+    for t in idx[1:]:
+        if t - ant > seco: out.append((ini, ant)); ini = int(t)
+        ant = int(t)
+    out.append((ini, ant)); return out
+
+
+def teto_chuva(r, ev, ini, fim, D, c, L, P, seco=12):
+    """Teto causal de quem vê a chuva começar e sabe, no início, se aquele episódio vai virar cheia:
+    chama no início de cada episódio que precede uma cheia (cheia entre o início e 24 h após o fim). Não é política; é limite."""
+    eps = episodios(r, seco); ch = []
+    for a, b in eps:
+        if np.any((ev >= a) & (ev <= b + 24)): ch.append(a)
+    return custo(ev, np.array(ch, dtype=int), ini, fim, D, c, L, P)
+
+
 def fumaca():
     n = 2 * H_ANO; print("fumaça do mundo sítio (sementes de desenho 5000–5009; não são as do teste)")
     hs = []
