@@ -1,5 +1,5 @@
 {
- "baixado_em": "2026-10-20T02:48:17Z",
+ "baixado_em": "2026-10-20T03:33:07Z",
  "nota": "só download e contagem; nenhum valor foi lido",
  "era5": {
   "arquivo": "era5land_juara_horario.csv.gz",
@@ -7,7 +7,7 @@
   "anos_falhos": [],
   "lat": -11.255,
   "lon": -57.52,
-  "modelo": "era5_land (Open-Meteo archive API)"
+  "modelo": "era5_land (solo, temperatura, umidade, VPD) + era5 (chuva, radiação, ET0), Open-Meteo archive API"
  },
  "inmet": {
   "arquivos_juara": [
@@ -34,7 +34,7 @@
   "estacoes_MT": 46
  },
  "sha256": {
-  "era5land_juara_horario.csv.gz": "bf104259f47eff218506d7d072baa2a0969dbf0344fdd2f358d3251e8ae01d35",
+  "era5land_juara_horario.csv.gz": "d2dc7ff798141c828cb0153324a348211f29cff2059742f3d85a81324c193837",
   "inmet/INMET_CO_MT_A914_JUARA_01-01-2008_A_31-12-2008.CSV": "faab86e827186c49e3b94d7e53bdfd86984f85b25724586ee4d3fc92cc4636d9",
   "inmet/INMET_CO_MT_A914_JUARA_01-01-2009_A_31-12-2009.CSV": "422885c0d7c2b0e4adc3509dbfd95c9f08ca19da2c37a2bb325da755941122a4",
   "inmet/INMET_CO_MT_A914_JUARA_01-01-2010_A_31-12-2010.CSV": "94abbdadaa2a686558015c4a493c078f63a239f5d5eb6f7070b3f23a1db18566",

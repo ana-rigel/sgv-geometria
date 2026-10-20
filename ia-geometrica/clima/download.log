@@ -1,24 +1,27 @@
 ERA5-Land:
-  ERA5-Land 2010: 8760 horas
-  ERA5-Land 2011: 8760 horas
+  2010: 8760 horas; campos vazios 0
+  2011: 8760 horas; campos vazios 0
+  2012: 8784 horas; campos vazios 0
     tentativa 1 falhou: <urlopen error _ssl.c:993: The handshake operation timed out>
-  ERA5-Land 2012: 8784 horas
-  ERA5-Land 2013: 8760 horas
+  2013: 8760 horas; campos vazios 0
+  2014: 8760 horas; campos vazios 0
+  2015: 8760 horas; campos vazios 0
+  2016: 8784 horas; campos vazios 0
     tentativa 1 falhou: <urlopen error _ssl.c:993: The handshake operation timed out>
-  ERA5-Land 2014: 8760 horas
-  ERA5-Land 2015: 8760 horas
-  ERA5-Land 2016: 8784 horas
+  2017: 8760 horas; campos vazios 0
+  2018: 8760 horas; campos vazios 0
     tentativa 1 falhou: <urlopen error _ssl.c:993: The handshake operation timed out>
-  ERA5-Land 2017: 8760 horas
-  ERA5-Land 2018: 8760 horas
-  ERA5-Land 2019: 8760 horas
-  ERA5-Land 2020: 8784 horas
-  ERA5-Land 2021: 8760 horas
-  ERA5-Land 2022: 8760 horas
-  ERA5-Land 2023: 8760 horas
+  2019: 8760 horas; campos vazios 0
     tentativa 1 falhou: <urlopen error _ssl.c:993: The handshake operation timed out>
-  ERA5-Land 2024: 8784 horas
-  ERA5-Land 2025: 8760 horas
+  2020: 8784 horas; campos vazios 0
+  2021: 8760 horas; campos vazios 0
+    tentativa 1 falhou: <urlopen error _ssl.c:993: The handshake operation timed out>
+  2022: 8760 horas; campos vazios 0
+    tentativa 1 falhou: <urlopen error _ssl.c:993: The handshake operation timed out>
+  2023: 8760 horas; campos vazios 0
+  2024: 8784 horas; campos vazios 0
+    tentativa 1 falhou: <urlopen error _ssl.c:993: The handshake operation timed out>
+  2025: 8760 horas; campos vazios 0
 INMET:
   INMET 2008: 76 MB; Juara: ['INMET_CO_MT_A914_JUARA_01-01-2008_A_31-12-2008.CSV']
   INMET 2009: 88 MB; Juara: ['INMET_CO_MT_A914_JUARA_01-01-2009_A_31-12-2009.CSV']
@@ -39,7 +42,7 @@ INMET:
   INMET 2024: 103 MB; Juara: ['INMET_CO_MT_A914_JUARA_01-01-2024_A_31-12-2024.CSV']
   INMET 2025: 91 MB; Juara: ['INMET_CO_MT_A914_JUARA_01-01-2025_A_31-12-2025.CSV']
 {
- "baixado_em": "2026-10-20T02:48:17Z",
+ "baixado_em": "2026-10-20T03:33:07Z",
  "nota": "só download e contagem; nenhum valor foi lido",
  "era5": {
   "arquivo": "era5land_juara_horario.csv.gz",
@@ -47,7 +50,7 @@ INMET:
   "anos_falhos": [],
   "lat": -11.255,
   "lon": -57.52,
-  "modelo": "era5_land (Open-Meteo archive API)"
+  "modelo": "era5_land (solo, temperatura, umidade, VPD) + era5 (chuva, radiação, ET0), Open-Meteo archive API"
  },
  "inmet": {
   "arquivos_juara": [
