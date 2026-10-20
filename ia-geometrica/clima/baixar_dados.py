@@ -29,19 +29,29 @@ def get(url, tentativas=4, timeout=300):
 
 
 def era5():
+    """Na Open-Meteo, o modelo era5_land não traz chuva, radiação nem ET0 (vieram vazias na 1ª rodada, run 39360875918):
+    essas três vêm do ERA5 (models=era5, mesma reanálise, grade de ≈ 25 km); o resto do ERA5-Land (≈ 9 km)."""
+    DO_ERA5 = {"precipitation", "shortwave_radiation", "et0_fao_evapotranspiration"}
+    grupos = {"era5_land": [v for v in VARS if v not in DO_ERA5], "era5": [v for v in VARS if v in DO_ERA5]}
     linhas = []; falhas = []
     for a in ANOS_ERA5:
-        url = (f"https://archive-api.open-meteo.com/v1/archive?latitude={LAT}&longitude={LON}&start_date={a}-01-01&end_date={a}-12-31"
-               f"&hourly={','.join(VARS)}&models=era5_land&timezone=America%2FCuiaba")
-        b = get(url)
-        if b is None: falhas.append(a); continue
-        h = json.loads(b)["hourly"]; n = len(h["time"])
+        h = {}
+        for modelo, vs in grupos.items():
+            url = (f"https://archive-api.open-meteo.com/v1/archive?latitude={LAT}&longitude={LON}&start_date={a}-01-01&end_date={a}-12-31"
+                   f"&hourly={','.join(vs)}&models={modelo}&timezone=America%2FCuiaba")
+            b = get(url)
+            if b is None: falhas.append(f"{a}:{modelo}"); break
+            hh = json.loads(b)["hourly"]
+            if "time" in h and hh["time"] != h["time"]: falhas.append(f"{a}:tempo"); break
+            h.update(hh); time.sleep(2)
+        if any(str(a) in f for f in falhas): continue
+        n = len(h["time"]); vazios = {v: sum(x is None for x in h[v]) for v in VARS}
         for i in range(n): linhas.append([h["time"][i]] + [h[v][i] for v in VARS])
-        print(f"  ERA5-Land {a}: {n} horas", flush=True); time.sleep(2)
+        print(f"  {a}: {n} horas; campos vazios {sum(vazios.values())}", flush=True)
     out = ROOT / "era5land_juara_horario.csv.gz"
     with gzip.open(out, "wt", newline="") as f:
         w = csv.writer(f); w.writerow(["tempo_local"] + VARS); w.writerows(linhas)
-    return {"arquivo": out.name, "linhas": len(linhas), "anos_falhos": falhas, "lat": LAT, "lon": LON, "modelo": "era5_land (Open-Meteo archive API)"}
+    return {"arquivo": out.name, "linhas": len(linhas), "anos_falhos": falhas, "lat": LAT, "lon": LON, "modelo": "era5_land (solo, temperatura, umidade, VPD) + era5 (chuva, radiação, ET0), Open-Meteo archive API"}
 
 
 def inmet():
