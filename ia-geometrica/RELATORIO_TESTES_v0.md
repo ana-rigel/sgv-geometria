@@ -108,3 +108,8 @@ Placar: 23 testes, 19 reprovações, 4 passagens, 35 defeitos, 1 emenda. OBS-01 
 | 24 | OBS-01 etapa dois: rede treinada | 20 RNN tanh (PyTorch) treinadas a ler a componente lenta da escada-3; 5 mundos de avaliação | sobre uma rede treinada, a régua dá corte estável e coerente com a tarefa? | cv do corte < 0,2 e corte na faixa de Wiener em ≥ 16/20 | 55 % | 9/20 estáveis, 13/20 na faixa; perdas 0,47–0,73 (ótimo 0,31); D(2×) > 0,05 em 15 | reprovado | a régua lê quanto a rede aprendeu; o treino precisa ser pré-requisito |
 
 Placar: 24 testes, 20 reprovações, 4 passagens, 36 defeitos, 1 emenda.
+
+| 25 | OBS-01 etapa dois v2 | 8 RNN treinadas até perda ≤ 0,45 | a do 24, com treino como pré-requisito | ≥ 5/6, 6/7 ou 7/8 válidas estáveis e na faixa | 65 % dado treino | **sem resultado registrado** (a rodada em segundo plano de 18/10 não deixou JSON) | — | a repetir, com a mesma predição |
+| 26 | **mundo sítio** | chuva sazonal, córrego (τ 8 h e 30 dias), cheia a 1,2 m; chamar custa 10, cheia sem proteção 100, ato vale 6 h depois | J1: o mundo tem teto? J2: a v0 bate o alarme comum (nível ou subida)? | J1: V_orac mediano ≥ 20 % e > 5 % em ≥ 95; J2: total ≥ 10 % abaixo de N2 e mais barata em ≥ 60 | J1 90 %, J2 15 % | V_orac **90,3 %** (100/100); v0 −1,4 % vs N2 (43 de 100); todas as causais coladas em "nunca" | **J1 passou; J2 reprovado** | o ato vale no sítio; o córrego avisa tarde (3–4 h) para um ato de 6 h; o teto é da previsão de chuva, não do observador do rio |
+
+Placar: 26 testes numerados (o 25 sem resultado), no 26 J1 passou e J2 reprovou; 37 defeitos, 1 emenda. A linha de política reabre no sítio na forma "quando chamar"; o próximo passo pede antecedência (sensor de chuva ou ato mais rápido), não uma mente melhor.
