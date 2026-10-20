@@ -1,12 +1,14 @@
-# Predição do teste 37 (o laço do ato, teste A: a organização aprende com a consequência do que faz)
+# Predição do teste do ato A (o laço do ato, teste A: a organização aprende com a consequência do que faz)
 
-20/10/2026 · escrita antes de rodar nas sementes do teste (1000–1099) · desenho: DESENHO_laco_do_ato.md (dca9879) · parâmetros: PREDICAO_teste37_parametros.json · Ana Rigel
+20/10/2026 · escrita antes de rodar nas sementes do teste (1000–1099) · desenho: DESENHO_laco_do_ato.md (dca9879) · parâmetros: PREDICAO_teste_ato_A_parametros.json · Ana Rigel
+
+**Nota de nome (20/10, antes de rodar):** registrada primeiro como "teste 37" (8fed1bd); o número 37 já tinha sido tomado minutos antes por outra sessão (62de4b3, a galáxia no cubo). Arquivos renomeados para "teste do ato A"; nenhuma palavra de critério, aposta ou parâmetro mudou.
 
 ## De onde vem
 
 O teste 36 deu à v0 o primeiro laço de erro: o relógio μ, que aprende com o erro de **previsão**, um evento por ano. O 36b mostrou que esse relógio prevê com menos viés que o calendário, mas com ganho pequeno, porque um evento por ano é pouco. Este teste é o teste A do desenho do laço do ato: a organização ⋄ aprende com o erro da **decisão**, o custo do que fez, no mundo sítio de cheias. Nesse mundo a cheia vem quer a placa aja, quer não, então depois de cada consequência ela sabe o que cada marca teria custado.
 
-## O órgão (instrumento teste37.py)
+## O órgão (instrumento teste_ato_A.py)
 
 - **Leitura (sem mudança):** a régua da v0 dos testes 27–28, calibrada nos anos 1–2: surpresa da chuva z_c (pluviômetro) e vinco do córrego z_v.
 - **Marcas:** 36 regras "agir se z_c ≥ θc ou z_v ≥ θv", com θc ∈ {1, 2, 3, 4, 6, ∞} e θv ∈ {0,5, 1, 2, 3, 4, ∞}. A marca (∞, ∞) é "nunca agir".

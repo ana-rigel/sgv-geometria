@@ -1,11 +1,11 @@
-"""Teste 37 (o laço do ato, teste A): a organização ⋄ aprende com a consequência do que faz, no mundo sítio de cheias.
-Desenho: DESENHO_laco_do_ato.md. Predição: PREDICAO_teste37_laco_do_ato.md.
+"""Teste do ato A (o laço do ato): a organização ⋄ aprende com a consequência do que faz, no mundo sítio de cheias.
+Desenho: DESENHO_laco_do_ato.md. Predição: PREDICAO_teste_ato_A.md.
 
 O órgão: marcas de decisão (θc, θv) sobre a régua fixa da v0 (surpresa da chuva z_c, vinco do córrego z_v); age pela marca
 de menor custo descontado (meia-vida h), sabendo o custo que cada marca teria pago (a cheia vem quer se aja, quer não).
 
-    python ia-geometrica/teste37.py --fumaca     # sementes de desenho 5000–5009: regime, mudança e h (antes da predição)
-    python ia-geometrica/teste37.py              # o teste (exige a predição)
+    python ia-geometrica/teste_ato_A.py --fumaca     # sementes de desenho 5000–5009: regime, mudança e h (antes da predição)
+    python ia-geometrica/teste_ato_A.py              # o teste (exige a predição)
 """
 import argparse, json, sys, time
 from pathlib import Path
@@ -101,7 +101,7 @@ def anual(tc):
 
 # ---------------------------------------------------------------- fumaça (sementes de desenho)
 def fumaca():
-    print("fumaça do teste 37 — sementes de desenho 5000–5009; nenhuma semente do teste")
+    print("fumaça do teste do ato A — sementes de desenho 5000–5009; nenhuma semente do teste")
     t0 = time.time(); W = {s: leituras(s) for s in DESENHO}; print(f"  leituras em {time.time()-t0:.0f} s")
     for (L, C) in ((1, 10.0), (3, 10.0), (1, 3.0), (3, 3.0)):
         linhas = []
@@ -158,7 +158,7 @@ def semente(args):
 
 
 def main(L, C, mud, h_anos):
-    assert (ROOT / "PREDICAO_teste37_laco_do_ato.md").exists(), "sem predição, sem teste"
+    assert (ROOT / "PREDICAO_teste_ato_A.md").exists(), "sem predição, sem teste"
     from multiprocessing import Pool
     out = {"L": L, "C": C, "mudanca": mud, "h_anos": h_anos, "marcas": [[float(a), float(b)] for a, b in MARCAS],
            "C_constante": {}, "B_muda": {}, "D_sem_mudanca": {}, "E_outro_sitio": {}}
@@ -193,7 +193,7 @@ def julgar(out):
                         "por_ano": {c: {"orgao": ano(R, "orgao"), "afinada": ano(R, "afinada")} for c, R in (("C", Cc), ("B", B), ("D", Dd), ("E", E))}}}
     out["julgamentos"] = res
     print(json.dumps(res, ensure_ascii=False, indent=1))
-    (ROOT / "resultados_teste37.json").write_text(json.dumps(out, ensure_ascii=False, default=float))
+    (ROOT / "resultados_teste_ato_A.json").write_text(json.dumps(out, ensure_ascii=False, default=float))
 
 
 if __name__ == "__main__":
@@ -202,4 +202,4 @@ if __name__ == "__main__":
     if a.fumaca: fumaca()
     elif a.fumaca_mudanca: fumaca_mudanca(int(a.fumaca_mudanca[0]), a.fumaca_mudanca[1])
     else:
-        cfg = json.loads((ROOT / "PREDICAO_teste37_parametros.json").read_text()); main(cfg["L"], cfg["C"], cfg["mudanca"], cfg["h_anos"])
+        cfg = json.loads((ROOT / "PREDICAO_teste_ato_A_parametros.json").read_text()); main(cfg["L"], cfg["C"], cfg["mudanca"], cfg["h_anos"])

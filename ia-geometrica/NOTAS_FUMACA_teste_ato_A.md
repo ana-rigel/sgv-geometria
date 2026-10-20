@@ -1,9 +1,9 @@
-# Fumaça do teste 37 (sementes de desenho 5000–5009), antes da predição
+# Fumaça do teste do ato A (sementes de desenho 5000–5009), antes da predição
 
-Saídas de `teste37.py --fumaca`, `--fumaca-mudanca 1 10` e de duas contas de desenho (a cada chuva; condições com h = 1 ano). Nenhuma semente do teste (1000–1099) foi usada.
+Saídas de `teste_ato_A.py --fumaca`, `--fumaca-mudanca 1 10` e de duas contas de desenho (a cada chuva; condições com h = 1 ano). Nenhuma semente do teste (1000–1099) foi usada.
 
 ```
-fumaça do teste 37 — sementes de desenho 5000–5009; nenhuma semente do teste
+fumaça do teste do ato A — sementes de desenho 5000–5009; nenhuma semente do teste
   L1 C10: cheias/ano 8.9 | nunca 54200 | melhor fixa (2.0, inf) 18310 (66 % abaixo de nunca) | mais nervosa (1.0, 0.5) 32330
   L3 C10: cheias/ano 8.9 | nunca 54200 | melhor fixa (2.0, 1.0) 36420 (33 % abaixo de nunca) | mais nervosa (1.0, 0.5) 42530
   L1 C3: cheias/ano 8.9 | nunca 54200 | melhor fixa (2.0, 1.0) 7026 (87 % abaixo de nunca) | mais nervosa (1.0, 0.5) 9979
