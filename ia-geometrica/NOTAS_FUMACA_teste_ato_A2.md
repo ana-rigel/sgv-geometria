@@ -11,3 +11,20 @@
 ## Saída da fumaça
 
 (acrescentada depois de rodar)
+```
+fumaça do teste do ato A2 — sementes de desenho 5000–5009; nenhuma semente do teste
+  δ    0: C mundos ≤ 1,05 da afinada 9/10, razão total 0.917, trocas médias 15.9 | ganho B anos 6–8 0.443, ganho C 0.066
+  δ   50: C mundos ≤ 1,05 da afinada 9/10, razão total 0.958, trocas médias 5.9 | ganho B anos 6–8 0.442, ganho C 0.032
+  δ  100: C mundos ≤ 1,05 da afinada 8/10, razão total 0.948, trocas médias 2.2 | ganho B anos 6–8 0.447, ganho C 0.051
+  δ  200: C mundos ≤ 1,05 da afinada 7/10, razão total 0.990, trocas médias 1.4 | ganho B anos 6–8 0.405, ganho C 0.037
+  δ  400: C mundos ≤ 1,05 da afinada 10/10, razão total 0.950, trocas médias 0.2 | ganho B anos 6–8 0.354, ganho C 0.068
+  δ  800: C mundos ≤ 1,05 da afinada 10/10, razão total 0.954, trocas médias 0.0 | ganho B anos 6–8 0.119, ganho C 0.080
+```
+
+**A regra escolhe δ = 0, ou seja, nenhuma histerese, e o A2 viraria o próprio ato A.** O defeito está na regra, não no órgão. Nas 10 sementes de desenho, o órgão sem histerese já ficava ≤ 1,05 da afinada em 9 de 10 mundos, enquanto nas sementes do teste ficou em 67 de 100. Dez mundos não bastam para ver uma falha de ≈ 1 em 3, e a condição (a) passou por acaso no ponto de partida. Além disso, a regra não excluía δ = 0, que é o controle e não um candidato. O que a fumaça mostra mesmo assim: a histerese corta as trocas de marca (15,9 → 5,9 com δ = 50; 0,2 com δ = 400) sem custo para a readaptação até δ ≈ 100. Com δ ≥ 400 a readaptação cai (−9 pontos com 400; −32 com 800).
+
+## Regra corrigida (escrita antes de rodar a segunda fumaça)
+
+- **Sementes de desenho novas e mais numerosas:** 5100–5149 (50 mundos nunca rodados).
+- **Candidatos:** δ ∈ {50, 100, 200, 400}; δ = 0 é rodado só como referência.
+- **Escolha:** o menor δ em que (a) a fração de mundos com o órgão ≤ 1,05 da afinada nos anos 3–8 do mundo parado é **≥ 0,85** e **maior que a de δ = 0 nas mesmas sementes**, e (b) o ganho em B nos anos 6–8 não cai mais de **5 pontos** em relação a δ = 0. Se nenhum cumprir, fica o que cumpre (b) com a maior fração em (a); se nenhum cumprir (b), o teste não é feito.
