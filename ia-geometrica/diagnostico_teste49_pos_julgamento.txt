@@ -1,0 +1,9 @@
+dados: atraso máximo 5.08 em 278"
+  S até o pico: 1.82
+  S do pico para fora: 0.43
+  v = Ω r na sobreposição: 236 → 204 km/s; β = -0.90
+plana: r* = 278" em K = 0.9225 (20% da janela, 83% travados); travados 278"–395"; corrotação do aglomerado 327"
+   r* no terço baixo da janela: 273"–303"
+Aniyan: r* = 278" em K = 0.8120 (9% da janela, 57% travados); travados 278"–332"; corrotação do aglomerado 310"
+   r* no terço baixo da janela: 271"–279"
+dados: Ωp na borda 16.9; Ω extrapolado (lei de potência na sobreposição) iguala-o em 331"
