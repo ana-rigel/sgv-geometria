@@ -1,0 +1,76 @@
+{
+ "baixado_em": "2026-10-20T11:00:00Z",
+ "nota": "só download e contagem; nenhum valor foi lido",
+ "sinop": {
+  "dias": 5844,
+  "dias_incompletos": 0,
+  "lat": -11.86,
+  "lon": -55.5
+ },
+ "cuiaba": {
+  "dias": 5844,
+  "dias_incompletos": 0,
+  "lat": -15.6,
+  "lon": -56.1
+ },
+ "barra_do_garcas": {
+  "dias": 5844,
+  "dias_incompletos": 0,
+  "lat": -15.89,
+  "lon": -52.26
+ },
+ "alta_floresta": {
+  "dias": 5844,
+  "dias_incompletos": 0,
+  "lat": -9.88,
+  "lon": -56.09
+ },
+ "rondonopolis": {
+  "dias": 5844,
+  "dias_incompletos": 0,
+  "lat": -16.47,
+  "lon": -54.64
+ },
+ "porto_alegre": {
+  "dias": 5844,
+  "dias_incompletos": 0,
+  "lat": -30.03,
+  "lon": -51.23
+ },
+ "curitiba": {
+  "dias": 5844,
+  "dias_incompletos": 0,
+  "lat": -25.43,
+  "lon": -49.27
+ },
+ "petrolina": {
+  "dias": 5844,
+  "dias_incompletos": 0,
+  "lat": -9.39,
+  "lon": -40.5
+ },
+ "manaus": {
+  "dias": 5844,
+  "dias_incompletos": 0,
+  "lat": -3.12,
+  "lon": -60.02
+ },
+ "belem": {
+  "dias": 5844,
+  "dias_incompletos": 0,
+  "lat": -1.46,
+  "lon": -48.49
+ },
+ "sha256": {
+  "alta_floresta.csv": "82d56c608e8bd109ab3f97aa36c6e83d1634cd6d5e356a74beea7f42ed38b772",
+  "barra_do_garcas.csv": "5490a4ad1bb097a0dfd8138b33aa0755f1166819d6eb132396e53c2270b635f9",
+  "belem.csv": "6d0a759ac27cf739a5e45b5b98f30613b2a286314de661f4d30decbf431c37fc",
+  "cuiaba.csv": "230cd75bbd2129484d263666957f4030b8b54d60b0b441e6195613cce40d3e0a",
+  "curitiba.csv": "b8dabe50f058a491cff0aa4c3c968c6eeab280bf7405165868fb972a0d217db3",
+  "manaus.csv": "074a3298d34086a543c91fdfd41c6cd64dd7a327e1f6b9f88ae60578fc126d77",
+  "petrolina.csv": "682c621708b3f2163d2a624c8d5dba9d94ea5413a0afc2d2036bd70c359c08de",
+  "porto_alegre.csv": "c2d3d7c01e69d999427891cb9754f0ff06d86ba9065be9fb13565afa77f31173",
+  "rondonopolis.csv": "53c8c663e8c777a2333a4e04e55cc8aa3d3700753656f3a3f770cc19f3c45da3",
+  "sinop.csv": "374a0ca0edd33493874abdd5a7dd236dcbd946f389d25093a4a77a3f9d1bc565"
+ }
+}

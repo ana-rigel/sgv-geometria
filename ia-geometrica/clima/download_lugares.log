@@ -1,0 +1,31 @@
+sinop
+    tentativa 1 falhou: <urlopen error _ssl.c:993: The handshake operation timed out>
+   {'dias': 5844, 'dias_incompletos': 0, 'lat': -11.86, 'lon': -55.5}
+cuiaba
+    tentativa 1 falhou: <urlopen error _ssl.c:993: The handshake operation timed out>
+    tentativa 1 falhou: <urlopen error _ssl.c:993: The handshake operation timed out>
+   {'dias': 5844, 'dias_incompletos': 0, 'lat': -15.6, 'lon': -56.1}
+barra_do_garcas
+   {'dias': 5844, 'dias_incompletos': 0, 'lat': -15.89, 'lon': -52.26}
+alta_floresta
+    tentativa 1 falhou: <urlopen error _ssl.c:993: The handshake operation timed out>
+   {'dias': 5844, 'dias_incompletos': 0, 'lat': -9.88, 'lon': -56.09}
+rondonopolis
+    tentativa 1 falhou: <urlopen error _ssl.c:993: The handshake operation timed out>
+   {'dias': 5844, 'dias_incompletos': 0, 'lat': -16.47, 'lon': -54.64}
+porto_alegre
+    tentativa 1 falhou: <urlopen error _ssl.c:993: The handshake operation timed out>
+    tentativa 1 falhou: <urlopen error _ssl.c:993: The handshake operation timed out>
+   {'dias': 5844, 'dias_incompletos': 0, 'lat': -30.03, 'lon': -51.23}
+curitiba
+    tentativa 1 falhou: <urlopen error _ssl.c:993: The handshake operation timed out>
+    tentativa 1 falhou: <urlopen error _ssl.c:993: The handshake operation timed out>
+   {'dias': 5844, 'dias_incompletos': 0, 'lat': -25.43, 'lon': -49.27}
+petrolina
+    tentativa 1 falhou: <urlopen error _ssl.c:993: The handshake operation timed out>
+   {'dias': 5844, 'dias_incompletos': 0, 'lat': -9.39, 'lon': -40.5}
+manaus
+    tentativa 1 falhou: <urlopen error _ssl.c:993: The handshake operation timed out>
+   {'dias': 5844, 'dias_incompletos': 0, 'lat': -3.12, 'lon': -60.02}
+belem
+   {'dias': 5844, 'dias_incompletos': 0, 'lat': -1.46, 'lon': -48.49}
