@@ -11,7 +11,7 @@ from scipy.optimize import minimize_scalar
 
 ROOT = Path(__file__).resolve().parent
 NQ, NU, NOM = 1000, 2000, 300
-BETAS = np.round(np.arange(-0.6, 0.9001, 0.1), 2)
+BETAS = np.round(np.arange(-0.6, 0.9001, 0.1), 2) + 0.0     # + 0.0 tira o zero negativo (correção depois da 1ª rodada, que quebrou na chave "-0.0")
 KC = 2 / np.pi                                         # abertura das frequências normalizada a 1
 KGF = np.round(np.arange(0.80, 1.40001, 0.0005), 4)    # K/K_c
 

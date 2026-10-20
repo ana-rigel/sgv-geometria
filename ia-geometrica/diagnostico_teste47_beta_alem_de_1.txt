@@ -1,0 +1,4 @@
+β 1.0 janela 0.966 – 1.022 largura 0.05600000000000005 K_L fórmula 1.0221
+β 1.5 janela 0.99 – 1.0085 largura 0.01849999999999996 K_L fórmula 1.0082
+β 2.0 janela None – 1.0 largura 0 K_L fórmula 1.0000
+β 2.5 janela 0.996 – 1.01 largura 0.014000000000000012 K_L fórmula 1.0099
