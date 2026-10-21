@@ -1,0 +1,30 @@
+juara            olhando   anomalia de fase em 1/09 (dias), 2010→2025: [105, 62, 71, 83, 94, 78, 76, 86, 83, 97, 89, 64, 102, 78, 66, 75]
+                           dp entre anos: em 1/09 12.9 d; na entrada 10.6 d
+juara            silêncio  anomalia de fase em 1/09 (dias), 2010→2025: [105, 62, 71, 83, 94, 78, 76, 86, 71, 63, 56, 48, 41, 34, 26, 19]
+                           dp entre anos: em 1/09 16.9 d; na entrada 25.1 d
+                 erros F por ano 2019–25: [11.0, 22.3, -28.9, 19.0, 30.3, -13.5, -39.6]
+sinop            olhando   anomalia de fase em 1/09 (dias), 2010→2025: [105, 65, 75, 80, 92, 79, 79, 96, 90, 92, 76, 80, 115, 98, 62, 85]
+                           dp entre anos: em 1/09 14.8 d; na entrada 10.3 d
+sinop            silêncio  anomalia de fase em 1/09 (dias), 2010→2025: [105, 65, 75, 80, 92, 79, 79, 96, 79, 75, 71, 67, 63, 59, 55, 51]
+                           dp entre anos: em 1/09 9.2 d; na entrada 14.3 d
+                 erros F por ano 2019–25: [-0.9, 6.8, -2.0, 27.1, 46.0, -40.2, -7.0]
+cuiaba           olhando   anomalia de fase em 1/09 (dias), 2010→2025: [88, 35, 16, 60, 70, 51, 57, 61, 62, 75, 47, -32, 61, 67, -42, -41]
+                           dp entre anos: em 1/09 49.4 d; na entrada 32.4 d
+cuiaba           silêncio  anomalia de fase em 1/09 (dias), 2010→2025: [88, 35, 16, 60, 70, 51, 57, 61, 58, 55, 52, 48, 45, 42, 39, 35]
+                           dp entre anos: em 1/09 7.4 d; na entrada 16.4 d
+                 erros F por ano 2019–25: [4.0, 26.5, -123.6, 1.2, 54.3, -138.3, -48.1]
+barra_do_garcas  olhando   anomalia de fase em 1/09 (dias), 2010→2025: [98, 64, 75, 78, 86, 70, 88, 93, 89, 99, 77, 68, 117, 98, 44, 112]
+                           dp entre anos: em 1/09 22.6 d; na entrada 13.2 d
+barra_do_garcas  silêncio  anomalia de fase em 1/09 (dias), 2010→2025: [98, 64, 75, 78, 86, 70, 88, 93, 72, 64, 55, 47, 38, 30, 21, 13]
+                           dp entre anos: em 1/09 19.5 d; na entrada 26.6 d
+                 erros F por ano 2019–25: [54.6, 28.7, -23.8, 32.0, 1.6, -70.2, 37.2]
+alta_floresta    olhando   anomalia de fase em 1/09 (dias), 2010→2025: [102, 67, 77, 76, 85, 72, 72, 92, 87, 96, 82, 76, 110, 92, 63, 92]
+                           dp entre anos: em 1/09 13.2 d; na entrada 10.0 d
+alta_floresta    silêncio  anomalia de fase em 1/09 (dias), 2010→2025: [102, 67, 77, 76, 85, 72, 72, 92, 78, 75, 71, 68, 65, 62, 59, 56]
+                           dp entre anos: em 1/09 7.3 d; na entrada 12.4 d
+                 erros F por ano 2019–25: [24.2, 16.3, -4.1, 27.5, 45.0, -43.9, -25.5]
+rondonopolis     olhando   anomalia de fase em 1/09 (dias), 2010→2025: [94, 47, 43, 66, 71, 60, 73, 82, 76, 99, 84, -3, 78, 79, -3, 59]
+                           dp entre anos: em 1/09 37.0 d; na entrada 21.1 d
+rondonopolis     silêncio  anomalia de fase em 1/09 (dias), 2010→2025: [94, 47, 43, 66, 71, 60, 73, 82, 67, 60, 54, 47, 41, 34, 28, 21]
+                           dp entre anos: em 1/09 14.9 d; na entrada 21.0 d
+                 erros F por ano 2019–25: [54.8, 16.3, -111.2, 39.5, 37.1, -110.2, 40.6]
