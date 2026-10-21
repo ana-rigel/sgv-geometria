@@ -1,0 +1,19 @@
+juara K=0.0: frequência realizada / Ω por andar (mediana de 20) = [8.701, 0.995, 0.074, 0.008]
+juara K=0.01: frequência realizada / Ω por andar (mediana de 20) = [8.694, 0.991, 0.075, 0.076]
+juara K=0.02: frequência realizada / Ω por andar (mediana de 20) = [8.663, 0.433, 0.294, 0.293]
+juara K=0.04: frequência realizada / Ω por andar (mediana de 20) = [8.471, 0.401, 0.4, 0.4]
+juara K=0.1: frequência realizada / Ω por andar (mediana de 20) = [6.982, 0.912, 0.913, 0.912]
+juara K=0.2: frequência realizada / Ω por andar (mediana de 20) = [2.408, 2.408, 2.408, 2.408]
+juara K=0.4: frequência realizada / Ω por andar (mediana de 20) = [2.41, 2.41, 2.41, 2.41]
+cuiaba K=0.0: frequência realizada / Ω por andar (mediana de 20) = [8.7, 0.953, 0.069, 0.004]
+cuiaba K=0.01: frequência realizada / Ω por andar (mediana de 20) = [8.688, 0.853, 0.066, 0.072]
+cuiaba K=0.02: frequência realizada / Ω por andar (mediana de 20) = [8.663, 0.482, 0.222, 0.229]
+cuiaba K=0.04: frequência realizada / Ω por andar (mediana de 20) = [8.463, 0.358, 0.358, 0.358]
+cuiaba K=0.1: frequência realizada / Ω por andar (mediana de 20) = [6.979, 0.899, 0.898, 0.897]
+cuiaba K=0.2: frequência realizada / Ω por andar (mediana de 20) = [2.405, 2.406, 2.406, 2.405]
+cuiaba K=0.4: frequência realizada / Ω por andar (mediana de 20) = [2.405, 2.405, 2.405, 2.405]
+média das frequências naturais / Ω: andares 1–4 = 2.422 (período 150.8 d); andares 2–4 = 0.323
+Soma das equações de fase: Σ dφ_j/dt = Σ ω_j − ε Σ s_j sen φ_j (o acoplamento mútuo se cancela). Um aglomerado só gira a Ω se a forçante pagar Σ(ω_j − Ω) dos membros.
+membros [2]: Σ(ω−Ω) = -0.0022; Σ F = 0.0044
+membros [2, 3, 4]: Σ(ω−Ω) = -0.0350; Σ F = 0.0048
+membros [1, 2, 3, 4]: Σ(ω−Ω) = +0.0978; Σ F = 0.0114
