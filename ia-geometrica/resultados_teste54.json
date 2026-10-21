@@ -1,0 +1,433 @@
+{
+ "piloto_sintetico": {
+  "com_ano": {
+   "algum_andar": 1.0,
+   "andar1": 0.0,
+   "andar2": 1.0,
+   "andar2_antes_1set2019": 1.0,
+   "mediana_declaracao_andar2_anos": 4.634496919917864
+  },
+  "sem_ano": {
+   "algum_andar": 0.0,
+   "andar1": 0.0,
+   "andar2": 0.0,
+   "andar2_antes_1set2019": 0.0,
+   "mediana_declaracao_andar2_anos": null
+  },
+  "sem_ano_longo": {
+   "algum_andar": 0.0,
+   "andar1": 0.0,
+   "andar2": 0.0,
+   "andar2_antes_1set2019": 0.0,
+   "mediana_declaracao_andar2_anos": null
+  },
+  "com_ano_longo": {
+   "algum_andar": 1.0,
+   "andar1": 0.0,
+   "andar2": 1.0,
+   "andar2_antes_1set2019": 1.0,
+   "mediana_declaracao_andar2_anos": 4.579055441478439
+  }
+ },
+ "lugares": {
+  "juara": {
+   "declaracao_anos_por_andar": [
+    null,
+    8.45,
+    null,
+    null
+   ],
+   "declaracao_data_andar2": "2018-06-13",
+   "fracao_inicios_declarou_por_andar": [
+    0.0,
+    0.9,
+    0.0,
+    0.0
+   ],
+   "w2_na_declaracao_sobre_Omega": 0.9964584259508493,
+   "w2_fim_sobre_Omega": 0.9976059089347549,
+   "dias_ouvindo_andar2": 3085,
+   "controle_declaracao_anos": [
+    null,
+    5.83,
+    null,
+    null
+   ],
+   "controle_w2_fim_sobre_Omega": 0.8719701444647215,
+   "nulo_declaracao_anos": [
+    null,
+    null,
+    null,
+    null
+   ],
+   "nulo_fracao_inicios_declarou": [
+    0.0,
+    0.0,
+    0.0,
+    0.0
+   ],
+   "J1_lugar": true,
+   "J2_lugar": true,
+   "EAM": {
+    "sentinela": 17.083437483486446,
+    "controle": 171.38719713447375,
+    "C": 17.339285714285715,
+    "V1": 15.81428571428572,
+    "C_regional": 15.413690476190473
+   },
+   "vies": {
+    "sentinela": 5.207512901083517,
+    "controle": -38.17558396475007,
+    "C": 13.696428571428571,
+    "V1": 6.300000000000003,
+    "C_regional": 6.675595238095257
+   },
+   "erros_sentinela": [
+    8.7,
+    27.0,
+    -4.6,
+    -1.1,
+    39.3,
+    3.0,
+    -35.9
+   ],
+   "espalhamento_p10_p90": 40.9187129433033
+  },
+  "sinop": {
+   "declaracao_anos_por_andar": [
+    null,
+    8.54,
+    null,
+    null
+   ],
+   "declaracao_data_andar2": "2018-07-16",
+   "fracao_inicios_declarou_por_andar": [
+    0.0,
+    0.75,
+    0.0,
+    0.0
+   ],
+   "w2_na_declaracao_sobre_Omega": 0.9969115847980409,
+   "w2_fim_sobre_Omega": 0.9927467017362542,
+   "dias_ouvindo_andar2": 3118,
+   "controle_declaracao_anos": [
+    null,
+    4.59,
+    null,
+    null
+   ],
+   "controle_w2_fim_sobre_Omega": 0.8719701444647215,
+   "nulo_declaracao_anos": [
+    null,
+    null,
+    null,
+    null
+   ],
+   "nulo_fracao_inicios_declarou": [
+    0.0,
+    0.0,
+    0.0,
+    0.0
+   ],
+   "J1_lugar": true,
+   "J2_lugar": true,
+   "EAM": {
+    "sentinela": 11.89235875754561,
+    "controle": 172.24997230972647,
+    "C": 14.517857142857142,
+    "V1": 12.771428571428576,
+    "C_regional": 11.901785714285722
+   },
+   "vies": {
+    "sentinela": 5.711251268844665,
+    "controle": -10.890375388373027,
+    "C": 12.267857142857142,
+    "V1": 7.599999999999999,
+    "C_regional": 8.247023809523828
+   },
+   "erros_sentinela": [
+    -3.3,
+    16.9,
+    -2.0,
+    -4.5,
+    44.7,
+    -10.2,
+    -1.7
+   ],
+   "espalhamento_p10_p90": 79.13686941798785
+  },
+  "cuiaba": {
+   "declaracao_anos_por_andar": [
+    null,
+    null,
+    null,
+    null
+   ],
+   "declaracao_data_andar2": null,
+   "fracao_inicios_declarou_por_andar": [
+    0.0,
+    0.45,
+    0.0,
+    0.0
+   ],
+   "w2_na_declaracao_sobre_Omega": 1.0119878770698976,
+   "w2_fim_sobre_Omega": 1.0149632066792895,
+   "dias_ouvindo_andar2": null,
+   "controle_declaracao_anos": [
+    null,
+    6.25,
+    null,
+    null
+   ],
+   "controle_w2_fim_sobre_Omega": 0.8719701444647215,
+   "nulo_declaracao_anos": [
+    null,
+    null,
+    null,
+    null
+   ],
+   "nulo_fracao_inicios_declarou": [
+    0.0,
+    0.0,
+    0.0,
+    0.0
+   ],
+   "J1_lugar": false,
+   "J2_lugar": true,
+   "EAM": {
+    "sentinela": 27.71022310071307,
+    "controle": 179.2367683412319,
+    "C": 25.571428571428573,
+    "V1": 23.128571428571426,
+    "C_regional": 25.187500000000007
+   },
+   "vies": {
+    "sentinela": 26.994964992171713,
+    "controle": -27.884576944912364,
+    "C": 18.142857142857142,
+    "V1": 15.042857142857136,
+    "C_regional": 17.247023809523828
+   },
+   "erros_sentinela": [
+    9.8,
+    59.8,
+    14.5,
+    4.8,
+    52.0,
+    -2.5,
+    50.6
+   ],
+   "espalhamento_p10_p90": 748.8913957345596
+  },
+  "barra_do_garcas": {
+   "declaracao_anos_por_andar": [
+    null,
+    8.28,
+    null,
+    null
+   ],
+   "declaracao_data_andar2": "2018-04-11",
+   "fracao_inicios_declarou_por_andar": [
+    0.0,
+    0.9,
+    0.0,
+    0.0
+   ],
+   "w2_na_declaracao_sobre_Omega": 1.0124809151282992,
+   "w2_fim_sobre_Omega": 1.0057193655427485,
+   "dias_ouvindo_andar2": 3022,
+   "controle_declaracao_anos": [
+    null,
+    4.93,
+    null,
+    null
+   ],
+   "controle_w2_fim_sobre_Omega": 0.8719701444647215,
+   "nulo_declaracao_anos": [
+    null,
+    null,
+    null,
+    null
+   ],
+   "nulo_fracao_inicios_declarou": [
+    0.0,
+    0.0,
+    0.0,
+    0.0
+   ],
+   "J1_lugar": true,
+   "J2_lugar": true,
+   "EAM": {
+    "sentinela": 20.7752408098365,
+    "controle": 228.79437252900814,
+    "C": 19.678571428571427,
+    "V1": 18.371428571428567,
+    "C_regional": 27.67559523809526
+   },
+   "vies": {
+    "sentinela": 12.097678508784156,
+    "controle": 196.82837390980058,
+    "C": 19.321428571428573,
+    "V1": 6.914285714285719,
+    "C_regional": 27.67559523809526
+   },
+   "erros_sentinela": [
+    59.2,
+    36.8,
+    -13.6,
+    -5.4,
+    -1.0,
+    -10.4,
+    19.0
+   ],
+   "espalhamento_p10_p90": 45.23079567281353
+  },
+  "alta_floresta": {
+   "declaracao_anos_por_andar": [
+    null,
+    9.94,
+    null,
+    null
+   ],
+   "declaracao_data_andar2": "2019-12-11",
+   "fracao_inicios_declarou_por_andar": [
+    0.0,
+    0.65,
+    0.0,
+    0.0
+   ],
+   "w2_na_declaracao_sobre_Omega": 0.993145142521331,
+   "w2_fim_sobre_Omega": 1.001233761234261,
+   "dias_ouvindo_andar2": 3631,
+   "controle_declaracao_anos": [
+    null,
+    4.59,
+    null,
+    null
+   ],
+   "controle_w2_fim_sobre_Omega": 0.8719701444647215,
+   "nulo_declaracao_anos": [
+    null,
+    null,
+    null,
+    null
+   ],
+   "nulo_fracao_inicios_declarou": [
+    0.0,
+    0.0,
+    0.0,
+    0.0
+   ],
+   "J1_lugar": false,
+   "J2_lugar": true,
+   "EAM": {
+    "sentinela": 24.931594183440343,
+    "controle": 202.1704352893269,
+    "C": 21.160714285714285,
+    "V1": 21.08571428571429,
+    "C_regional": 18.645833333333346
+   },
+   "vies": {
+    "sentinela": 1.4146368199201658,
+    "controle": 77.38755232202622,
+    "C": 17.053571428571427,
+    "V1": 6.600000000000007,
+    "C_regional": 13.532738095238114
+   },
+   "erros_sentinela": [
+    26.9,
+    25.9,
+    -0.7,
+    -4.1,
+    39.4,
+    -35.3,
+    -42.2
+   ],
+   "espalhamento_p10_p90": 102.02024681143719
+  },
+  "rondonopolis": {
+   "declaracao_anos_por_andar": [
+    null,
+    null,
+    null,
+    null
+   ],
+   "declaracao_data_andar2": null,
+   "fracao_inicios_declarou_por_andar": [
+    0.0,
+    0.45,
+    0.0,
+    0.0
+   ],
+   "w2_na_declaracao_sobre_Omega": 1.0139385649020878,
+   "w2_fim_sobre_Omega": 1.0090372311854616,
+   "dias_ouvindo_andar2": null,
+   "controle_declaracao_anos": [
+    null,
+    5.89,
+    null,
+    null
+   ],
+   "controle_w2_fim_sobre_Omega": 0.8719701444647215,
+   "nulo_declaracao_anos": [
+    null,
+    null,
+    null,
+    null
+   ],
+   "nulo_fracao_inicios_declarou": [
+    0.0,
+    0.0,
+    0.0,
+    0.0
+   ],
+   "J1_lugar": false,
+   "J2_lugar": true,
+   "EAM": {
+    "sentinela": 28.96904357870257,
+    "controle": 212.08697679993773,
+    "C": 21.571428571428573,
+    "V1": 21.900000000000002,
+    "C_regional": 28.104166666666686
+   },
+   "vies": {
+    "sentinela": 23.148010028625453,
+    "controle": 91.27517773876285,
+    "C": 21.0,
+    "V1": 15.814285714285713,
+    "C_regional": 28.104166666666686
+   },
+   "erros_sentinela": [
+    45.5,
+    18.0,
+    -6.1,
+    39.9,
+    35.0,
+    -14.2,
+    44.0
+   ],
+   "espalhamento_p10_p90": 129.00750090480662
+  }
+ },
+ "EAM": {
+  "sentinela": 21.893649652287422,
+  "controle": 194.32095373395083,
+  "C": 19.973214285714285,
+  "V1": 18.845238095238095,
+  "C_regional": 21.154761904761916,
+  "S_teste53": 21.15612643015664
+ },
+ "vies": {
+  "sentinela": 12.429009086571611,
+  "controle": 48.090094612092365,
+  "C": 16.913690476190474,
+  "V1": 9.711904761904762,
+  "C_regional": 16.9136904761905
+ },
+ "mu_regional": 279.8958333333333,
+ "J": {
+  "J1": false,
+  "J2": true,
+  "J3": true
+ }
+}

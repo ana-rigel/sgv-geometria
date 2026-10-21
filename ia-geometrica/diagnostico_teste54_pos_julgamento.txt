@@ -1,0 +1,8 @@
+juara            previsões de inícios que já tinham declarado: n=121 EAM   22.7 | ainda ouvindo: n= 19 EAM   26.6
+sinop            previsões de inícios que já tinham declarado: n= 98 EAM   19.2 | ainda ouvindo: n= 42 EAM   69.8
+cuiaba           previsões de inícios que já tinham declarado: n= 60 EAM   31.9 | ainda ouvindo: n= 80 EAM  658.5
+barra_do_garcas  previsões de inícios que já tinham declarado: n=111 EAM   21.9 | ainda ouvindo: n= 29 EAM   41.9
+alta_floresta    previsões de inícios que já tinham declarado: n= 87 EAM   24.9 | ainda ouvindo: n= 53 EAM   74.4
+rondonopolis     previsões de inícios que já tinham declarado: n= 63 EAM   28.4 | ainda ouvindo: n= 77 EAM  101.3
+TOTAL declarou: n=540 EAM 23.9 (mediana 20.2) | ouvindo: n=300 EAM 230.2 (mediana 55.4)
+Mann-Whitney (unilateral, declarou < ouvindo): 3.225151258353678e-42
