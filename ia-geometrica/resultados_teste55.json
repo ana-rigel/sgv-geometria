@@ -1,0 +1,1122 @@
+{
+ "piloto_sintetico": {
+  "dia realista": {
+   "andar1_declara": 1.0,
+   "andar1_em_90d": 0.5,
+   "w1_decl_mediana": 0.9637634564952682,
+   "algum_andar": 1.0,
+   "controle_com_correcao": 0.0,
+   "controle_sem_correcao": 0.875
+  },
+  "dia realista lento": {
+   "andar1_declara": 0.625,
+   "andar1_em_90d": 0.125,
+   "w1_decl_mediana": 0.8719534519007597,
+   "algum_andar": 0.625,
+   "controle_com_correcao": 0.0,
+   "controle_sem_correcao": 1.0
+  },
+  "dia forte": {
+   "andar1_declara": 1.0,
+   "andar1_em_90d": 1.0,
+   "w1_decl_mediana": 0.9670430385432847,
+   "algum_andar": 1.0,
+   "controle_com_correcao": 0.0,
+   "controle_sem_correcao": 1.0
+  },
+  "sem dia": {
+   "andar1_declara": 0.0,
+   "andar1_em_90d": 0.0,
+   "w1_decl_mediana": NaN,
+   "algum_andar": 0.0,
+   "controle_com_correcao": 0.0,
+   "controle_sem_correcao": 1.0
+  },
+  "sem dia lento": {
+   "andar1_declara": 0.0,
+   "andar1_em_90d": 0.0,
+   "w1_decl_mediana": NaN,
+   "algum_andar": 0.0,
+   "controle_com_correcao": 0.0,
+   "controle_sem_correcao": 1.0
+  }
+ },
+ "instalacoes": {
+  "2010": {
+   "inicio": "2010-01-01T00:00",
+   "sentinela": {
+    "declaracao_dias_por_andar": [
+     79.2,
+     null,
+     null,
+     null
+    ],
+    "fracao_inicios_declarou": [
+     1.0,
+     0.0,
+     0.0,
+     0.0
+    ],
+    "w1_na_declaracao_sobre_Omega": 0.9704911837523598,
+    "w1_fim_sobre_Omega": 0.9704911837523598
+   },
+   "controle_com_correcao": {
+    "declaracao_dias_por_andar": [
+     null,
+     null,
+     null,
+     null
+    ],
+    "fracao_inicios_declarou": [
+     0.0,
+     0.0,
+     0.0,
+     0.0
+    ],
+    "w1_na_declaracao_sobre_Omega": null,
+    "w1_fim_sobre_Omega": 0.5729577951308232
+   },
+   "controle_sem_correcao": {
+    "declaracao_dias_por_andar": [
+     178.8,
+     139.6,
+     null,
+     null
+    ],
+    "fracao_inicios_declarou": [
+     1.0,
+     1.0,
+     0.0,
+     0.0
+    ],
+    "w1_na_declaracao_sobre_Omega": 0.5729577951308232,
+    "w1_fim_sobre_Omega": 0.5729577951308232
+   },
+   "nulo": {
+    "declaracao_dias_por_andar": [
+     null,
+     null,
+     null,
+     null
+    ],
+    "fracao_inicios_declarou": [
+     0.0,
+     0.0,
+     0.0,
+     0.0
+    ],
+    "w1_na_declaracao_sobre_Omega": null,
+    "w1_fim_sobre_Omega": 0.13420599629158872
+   },
+   "J1": true,
+   "J2": true,
+   "J3": true,
+   "controle_sem_correcao_declara": true
+  },
+  "2011": {
+   "inicio": "2011-02-01T00:00",
+   "sentinela": {
+    "declaracao_dias_por_andar": [
+     97.2,
+     null,
+     null,
+     null
+    ],
+    "fracao_inicios_declarou": [
+     1.0,
+     0.0,
+     0.0,
+     0.0
+    ],
+    "w1_na_declaracao_sobre_Omega": 0.8841495059395003,
+    "w1_fim_sobre_Omega": 0.8841495059395003
+   },
+   "controle_com_correcao": {
+    "declaracao_dias_por_andar": [
+     null,
+     null,
+     null,
+     null
+    ],
+    "fracao_inicios_declarou": [
+     0.0,
+     0.0,
+     0.0,
+     0.0
+    ],
+    "w1_na_declaracao_sobre_Omega": null,
+    "w1_fim_sobre_Omega": 0.5729577951308232
+   },
+   "controle_sem_correcao": {
+    "declaracao_dias_por_andar": [
+     28.1,
+     73.3,
+     null,
+     null
+    ],
+    "fracao_inicios_declarou": [
+     1.0,
+     1.0,
+     0.0,
+     0.0
+    ],
+    "w1_na_declaracao_sobre_Omega": 0.5729577951308232,
+    "w1_fim_sobre_Omega": 0.5729577951308232
+   },
+   "nulo": {
+    "declaracao_dias_por_andar": [
+     null,
+     null,
+     null,
+     null
+    ],
+    "fracao_inicios_declarou": [
+     0.0,
+     0.0,
+     0.0,
+     0.0
+    ],
+    "w1_na_declaracao_sobre_Omega": null,
+    "w1_fim_sobre_Omega": 0.16444386753098814
+   },
+   "J1": false,
+   "J2": true,
+   "J3": true,
+   "controle_sem_correcao_declara": true
+  },
+  "2012": {
+   "inicio": "2012-03-01T00:00",
+   "sentinela": {
+    "declaracao_dias_por_andar": [
+     60.7,
+     null,
+     null,
+     null
+    ],
+    "fracao_inicios_declarou": [
+     1.0,
+     0.0,
+     0.0,
+     0.0
+    ],
+    "w1_na_declaracao_sobre_Omega": 0.9678755986050598,
+    "w1_fim_sobre_Omega": 0.9678755986050598
+   },
+   "controle_com_correcao": {
+    "declaracao_dias_por_andar": [
+     null,
+     null,
+     null,
+     null
+    ],
+    "fracao_inicios_declarou": [
+     0.0,
+     0.0,
+     0.0,
+     0.0
+    ],
+    "w1_na_declaracao_sobre_Omega": null,
+    "w1_fim_sobre_Omega": 0.5729577951308232
+   },
+   "controle_sem_correcao": {
+    "declaracao_dias_por_andar": [
+     71.4,
+     142.5,
+     null,
+     null
+    ],
+    "fracao_inicios_declarou": [
+     1.0,
+     1.0,
+     0.0,
+     0.0
+    ],
+    "w1_na_declaracao_sobre_Omega": 0.5729577951308232,
+    "w1_fim_sobre_Omega": 0.5729577951308232
+   },
+   "nulo": {
+    "declaracao_dias_por_andar": [
+     null,
+     null,
+     null,
+     null
+    ],
+    "fracao_inicios_declarou": [
+     0.0,
+     0.0,
+     0.0,
+     0.0
+    ],
+    "w1_na_declaracao_sobre_Omega": null,
+    "w1_fim_sobre_Omega": 0.1425257646042478
+   },
+   "J1": true,
+   "J2": true,
+   "J3": true,
+   "controle_sem_correcao_declara": true
+  },
+  "2013": {
+   "inicio": "2013-04-01T00:00",
+   "sentinela": {
+    "declaracao_dias_por_andar": [
+     105.2,
+     null,
+     null,
+     null
+    ],
+    "fracao_inicios_declarou": [
+     1.0,
+     0.0,
+     0.0,
+     0.0
+    ],
+    "w1_na_declaracao_sobre_Omega": 0.9699000635117512,
+    "w1_fim_sobre_Omega": 0.9699000635117512
+   },
+   "controle_com_correcao": {
+    "declaracao_dias_por_andar": [
+     null,
+     null,
+     null,
+     null
+    ],
+    "fracao_inicios_declarou": [
+     0.0,
+     0.0,
+     0.0,
+     0.0
+    ],
+    "w1_na_declaracao_sobre_Omega": null,
+    "w1_fim_sobre_Omega": 0.5729577951308232
+   },
+   "controle_sem_correcao": {
+    "declaracao_dias_por_andar": [
+     35.3,
+     113.5,
+     null,
+     null
+    ],
+    "fracao_inicios_declarou": [
+     1.0,
+     1.0,
+     0.0,
+     0.0
+    ],
+    "w1_na_declaracao_sobre_Omega": 0.5729577951308232,
+    "w1_fim_sobre_Omega": 0.5729577951308232
+   },
+   "nulo": {
+    "declaracao_dias_por_andar": [
+     null,
+     null,
+     null,
+     null
+    ],
+    "fracao_inicios_declarou": [
+     0.0,
+     0.0,
+     0.0,
+     0.0
+    ],
+    "w1_na_declaracao_sobre_Omega": null,
+    "w1_fim_sobre_Omega": 0.043162178823362034
+   },
+   "J1": true,
+   "J2": true,
+   "J3": true,
+   "controle_sem_correcao_declara": true
+  },
+  "2014": {
+   "inicio": "2014-05-01T00:00",
+   "sentinela": {
+    "declaracao_dias_por_andar": [
+     null,
+     null,
+     null,
+     null
+    ],
+    "fracao_inicios_declarou": [
+     0.0,
+     0.0,
+     0.0,
+     0.0
+    ],
+    "w1_na_declaracao_sobre_Omega": null,
+    "w1_fim_sobre_Omega": 0.9037455915325423
+   },
+   "controle_com_correcao": {
+    "declaracao_dias_por_andar": [
+     null,
+     null,
+     null,
+     null
+    ],
+    "fracao_inicios_declarou": [
+     0.0,
+     0.0,
+     0.0,
+     0.0
+    ],
+    "w1_na_declaracao_sobre_Omega": null,
+    "w1_fim_sobre_Omega": 0.5729577951308232
+   },
+   "controle_sem_correcao": {
+    "declaracao_dias_por_andar": [
+     10.8,
+     70.0,
+     null,
+     null
+    ],
+    "fracao_inicios_declarou": [
+     1.0,
+     1.0,
+     0.0,
+     0.0
+    ],
+    "w1_na_declaracao_sobre_Omega": 0.5729577951308232,
+    "w1_fim_sobre_Omega": 0.5729577951308232
+   },
+   "nulo": {
+    "declaracao_dias_por_andar": [
+     null,
+     null,
+     null,
+     null
+    ],
+    "fracao_inicios_declarou": [
+     0.0,
+     0.0,
+     0.0,
+     0.0
+    ],
+    "w1_na_declaracao_sobre_Omega": null,
+    "w1_fim_sobre_Omega": 0.08650263044909552
+   },
+   "J1": false,
+   "J2": true,
+   "J3": true,
+   "controle_sem_correcao_declara": true
+  },
+  "2015": {
+   "inicio": "2015-06-01T00:00",
+   "sentinela": {
+    "declaracao_dias_por_andar": [
+     42.6,
+     null,
+     null,
+     null
+    ],
+    "fracao_inicios_declarou": [
+     1.0,
+     0.0,
+     0.0,
+     0.0
+    ],
+    "w1_na_declaracao_sobre_Omega": 0.8791684073539806,
+    "w1_fim_sobre_Omega": 0.8791684073539806
+   },
+   "controle_com_correcao": {
+    "declaracao_dias_por_andar": [
+     null,
+     null,
+     null,
+     null
+    ],
+    "fracao_inicios_declarou": [
+     0.0,
+     0.0,
+     0.0,
+     0.0
+    ],
+    "w1_na_declaracao_sobre_Omega": null,
+    "w1_fim_sobre_Omega": 0.5729577951308232
+   },
+   "controle_sem_correcao": {
+    "declaracao_dias_por_andar": [
+     16.8,
+     88.9,
+     null,
+     null
+    ],
+    "fracao_inicios_declarou": [
+     1.0,
+     1.0,
+     0.0,
+     0.0
+    ],
+    "w1_na_declaracao_sobre_Omega": 0.5729577951308232,
+    "w1_fim_sobre_Omega": 0.5729577951308232
+   },
+   "nulo": {
+    "declaracao_dias_por_andar": [
+     null,
+     null,
+     null,
+     null
+    ],
+    "fracao_inicios_declarou": [
+     0.0,
+     0.0,
+     0.0,
+     0.0
+    ],
+    "w1_na_declaracao_sobre_Omega": null,
+    "w1_fim_sobre_Omega": 0.1221820977023207
+   },
+   "J1": false,
+   "J2": true,
+   "J3": true,
+   "controle_sem_correcao_declara": true
+  },
+  "2016": {
+   "inicio": "2016-07-01T00:00",
+   "sentinela": {
+    "declaracao_dias_por_andar": [
+     45.7,
+     null,
+     null,
+     null
+    ],
+    "fracao_inicios_declarou": [
+     1.0,
+     0.0,
+     0.0,
+     0.0
+    ],
+    "w1_na_declaracao_sobre_Omega": 0.9583046333483536,
+    "w1_fim_sobre_Omega": 0.9583046333483536
+   },
+   "controle_com_correcao": {
+    "declaracao_dias_por_andar": [
+     null,
+     null,
+     null,
+     null
+    ],
+    "fracao_inicios_declarou": [
+     0.0,
+     0.0,
+     0.0,
+     0.0
+    ],
+    "w1_na_declaracao_sobre_Omega": null,
+    "w1_fim_sobre_Omega": 0.5729577951308232
+   },
+   "controle_sem_correcao": {
+    "declaracao_dias_por_andar": [
+     13.0,
+     211.3,
+     null,
+     null
+    ],
+    "fracao_inicios_declarou": [
+     1.0,
+     1.0,
+     0.0,
+     0.0
+    ],
+    "w1_na_declaracao_sobre_Omega": 0.5729577951308232,
+    "w1_fim_sobre_Omega": 0.5729577951308232
+   },
+   "nulo": {
+    "declaracao_dias_por_andar": [
+     null,
+     null,
+     null,
+     null
+    ],
+    "fracao_inicios_declarou": [
+     0.0,
+     0.0,
+     0.0,
+     0.0
+    ],
+    "w1_na_declaracao_sobre_Omega": null,
+    "w1_fim_sobre_Omega": 0.018060552196282626
+   },
+   "J1": true,
+   "J2": true,
+   "J3": true,
+   "controle_sem_correcao_declara": true
+  },
+  "2017": {
+   "inicio": "2017-08-01T00:00",
+   "sentinela": {
+    "declaracao_dias_por_andar": [
+     null,
+     null,
+     null,
+     null
+    ],
+    "fracao_inicios_declarou": [
+     0.0,
+     0.0,
+     0.0,
+     0.0
+    ],
+    "w1_na_declaracao_sobre_Omega": null,
+    "w1_fim_sobre_Omega": 0.06215566348455533
+   },
+   "controle_com_correcao": {
+    "declaracao_dias_por_andar": [
+     null,
+     null,
+     null,
+     null
+    ],
+    "fracao_inicios_declarou": [
+     0.0,
+     0.0,
+     0.0,
+     0.0
+    ],
+    "w1_na_declaracao_sobre_Omega": null,
+    "w1_fim_sobre_Omega": 0.5729577951308232
+   },
+   "controle_sem_correcao": {
+    "declaracao_dias_por_andar": [
+     16.5,
+     180.0,
+     null,
+     null
+    ],
+    "fracao_inicios_declarou": [
+     1.0,
+     1.0,
+     0.0,
+     0.0
+    ],
+    "w1_na_declaracao_sobre_Omega": 0.5729577951308232,
+    "w1_fim_sobre_Omega": 0.5729577951308232
+   },
+   "nulo": {
+    "declaracao_dias_por_andar": [
+     null,
+     null,
+     null,
+     null
+    ],
+    "fracao_inicios_declarou": [
+     0.0,
+     0.0,
+     0.0,
+     0.0
+    ],
+    "w1_na_declaracao_sobre_Omega": null,
+    "w1_fim_sobre_Omega": 0.12098623168518945
+   },
+   "J1": false,
+   "J2": true,
+   "J3": true,
+   "controle_sem_correcao_declara": true
+  },
+  "2018": {
+   "inicio": "2018-09-01T00:00",
+   "sentinela": {
+    "declaracao_dias_por_andar": [
+     255.8,
+     null,
+     null,
+     null
+    ],
+    "fracao_inicios_declarou": [
+     1.0,
+     0.0,
+     0.0,
+     0.0
+    ],
+    "w1_na_declaracao_sobre_Omega": 0.8219232666835417,
+    "w1_fim_sobre_Omega": 0.8219232666835417
+   },
+   "controle_com_correcao": {
+    "declaracao_dias_por_andar": [
+     null,
+     null,
+     null,
+     null
+    ],
+    "fracao_inicios_declarou": [
+     0.0,
+     0.0,
+     0.0,
+     0.0
+    ],
+    "w1_na_declaracao_sobre_Omega": null,
+    "w1_fim_sobre_Omega": 0.5729577951308232
+   },
+   "controle_sem_correcao": {
+    "declaracao_dias_por_andar": [
+     19.2,
+     299.2,
+     null,
+     null
+    ],
+    "fracao_inicios_declarou": [
+     1.0,
+     1.0,
+     0.0,
+     0.0
+    ],
+    "w1_na_declaracao_sobre_Omega": 0.5729577951308232,
+    "w1_fim_sobre_Omega": 0.5729577951308232
+   },
+   "nulo": {
+    "declaracao_dias_por_andar": [
+     null,
+     null,
+     null,
+     null
+    ],
+    "fracao_inicios_declarou": [
+     0.0,
+     0.0,
+     0.0,
+     0.0
+    ],
+    "w1_na_declaracao_sobre_Omega": null,
+    "w1_fim_sobre_Omega": 0.12462923991587548
+   },
+   "J1": false,
+   "J2": true,
+   "J3": true,
+   "controle_sem_correcao_declara": true
+  },
+  "2019": {
+   "inicio": "2019-10-01T00:00",
+   "sentinela": {
+    "declaracao_dias_por_andar": [
+     258.8,
+     null,
+     null,
+     null
+    ],
+    "fracao_inicios_declarou": [
+     1.0,
+     0.0,
+     0.0,
+     0.0
+    ],
+    "w1_na_declaracao_sobre_Omega": 0.9677067603975462,
+    "w1_fim_sobre_Omega": 0.9677067603975462
+   },
+   "controle_com_correcao": {
+    "declaracao_dias_por_andar": [
+     null,
+     null,
+     null,
+     null
+    ],
+    "fracao_inicios_declarou": [
+     0.0,
+     0.0,
+     0.0,
+     0.0
+    ],
+    "w1_na_declaracao_sobre_Omega": null,
+    "w1_fim_sobre_Omega": 0.5729577951308232
+   },
+   "controle_sem_correcao": {
+    "declaracao_dias_por_andar": [
+     116.5,
+     278.9,
+     null,
+     null
+    ],
+    "fracao_inicios_declarou": [
+     1.0,
+     1.0,
+     0.0,
+     0.0
+    ],
+    "w1_na_declaracao_sobre_Omega": 0.5729577951308232,
+    "w1_fim_sobre_Omega": 0.5729577951308232
+   },
+   "nulo": {
+    "declaracao_dias_por_andar": [
+     null,
+     null,
+     null,
+     null
+    ],
+    "fracao_inicios_declarou": [
+     0.0,
+     0.0,
+     0.0,
+     0.0
+    ],
+    "w1_na_declaracao_sobre_Omega": null,
+    "w1_fim_sobre_Omega": 0.13027403320170905
+   },
+   "J1": false,
+   "J2": true,
+   "J3": true,
+   "controle_sem_correcao_declara": true
+  },
+  "2020": {
+   "inicio": "2020-11-01T00:00",
+   "sentinela": {
+    "declaracao_dias_por_andar": [
+     308.2,
+     null,
+     null,
+     null
+    ],
+    "fracao_inicios_declarou": [
+     1.0,
+     0.0,
+     0.0,
+     0.0
+    ],
+    "w1_na_declaracao_sobre_Omega": 0.8841421835253422,
+    "w1_fim_sobre_Omega": 0.8841421835253422
+   },
+   "controle_com_correcao": {
+    "declaracao_dias_por_andar": [
+     null,
+     null,
+     null,
+     null
+    ],
+    "fracao_inicios_declarou": [
+     0.0,
+     0.0,
+     0.0,
+     0.0
+    ],
+    "w1_na_declaracao_sobre_Omega": null,
+    "w1_fim_sobre_Omega": 0.5729577951308232
+   },
+   "controle_sem_correcao": {
+    "declaracao_dias_por_andar": [
+     23.1,
+     116.0,
+     null,
+     null
+    ],
+    "fracao_inicios_declarou": [
+     1.0,
+     1.0,
+     0.0,
+     0.0
+    ],
+    "w1_na_declaracao_sobre_Omega": 0.5729577951308232,
+    "w1_fim_sobre_Omega": 0.5729577951308232
+   },
+   "nulo": {
+    "declaracao_dias_por_andar": [
+     null,
+     null,
+     null,
+     null
+    ],
+    "fracao_inicios_declarou": [
+     0.0,
+     0.0,
+     0.0,
+     0.0
+    ],
+    "w1_na_declaracao_sobre_Omega": null,
+    "w1_fim_sobre_Omega": 0.15881898308606962
+   },
+   "J1": false,
+   "J2": true,
+   "J3": true,
+   "controle_sem_correcao_declara": true
+  },
+  "2021": {
+   "inicio": "2021-12-01T00:00",
+   "sentinela": {
+    "declaracao_dias_por_andar": [
+     142.2,
+     null,
+     null,
+     null
+    ],
+    "fracao_inicios_declarou": [
+     1.0,
+     0.0,
+     0.0,
+     0.0
+    ],
+    "w1_na_declaracao_sobre_Omega": 0.9719066927576704,
+    "w1_fim_sobre_Omega": 0.9719066927576704
+   },
+   "controle_com_correcao": {
+    "declaracao_dias_por_andar": [
+     null,
+     null,
+     null,
+     null
+    ],
+    "fracao_inicios_declarou": [
+     0.0,
+     0.0,
+     0.0,
+     0.0
+    ],
+    "w1_na_declaracao_sobre_Omega": null,
+    "w1_fim_sobre_Omega": 0.5729577951308232
+   },
+   "controle_sem_correcao": {
+    "declaracao_dias_por_andar": [
+     50.6,
+     193.4,
+     null,
+     null
+    ],
+    "fracao_inicios_declarou": [
+     1.0,
+     1.0,
+     0.0,
+     0.0
+    ],
+    "w1_na_declaracao_sobre_Omega": 0.5729577951308232,
+    "w1_fim_sobre_Omega": 0.5729577951308232
+   },
+   "nulo": {
+    "declaracao_dias_por_andar": [
+     null,
+     null,
+     null,
+     null
+    ],
+    "fracao_inicios_declarou": [
+     0.0,
+     0.0,
+     0.0,
+     0.0
+    ],
+    "w1_na_declaracao_sobre_Omega": null,
+    "w1_fim_sobre_Omega": 0.08827244506678143
+   },
+   "J1": true,
+   "J2": true,
+   "J3": true,
+   "controle_sem_correcao_declara": true
+  },
+  "2022": {
+   "inicio": "2022-01-01T00:00",
+   "sentinela": {
+    "declaracao_dias_por_andar": [
+     114.2,
+     null,
+     null,
+     null
+    ],
+    "fracao_inicios_declarou": [
+     1.0,
+     0.0,
+     0.0,
+     0.0
+    ],
+    "w1_na_declaracao_sobre_Omega": 0.9127511465464138,
+    "w1_fim_sobre_Omega": 0.9127511465464138
+   },
+   "controle_com_correcao": {
+    "declaracao_dias_por_andar": [
+     null,
+     null,
+     null,
+     null
+    ],
+    "fracao_inicios_declarou": [
+     0.0,
+     0.0,
+     0.0,
+     0.0
+    ],
+    "w1_na_declaracao_sobre_Omega": null,
+    "w1_fim_sobre_Omega": 0.5729577951308232
+   },
+   "controle_sem_correcao": {
+    "declaracao_dias_por_andar": [
+     19.5,
+     161.4,
+     null,
+     null
+    ],
+    "fracao_inicios_declarou": [
+     1.0,
+     1.0,
+     0.0,
+     0.0
+    ],
+    "w1_na_declaracao_sobre_Omega": 0.5729577951308232,
+    "w1_fim_sobre_Omega": 0.5729577951308232
+   },
+   "nulo": {
+    "declaracao_dias_por_andar": [
+     null,
+     null,
+     null,
+     null
+    ],
+    "fracao_inicios_declarou": [
+     0.0,
+     0.0,
+     0.0,
+     0.0
+    ],
+    "w1_na_declaracao_sobre_Omega": null,
+    "w1_fim_sobre_Omega": 0.1520485997165028
+   },
+   "J1": false,
+   "J2": true,
+   "J3": true,
+   "controle_sem_correcao_declara": true
+  },
+  "2023": {
+   "inicio": "2023-02-01T00:00",
+   "sentinela": {
+    "declaracao_dias_por_andar": [
+     174.2,
+     null,
+     null,
+     null
+    ],
+    "fracao_inicios_declarou": [
+     1.0,
+     0.0,
+     0.0,
+     0.0
+    ],
+    "w1_na_declaracao_sobre_Omega": 0.9743308426464145,
+    "w1_fim_sobre_Omega": 0.9743308426464145
+   },
+   "controle_com_correcao": {
+    "declaracao_dias_por_andar": [
+     null,
+     null,
+     null,
+     null
+    ],
+    "fracao_inicios_declarou": [
+     0.0,
+     0.0,
+     0.0,
+     0.0
+    ],
+    "w1_na_declaracao_sobre_Omega": null,
+    "w1_fim_sobre_Omega": 0.5729577951308232
+   },
+   "controle_sem_correcao": {
+    "declaracao_dias_por_andar": [
+     112.9,
+     134.2,
+     null,
+     null
+    ],
+    "fracao_inicios_declarou": [
+     1.0,
+     1.0,
+     0.0,
+     0.0
+    ],
+    "w1_na_declaracao_sobre_Omega": 0.5729577951308232,
+    "w1_fim_sobre_Omega": 0.5729577951308232
+   },
+   "nulo": {
+    "declaracao_dias_por_andar": [
+     null,
+     null,
+     null,
+     null
+    ],
+    "fracao_inicios_declarou": [
+     0.0,
+     0.0,
+     0.0,
+     0.0
+    ],
+    "w1_na_declaracao_sobre_Omega": null,
+    "w1_fim_sobre_Omega": 0.11662754550637286
+   },
+   "J1": true,
+   "J2": true,
+   "J3": true,
+   "controle_sem_correcao_declara": true
+  },
+  "2024": {
+   "inicio": "2024-03-01T00:00",
+   "sentinela": {
+    "declaracao_dias_por_andar": [
+     143.8,
+     null,
+     null,
+     null
+    ],
+    "fracao_inicios_declarou": [
+     1.0,
+     0.0,
+     0.0,
+     0.0
+    ],
+    "w1_na_declaracao_sobre_Omega": 0.9712179888403867,
+    "w1_fim_sobre_Omega": 0.9712179888403867
+   },
+   "controle_com_correcao": {
+    "declaracao_dias_por_andar": [
+     null,
+     null,
+     null,
+     null
+    ],
+    "fracao_inicios_declarou": [
+     0.0,
+     0.0,
+     0.0,
+     0.0
+    ],
+    "w1_na_declaracao_sobre_Omega": null,
+    "w1_fim_sobre_Omega": 0.5729577951308232
+   },
+   "controle_sem_correcao": {
+    "declaracao_dias_por_andar": [
+     11.4,
+     133.3,
+     null,
+     null
+    ],
+    "fracao_inicios_declarou": [
+     1.0,
+     1.0,
+     0.0,
+     0.0
+    ],
+    "w1_na_declaracao_sobre_Omega": 0.5729577951308232,
+    "w1_fim_sobre_Omega": 0.5729577951308232
+   },
+   "nulo": {
+    "declaracao_dias_por_andar": [
+     null,
+     null,
+     null,
+     null
+    ],
+    "fracao_inicios_declarou": [
+     0.0,
+     0.0,
+     0.0,
+     0.0
+    ],
+    "w1_na_declaracao_sobre_Omega": null,
+    "w1_fim_sobre_Omega": 0.1453672316870777
+   },
+   "J1": true,
+   "J2": true,
+   "J3": true,
+   "controle_sem_correcao_declara": true
+  }
+ },
+ "contagens": {
+  "J1": 7,
+  "J2": 15,
+  "J3": 15,
+  "controle_sem_correcao_declara": 15
+ },
+ "J": {
+  "J1": false,
+  "J2": true,
+  "J3": true
+ }
+}
