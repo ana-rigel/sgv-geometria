@@ -43,9 +43,10 @@ def limiar(i, alfa, tau=TAU):
     return np.sqrt(4 * (p ** -0.25 - 1))
 
 
-def sentinela(s, ph0, eps, tau_aprender, alfas, aprende=True, exige_ouvida=True, guardar=0, janelas=3):
+def sentinela(s, ph0, eps, tau_aprender, alfas, aprende=True, exige_ouvida=True, guardar=0, janelas=3, silencia=True):
     """s (4, T); ph0 (nIC,); alfas: valores de α rodados juntos. Devolve o passo da declaração por (α, início, andar)
-    (−1 = nunca), ω e ν do andar `guardar` por passo (T, nα, nIC) e ω no fim (nα, nIC, 4)."""
+    (−1 = nunca), ω, ν e fase do andar `guardar` por passo (T, nα, nIC) e ω no fim (nα, nIC, 4).
+    silencia=False (teste 56): depois de declarar, o andar continua ouvindo o campo; a declaração só fica registrada."""
     alfas = np.asarray(alfas, float); nq, nic, T = len(alfas), len(ph0), s.shape[1]
     sh = (nq, nic, 4); etaw = eps / tau_aprender if aprende else 0.0
     ph = np.broadcast_to(ph0[None, :, None], sh).copy(); w = np.broadcast_to(LAM, sh).copy()
@@ -53,10 +54,11 @@ def sentinela(s, ph0, eps, tau_aprender, alfas, aprende=True, exige_ouvida=True,
     Z = np.zeros(sh, complex); Zo = np.zeros(sh + (len(C_OFF),), complex); nu = w.copy()
     tau = janelas * 2 * np.pi / LAM
     cnt = np.zeros(sh, int); decl = np.full(sh, -1); a = 1.0 / tau
-    WH = np.zeros((T,) + sh); WG = np.zeros((T, nq, nic)); NG = np.zeros((T, nq, nic))
+    WH = np.zeros((T,) + sh); WG = np.zeros((T, nq, nic)); NG = np.zeros((T, nq, nic)); PG = np.zeros((T, nq, nic))
     ii = (np.arange(nq)[:, None, None], np.arange(nic)[None, :, None], np.arange(4)[None, None, :])
     for i in range(T):
-        ouv = decl < 0
+        ainda = decl < 0
+        ouv = ainda if silencia else np.ones(sh, bool)
         si = np.where(ouv, s[:, i], 0.0)
         tq = -si * np.sin(ph)
         d = w + eps * tq
@@ -71,10 +73,10 @@ def sentinela(s, ph0, eps, tau_aprender, alfas, aprende=True, exige_ouvida=True,
         P = np.rint(2 * np.pi / np.maximum(np.abs(w), 1e-9)).astype(np.int64)
         k = i - P
         wP = np.where(k >= 0, WH[(np.clip(k, 0, None),) + ii], np.nan)
-        ok = ouv & (i >= tau) & (Q >= limiar(i, alfas, tau)[:, None, :]) & (np.abs(w - wP) <= DW * np.abs(w))
+        ok = ainda & (i >= tau) & (Q >= limiar(i, alfas, tau)[:, None, :]) & (np.abs(w - wP) <= DW * np.abs(w))
         if exige_ouvida: ok &= np.abs(w - nu) <= DV * np.abs(nu)
         cnt = np.where(ok, cnt + 1, 0)
-        novo = ouv & (cnt >= P)
+        novo = ainda & (cnt >= P)
         decl = np.where(novo, i, decl)
-        WG[i] = w[..., guardar]; NG[i] = nu[..., guardar]
-    return {"decl": decl, "W": WG, "NU": NG, "w_fim": w}
+        WG[i] = w[..., guardar]; NG[i] = nu[..., guardar]; PG[i] = ph[..., guardar]
+    return {"decl": decl, "W": WG, "NU": NG, "PH": PG, "w_fim": w}
