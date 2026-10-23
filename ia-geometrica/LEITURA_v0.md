@@ -157,3 +157,7 @@ Vinte e quatro testes, vinte reprovações, quatro passagens, trinta e seis defe
 - **25, etapa dois v2** (LEITURA_teste25.md): **INCONCLUSIVO** pela cláusula: 0 de 8 redes chegaram ao pré-requisito de treino (perda 0,55–0,66 contra 0,45 exigido; ótimo 0,31) mesmo com 4.000 passos. Limite da receita de treino (BPTT curta para τ = 700), não da régua, que leu 7 de 8 na faixa e ν̂ ≈ 0,5. Defeito 37: pré-requisito declarado sem receita que o alcance. Etapa dois do OBS-01: leitura de pé, julgamento pendente de treino melhor.
 
 Vinte e cinco testes, vinte reprovações, quatro passagens, um inconclusivo, trinta e sete defeitos, uma emenda.
+
+## Adendo de 23/10, depois da segunda rodada do teste 25
+
+- **25 (2ª rodada, Emenda 1: GRU com estado carregado)**: **passou**. 6 de 8 redes chegaram ao pré-requisito; entre elas 5 de 6 com corte estável (cv ≤ 0,12) e na faixa da tarefa. As oito convergiram para o mesmo observador (corte 6 × 10⁻⁴–1,3 × 10⁻³, "não ver" 0,60–0,71), lido igual pela régua; sem treino o corte está 100× acima. Etapa dois do OBS-01 feita em rede pequena. Cinco passagens em 25 testes; duas emendas, ambas de instrumento.
