@@ -1,0 +1,69 @@
+M4 travado: κ 1.000 | R_K 1.000 | 0s
+M2 branco: κ 0.178 | piso p95 0.194 | 37s
+M3 passeio: κ 0.514 | R_K 0.089 | 38s
+M1 K/Kc 0.00: κ 0.486 | R_K 0.090 | 41s
+M1 K/Kc 0.11: κ 0.484 | R_K 0.094 | 43s
+M1 K/Kc 0.21: κ 0.474 | R_K 0.101 | 46s
+M1 K/Kc 0.32: κ 0.518 | R_K 0.112 | 48s
+M1 K/Kc 0.42: κ 0.522 | R_K 0.125 | 50s
+M1 K/Kc 0.53: κ 0.567 | R_K 0.136 | 53s
+M1 K/Kc 0.63: κ 0.592 | R_K 0.156 | 55s
+M1 K/Kc 0.74: κ 0.622 | R_K 0.187 | 58s
+M1 K/Kc 0.84: κ 0.659 | R_K 0.214 | 60s
+M1 K/Kc 0.95: κ 0.728 | R_K 0.282 | 62s
+M1 K/Kc 1.05: κ 0.946 | R_K 0.522 | 65s
+M1 K/Kc 1.16: κ 0.988 | R_K 0.591 | 67s
+M1 K/Kc 1.26: κ 0.992 | R_K 0.741 | 69s
+M1 K/Kc 1.37: κ 0.996 | R_K 0.793 | 71s
+M1 K/Kc 1.47: κ 0.998 | R_K 0.838 | 74s
+M1 K/Kc 1.58: κ 0.999 | R_K 0.867 | 76s
+M1 K/Kc 1.68: κ 0.999 | R_K 0.895 | 78s
+M1 K/Kc 1.79: κ 1.000 | R_K 0.907 | 80s
+M1 K/Kc 1.89: κ 1.000 | R_K 0.927 | 83s
+M1 K/Kc 2.00: κ 1.000 | R_K 0.935 | 85s
+M5 embaralhado (1,5 Kc): κ 0.181
+{
+ "T1": {
+  "K_cruza_0_5_sobre_Kc": 0.26578336540449926,
+  "IC95_sobre_Kc": [
+   0.020109723738096347,
+   0.33900980878301723
+  ],
+  "contem_Kc": false,
+  "passa": false
+ },
+ "T2": {
+  "sementes_na_ordem": 0,
+  "passa": false,
+  "kappa_M4_M1_2Kc_M1_0_M2_M3": [
+   0.9999999954102469,
+   0.9998205512457783,
+   0.4861812858586808,
+   0.17806759581816475,
+   0.5138569837313094
+  ]
+ },
+ "T3": {
+  "kappa_M2_mediana": 0.17806759581816475,
+  "kappa_M3_mediana": 0.5138569837313094,
+  "piso": 0.19449927325398933,
+  "p_M2_vs_M3": 3.019859359162157e-11,
+  "passa": false
+ },
+ "T4": {
+  "kappa_M5_mediana": 0.18130298763361144,
+  "piso": 0.19449927325398933,
+  "p_M5_vs_M2": 0.795845542466455,
+  "passa": true
+ },
+ "referencia_classica": {
+  "spearman_kappa_vs_RK_na_varredura": 0.993984962406015,
+  "lente_so_le_RK": true
+ },
+ "veredito": {
+  "aprovada": false,
+  "ordena_nao_mede": false,
+  "linha_fechada": true
+ }
+}
+tempo total 85s
