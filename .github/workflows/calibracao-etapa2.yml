@@ -1,0 +1,45 @@
+name: IA geométrica — teste 58 (calibração da lente, etapa 2)
+
+on:
+  workflow_dispatch:   # só manual, uma vez
+
+permissions:
+  contents: write
+
+concurrency:
+  group: teste58
+  cancel-in-progress: false
+
+jobs:
+  julgar:
+    runs-on: ubuntu-latest
+    timeout-minutes: 90
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: ia-geometrica/v0
+
+      - name: Julgamento único
+        run: |
+          if [ -f ia-geometrica/resultados_teste58.json ]; then echo "Já julgado"; exit 1; fi
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Instalar dependências
+        run: pip install numpy scipy
+
+      - name: Teste 58
+        run: |
+          set -o pipefail
+          python -W ignore ia-geometrica/teste58.py | tee ia-geometrica/resultados_teste58.log
+
+      - name: Gravar o resultado no ramo
+        if: always()
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add ia-geometrica/resultados_teste58.json ia-geometrica/resultados_teste58.log || true
+          git commit -m "teste 58: resultado (GitHub Actions)" || echo "nada a gravar"
+          git push origin ia-geometrica/v0
