@@ -8,7 +8,7 @@ sys.path.insert(0, str(Path(__file__).resolve().parent)); import teste22 as T
 ROOT = Path(__file__).resolve().parent
 assert (ROOT / "PREDICAO_teste25_rede_treinada_v2.md").exists(), "sem predição, sem teste"
 torch.set_num_threads(2)
-N_TREINO, N_AVAL, BLOCO, PASSOS, NH = 60000, 200000, 2000, 4000, 32
+N_TREINO, N_AVAL, BLOCO, PASSOS, NH = 60000, 200000, 2000, 1500, 32
 REDES = range(1, 9); AVAL = range(1001, 1006); FAIXA = (1 / 1400, 1 / 35); AMPS = (0.5, 2.0)
 
 
@@ -22,18 +22,20 @@ def mundo_comp(n, seed):
 
 class Rede(torch.nn.Module):
     def __init__(self):
-        super().__init__(); self.rnn = torch.nn.RNN(1, NH, nonlinearity="tanh", batch_first=True); self.out = torch.nn.Linear(NH, 1)
+        super().__init__(); self.rnn = torch.nn.GRU(1, NH, batch_first=True)   # Emenda 1; self.out = torch.nn.Linear(NH, 1)
     def forward(self, x, h=None):
         o, h = self.rnn(x, h); return self.out(o), h
 
 
 def treinar(seed):
+    """Emenda 1: estado carregado entre blocos consecutivos, Adam 3e-3 com decaimento cosseno, 1.500 passos."""
     torch.manual_seed(seed); rede = Rede(); inicial = Rede(); inicial.load_state_dict(rede.state_dict())
     x, s = mundo_comp(N_TREINO, seed); X = torch.tensor(x, dtype=torch.float32)[None, :, None]; S = torch.tensor(s, dtype=torch.float32)[None, :, None]
-    opt = torch.optim.Adam(rede.parameters(), lr=3e-3); rng = np.random.default_rng(seed); perdas = []
+    opt = torch.optim.Adam(rede.parameters(), lr=3e-3); sched = torch.optim.lr_scheduler.CosineAnnealingLR(opt, PASSOS); h = None; i = 0; perdas = []
     for p in range(PASSOS):
-        i = int(rng.integers(0, N_TREINO - BLOCO)); yhat, _ = rede(X[:, i:i + BLOCO]); perda = ((yhat[:, 200:] - S[:, i + 200:i + BLOCO]) ** 2).mean()
-        opt.zero_grad(); perda.backward(); torch.nn.utils.clip_grad_norm_(rede.parameters(), 1.0); opt.step(); perdas.append(float(perda.detach()))
+        if i + BLOCO > N_TREINO: i = 0; h = None
+        yhat, h = rede(X[:, i:i + BLOCO], h); perda = ((yhat - S[:, i:i + BLOCO]) ** 2).mean()
+        opt.zero_grad(); perda.backward(); torch.nn.utils.clip_grad_norm_(rede.parameters(), 1.0); opt.step(); sched.step(); h = h.detach(); i += BLOCO; perdas.append(float(perda.detach()))
     return rede, inicial, float(np.mean(perdas[-30:])), float(np.var(s))
 
 
@@ -65,7 +67,7 @@ def main():
     exigido = {6: 5, 7: 6, 8: 7}.get(len(validas), None); inconclusivo = len(validas) < 6; passa = (not inconclusivo) and len(ok) >= exigido
     out["resumo"] = {"validas": validas, "ok": ok, "exigido": exigido, "inconclusivo": bool(inconclusivo), "passa": bool(passa), "D2_acima": d2_acima, "sem_treino_fora_da_faixa": sem_fora}
     print(f"\n== teste 25: válidas {len(validas)}/8 (perda ≤ 0,45) | estáveis e na faixa entre as válidas: {len(ok)} (exigido {exigido}) → {'INCONCLUSIVO' if inconclusivo else ('PASSA' if passa else 'REPROVA')}")
-    (ROOT / "resultados_teste25.json").write_text(json.dumps(out, ensure_ascii=False))
+    (ROOT / "resultados_teste25_v2.json").write_text(json.dumps(out, ensure_ascii=False))
 
 
 if __name__ == "__main__":
