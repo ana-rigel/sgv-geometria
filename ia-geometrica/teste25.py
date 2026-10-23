@@ -22,7 +22,7 @@ def mundo_comp(n, seed):
 
 class Rede(torch.nn.Module):
     def __init__(self):
-        super().__init__(); self.rnn = torch.nn.GRU(1, NH, batch_first=True)   # Emenda 1; self.out = torch.nn.Linear(NH, 1)
+        super().__init__(); self.rnn = torch.nn.GRU(1, NH, batch_first=True); self.out = torch.nn.Linear(NH, 1)   # Emenda 1: GRU
     def forward(self, x, h=None):
         o, h = self.rnn(x, h); return self.out(o), h
 
