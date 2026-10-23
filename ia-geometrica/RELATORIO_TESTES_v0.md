@@ -109,7 +109,7 @@ Placar: 23 testes, 19 reprovações, 4 passagens, 35 defeitos, 1 emenda. OBS-01 
 
 Placar: 24 testes, 20 reprovações, 4 passagens, 36 defeitos, 1 emenda.
 
-| 25 | OBS-01 etapa dois v2 | 8 RNN treinadas até perda ≤ 0,45 | a do 24, com treino como pré-requisito | ≥ 5/6, 6/7 ou 7/8 válidas estáveis e na faixa | 65 % dado treino | **sem resultado registrado** (a rodada em segundo plano de 18/10 não deixou JSON) | — | a repetir, com a mesma predição |
+| 25 | etapa dois v2 | 8 RNN, 4.000 passos; pré-requisito perda ≤ 0,45 | a do 24, com treino como pré-requisito | ≥ 5/6 (…7/8) das válidas estáveis e na faixa; < 6 válidas → inconclusivo | 60 % de chegar ao pré-requisito | 0/8 válidas (perdas 0,55–0,66); 7/8 na faixa, ν̂ 0,43–0,63 | **INCONCLUSIVO** | a receita de treino tem de alcançar o pré-requisito antes de ele ser pré-requisito |
 | 26 | **mundo sítio** | chuva sazonal, córrego (τ 8 h e 30 dias), cheia a 1,2 m; chamar custa 10, cheia sem proteção 100, ato vale 6 h depois | J1: o mundo tem teto? J2: a v0 bate o alarme comum (nível ou subida)? | J1: V_orac mediano ≥ 20 % e > 5 % em ≥ 95; J2: total ≥ 10 % abaixo de N2 e mais barata em ≥ 60 | J1 90 %, J2 15 % | V_orac **90,3 %** (100/100); v0 −1,4 % vs N2 (43 de 100); todas as causais coladas em "nunca" | **J1 passou; J2 reprovado** | o ato vale no sítio; o córrego avisa tarde (3–4 h) para um ato de 6 h; o teto é da previsão de chuva, não do observador do rio |
 
 Placar: 26 testes numerados (o 25 sem resultado), no 26 J1 passou e J2 reprovou; 37 defeitos, 1 emenda. A linha de política reabre no sítio na forma "quando chamar"; o próximo passo pede antecedência (sensor de chuva ou ato mais rápido), não uma mente melhor.

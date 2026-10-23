@@ -151,3 +151,9 @@ Vinte e três testes, dezenove reprovações, quatro passagens, trinta e cinco d
 - **24, a rede treinada** (LEITURA_teste24.md): reprovado (9/20 estáveis, 13/20 na faixa; critério 16), porque as redes aprenderam pouco (perda relativa 0,47–0,73 contra 0,31 do ótimo) e a régua leu exatamente isso: filtro estável e na faixa nas sete que viraram filtro, corte indefinido nas que ficaram copiadoras. 15 de 20 não lineares pelo teste de amplitude; o treino move o corte para a faixa da tarefa em 13 (sem treino, 17 fora). Defeito 36: condição de treino tem de ser pré-requisito do teste, não aposta.
 
 Vinte e quatro testes, vinte reprovações, quatro passagens, trinta e seis defeitos, uma emenda.
+
+## Adendo de 19/10, depois do teste 25
+
+- **25, etapa dois v2** (LEITURA_teste25.md): **INCONCLUSIVO** pela cláusula: 0 de 8 redes chegaram ao pré-requisito de treino (perda 0,55–0,66 contra 0,45 exigido; ótimo 0,31) mesmo com 4.000 passos. Limite da receita de treino (BPTT curta para τ = 700), não da régua, que leu 7 de 8 na faixa e ν̂ ≈ 0,5. Defeito 37: pré-requisito declarado sem receita que o alcance. Etapa dois do OBS-01: leitura de pé, julgamento pendente de treino melhor.
+
+Vinte e cinco testes, vinte reprovações, quatro passagens, um inconclusivo, trinta e sete defeitos, uma emenda.
